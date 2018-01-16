@@ -1,0 +1,50 @@
+session_name: 5by2
+windows:
+- focus: 'true'
+  layout: 1767,379x106,0,0[379x53,0,0{74x53,0,0,0,76x53,75,0,12,76x53,152,0,13,75x53,229,0,14,74x53,305,0,15},379x52,0,54{74x52,0,54,1,76x52,75,54,8,76x52,152,54,9,75x52,229,54,10,74x52,305,54,11}]
+  options:
+    automatic-rename: 'off'
+  panes:
+  - focus: 'true'
+    shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  start_directory: /home/trim
+  window_name: tmuxp

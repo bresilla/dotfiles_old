@@ -1,0 +1,28 @@
+#!/bin/bash
+
+export MARKPATH=$HOME/.marks
+
+jump() {
+	cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
+}
+
+mark() {
+	if [[ ( $# == 0 ) || ( "$1" == "." ) ]]; then
+		MARK=$(basename "$PWD")
+	else
+		MARK="$1"
+	fi
+	if read -p "Mark $PWD as ${MARK}? (y/n) "; then
+		mkdir -p "$MARKPATH"; ln -s "$PWD" "$MARKPATH/$MARK"
+	fi
+}
+
+unmark() {
+	rm -i "$MARKPATH/$1"
+}
+
+marks() {
+	for link in $MARKPATH/*; do
+		echo "$link"
+	done
+}

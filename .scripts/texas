@@ -1,0 +1,71 @@
+#!/bin/bash
+
+if ! command -v ranger &> /dev/null || ! command -v tmux &> /dev/null; then
+    return 1
+fi
+
+texas()
+{
+    if [ -z "$TMUX" ]; then
+        tmux -L texas new-session 'LAUNCH_TEXAS=1 bash'
+        return
+    fi
+
+    [ -z "$TEXAS_CONFIG_SIZE" ] && TEXAS_CONFIG_SIZE=40
+
+    if [ "$TEXAS_CONFIG_NOSWAP" = 1 ]; then
+        TEXAS_RANGER_PID=$(tmux split-window -h -p "$TEXAS_CONFIG_SIZE" -P -F '#{pane_pid}' "TEXAS_BASH=1 LAUNCH_TEXAS=$LAUNCH_TEXAS TEXAS_SHELL_PID=$$ ranger")
+    else
+        TEXAS_CONFIG_SIZE=$((100 - TEXAS_CONFIG_SIZE))
+        TEXAS_RANGER_PID=$(tmux split-window -h -p "$TEXAS_CONFIG_SIZE" -P -F '#{pane_pid}' "TEXAS_BASH=1 LAUNCH_TEXAS=$LAUNCH_TEXAS TEXAS_SHELL_PID=$$ ranger")
+        tmux swap-pane -D -d
+    fi
+
+    if [ "$LAUNCH_TEXAS" = 1 ]; then
+        local TEXAS_SWITCH_COMMAND
+        TEXAS_SWITCH_COMMAND=$(cat <<'EOF'
+        if [ "$(tmux display-message -p '#{window_panes}')" -gt 1 ]; then
+            tmux select-pane -t :.+
+        else
+            tmux next-window
+        fi
+EOF
+)
+        [ -z "$TEXAS_CONFIG_SWITCH_KEY" ] && TEXAS_CONFIG_SWITCH_KEY="C-o"
+        tmux bind -n "$TEXAS_CONFIG_SWITCH_KEY" run -b "$TEXAS_SWITCH_COMMAND"
+
+        [ -f "$TEXAS_CONFIG_TMUX_CONFIG" ] && tmux source "$TEXAS_CONFIG_TMUX_CONFIG"
+    fi
+    
+    unset LAUNCH_TEXAS
+    cd()
+    {
+        builtin cd "$@"
+        if ! kill -USR1 $TEXAS_RANGER_PID 2> /dev/null; then
+            unset TEXAS_RANGER_PID
+            unset -f cd
+        fi
+    }
+
+    texas--exit-cleanup() {
+        kill -HUP $TEXAS_RANGER_PID
+    }
+    trap texas--exit-cleanup EXIT
+
+    texas--ranger-to-sh-sync() {
+        builtin cd -P /proc/$TEXAS_RANGER_PID/cwd
+    }
+    trap texas--ranger-to-sh-sync USR1
+
+    texas--switch-to-ranger() {
+        if [ "$(tmux display-message -p '#{window_panes}')" -gt 1 ]; then
+            tmux select-pane -t :.+
+        else
+            tmux next-window
+        fi
+    }
+}
+
+if [ -n "$LAUNCH_TEXAS" ]; then
+    texas
+fi

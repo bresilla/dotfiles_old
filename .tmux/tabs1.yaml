@@ -1,0 +1,29 @@
+session_name: tabs1
+windows:
+- layout: 8b33,348x38,0,0{69x38,0,0,2,69x38,70,0,3,69x38,140,0,4,69x38,210,0,5,68x38,280,0,6}
+  options:
+    automatic-rename: 'off'
+  panes:
+  - focus: 'true'
+    shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  start_directory: /home/trim
+  window_name: ros

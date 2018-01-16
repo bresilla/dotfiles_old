@@ -1,0 +1,28 @@
+#!/bin/bash
+target=/home/trim
+#destin=/media/trim/data/LINUX
+destin=/home/trim/dotfiles
+
+rsync -r -t -v --progress -s $target/.bresilla $destin
+
+rsync -r -t -v --progress -s $target/.alias $destin
+#rsync -r -t -v --progress -s $target/.antigen $destin
+rsync -r -t -v --progress -s $target/.apps $destin
+rsync -r -t -v --progress -s $target/.boot $destin
+rsync -r -t -v --progress -s $target/.fonts $destin
+rsync -r -t -v --progress -s $target/.fpath $destin
+rsync -r -t -v --progress -s $target/.i3 $destin
+#rsync -r -t -v --progress -s $target/.icons $destin
+rsync -r -t -v --progress -s $target/.notes $destin
+rsync -r -t -v --progress -s $target/.scripts $destin
+#rsync -r -t -v --progress -s $target/.themes $destin
+rsync -r -t -v --progress -s $target/.tmux $destin
+rsync -r -t -v --progress -s $target/.wallpapers $destin
+rsync -r -t -v --progress -s $target/.zsh $destin
+
+
+rsync -az --progress -s $target/.bashrc $destin
+rsync -az --progress -s $target/.zshrc $destin
+#rsync -az --progress -s $target/.tmux.conf $destin
+rsync -az --progress -s $target/.Xdefaults $destin
+

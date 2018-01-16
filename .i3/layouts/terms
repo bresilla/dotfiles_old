@@ -1,0 +1,8 @@
+#!/bin/sh
+
+sleep 1
+i3-msg 'exec urxvt -e tmuxp load ~/.tmux/tabs1.yaml'
+sleep 1
+i3-msg 'split v'
+sleep 1
+i3-msg 'exec urxvt -e tmuxp load ~/.tmux/tabs2.yaml'

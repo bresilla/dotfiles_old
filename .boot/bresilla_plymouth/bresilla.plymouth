@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=bresilla
+Description=A Plymouth of Bresilla
+ModuleName=script
+
+[script]
+ImageDir=/lib/plymouth/themes/bresilla_plymouth
+ScriptFile=/lib/plymouth/themes/bresilla_plymouth/bresilla.script

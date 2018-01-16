@@ -1,0 +1,1 @@
+rasp-ip(){rasp=$(mac2ip b8:27:eb:32:88:26 "echo IP" | awk -F'[ :]+' '/echo /{print $3}') && echo $rasp}

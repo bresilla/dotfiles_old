@@ -1,0 +1,7 @@
+##NETWORK ALIAS
+
+## Gets, Saves and Echoes IP from MAC (given as argument)
+getip(){
+	IP=$(bash mac2ip $1 "echo IP" | awk -F'[ :]+' '/echo /{print $3}')  && 
+	echo "IP="$IP
+}

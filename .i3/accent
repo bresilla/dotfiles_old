@@ -1,0 +1,9 @@
+#!/bin/sh
+
+sed -i "1s/.*/*accent:    ""#$1/" ~/.Xdefaults
+xrdb -load ~/.Xdefaults
+i3-msg restart
+
+
+
+### move this file to "/bin/[name]" and make it executable "sudo chmod +x /bin/[name]"

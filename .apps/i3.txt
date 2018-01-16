@@ -1,0 +1,17 @@
+conky
+compton
+playerctl
+xbacklight
+scrot
+redshft
+xautolock
+volti
+pavucontrol
+mopidy
+gpick
+clipit
+xsel
+libqalculate-dev
+pass
+blueman
+flameshot

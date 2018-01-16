@@ -1,0 +1,50 @@
+touchmod(){
+	touch "$1" && 
+	chmod u+x "$1"
+}
+setdir(){
+	export $1=`pwd`
+}
+rospath(){
+	unmark rospath && 
+	mark rospath
+}
+gotoros(){
+	jump rospath
+}
+sourceros(){
+	source /opt/ros/kinetic/setup.zsh && 
+	gotoros && 
+	source devel/setup.zsh && 
+	cd ~
+}
+
+
+roscreate(){
+	mkdir "$1" && 
+	cd "$1" && 
+	mkdir src && 
+	cd src && 
+	catkin_init_workspace && 
+	cd .. && 
+	catkin_make && 
+	cd ..
+}
+rospackage(){
+	gotoros && 
+	cd src && 
+	catkin_create_pkg "$1" && 
+	mkdir "$1"/src/ && 
+	touchmod "$1"/src/"$1" && 
+	echo '#!/usr/bin/env python' >> "$1"/src/"$1"
+}
+rosbuild(){
+	setdir this && 
+	gotoros && 
+	catkin_make && 
+	$this
+}
+rosdepend(){
+	gotoros && 
+	rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
+}

@@ -1,0 +1,3 @@
+### FIXING HEADPHONE AND RESTARTING ALSA DRIVER
+pulseaudio -k && sudo alsa force-reload
+

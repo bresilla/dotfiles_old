@@ -1,0 +1,12 @@
+dronesim(){
+	dronekit-sitl copter-3.3 --home=44.549116,11.416029,0,0 & mavproxy.py --master tcp:"$1":5760 --out "$1":14550 --out "$1":14551 --out "$1":14552 --out "$1":14553 --out "$1":14554 --out "$1":14555 --out "$1":14556 --out "$1":14557 --out "$1":14558 --out "$1":14559 --out "$1":15556 --out "$2":14550 --out "$3":14550 --out "$4":14550
+}
+
+dronepox(){
+	mavproxy.py --master udp:"$1":14560 --out "$1":14550 --out "$1":14551 --out "$1":14552 --out "$1":14553 --out "$1":14554 --out "$1":14555 --out "$1":14556 --out "$1":14557 --out "$1":14558 --out "$1":14559 --out "$2":14550 --out "$3":14550 --out "$4":14550
+}	
+
+ardusim(){
+	cd ~/.ardupilot/ArduCopter && 
+		sim_vehicle.py -w -L Cadriano
+}
