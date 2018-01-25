@@ -26,7 +26,7 @@ set $white				#FFFFFF
 set $red				#E62739
 
 ############################################################################################################
-#										    ACCENT
+#											ACCENT
 ############################################################################################################
 bindsym $mod+$alt+1 exec "bash ~/.i3/accent fec200"
 bindsym $mod+$alt+2 exec "bash ~/.i3/accent 00ff83"
@@ -34,19 +34,22 @@ bindsym $mod+$alt+3 exec "bash ~/.i3/accent 00afff"
 bindsym $mod+$alt+4 exec "bash ~/.i3/accent ff73fd"
 bindsym $mod+$alt+5 exec "bash ~/.i3/accent 00ffff"
 bindsym $mod+$alt+6 exec "bash ~/.i3/accent d972ff"
-bindsym $mod+$alt+7 exec "bash ~/.i3/accent f7d15a"
+bindsym $mod+$alt+7 exec "bash ~/.i3/accent dee682"
 bindsym $mod+$alt+8 exec "bash ~/.i3/accent 6de3ef"
 bindsym $mod+$alt+9 exec "bash ~/.i3/accent e25a4d"
 bindsym $mod+$alt+0 exec "bash ~/.i3/accent ffffff"
 
 
 ############################################################################################################
-#									    BAR & LAUNCHER
+#											BAR & LAUNCHER
 ############################################################################################################
 exec_always bash ~/.i3/polybar/launch
-bindsym $alt+space exec "rofi -modi 'run,drun,window,ssh' -show drun -theme-str '*{accent: $accent;}'"
-bindsym $mod+space exec "rofi -modi 'run,drun,window,ssh' -show drun -theme-str '*{accent: $accent;}'"
-bindsym $mod+$alt+space exec "rofi -modi 'run,drun,window,ssh' -show drun -theme-str '*{accent: #E62739;}' -run-command 'gksudo {cmd}'"
+bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
+bindsym $mod+space exec "rofi -modi 'run,drun' -show drun"
+bindsym $mod+$alt+space exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: #E62739;}' -run-command 'gksudo {cmd}'"
+
+bindsym $mod+$alt+s exec "bash ~/.i3/rofi/scripts"
+bindsym $mod+$alt+i exec "bash ~/.i3/rofi/configs"
 
 ############################################################################################################
 #											FRAME
@@ -77,7 +80,7 @@ font pango:Noto Mono for Powerline 14
 
 
 ############################################################################################################
-#										   WINDOWS
+##											WINDOWS
 ############################################################################################################
 for_window [urgent=latest] focus
 
@@ -174,7 +177,6 @@ workspace $workspace0 output $monitor2
 ############################################################################################################
 #											APPSPACES
 ############################################################################################################
-# assagning specific apps per specific worksapce
 assign [class="Nightly"] $workspace2
 assign [class="Firefox"] $workspace7
 assign [class="Mousepad"] $workspace9
@@ -187,7 +189,7 @@ assign [class="MPlayer"] $workspace1
 
 
 ############################################################################################################
-#										    AUTO-START
+#											AUTO-START
 ############################################################################################################
 exec --no-startup-id compton --config ~/.i3/compton/.compton.conf
 exec --no-startup-id albert
@@ -206,9 +208,10 @@ exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.0:0.8
 
 
 ############################################################################################################
-#										   KEYBINDING-APPS
+#											KEYBINDING-APPS
 ############################################################################################################
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec urxvt -e tmux
+#bindsym $mod+Return exec gnome-terminal
 bindsym $alt+Return exec "nautilus --new-window"
 bindsym $mod+$alt+Return exec "nautilus --new-window"
 
@@ -217,22 +220,22 @@ bindsym $mod+c exec flameshot gui
 
 
 ############################################################################################################
-#										  CONFIG-FILES
+#											CONFIG-FILES
 ############################################################################################################
-bindsym $mod+$alt+Ctrl+i exec mousepad ~/.i3/config
-bindsym $mod+$alt+Ctrl+r exec mousepad ~/.i3/rofi.rasi
-bindsym $mod+$alt+Ctrl+c exec mousepad ~/.i3/compton/.compton.conf
-bindsym $mod+$alt+Ctrl+p exec mousepad ~/.i3/polybar/config
-bindsym $mod+$alt+Ctrl+x exec mousepad ~/.Xdefaults
+#bindsym $mod+$alt+Ctrl+i exec mousepad ~/.i3/config
+#bindsym $mod+$alt+Ctrl+r exec mousepad ~/.i3/rofi.rasi
+#bindsym $mod+$alt+Ctrl+c exec mousepad ~/.i3/compton/.compton.conf
+#bindsym $mod+$alt+Ctrl+p exec mousepad ~/.i3/polybar/config
+#bindsym $mod+$alt+Ctrl+x exec mousepad ~/.Xdefaults
 
 
 
 ############################################################################################################
-#										WALLPAPER & LOCKSCREEN
+#											WALLPAPER & LOCKSCREEN
 ############################################################################################################
 exec bash ~/.i3/wall ~/.bresilla/wallpapers/ 60
 bindsym $mod+l exec bash ~/.i3/blurlock
-exec "xautolock -time 10 -locker ~/.i3/blurlock"
+exec "xautolock -time 30 -locker ~/.i3/blurlock"
 
 
 
@@ -240,7 +243,7 @@ bindsym $mod+b exec mplayer ~/.bresilla/bresilla.mp4
 exec mplayer ~/.bresilla/bresilla.mp4 -nosound
 
 ############################################################################################################
-#										 	SYSTEM
+#											SYSTEM
 ############################################################################################################
 bindsym $mod+Shift+r exec "xrdb -load ~/.Xdefaults"; reload; restart;
 bindsym $mod+r exec "xrdb -load ~/.Xdefaults"; reload; restart
@@ -271,40 +274,39 @@ bindsym XF86MonBrightnessDown exec light -U 10
 
 
 ############################################################################################################
-#										   SCRATCHPAD
+#											SCRATCHPAD
 ############################################################################################################
-set $dropdown urxvt -name dropdown -fn "xft:Noto Mono for Powerline:size=10" -e tmuxp load ~/.tmux/texas.yaml
+set $dropdown urxvt -name dropdown -fn "xft:Noto Mono for Powerline:size=14" -e tmuxp load ~/.tmux/texas.yaml
 for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 1500 700
 for_window [instance="dropdown"] move position center
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 0
 exec --no-startup-id $dropdown 
-bindsym $mod+$alt+Ctrl+$cir exec --no-startup-id $dropdown
-bindsym $cir [instance="dropdown"] scratchpad show; move position center
+bindsym $mod+$cir [instance="dropdown"] scratchpad show; move position center
 
-set $math urxvt -name math -fn "xft:Noto Mono for Powerline:size=20" -e qalc
-for_window [instance="math"] floating enable
-for_window [instance="math"] resize set 1500 700
-for_window [instance="math"] move position center
-for_window [instance="math"] move scratchpad
-for_window [instance="math"] border pixel 0
-exec --no-startup-id $math 
-bindsym $alt+$cir [instance="math"] scratchpad show; move position center
+set $termin urxvt -name termin -fn "xft:Noto Mono for Powerline:size=12"
+for_window [instance="termin"] floating enable
+for_window [instance="termin"] resize set 1500 700
+for_window [instance="termin"] move position center
+for_window [instance="termin"] move scratchpad
+for_window [instance="termin"] border pixel 0
+exec --no-startup-id $termin
+bindsym $alt+$cir [instance="termin"] scratchpad show; move position center
 
-set $stats urxvt -name stats -fn "xft:Noto Mono for Powerline:size=15" -e htop
+set $stats urxvt -name stats -fn "xft:Noto Mono for Powerline:size=14" -e htop
 for_window [instance="stats"] floating enable
 for_window [instance="stats"] resize set 1500 700
 for_window [instance="stats"] move position center
 for_window [instance="stats"] move scratchpad
 for_window [instance="stats"] border pixel 0
 exec --no-startup-id $stats 
-bindsym $mod+$cir [instance="stats"] scratchpad show; move position center
+bindsym $mod+$alt+$cir [instance="stats"] scratchpad show; move position center
 
 
-
+bindsym $mod+$alt+Ctrl+$cir exec $dropdown; exec $termin
 ############################################################################################################
-#										  LAYOUTS
+#											LAYOUTS
 ############################################################################################################
 set $4by2 urxvt -name 4by2 -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/4by2.yaml
 assign [instance="4by2"] $workspace1

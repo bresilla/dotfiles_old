@@ -6,7 +6,9 @@ echo "$value"
 
 sed -i "1s/.*/*accent:    ""#$value/" ~/.Xdefaults
 xrdb -load ~/.Xdefaults
+
+accent=$(xrdb -query | awk '/accent/{print $2}')
+sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/.i3/rofi/rofi.rasi"
+sed -i --follow-symlinks "/accent =/c\	accent = $accent" "$HOME/.i3/polybar/config"
+
 i3-msg restart
-
-
-### move this file to "/bin/[name]" and make it executable "sudo chmod +x /bin/[name]"

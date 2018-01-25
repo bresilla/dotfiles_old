@@ -1,8 +1,7 @@
 #!/bin/bash
 
-export PATH=$PATH:/home/trim/.scripts
-export PATH=$PATH:/home/trim/.scripts/i3ass
 export PATH=$PATH:/home/trim/.i3
+export PATH=$PATH:/home/trim/.scripts
 
 source ~/.scripts/texas
 source ~/.scripts/jump

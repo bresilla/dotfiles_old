@@ -9,12 +9,13 @@ source ~/.alias/system
 source ~/.alias/ros
 source ~/.alias/network
 source ~/.alias/dronekit
+source ~/.alias/code
 
 
 ###ANTIGEN AND ZSH MODULES
 source ~/.antigen/antigen.zsh
 source ~/.fpath/texas_init.zsh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-autosuggestions.zsh
 
 
 

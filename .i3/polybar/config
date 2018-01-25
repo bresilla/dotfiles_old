@@ -1,10 +1,11 @@
 [colors]
+	accent = #00afff
 	background = 		#BF000000
 	background-alt = 	#E6000000
 	foreground = 		#A5ffffff
 	foreground-alt = 	#40ffffffS		
-	primary = 			${xrdb:accent}
-	;primary = 			#aaff77
+	;primary = 			${xrdb:accent}
+	primary = 			${self.accent}
 	alert = 			#bd2c40
 
 

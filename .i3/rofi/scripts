@@ -1,0 +1,3 @@
+selected=$(ls "$HOME/.scripts/" | rofi -dmenu -p "script: ")
+[[ -z $selected ]] && exit
+exec ~/.scripts/skript $selected

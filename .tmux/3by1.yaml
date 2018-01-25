@@ -1,0 +1,22 @@
+session_name: 3by1
+windows:
+- focus: 'true'
+  layout: bb0c,149x40,0,0{49x40,0,0,2,49x40,50,0,4,49x40,100,0,6}
+  options:
+    automatic-rename: 'off'
+  panes:
+  - focus: 'true'
+    shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  - shell_command: 
+      - gotoros
+      - sourceros
+      - clear
+  start_directory: /home/trim/catkin_ws
+  window_name: tmuxp

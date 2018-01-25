@@ -1,0 +1,13 @@
+#!/bin/bash
+
+selected=$(echo "$HOME/.Xdefaults
+$HOME/.i3/config
+$HOME/.i3/polybar/config
+$HOME/.i3/compton/.compton.conf
+$HOME/.i3/rofi/rofi.rasi
+$HOME/.i3/rofi/scripts
+$HOME/.i3/rofi/configs
+$HOME/.zshrc
+$HOME/.bashrc" | rofi -dmenu -p "config: ")
+[[ -z $selected ]] && exit
+mousepad $selected
