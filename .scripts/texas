@@ -11,7 +11,7 @@ texas()
         return
     fi
 
-    [ -z "$TEXAS_CONFIG_SIZE" ] && TEXAS_CONFIG_SIZE=40
+    [ -z "$TEXAS_CONFIG_SIZE" ] && TEXAS_CONFIG_SIZE=35
 
     if [ "$TEXAS_CONFIG_NOSWAP" = 1 ]; then
         TEXAS_RANGER_PID=$(tmux split-window -h -p "$TEXAS_CONFIG_SIZE" -P -F '#{pane_pid}' "TEXAS_BASH=1 LAUNCH_TEXAS=$LAUNCH_TEXAS TEXAS_SHELL_PID=$$ ranger")

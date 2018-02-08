@@ -30,11 +30,11 @@ sourceup(){
 }
 
 sourcedown(){
-	sudo rsync -r -t -v --progress -s $save/sources/ /etc/apt/
+	sudo rsync -r -t -v --progress -s $save/.sources/ /etc/apt/
 }
 
-accent(){
-	sed -i "1s/.*/*accent:    ""#$1/" ~/.Xdefaults && xrdb -load ~/.Xdefaults && i3-msg restart
+own(){
+	sudo chown -R $USER $1
 }
 
 

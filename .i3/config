@@ -99,8 +99,6 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-bindsym $mod+h split h
-bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 bindsym $mod+y split toggle
 
@@ -123,11 +121,11 @@ set $workspace2 "02: Browse"
 set $workspace3 "03: Explore"
 set $workspace4 "04: Code"
 set $workspace5 "05: Robot"
-set $workspace6 "06: Record"
+set $workspace6 "06: Editor"
 set $workspace7 "07: Browse"
 set $workspace8 "08: Explore"
-set $workspace9 "09: Config"
-set $workspace0 "10: Spotify"
+set $workspace9 "09: Social"
+set $workspace0 "10: Present"
 
 bindsym $mod+1 workspace $workspace1 
 bindsym $mod+2 workspace $workspace2
@@ -157,10 +155,12 @@ bindsym $mod+Tab workspace back_and_forth
 ############################################################################################################
 #											MONITORS
 ############################################################################################################
-exec_always bash ~/.i3/randr3
+set $monitor1 eDP-1-1
+set $monitor2 HDMI-1-1
+set $projector VGA-1
 
-set $monitor1 eDP-1
-set $monitor2 HDMI-1
+exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
+
 workspace $workspace1 output $monitor1
 workspace $workspace2 output $monitor1
 workspace $workspace3 output $monitor1
@@ -170,7 +170,7 @@ workspace $workspace6 output $monitor1
 workspace $workspace7 output $monitor2
 workspace $workspace8 output $monitor2
 workspace $workspace9 output $monitor2
-workspace $workspace0 output $monitor2
+workspace $workspace0 output $projector
 
 
 
@@ -179,31 +179,37 @@ workspace $workspace0 output $monitor2
 ############################################################################################################
 assign [class="Nightly"] $workspace2
 assign [class="Firefox"] $workspace7
-assign [class="Mousepad"] $workspace9
+assign [class="Mousepad"] $workspace6
 assign [class="Code"] $workspace4
 assign [class="gazeb"] $workspace5
 assign [class="QGroundControl"] $workspace5
 assign [class="obs"] $workspace6
 assign [class="MPlayer"] $workspace1
 
-
+for_window [class="mpv"] floating enable
+for_window [class="mpv"] sticky enable
 
 ############################################################################################################
 #											AUTO-START
 ############################################################################################################
 exec --no-startup-id compton --config ~/.i3/compton/.compton.conf
-exec --no-startup-id albert
+exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.0:0.8
+
+#exec --no-startup-id albert
 exec --no-startup-id pulseaudio
 exec --no-startup-id playerctl
-exec --no-startup-id enpass
+#exec --no-startup-id enpass
 exec --no-startup-id xbacklight
 exec --no-startup-id flameshot
-exec --no-startup-id hass
+#exec --no-startup-id hass
+
+exec --no-startup-id udisksctl mount -b /dev/sda2
+exec xrdb -load ~/.Xdefaults
+
 #exec_always --no-startup-id nm-applet
 #exec_always --no-startup-id blueman-applet
 #exec_always --no-startup-id volti
-exec --no-startup-id udisksctl mount -b /dev/sda2
-exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.0:0.8
+
 
 
 
@@ -217,6 +223,9 @@ bindsym $mod+$alt+Return exec "nautilus --new-window"
 
 
 bindsym $mod+c exec flameshot gui
+
+bindsym $mod+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
+bindsym $mod+k exec bash ~/.i3/screenkey
 
 
 ############################################################################################################
@@ -234,26 +243,21 @@ bindsym $mod+c exec flameshot gui
 #											WALLPAPER & LOCKSCREEN
 ############################################################################################################
 exec bash ~/.i3/wall ~/.bresilla/wallpapers/ 60
-bindsym $mod+l exec bash ~/.i3/blurlock
-exec "xautolock -time 30 -locker ~/.i3/blurlock"
 
-
+bindsym $mod+l exec bash ~/.i3/blurlock; exec xset -dpms s off
+exec "xautolock -time 10 -locker ~/.i3/blurlock"
 
 bindsym $mod+b exec mplayer ~/.bresilla/bresilla.mp4
-exec mplayer ~/.bresilla/bresilla.mp4 -nosound
-
 ############################################################################################################
 #											SYSTEM
 ############################################################################################################
-bindsym $mod+Shift+r exec "xrdb -load ~/.Xdefaults"; reload; restart;
+bindsym $mod+Shift+r exec "xrdb -load ~/.Xdefaults"; reload; restart
 bindsym $mod+r exec "xrdb -load ~/.Xdefaults"; reload; restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b '  E X I T  ' 'i3-msg exit'"
 
 exec_always ~/.i3/keyring
 exec_always /usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
-
-
 
 ############################################################################################################
 #											MEDIA
@@ -265,12 +269,11 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+
 #bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 #bindsym XF86MonBrightnessDown exec xbacklight -dec 10
-
 bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
-
 
 
 ############################################################################################################
@@ -285,7 +288,7 @@ for_window [instance="dropdown"] border pixel 0
 exec --no-startup-id $dropdown 
 bindsym $mod+$cir [instance="dropdown"] scratchpad show; move position center
 
-set $termin urxvt -name termin -fn "xft:Noto Mono for Powerline:size=12"
+set $termin urxvt -name termin -fn "xft:Noto Mono for Powerline:size=14"
 for_window [instance="termin"] floating enable
 for_window [instance="termin"] resize set 1500 700
 for_window [instance="termin"] move position center

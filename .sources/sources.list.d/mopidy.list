@@ -1,0 +1,4 @@
+# Mopidy APT archive
+# Built on Debian 8 (jessie), compatible with Ubuntu 14.04 LTS and 15.04
+deb http://apt.mopidy.com/ jessie main contrib non-free
+deb-src http://apt.mopidy.com/ jessie main contrib non-free

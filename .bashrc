@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export PATH=$PATH:/home/trim/.i3
-export PATH=$PATH:/home/trim/.scripts
+export PATH=/home/trim/.i3:$PATH
+export PATH=/home/trim/.scripts:$PATH
 
 source ~/.scripts/texas
 source ~/.scripts/jump
@@ -24,3 +24,7 @@ export SCM_CHECK=true
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
+
+export PATH=/usr/local/cuda-9.1/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64:$LD_LIBRARY_PATH
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

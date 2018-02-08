@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for file in $1/*
+do
+	convert $file -resize $2! $file
+	sleep .1
+done
+
+
+
