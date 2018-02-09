@@ -1,0 +1,114 @@
+" Let Vim and NeoVim shares the same plugin directory.
+" Comment it out if you don't like
+let g:spacevim_plug_home = '~/.vim/plugged'
+
+" The default leader key is space key.
+" Uncomment the line below and modify "<\Space>" if you prefer another
+" let g:spacevim_leader = "<\Space>"
+
+" The default local leader key is comma.
+" Uncomment the line below and modify ',' if you prefer another
+" let g:spacevim_localleader = ','
+
+" Enable the existing layers in space-vim
+let g:spacevim_layers = [
+      \ 'fzf', 'unite', 'better-defaults',
+      \ 'which-key', 'airline',
+      \ ]
+
+
+" If you want to have more control over the layer, try using Layer command.
+if g:spacevim_gui
+  Layer 'airline'
+endif
+
+" Manage your own plugins, refer to vim-plug's instruction for more detials.
+function! UserInit()
+
+  " Add plugin via Plug command.
+  Plug 'junegunn/seoul256.vim'
+  Plug 'vim-airline/vim-airline-themes'
+  "Plug 'vim-airline/vim-airline'
+  Plug 'itchyny/lightline.vim'
+  Plug 'scrooloose/nerdtree'
+  Plug 'Valloric/YouCompleteMe'
+  Plug 'octol/vim-cpp-enhanced-highlight'
+  Plug 'SirVer/ultisnips'
+  Plug 'scrooloose/syntastic'
+  Plug 'tpope/vim-surround'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'tpope/vim-fugitive'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'kien/ctrlp.vim'
+  Plug 'raimondi/delimitmate'
+
+
+endfunction
+
+" Override the default settings as well as adding extras
+function! UserConfig()
+
+  " If you have installed the powerline fonts and want to enable airline layer
+  let g:airline_powerline_fonts=1
+  let g:airline_theme='violet'
+
+  let g:lightline = {
+        \ 'colorscheme': 'Dracula',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+        \ },
+        \ 'component_function': {
+        \   'gitbranch': 'fugitive#head'
+        \ },
+        \ }
+
+  hi Normal guibg=NONE ctermbg=NONE
+
+  " Use gui colors in terminal if available
+  if has('termguicolors')
+    set termguicolors
+    if g:spacevim_tmux
+      " If use vim inside tmux, see https://github.com/vim/vim/issues/993
+      " set Vim-specific sequences for RGB colors
+      let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+      let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    endif
+  endif
+
+endfunction
+
+if g:spacevim_nvim
+    MP 'roxma/nvim-completion-manager'
+    MP 'roxma/nvim-cm-racer'
+    MP 'roxma/ncm-clang'
+    MP 'Shougo/neco-vim'
+    MP 'roxma/ncm-github'
+    MP 'fgrsnau/ncm-otherbuf'
+elseif g:spacevim_vim8
+    MP 'maralla/completor.vim'
+    MP 'maralla/completor-neosnippet'
+else
+    MP 'lifepillar/vim-mucomplete'
+endif
+
+" vim-cpp-enhanced-highlight {
+    let g:cpp_class_scope_highlight = 1
+    let g:c_no_curly_error=1
+" }
+
+" python-mode {
+    let g:pymode_lint_checkers = ['pyflakes']
+    let g:pymode_trim_whitespaces = 0
+    let g:pymode_options = 0
+    let g:pymode_rope = 0
+
+    let g:pymode_indent = 1
+    let g:pymode_folding = 0
+    let g:pymode_options_colorcolumn = 1
+    let g:pymode_breakpoint_bind = '<leader>br'
+
+    if spacevim#LayerLoaded('syntax-checking')
+        let g:pymode_lint = 0
+    endif
+" }

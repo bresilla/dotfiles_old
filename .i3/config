@@ -14,7 +14,6 @@ floating_modifier $mod
 #exec_always xmodmap -e "keysym Caps_Lock = Escape"
 
 
-
 ############################################################################################################
 #											COLORS
 ############################################################################################################
@@ -112,7 +111,6 @@ bindsym $mod+$alt+Down resize shrink height 5 px or 5 ppt
 bindsym $mod+$alt+Left resize grow width 5 px or 5 ppt
 
 
-
 ############################################################################################################
 #											WORKSPACES
 ############################################################################################################
@@ -155,13 +153,8 @@ bindsym $mod+Tab workspace back_and_forth
 ############################################################################################################
 #											MONITORS
 ############################################################################################################
-<<<<<<< Updated upstream
 set $monitor1 eDP-1-1
 set $monitor2 HDMI-1-1
-=======
-set $monitor1 eDP-1
-set $monitor2 HDMI-1
->>>>>>> Stashed changes
 set $projector VGA-1
 
 exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
@@ -176,7 +169,6 @@ workspace $workspace7 output $monitor2
 workspace $workspace8 output $monitor2
 workspace $workspace9 output $monitor2
 workspace $workspace0 output $projector
-
 
 
 ############################################################################################################
@@ -216,44 +208,27 @@ exec xrdb -load ~/.Xdefaults
 #exec_always --no-startup-id volti
 
 
-
-
 ############################################################################################################
 #											KEYBINDING-APPS
 ############################################################################################################
-bindsym $mod+Return exec urxvt -e tmux
-#bindsym $mod+Return exec gnome-terminal
-bindsym $alt+Return exec "nautilus --new-window"
-bindsym $mod+$alt+Return exec "nautilus --new-window"
+bindsym $mod+Shift+Return exec urxvt -e tmux
 
+bindsym $mod+Return exec sakura -x tmux
+bindsym $alt+Return exec "nautilus --new-window"
 
 bindsym $mod+c exec flameshot gui
 
 bindsym $mod+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 bindsym $mod+k exec bash ~/.i3/screenkey
-
-
-############################################################################################################
-#											CONFIG-FILES
-############################################################################################################
-#bindsym $mod+$alt+Ctrl+i exec mousepad ~/.i3/config
-#bindsym $mod+$alt+Ctrl+r exec mousepad ~/.i3/rofi.rasi
-#bindsym $mod+$alt+Ctrl+c exec mousepad ~/.i3/compton/.compton.conf
-#bindsym $mod+$alt+Ctrl+p exec mousepad ~/.i3/polybar/config
-#bindsym $mod+$alt+Ctrl+x exec mousepad ~/.Xdefaults
-
+bindsym $mod+ö exec bash ~/.i3/recordscreen
 
 
 ############################################################################################################
 #											WALLPAPER & LOCKSCREEN
 ############################################################################################################
 exec bash ~/.i3/wall ~/.bresilla/wallpapers/ 60
-<<<<<<< Updated upstream
 
 bindsym $mod+l exec bash ~/.i3/blurlock; exec xset -dpms s off
-=======
-bindsym $mod+l exec bash ~/.i3/blurlock
->>>>>>> Stashed changes
 exec "xautolock -time 10 -locker ~/.i3/blurlock"
 
 bindsym $mod+b exec mplayer ~/.bresilla/bresilla.mp4
@@ -277,7 +252,6 @@ bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-
 
 #bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 #bindsym XF86MonBrightnessDown exec xbacklight -dec 10
@@ -314,7 +288,6 @@ for_window [instance="stats"] move scratchpad
 for_window [instance="stats"] border pixel 0
 exec --no-startup-id $stats 
 bindsym $mod+$alt+$cir [instance="stats"] scratchpad show; move position center
-
 
 bindsym $mod+$alt+Ctrl+$cir exec $dropdown; exec $termin
 ############################################################################################################

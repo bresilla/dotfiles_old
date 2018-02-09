@@ -23,6 +23,7 @@ rsync -r -t -v --progress -s $home/.zsh $dest
 
 rsync -az --progress -s $home/.bashrc $dest
 rsync -az --progress -s $home/.zshrc $dest
+rsync -az --progress -s $home/.spacevim $dest
 #rsync -az --progress -s $home/.tmux.conf $dest
 rsync -az --progress -s $home/.Xdefaults $dest
 
