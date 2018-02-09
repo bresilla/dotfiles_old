@@ -155,8 +155,13 @@ bindsym $mod+Tab workspace back_and_forth
 ############################################################################################################
 #											MONITORS
 ############################################################################################################
+<<<<<<< Updated upstream
 set $monitor1 eDP-1-1
 set $monitor2 HDMI-1-1
+=======
+set $monitor1 eDP-1
+set $monitor2 HDMI-1
+>>>>>>> Stashed changes
 set $projector VGA-1
 
 exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
@@ -243,8 +248,12 @@ bindsym $mod+k exec bash ~/.i3/screenkey
 #											WALLPAPER & LOCKSCREEN
 ############################################################################################################
 exec bash ~/.i3/wall ~/.bresilla/wallpapers/ 60
+<<<<<<< Updated upstream
 
 bindsym $mod+l exec bash ~/.i3/blurlock; exec xset -dpms s off
+=======
+bindsym $mod+l exec bash ~/.i3/blurlock
+>>>>>>> Stashed changes
 exec "xautolock -time 10 -locker ~/.i3/blurlock"
 
 bindsym $mod+b exec mplayer ~/.bresilla/bresilla.mp4
