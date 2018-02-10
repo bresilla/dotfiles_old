@@ -1,7 +1,7 @@
 notes(){
-	gedit ~/.assets/.notes/$1
+	gedit ~/Dots/.assets/.notes/$1
 }
 
 addto(){
-	echo $2 >> ~/.assets/.apps/$1.txt
+	echo $2 >> ~/Dots/.assets/.apps/$1.txt
 }

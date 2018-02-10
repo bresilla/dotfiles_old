@@ -30,4 +30,4 @@ terminator
 google-chrome
 code
 font-manager
-unison
+inotify-tools

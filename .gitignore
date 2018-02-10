@@ -1,6 +1,2 @@
 
-\.wallpapers/
-\.themes/
-\.icons/
-/.apps/etcher.AppImage
-/.apps/QGroundControl.AppImage
+\.assets/\.wallpapers/
