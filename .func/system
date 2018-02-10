@@ -1,0 +1,32 @@
+load=/home/trim
+save=/home/trim/dotfiles
+
+update(){
+	sudo apt update
+}
+upgrade(){
+	sudo apt upgrade
+}
+autoremove(){
+	sudo apt autoremove
+}
+clean(){
+	sudo apt clean
+}
+
+headphones(){
+	pacmd set-sink-port 0 analog-output-headphones
+}
+speaker(){
+	pacmd set-sink-port 0 analog-output-speaker
+}
+
+syncit(){
+	bash syncit
+}
+
+own(){
+	sudo chown -R $USER $1
+}
+
+

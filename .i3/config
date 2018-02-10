@@ -22,7 +22,7 @@ set_from_resource $accent accent #000000
 set $black				#000000
 set $grey				#373B41
 set $white				#FFFFFF
-set $red				#E62739
+set $red				#F10F09
 
 ############################################################################################################
 #											ACCENT
@@ -34,8 +34,8 @@ bindsym $mod+$alt+4 exec "bash ~/.i3/accent ff73fd"
 bindsym $mod+$alt+5 exec "bash ~/.i3/accent 00ffff"
 bindsym $mod+$alt+6 exec "bash ~/.i3/accent d972ff"
 bindsym $mod+$alt+7 exec "bash ~/.i3/accent dee682"
-bindsym $mod+$alt+8 exec "bash ~/.i3/accent 6de3ef"
-bindsym $mod+$alt+9 exec "bash ~/.i3/accent e25a4d"
+bindsym $mod+$alt+8 exec "bash ~/.i3/accent ea6131"
+bindsym $mod+$alt+9 exec "bash ~/.i3/accent f98a4b"
 bindsym $mod+$alt+0 exec "bash ~/.i3/accent ffffff"
 
 
@@ -45,7 +45,7 @@ bindsym $mod+$alt+0 exec "bash ~/.i3/accent ffffff"
 exec_always bash ~/.i3/polybar/launch
 bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
 bindsym $mod+space exec "rofi -modi 'run,drun' -show drun"
-bindsym $mod+$alt+space exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: #E62739;}' -run-command 'gksudo {cmd}'"
+bindsym $mod+$alt+space exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
 
 bindsym $mod+$alt+s exec "bash ~/.i3/rofi/scripts"
 bindsym $mod+$alt+i exec "bash ~/.i3/rofi/configs"
@@ -262,7 +262,7 @@ bindsym XF86MonBrightnessDown exec light -U 10
 ############################################################################################################
 #											SCRATCHPAD
 ############################################################################################################
-set $dropdown urxvt -name dropdown -fn "xft:Noto Mono for Powerline:size=14" -e tmuxp load ~/.tmux/texas.yaml
+set $dropdown urxvt -name dropdown -fn "xft:Noto Mono for Powerline:size=14" -e tmuxp load ~/.tmux/dropdown.yaml
 for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 1500 700
 for_window [instance="dropdown"] move position center
@@ -271,7 +271,7 @@ for_window [instance="dropdown"] border pixel 0
 exec --no-startup-id $dropdown 
 bindsym $mod+$cir [instance="dropdown"] scratchpad show; move position center
 
-set $termin urxvt -name termin -fn "xft:Noto Mono for Powerline:size=14"
+set $termin urxvt -name termin -fn "xft:Noto Mono for Powerline:size=14"  -e tmuxp load ~/.tmux/termin.yaml
 for_window [instance="termin"] floating enable
 for_window [instance="termin"] resize set 1500 700
 for_window [instance="termin"] move position center
@@ -280,16 +280,16 @@ for_window [instance="termin"] border pixel 0
 exec --no-startup-id $termin
 bindsym $alt+$cir [instance="termin"] scratchpad show; move position center
 
-set $stats urxvt -name stats -fn "xft:Noto Mono for Powerline:size=14" -e htop
-for_window [instance="stats"] floating enable
-for_window [instance="stats"] resize set 1500 700
-for_window [instance="stats"] move position center
-for_window [instance="stats"] move scratchpad
-for_window [instance="stats"] border pixel 0
-exec --no-startup-id $stats 
-bindsym $mod+$alt+$cir [instance="stats"] scratchpad show; move position center
+set $tripplet urxvt -name tripplet -fn "xft:Noto Mono for Powerline:size=14" -e tmuxp load ~/.tmux/3by1.yaml
+for_window [instance="tripplet"] floating enable
+for_window [instance="tripplet"] resize set 1920 700
+for_window [instance="tripplet"] move position center
+for_window [instance="tripplet"] move scratchpad
+for_window [instance="tripplet"] border pixel 0
+exec --no-startup-id $tripplet 
+bindsym $mod+$alt+$cir [instance="tripplet"] scratchpad show; move position center
 
-bindsym $mod+$alt+Ctrl+$cir exec $dropdown; exec $termin
+bindsym $mod+$alt+Ctrl+$cir exec $dropdown; exec $termin; exec $tripplet
 ############################################################################################################
 #											LAYOUTS
 ############################################################################################################

@@ -1,0 +1,9 @@
+#!/bin/bash
+DOTS=$HOME/Dots
+
+rsync -r -t -v --progress -s $DOTS/ $HOME
+
+sudo rm -r $HOME/.git
+sudo rm -r $HOME/.gitignore
+sudo rm -r $HOME/README.md
+

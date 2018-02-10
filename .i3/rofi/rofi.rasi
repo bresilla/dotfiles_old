@@ -7,7 +7,7 @@
  */
 
 * {
-	accent: #ffffff;
+	accent: #f98a4b;
     foreground:         		@accent;
     background:         		rgba(0, 0, 0, 0.75);
     transparent:				rgba(0, 0, 0, 0);

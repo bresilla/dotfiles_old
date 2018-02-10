@@ -1,0 +1,11 @@
+session_name: termin
+windows:
+- focus: 'true'
+  options:
+    automatic-rename: 'off'
+  panes:
+  - focus: 'true'
+    shell_command: 
+      - texas
+  start_directory: /home/trim
+  window_name: HOME

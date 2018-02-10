@@ -1,7 +1,0 @@
-notes(){
-	gedit ~/.notes/$1
-}
-
-addto(){
-	echo $2 >> ~/.apps/$1.txt
-}

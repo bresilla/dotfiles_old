@@ -6,11 +6,11 @@ export PATH=/home/trim/.scripts:$PATH
 source ~/.scripts/texas
 source ~/.scripts/jump
 
-source ~/.alias/shortcuts
-source ~/.alias/system
-source ~/.alias/ros
-source ~/.alias/network
-source ~/.alias/dronekit
+source ~/.func/shortcuts
+source ~/.func/system
+source ~/.func/ros
+source ~/.func/network
+source ~/.func/dronekit
 
 # Path to the bash it configuration
 export BASH_IT="/home/trim/.bash-it"
@@ -27,4 +27,3 @@ source "$BASH_IT"/bash_it.sh
 
 export PATH=/usr/local/cuda-9.1/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64:$LD_LIBRARY_PATH
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
