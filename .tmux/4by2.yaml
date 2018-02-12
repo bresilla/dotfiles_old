@@ -40,3 +40,4 @@ windows:
       - clear
   start_directory: /home/trim
   window_name: tmuxp
+

@@ -6,8 +6,7 @@ $HOME/Dots/.i3/compton/.compton.conf
 $HOME/Dots/.i3/rofi/rofi.rasi
 $HOME/Dots/.i3/rofi/scripts
 $HOME/Dots/.i3/rofi/configs
-$HOME/Dots/.scripts/syncup
 $HOME/Dots/.zshrc
 $HOME/Dots/.bashrc" | rofi -dmenu -p "config: ")
 [[ -z $selected ]] && exit
-mousepad $selected
+gedit $selected

@@ -31,3 +31,5 @@ google-chrome
 code
 font-manager
 inotify-tools
+pandoc
+entr
