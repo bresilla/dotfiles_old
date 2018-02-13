@@ -4,9 +4,10 @@ $HOME/Dots/.i3/config
 $HOME/Dots/.i3/polybar/config
 $HOME/Dots/.i3/compton/.compton.conf
 $HOME/Dots/.i3/rofi/rofi.rasi
-$HOME/Dots/.i3/rofi/scripts
-$HOME/Dots/.i3/rofi/configs
+$HOME/Dots/.i3/rofi/lists
+$HOME/Dots/.i3/rofi/confs
 $HOME/Dots/.zshrc
-$HOME/Dots/.bashrc" | rofi -dmenu -p "config: ")
+$HOME/Dots/.bashrc
+$HOME/Dots/.alias" | rofi -dmenu -p "config: ")
 [[ -z $selected ]] && exit
 gedit $selected

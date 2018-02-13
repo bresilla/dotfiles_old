@@ -58,11 +58,11 @@ bindsym $mod+space exec "rofi -modi 'run,drun' -show drun"
 bindsym $mod+$alt+space exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
 
 
-bindsym $mod+$ctl+c exec "bash ~/.i3/rofi/configs"
-bindsym $mod+$ctl+s exec "bash ~/.i3/rofi/fileit script /home/trim/Dots/.scripts""
-bindsym $mod+$ctl+a exec "bash ~/.i3/rofi/fileit app /home/trim/Dots/.assets/.apps"
-bindsym $mod+$ctl+n exec "bash ~/.i3/rofi/fileit note /home/trim/Dots/.assets/.notes"
-bindsym $mod+$ctl+f exec "bash ~/.i3/rofi/fileit func /home/trim/Dots/.func"
+bindsym $mod+$ctl+c exec "bash ~/.i3/rofi/confs"
+bindsym $mod+$ctl+s exec "bash ~/.i3/rofi/lists script /home/trim/Dots/.scripts""
+bindsym $mod+$ctl+a exec "bash ~/.i3/rofi/lists app /home/trim/Dots/.assets/.apps"
+bindsym $mod+$ctl+n exec "bash ~/.i3/rofi/lists note /home/trim/Dots/.assets/.notes"
+bindsym $mod+$ctl+f exec "bash ~/.i3/rofi/lists func /home/trim/Dots/.func"
 
 
 
