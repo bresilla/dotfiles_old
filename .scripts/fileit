@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ -f $1 ]]; then
+  gedit $1
+else
+  touch $1
+  chmod +x $1
+  gedit $1
+fi

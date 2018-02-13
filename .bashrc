@@ -3,14 +3,19 @@
 export PATH=/home/trim/.i3:$PATH
 export PATH=/home/trim/.scripts:$PATH
 
+###MODULES
 source ~/.scripts/texas
 source ~/.scripts/jump
 
-source ~/.func/shortcuts
-source ~/.func/system
-source ~/.func/ros
-source ~/.func/network
-source ~/.func/dronekit
+###FUNCTIONS
+for file in ~/.func/*; do
+    source "$file"
+done
+
+###ALIASES
+[ -f ~/.alias ] && source ~/.alias
+
+
 
 # Path to the bash it configuration
 export BASH_IT="/home/trim/.bash-it"

@@ -1,4 +1,5 @@
 #!/bin/bash
 selected=$(ls "$HOME/Dots/.scripts/" | rofi -dmenu -p "script: ")
 [[ -z $selected ]] && exit
-exec ~/.scripts/skript $selected
+
+exec ~/Dots/.scripts/skript $selected

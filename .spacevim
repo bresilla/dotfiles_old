@@ -29,6 +29,7 @@ function! UserInit()
   Plug 'reedes/vim-pencil'
   Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
+  Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 endfunction
 
 

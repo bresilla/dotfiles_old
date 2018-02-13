@@ -57,8 +57,12 @@ bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
 bindsym $mod+space exec "rofi -modi 'run,drun' -show drun"
 bindsym $mod+$alt+space exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
 
-bindsym $mod+$alt+o exec "bash ~/.i3/rofi/scripts"
-bindsym $mod+$alt+i exec "bash ~/.i3/rofi/configs"
+
+bindsym $mod+$ctl+c exec "bash ~/.i3/rofi/configs"
+bindsym $mod+$ctl+s exec "bash ~/.i3/rofi/fileit script /home/trim/Dots/.scripts""
+bindsym $mod+$ctl+a exec "bash ~/.i3/rofi/fileit app /home/trim/Dots/.assets/.apps"
+bindsym $mod+$ctl+n exec "bash ~/.i3/rofi/fileit note /home/trim/Dots/.assets/.notes"
+bindsym $mod+$ctl+f exec "bash ~/.i3/rofi/fileit func /home/trim/Dots/.func"
 
 
 
@@ -138,15 +142,15 @@ bindsym $mod+$alt+Left resize grow width 5 px or 5 ppt
 ############################################################################################################
 #											WORKSPACES
 ############################################################################################################
-set $workspace1 "01: Browse"
-set $workspace2 "02: Explore"
+set $workspace1 "01: Music"
+set $workspace2 "02: Browse"
 set $workspace3 "03: Explore"
-set $workspace4 "04: Code"
-set $workspace5 "05: Robot"
-set $workspace6 "06: Social"
-set $workspace7 "07: Browse"
-set $workspace8 "08: Explore"
-set $workspace9 "09: Music"
+set $workspace4 "04: Peak"
+set $workspace5 "05: Browse"
+set $workspace6 "06: Explore"
+set $workspace7 "07: System"
+set $workspace8 "08: Code"
+set $workspace9 "09: Robot"
 set $workspace0 "10: Present"
 
 bindsym $mod+1 workspace $workspace1 
@@ -180,20 +184,20 @@ bindsym $mod+Tab workspace back_and_forth
 #											MONITORS
 ############################################################################################################
 set $monitor1 eDP-1-1
-set $monitor2 HDMI-1-1
+set $monitor2 DP-1-1
 set $projector VGA-1
 
-exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
+exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 1920x0 --output $monitor2 --mode 1920x1080 --pos 0x0
 
-workspace $workspace1 output $monitor1
-workspace $workspace2 output $monitor1
-workspace $workspace3 output $monitor1
-workspace $workspace4 output $monitor1
+workspace $workspace1 output $monitor2
+workspace $workspace2 output $monitor2
+workspace $workspace3 output $monitor2
+workspace $workspace4 output $monitor2
 workspace $workspace5 output $monitor1
 workspace $workspace6 output $monitor1
-workspace $workspace7 output $monitor2
-workspace $workspace8 output $monitor2
-workspace $workspace9 output $monitor2
+workspace $workspace7 output $monitor1
+workspace $workspace8 output $monitor1
+workspace $workspace9 output $monitor1
 workspace $workspace0 output $projector
 
 
@@ -201,14 +205,13 @@ workspace $workspace0 output $projector
 ############################################################################################################
 #											APPSPACES
 ############################################################################################################
-assign [class="Nightly"] $workspace2
-assign [class="Firefox"] $workspace7
-assign [class="Mousepad"] $workspace6
-assign [class="Code"] $workspace4
-assign [class="gazeb"] $workspace5
-assign [class="QGroundControl"] $workspace5
-assign [class="obs"] $workspace6
-assign [class="MPlayer"] $workspace1
+assign [class="Nightly"] $workspace5
+assign [class="Firefox"] $workspace2
+assign [class="Code"] $workspace8
+assign [class="gazeb"] $workspace9
+assign [class="QGroundControl"] $workspace9
+assign [class="obs"] $workspace7
+assign [class="MPlayer"] $workspace5
 
 for_window [class="mpv"] floating enable
 for_window [class="mpv"] sticky enable
@@ -250,9 +253,9 @@ bindsym $ctr+Return exec "nautilus --new-window"
 
 bindsym $mod+$alt+c exec flameshot gui
 bindsym $mod+$alt+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
-bindsym $mod+$alt+k exec bash ~/.i3/screenkey
+bindsym $mod+$alt+k exec bash ~/.i3/keyscreen
 bindsym $mod+$alt+r exec bash ~/.i3/recordscreen
-bindsym $mod+$alt+s exec bash ~/.i3/synchange
+bindsym $mod+$alt+s exec ~/.i3/synchange
 
 
 
@@ -271,6 +274,7 @@ bindsym $mod+b exec mplayer ~/.assets/.bresilla/bresilla.mp4
 ############################################################################################################
 #											SYSTEM
 ############################################################################################################
+bindsym $mod+Shift+r exec syncit
 bindsym $mod+r exec "xrdb -load ~/.Xdefaults"; reload; restart;
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b '  E X I T  ' 'i3-msg exit'"
@@ -306,26 +310,25 @@ for_window [instance="term1"] resize set 1920 700
 for_window [instance="term1"] move position center
 for_window [instance="term1"] move scratchpad
 for_window [instance="term1"] border pixel 0
-exec_always --no-startup-id $term1 
 bindsym $mod+$crcum [instance="term1"] scratchpad show; move position center
 
 set $term2 urxvt -name term2 -fn "xft:Noto Mono for Powerline:size=14"  -e tmuxp load ~/.tmux/term2.yaml -y
 for_window [instance="term2"] floating enable
-for_window [instance="term2"] resize set 1920 700
-for_window [instance="term2"] move position center
+	for_window [instance="term2"] resize set 1920 700	
+	for_window [instance="term2"] move position center
 for_window [instance="term2"] move scratchpad
 for_window [instance="term2"] border pixel 0
-exec_always --no-startup-id $term2
 bindsym $alt+$crcum [instance="term2"] scratchpad show; move position center
 
 bindsym $mod+$alt+$crcum exec $term1; exec $term2;
 
+set $stats urxvt -name stats -fn "xft:Noto Mono for Powerline:size=14" -e htop
+for_window [instance="stats"] floating enable
+for_window [instance="stats"] resize set 1920 700
+for_window [instance="stats"] move position center
+for_window [instance="stats"] move scratchpad
+for_window [instance="stats"] border pixel 0
+exec --no-startup-id $stats 
+bindsym $mod+$acute [instance="stats"] scratchpad show; move position center
+bindsym $alt+$acute [instance="stats"] scratchpad show; move position center
 
-
-############################################################################################################
-#											LAYOUTS
-############################################################################################################
-set $4by2 urxvt -name 4by2 -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/4by2.yaml -y
-assign [instance="4by2"] $workspace1
-bindsym $mod+$alt+$ctl+k exec $4by2 
-#exec $4by2

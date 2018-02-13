@@ -1,0 +1,5 @@
+#!/bin/bash
+selected=$(ls "$2/" | rofi -dmenu -p "$1: ")
+[[ -z $selected ]] && exit
+
+gedit $2/$selected

@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ x = "$1" ] ; then
+    echo Argument missing file
+    exit 1
+else
+	if pgrep $1 &>/dev/null; then
+		pkill $1
+	else
+		exec $*
+	fi
+fi

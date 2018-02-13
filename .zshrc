@@ -1,20 +1,21 @@
 ###FUNCTION PATH
-export FPATH=~/.func:$FPATH
+export FPATH=~/.zsh:$FPATH
 export PATH=~/.scripts:$PATH
 
-###ALIAS
-source ~/.func/shortcuts
-source ~/.func/system
-source ~/.func/ros
-source ~/.func/network
-source ~/.func/dronekit
-source ~/.func/code
+###FUNCTIONS
+for file in ~/.func/*; do
+    source "$file"
+done
 
-###ANTIGEN AND ZSH MODULES
+###ALIASES
+[ -f ~/.alias ] && source ~/.alias
+
+###MODULES
 source ~/.antigen/antigen.zsh
-source ~/.func/texas_init.zsh
+source ~/.zsh/texas_init.zsh
 source ~/.zsh/autosuggestions.zsh
 source ~/.zsh/prompt.zsh
+
 
 ###CUDA
 export PATH=/usr/local/cuda-9.1/bin:$PATH
