@@ -1,3 +1,3 @@
 addto(){
-	echo $2 >> ~/Dots/.assets/.apps/$1.txt
+	echo $2 >> ~/Dots/.assets/.apps/$1
 }

@@ -1,3 +1,10 @@
+#SYSTEM
+alias ll='ls -l'
+alias la='ls -a'
+alias rm='rm -i'
+alias df='df -h'
+
+#DIRECTORY
 alias ..='cd ..'
 alias ...='cd ../../../'
 alias ....='cd ../../../../'
