@@ -26,3 +26,4 @@ python-wstool
 python-catkin-tools
 python-rosinstall-generator
 geographiclib-tools
+inxi

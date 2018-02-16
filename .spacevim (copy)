@@ -1,7 +1,4 @@
-filetype plugin on
-let mapleader = "\<Space>"
-syntax on
-"nnoremap <Esc> a
+
 
 function! UserInit()
   Plug 'junegunn/seoul256.vim'
@@ -32,7 +29,6 @@ function! UserInit()
   Plug '907th/vim-auto-save'
 endfunction
 
-
 let g:spacevim_plug_home = '~/.vim/plugged'
 let g:spacevim_layers = [
       \ 'fzf', 'unite', 'better-defaults',
@@ -43,11 +39,23 @@ if g:spacevim_gui
 endif
 
 
+augroup programm
+  autocmd!
+  autocmd FileType cpp,python TagbarToggle
+augroup END
+
+augroup markdown
+  autocmd!
+  autocmd FileType markdown,tex AutoSaveToggle
+  autocmd FileType markdown,tex Pencil
+augroup END
+
+
 function! UserConfig()
-  let g:airline_powerline_fonts=1
-  let g:airline_theme='violet'
-  hi Normal guibg=NONE ctermbg=NONE
+  hOBi Normal guibg=NONE ctermbg=NONE
   if has('termguicolors')
+    let g:airline_powerline_fonts=1
+    let g:airline_theme='violet'
     set termguicolors
     if g:spacevim_tmux
       let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -55,7 +63,6 @@ function! UserConfig()
     endif
   endif
 endfunction
-
 
 
 let g:ycm_complete_in_comments=1
