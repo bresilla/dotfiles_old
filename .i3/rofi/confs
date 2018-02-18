@@ -8,6 +8,7 @@ $HOME/Dots/.i3/rofi/lists
 $HOME/Dots/.i3/rofi/confs
 $HOME/Dots/.zshrc
 $HOME/Dots/.bashrc
+$HOME/Dots/.spacevim
 $HOME/Dots/.alias" | rofi -dmenu -p "config: ")
 [[ -z $selected ]] && exit
 gedit $selected

@@ -1,3 +1,0 @@
-###aDDING HOTSPOTS AND MANAGING METWORK
-gksu nm-connection-editor
-sudo systemctl restart network-manager

@@ -6,17 +6,24 @@ windows:
     automatic-rename: 'off'
   panes:
   - shell_command:
+      - bash
       - texas
       - clear
   start_directory: /home/trim
-  window_name: term1w1
+  window_name: term2w1
 - layout: bb0c,149x40,0,0{49x40,0,0,2,49x40,50,0,4,49x40,100,0,6}
   options:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
     shell_command: 
+      - bash
+      - clear
   - shell_command: 
-  - shell_command:
+      - bash
+      - clear
+  - shell_command: 
+      - bash
+      - clear
   start_directory: /home/trim
-  window_name: term1w2
+  window_name: term2w2

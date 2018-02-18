@@ -1,5 +1,7 @@
 ###FUNCTION PATH
 export FPATH=~/.zsh:$FPATH
+export PATH=~/.i3:$PATH
+export PATH=~/.i3/i3ass:$PATH
 export PATH=~/.scripts:$PATH
 
 ###FUNCTIONS

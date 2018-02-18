@@ -1,3 +1,13 @@
 addto(){
 	echo $2 >> ~/Dots/.assets/.apps/$1
 }
+
+distract(){
+	if [ $# -eq 0 ]; then
+        vim ~/Dots/.assets/.notes/distracted.wiki
+    else
+    echo $* >> ~/Dots/.assets/.notes/distracted.wiki
+	echo "" >> ~/Dots/.assets/.notes/distracted.wiki
+	echo "" >> ~/Dots/.assets/.notes/distracted.wiki
+    fi
+}

@@ -1,7 +1,9 @@
+set nocompatible
 filetype plugin on
-let mapleader = "\<Space>"
 syntax on
-"nnoremap <Esc> a
+let mapleader = "\<Space>"
+set encoding=utf8
+set guifont=Fira\ Code\ 11
 
 function! UserInit()
   Plug 'junegunn/seoul256.vim'
@@ -9,12 +11,12 @@ function! UserInit()
   Plug 'vim-airline/vim-airline'
   Plug 'edkolev/tmuxline.vim'
   Plug 'scrooloose/nerdtree'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe'
   Plug 'octol/vim-cpp-enhanced-highlight'
-  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+  Plug 'Yggdroot/indentLine'
   Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-  Plug 'scrooloose/syntastic'
   Plug 'majutsushi/tagbar'
   Plug 'tpope/vim-surround'
   Plug 'airblade/vim-gitgutter'
@@ -23,7 +25,10 @@ function! UserInit()
   Plug 'kien/ctrlp.vim'
   Plug 'raimondi/delimitmate'
   Plug 'sheerun/vim-polyglot'
+  Plug 'francoiscabrol/ranger.vim'
+  Plug 'rbgrouleff/bclose.vim'
 
+  Plug 'vimwiki/vimwiki'
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'vim-pandoc/vim-pandoc-syntax'
   Plug 'reedes/vim-pencil'
@@ -32,8 +37,7 @@ function! UserInit()
   Plug '907th/vim-auto-save'
 endfunction
 
-
-let g:spacevim_plug_home = '~/.vim/plugged'
+let spacevim_plug_home = '~/.vim/plugged'
 let g:spacevim_layers = [
       \ 'fzf', 'unite', 'better-defaults',
       \ 'which-key', 'airline',
@@ -43,10 +47,22 @@ if g:spacevim_gui
 endif
 
 
+augroup programm
+  autocmd!
+  autocmd FileType cpp,python TagbarToggle
+augroup END
+
+augroup markdown
+  autocmd!
+  autocmd FileType markdown,tex,wiki AutoSaveToggle
+  autocmd FileType markdown,tex,wiki Pencil
+augroup END
+
+
 function! UserConfig()
-  let g:airline_powerline_fonts=1
-  let g:airline_theme='violet'
   hi Normal guibg=NONE ctermbg=NONE
+  let g:airline_powerline_fonts=1
+  let g:airline_theme='bubblegum'
   if has('termguicolors')
     set termguicolors
     if g:spacevim_tmux
@@ -57,21 +73,24 @@ function! UserConfig()
 endfunction
 
 
+map <C-n> :NERDTreeToggle<CR>
+
+
+let g:vimwiki_list = [{'path': '~/Dots/.assets/.notes/', 'syntax': 'markdown', 'ext': '.wiki'}]
+
 
 let g:ycm_complete_in_comments=1
 let g:ycm_confirm_extra_conf=0
+let g:ycm_global_ycm_extra_conf = "/home/trim/.vim/.ycm_extra_conf.py"
 let g:ycm_collect_identifiers_from_tags_files=1
 set completeopt-=preview
 let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_cache_omnifunc=0
 let g:ycm_seed_identifiers_with_syntax=1
 
-
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'

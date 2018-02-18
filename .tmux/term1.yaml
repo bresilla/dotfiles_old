@@ -6,7 +6,6 @@ windows:
     automatic-rename: 'off'
   panes:
   - shell_command:
-      - zsh
       - texas
       - clear
   start_directory: /home/trim
@@ -16,12 +15,12 @@ windows:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
-    shell_command: 
-      - zsh
-  - shell_command: 
-      - zsh
-  - shell_command: 
-      - zsh
+    shell_command:
+      - clear
+  - shell_command:
+      - clear
+  - shell_command:
+      - clear
   start_directory: /home/trim
-  window_name: term1w2
+  window_name: term1w3
 

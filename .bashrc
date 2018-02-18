@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export PATH=/home/trim/.i3:$PATH
+export PATH=/home/trim/.i3/i3ass:$PATH
 export PATH=/home/trim/.scripts:$PATH
 
 ###MODULES
