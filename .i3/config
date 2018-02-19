@@ -3,12 +3,13 @@
 ############################################################################################################
 exec_always xmodmap -e "remove control = Control_R"
 exec_always xmodmap -e "add Mod3 = Control_R"
-#exec_always xmodmap -e "clear lock"
-#exec_always xmodmap -e "keycode 66 = Escape"
+exec_always xmodmap -e "clear lock"
+exec_always xmodmap -e "keycode 66 = Escape"
 exec_always setxkbmap -option caps:escape
 
-exec_always set-prop '19' 'Synaptics Palm Detection' 1
-exec_always set-prop '19' 'Synaptics Palm Dimensions' 5, 5
+exec_always synclient PalmDetect=1
+exec_always synclient PalmMinWidth=4
+exec_always synclient PalmMinZ=50 
 
 
 set $mod mod4
@@ -38,6 +39,7 @@ bindsym $mod+Shift+r exec "xrdb -load ~/.Xdefaults"; reload; restart;
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b '  E X I T  ' 'i3-msg exit'"
 bindsym $mod+Shift+b exec mplayer ~/.assets/.bresilla/bresilla.mp4
 bindsym $mod+Shift+s exec bash ~/.i3/blurlock; exec xset -dpms s off
+bindsym $mod+Shift+t exec "killall syndaemon"; "syndaemon -i 0.2 -K -d";
 
 exec "xautolock -time 55555 -locker ~/.i3/blurlock"
 exec_always ~/.i3/keyring
@@ -234,23 +236,23 @@ for_window [class="mpv"] sticky enable
 ############################################################################################################
 #											SCRATCHPAD
 ############################################################################################################
-set $term1 urxvt -name term1 -fn "xft:Noto Mono for Powerline:size=14" -e tmuxp load ~/.tmux/term1.yaml -y
-for_window [instance="term1"] floating enable
-for_window [instance="term1"] resize set 1920 700
-for_window [instance="term1"] move position center
-for_window [instance="term1"] move scratchpad
-for_window [instance="term1"] border pixel 0
-bindsym $mod+$alt+$crcum exec $term1;
-bindsym $crcum [instance="term1"] scratchpad show; move position center
+set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=14" -e tmuxp load ~/.tmux/term.yaml -y
+for_window [instance="term"] floating enable
+for_window [instance="term"] resize set 1920 700
+for_window [instance="term"] move position center
+for_window [instance="term"] move scratchpad
+for_window [instance="term"] border pixel 0
+bindsym $mod+$alt+$crcum exec $term;
+bindsym $crcum [instance="term"] scratchpad show; move position center
 
-set $term2 urxvt -name term2 -fn "xft:Noto Mono for Powerline:size=14"  -e tmuxp load ~/.tmux/term2.yaml -y
-for_window [instance="term2"] floating enable
-for_window [instance="term2"] resize set 1920 700
-for_window [instance="term2"] move position center
-for_window [instance="term2"] move scratchpad
-for_window [instance="term2"] border pixel 0
-bindsym $mod+$alt+$acute exec $term2;
-bindsym $acute [instance="term2"] scratchpad show; move position center
+set $note urxvt -name note -fn "xft:Noto Mono for Powerline:size=14"  -e tmuxp load ~/.tmux/note.yaml -y
+for_window [instance="note"] floating enable
+for_window [instance="note"] resize set 1920 700
+for_window [instance="note"] move position center
+for_window [instance="note"] move scratchpad
+for_window [instance="note"] border pixel 0
+bindsym $mod+$alt+$acute exec $note;
+bindsym $acute [instance="note"] scratchpad show; move position center
 
 
 

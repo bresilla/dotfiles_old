@@ -11,3 +11,8 @@ distract(){
 	echo "" >> ~/Dots/.assets/.notes/distracted.wiki
     fi
 }
+
+
+wiki(){
+	vim ~/Dots/.assets/.notes/index.wiki
+}
