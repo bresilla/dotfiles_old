@@ -7,6 +7,7 @@ export PATH=/home/trim/.scripts:$PATH
 ###MODULES
 source ~/.scripts/texas
 source ~/.scripts/jump
+source ~/.zsh/snap.sh
 
 ###FUNCTIONS
 for file in ~/.func/*; do

@@ -23,19 +23,24 @@ windows:
       - clear
   start_directory: /home/trim
   window_name: term2
+- layout: 8a06,348x38,0,0{174x38,0,0,8,173x38,175,0,10}
+  options:
+    automatic-rename: 'off'
+  panes:
+  - shell_command:
+      - clear
+  start_directory: /home/trim
+  window_name: term3
 - layout: bb0c,149x40,0,0{49x40,0,0,2,49x40,50,0,4,49x40,100,0,6}
   options:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
-    shell_command: 
-      - bash
+    shell_command:
       - clear
-  - shell_command: 
-      - bash
+  - shell_command:
       - clear
-  - shell_command: 
-      - bash
+  - shell_command:
       - clear
   start_directory: /home/trim
-  window_name: term3
+  window_name: term4

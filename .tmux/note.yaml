@@ -6,7 +6,7 @@ windows:
     automatic-rename: 'off'
   panes:
   - shell_command:
-      - wiki
+      - distract
   start_directory: /home/trim
   window_name: term1
 - layout: 8a06,348x38,0,0{174x38,0,0,8,173x38,175,0,10}
@@ -14,7 +14,7 @@ windows:
     automatic-rename: 'off'
   panes:
   - shell_command:
-      - distract
+      - wiki
   start_directory: /home/trim
   window_name: term1
 

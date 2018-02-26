@@ -1,5 +1,3 @@
-# Reference for colors: http://stackoverflow.com/questions/689765/how-can-i-change-the-color-of-my-prompt-in-zsh-different-from-normal-text
-
 autoload -U colors && colors
 
 setopt PROMPT_SUBST

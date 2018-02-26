@@ -1,19 +1,4 @@
 ranger shortcuts
-
-
 i3wm modes
 
-
-tmux shortcuts for vim
-
-
-
-latex vim autocorrection plugin
-
-
-notetaking aproach
-
-
-bash and zsh terminal together - while one used for notes
-
-
+cli dictionary

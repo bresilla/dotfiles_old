@@ -7,8 +7,6 @@ distract(){
         vim ~/Dots/.assets/.notes/distracted.wiki
     else
     echo $* >> ~/Dots/.assets/.notes/distracted.wiki
-	echo "" >> ~/Dots/.assets/.notes/distracted.wiki
-	echo "" >> ~/Dots/.assets/.notes/distracted.wiki
     fi
 }
 

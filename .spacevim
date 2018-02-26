@@ -4,12 +4,15 @@ syntax on
 let mapleader = "\<Space>"
 set encoding=utf8
 set guifont=Fira\ Code\ 11
+set laststatus=2
+
 
 function! UserInit()
   Plug 'junegunn/seoul256.vim'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'vim-airline/vim-airline'
   Plug 'edkolev/tmuxline.vim'
+  Plug 'edkolev/promptline.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
   Plug 'scrooloose/syntastic'
@@ -28,6 +31,9 @@ function! UserInit()
   Plug 'francoiscabrol/ranger.vim'
   Plug 'rbgrouleff/bclose.vim'
 
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+  Plug 'rhysd/vim-grammarous'
   Plug 'vimwiki/vimwiki'
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -56,8 +62,8 @@ augroup markdown
   autocmd!
   autocmd FileType markdown,tex,wiki AutoSaveToggle
   autocmd FileType markdown,tex,wiki Pencil
+  autocmd FileType markdown,tex,wiki set spelllang=en_gb spell
 augroup END
-
 
 function! UserConfig()
   hi Normal guibg=NONE ctermbg=NONE
@@ -75,9 +81,7 @@ endfunction
 
 map <C-n> :NERDTreeToggle<CR>
 
-
 let g:vimwiki_list = [{'path': '~/Dots/.assets/.notes/', 'syntax': 'markdown', 'ext': '.wiki'}]
-
 
 let g:ycm_complete_in_comments=1
 let g:ycm_confirm_extra_conf=0
