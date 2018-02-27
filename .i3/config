@@ -290,7 +290,7 @@ exec xrdb -load ~/.Xdefaults
 ############################################################################################################
 #											APPS KEYBINDING 			-- MOD + CTRL
 ############################################################################################################
-bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=18" -	e tmux
+bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=18" -e tmux
 bindsym $alt+Return exec sakura -f "Cousine for Powerline 18" -x tmux 
 
 bindsym $alg+Return exec "nautilus --new-window"

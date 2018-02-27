@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 ###FUNCTION PATH
 export FPATH=~/.zsh:$FPATH
 export PATH=~/.i3:$PATH
