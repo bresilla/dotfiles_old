@@ -45,8 +45,8 @@ exec "xautolock -time 55555 -locker ~/.i3/blurlock"
 exec_always ~/.i3/keyring
 exec_always /usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
 exec_always bash ~/.i3/polybar/launch
-exec bash ~/.i3/wall ~/.assets/.bresilla/wallpapers/ 60
-
+#exec bash ~/.i3/wall ~/.assets/.bresilla/wallpapers/ 60
+exec_always feh --bg-fill /home/trim/Dots/.assets/.wallpapers/character/wallhaven-575332.jpg
 
 
 ############################################################################################################
@@ -197,21 +197,16 @@ bindsym $mod+Tab workspace back_and_forth
 ############################################################################################################
 #											MONITORS
 ############################################################################################################
-#set $monitor1 eDP-1-1
-#set $monitor2 DP-1-1
-#set $projector VGA-1
-
 set $monitor1 eDP-1-1
-set $monitor2 DP-1-2
-set $monitor3 HDMI-1-1
+set $monitor2 DP-1-1
+set $projector VGA-1
 
-#exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 1920x0 --output $monitor2 --mode 1920x1080 --pos 0x0
-exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x1050 --output $monitor3 --mode 1680x1050 --pos 1904x0 --output $monitor2 --mode 1680x1050 --pos 224x0
+exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 1920x0 --output $monitor2 --mode 1920x1080 --pos 0x0
 
 workspace $workspace1 output $monitor2
 workspace $workspace2 output $monitor2
-workspace $workspace3 output $monitor3
-workspace $workspace4 output $monitor3
+workspace $workspace3 output $monitor2
+workspace $workspace4 output $monitor2
 workspace $workspace5 output $monitor1
 workspace $workspace6 output $monitor1
 workspace $workspace7 output $monitor1
@@ -245,7 +240,7 @@ for_window [class="mpv"] sticky enable
 ############################################################################################################
 set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/term.yaml -y
 for_window [instance="term"] floating enable
-for_window [instance="term"] resize set 1680 700
+for_window [instance="term"] resize set 1920 780
 for_window [instance="term"] move position center
 for_window [instance="term"] move scratchpad
 for_window [instance="term"] border pixel 0
@@ -255,7 +250,7 @@ bindsym $crcum [instance="term"] scratchpad show; move position center
 
 set $note urxvt -name note -fn "xft:Noto Mono for Powerline:size=12"  -e tmuxp load ~/.tmux/note.yaml -y
 for_window [instance="note"] floating enable
-for_window [instance="note"] resize set 1680 700
+for_window [instance="note"] resize set 1920 780
 for_window [instance="note"] move position center
 for_window [instance="note"] move scratchpad
 for_window [instance="note"] border pixel 0
@@ -290,7 +285,8 @@ exec xrdb -load ~/.Xdefaults
 ############################################################################################################
 #											APPS KEYBINDING 			-- MOD + CTRL
 ############################################################################################################
-bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=18" -e tmux
+#bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=18" -e tmux
+bindsym $mod+Return exec sakura -f "Cousine for Powerline 18" -x tmux 
 bindsym $alt+Return exec sakura -f "Cousine for Powerline 18" -x tmux 
 
 bindsym $alg+Return exec "nautilus --new-window"

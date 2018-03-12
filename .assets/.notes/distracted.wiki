@@ -1,4 +1,1 @@
-ranger shortcuts
-i3wm modes
-
-cli dictionary
+i3 compton transparency

@@ -18,7 +18,7 @@ done
 source ~/.antigen/antigen.zsh
 source ~/.zsh/texas_init.zsh
 source ~/.zsh/autosuggestions.zsh
-source ~/.zsh/snap.sh
+source ~/.zsh/theme.sh
 
 
 ###CUDA

@@ -5,7 +5,7 @@ let mapleader = "\<Space>"
 set encoding=utf8
 set guifont=Fira\ Code\ 11
 set laststatus=2
-
+set viminfo=""
 
 function! UserInit()
   Plug 'junegunn/seoul256.vim'
@@ -68,7 +68,7 @@ augroup END
 function! UserConfig()
   hi Normal guibg=NONE ctermbg=NONE
   let g:airline_powerline_fonts=1
-  let g:airline_theme='bubblegum'
+  let g:airline_theme='jellybeans'
   if has('termguicolors')
     set termguicolors
     if g:spacevim_tmux
