@@ -1,6 +1,6 @@
 #!/bin/bash
-selected=$(echo "$HOME/Dots/.Xdefaults
-$HOME/Dots/.i3/config
+selected=$(echo "$HOME/Dots/.i3/config
+$HOME/Dots/.Xdefaults
 $HOME/Dots/.i3/polybar/config
 $HOME/Dots/.i3/compton/.compton.conf
 $HOME/Dots/.i3/rofi/rofi.rasi

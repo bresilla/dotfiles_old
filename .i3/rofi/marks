@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#BROWSER="firefox"
+BROWSER="firefox-trunk"
+
+function openBookmark()
+{
+    output=$(cat $HOME/Dots/.assets/.notes/bookmarks.wiki | rofi -dmenu -i -p 'bookmarks: ')
+    choice=$?
+    # return if a special keycombo was pressed
+    [ $choice -ne 0 ] && return $choice
+    # extract url and open it in the specified browser
+    url=$(echo $output | awk -F '|' '{printf("%s ", $NF)}' | tr -d '\r\n')
+    if [ ${#url} -gt 0 ]
+    then
+        $BROWSER $url
+    fi
+}
+
+choice=10
+while [ $choice -ne 0 ]
+do
+  case "$choice" in
+    1)
+      exit 0
+      ;;
+    10)
+      openBookmark
+      choice=$?
+      ;;
+  esac
+done
+

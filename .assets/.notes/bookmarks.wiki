@@ -1,1 +1,3 @@
-bresilla    http://www.bresilla.com     ;;
+https://www.youtube.com/feed/subscriptions
+https://classroom.udacity.com/
+https://www.github.com/bresilla

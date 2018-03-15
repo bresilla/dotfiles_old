@@ -11,7 +11,6 @@ exec_always synclient PalmDetect=1
 exec_always synclient PalmMinWidth=4
 exec_always synclient PalmMinZ=50 
 
-
 set $mod mod4
 set $alt mod1
 set $esc Escape
@@ -35,18 +34,18 @@ gaps inner 15
 gaps outer 5
 floating_modifier $mod
 
+exec_always bash ~/.i3/polybar/launch
+exec_always feh --bg-fill /home/trim/Dots/.assets/.wallpapers/character/wallhaven-575332.jpg
+exec_always sysclient PalmDetect=1
+#exec_always syndaemon -i 0.2 -K -d
+exec xautolock -time 55555 -locker ~/.i3/blurlock
+#exec bash ~/.i3/wall ~/.assets/.bresilla/wallpapers/ 60
+
 bindsym $mod+Shift+r exec "xrdb -load ~/.Xdefaults"; reload; restart;
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b '  E X I T  ' 'i3-msg exit'"
 bindsym $mod+Shift+b exec mplayer ~/.assets/.bresilla/bresilla.mp4
 bindsym $mod+Shift+s exec bash ~/.i3/blurlock; exec xset -dpms s off
-bindsym $mod+Shift+t exec "killall syndaemon"; "syndaemon -i 0.2 -K -d";
 
-exec "xautolock -time 55555 -locker ~/.i3/blurlock"
-exec_always ~/.i3/keyring
-exec_always /usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
-exec_always bash ~/.i3/polybar/launch
-#exec bash ~/.i3/wall ~/.assets/.bresilla/wallpapers/ 60
-exec_always feh --bg-fill /home/trim/Dots/.assets/.wallpapers/character/wallhaven-575332.jpg
 
 
 ############################################################################################################
@@ -76,22 +75,6 @@ set $black				#000000
 set $grey				#373B41
 set $white				#FFFFFF
 set $red				#F10F09
-
-
-
-############################################################################################################
-#											ACCENT
-############################################################################################################
-bindsym $mod+$alt+1 exec "bash ~/.i3/accent fec200"
-bindsym $mod+$alt+2 exec "bash ~/.i3/accent 00ff83"
-bindsym $mod+$alt+3 exec "bash ~/.i3/accent 00afff"
-bindsym $mod+$alt+4 exec "bash ~/.i3/accent ff2c74"
-bindsym $mod+$alt+5 exec "bash ~/.i3/accent 00ffff"
-bindsym $mod+$alt+6 exec "bash ~/.i3/accent d972ff"
-bindsym $mod+$alt+7 exec "bash ~/.i3/accent dee682"
-bindsym $mod+$alt+8 exec "bash ~/.i3/accent ea6131"
-bindsym $mod+$alt+9 exec "bash ~/.i3/accent f98a4b"
-bindsym $mod+$alt+0 exec "bash ~/.i3/accent ffffff"
 
 
 
@@ -283,7 +266,7 @@ exec xrdb -load ~/.Xdefaults
 
 
 ############################################################################################################
-#											APPS KEYBINDING 			-- MOD + CTRL
+#											KEYBINDING 					-- MOD + CTRL
 ############################################################################################################
 #bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=18" -e tmux
 bindsym $mod+Return exec sakura -f "Cousine for Powerline 18" -x tmux 
@@ -293,25 +276,29 @@ bindsym $alg+Return exec "nautilus --new-window"
 bindsym $ctr+Return exec "nautilus --new-window"
 
 bindsym $mod+$ctl+c exec flameshot gui
-bindsym $mod+$ctl+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 bindsym $mod+$ctl+k exec bash ~/.i3/keyscreen
 bindsym $mod+$ctl+r exec bash ~/.i3/recordscreen
 bindsym $mod+$ctl+s exec ~/.i3/synchange
+bindsym $mod+$ctl+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
+bindsym $mod+$ctl+w exec gksudo systemctl restart network-manager
 
 
 
 ############################################################################################################
 #											LAUNCHER					-- MOD + ALT
 ############################################################################################################
-bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
 bindsym $mod+space exec "rofi -modi 'run,drun' -show drun"
-bindsym $mod+$alt+space exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
+bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
+
+bindsym $mod+$alt+$esc exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
 bindsym $mod+$alt+BackSpace exec "locate home media | rofi -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open"
 bindsym $mod+$alt+Return exec "surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')"
-bindsym $mod+$alt+p exec "surfraw -browser=firefox-trunk $(cat ~/Dots/.assets/.notes/bookmarks.wiki | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | rofi -dmenu -i -p 'bookmarks: ')"
+bindsym $mod+$alt+space exec "bash ~/.i3/rofi/marks"
 
 bindsym $mod+$alt+c exec "bash ~/.i3/rofi/confs"
 bindsym $mod+$alt+s exec "bash ~/.i3/rofi/lists script /home/trim/Dots/.scripts"
+bindsym $mod+$alt+f exec "bash ~/.i3/rofi/lists function /home/trim/Dots/.func"
+bindsym $mod+$alt+t exec "bash ~/.i3/rofi/lists tmux /home/trim/Dots/.tmux"
 bindsym $mod+$alt+a exec "bash ~/.i3/rofi/lists app /home/trim/Dots/.assets/.apps"
 bindsym $mod+$alt+n exec "bash ~/.i3/rofi/lists note /home/trim/Dots/.assets/.notes"
-bindsym $mod+$alt+f exec "bash ~/.i3/rofi/lists function /home/trim/Dots/.func"
+bindsym $mod+$alt+i exec "bash ~/.i3/rofi/lists i3 /home/trim/Dots/.i3"
