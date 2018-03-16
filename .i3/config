@@ -221,7 +221,7 @@ for_window [class="mpv"] sticky enable
 ############################################################################################################
 #											SCRATCHPAD
 ############################################################################################################
-set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/term.yaml -y
+set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/3by2.yaml -y
 for_window [instance="term"] floating enable
 for_window [instance="term"] resize set 1920 780
 for_window [instance="term"] move position center
@@ -268,9 +268,9 @@ exec xrdb -load ~/.Xdefaults
 ############################################################################################################
 #											KEYBINDING 					-- MOD + CTRL
 ############################################################################################################
-#bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=18" -e tmux
-bindsym $mod+Return exec sakura -f "Cousine for Powerline 18" -x tmux 
-bindsym $alt+Return exec sakura -f "Cousine for Powerline 18" -x tmux 
+bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=14" -e tmux
+#bindsym $mod+Return exec sakura -f "Cousine for Powerline 14" -x tmux 
+bindsym $alt+Return exec sakura -f "Cousine for Powerline 14" -x tmux 
 
 bindsym $alg+Return exec "nautilus --new-window"
 bindsym $ctr+Return exec "nautilus --new-window"
@@ -302,3 +302,4 @@ bindsym $mod+$alt+t exec "bash ~/.i3/rofi/lists tmux /home/trim/Dots/.tmux"
 bindsym $mod+$alt+a exec "bash ~/.i3/rofi/lists app /home/trim/Dots/.assets/.apps"
 bindsym $mod+$alt+n exec "bash ~/.i3/rofi/lists note /home/trim/Dots/.assets/.notes"
 bindsym $mod+$alt+i exec "bash ~/.i3/rofi/lists i3 /home/trim/Dots/.i3"
+bindsym $mod+$alt+r exec "bash ~/.i3/rofi/lists rofi /home/trim/Dots/.i3/rofi"

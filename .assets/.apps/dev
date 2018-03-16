@@ -22,6 +22,8 @@ nodejs
 dotnet-sdk-2.0.0
 
 
+rosbash
+
 python-wstool
 python-catkin-tools
 python-rosinstall-generator

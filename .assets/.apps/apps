@@ -29,9 +29,7 @@ enpass
 spotify-client
 uget
 tilix
-terminator
 code
-font-manager
 pandoc
 entr
 zathura
@@ -52,3 +50,4 @@ blueman
 flameshot
 surfraw
 syclient
+rxvt-unicode-256color
