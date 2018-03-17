@@ -206,6 +206,7 @@ assign [class="Nightly"] $workspace6
 assign [class="Firefox"] $workspace2
 assign [class="Code"] $workspace8
 assign [class="gazeb"] $workspace9
+assign [class="rviz"] $workspace9
 assign [class="QGroundControl"] $workspace9
 assign [class="obs"] $workspace7
 assign [class="MPlayer"] $workspace5

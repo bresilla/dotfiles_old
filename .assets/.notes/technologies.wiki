@@ -1,4 +1,3 @@
-# IPFS - Interplanetary File System
-
-# BLOCKCHAIN - Peer-to-peer ledger technology
-
+# Interplanetary File System
+# BLOCKCHAIN
+# QUANTUM COPMUTING
