@@ -277,9 +277,8 @@ bindsym $alg+Return exec "nautilus --new-window"
 bindsym $ctr+Return exec "nautilus --new-window"
 
 bindsym $mod+$ctl+c exec flameshot gui
-bindsym $mod+$ctl+k exec bash ~/.i3/keyscreen
-bindsym $mod+$ctl+r exec bash ~/.i3/recordscreen
-bindsym $mod+$ctl+s exec ~/.i3/synchange
+bindsym $mod+$ctl+k exec bash ~/.scripts/keyscreen
+bindsym $mod+$ctl+r exec bash ~/.scripts/recordscreen
 bindsym $mod+$ctl+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 bindsym $mod+$ctl+w exec gksudo systemctl restart network-manager
 

@@ -1,0 +1,15 @@
+#!/bin/bash
+# Usage: video2gif video_file (scale) (fps)
+
+if [ -z "$1" ]; then
+	echo "usage: video2gif (input) or video2gif (input) (scale)"
+	exit 1
+fi
+
+if [ -z "$2" ]; then
+	scale=''
+else
+	scale="-vf scale=$2:-1"
+fi
+
+ffmpeg -i "$1" $scale -r 10 -f image2pipe -vcodec ppm - | convert -delay 5 -loop 0 - gif:- | convert -layers Optimize - "$1".gif

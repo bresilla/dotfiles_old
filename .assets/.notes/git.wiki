@@ -1,7 +1,6 @@
-
 #How to read last commit comment?
 
-###Run this command once:
+####Run this command once:
     git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 
 ####so that when you then run you get a nice readout.:

@@ -1,2 +1,0 @@
-#!/bin/bash
-rsync -a -r -t -v --exclude={.git,.gitignore,README.md} --progress -s $HOME/Dots/ $HOME

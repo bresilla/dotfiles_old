@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if pgrep onchange &>/dev/null; then
-	pkill onchange
-else
-	exec ~/.scripts/onchange bash ~/.scripts/syncit
-fi

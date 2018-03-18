@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ -z $1 && -z $2 ]]; then
+	echo "usage: syncto (input_dir) (output_dir)"
+	exit -1
+fi
+
+exec ~/.scripts/onchange rsync -a -r -t -v --exclude={.git,.gitignore,README.md} --progress -s "$1"/ "$2"
