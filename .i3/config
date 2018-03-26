@@ -249,7 +249,6 @@ bindsym $acute [instance="note"] scratchpad show; move position center
 ############################################################################################################
 exec --no-startup-id compton --config ~/.i3/compton/.compton.conf
 exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.0:0.8
-exec bash ~/.i3/synchange
 
 exec --no-startup-id pulseaudio
 exec --no-startup-id playerctl
@@ -291,7 +290,7 @@ bindsym $mod+space exec "rofi -modi 'run,drun' -show drun"
 bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
 
 bindsym $mod+$alt+$esc exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
-bindsym $mod+$alt+BackSpace exec "locate home media | rofi -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open"
+bindsym $mod+$alt+BackSpace exec "locate media | rofi -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open"
 bindsym $mod+$alt+Return exec "surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')"
 bindsym $mod+$alt+space exec "bash ~/.i3/rofi/marks"
 

@@ -1,0 +1,13 @@
+##GIT
+###How to read last commit comment?
+    git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+    git lg
+    
+    
+##INOTIFY    
+####Increase number of watches
+	echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+	
+#HOTSPOTS AND METWORK
+    gksu nm-connection-editor
+    sudo systemctl restart network-manager

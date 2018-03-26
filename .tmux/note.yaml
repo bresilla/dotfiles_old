@@ -19,7 +19,7 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-      - bash ~/.scripts/syncto /home/trim/Dots /media/trim/indrive/Dots
+      - clear
   - shell_command:
       - bash ~/.scripts/syncto /home/trim/Dots /home/trim
   start_directory: /home/trim

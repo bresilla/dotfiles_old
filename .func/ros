@@ -1,22 +1,19 @@
-touchmod(){
-	touch "$1" && 
-	chmod u+x "$1"
-}
 setdir(){
 	export $1=`pwd`
 }
-rospath(){
-	unmark rospath && 
-	mark rospath
+
+ros_mark(){
+	sudo rm -r /home/trim/.marks/ros_mark && 
+	mark ros_mark
 }
 
-ros_goto(){
-	jump rospath
+ros_path(){
+	jump ros_mark
 }
 
 ros_source(){
 	source /opt/ros/kinetic/setup.zsh && 
-	ros_goto && 
+	ros_path && 
 	source devel/setup.zsh && 
 	cd ~
 }
@@ -34,30 +31,31 @@ ros_create(){
 
 ros_build(){
 	setdir this && 
-	ros_goto && 
+	ros_path && 
 	catkin_make && 
 	$this
 }
 
 ros_depend(){
-	ros_goto && 
+	ros_path && 
 	rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
 }
 
 ros_makepack(){
-	ros_goto && 
+	ros_path && 
 	cd src && 
 	catkin_create_pkg "$1" && 
 	mkdir "$1"/src/ && 
-	touchmod "$1"/src/"$1" && 
+	touch "$1"/src/"$1" && 
+	chmod u+x "$1"/src/"$1" && 
 	echo '#!/usr/bin/env python' >> "$1"/src/"$1"
 }
 
-ros_getpack(){
-	ros_goto && 
+ros_gitpack(){
+	ros_path && 
 	cd src && 
 	git clone $1 &&
-	ros_goto
+	ros_path
 }
 
 

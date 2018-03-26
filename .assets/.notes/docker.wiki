@@ -1,0 +1,2 @@
+docker pull nvidia/cuda
+docker pull nvidia/digits

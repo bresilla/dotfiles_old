@@ -1,5 +1,5 @@
-addto(){
-	echo $2 >> ~/Dots/.assets/.apps/$1
+echoto(){
+	echo $2 >> ~/Dots/.assets/.notes/$1.wiki
 }
 
 distract(){
