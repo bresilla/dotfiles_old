@@ -1,2 +1,14 @@
 docker pull nvidia/cuda
 docker pull nvidia/digits
+docker pull nvidia/caffe
+docker pull tensorflow/tensorflow:latest-gpu
+
+
+
+
+
+
+
+
+#no internet on containers
+dns=dnsmasq on /etc/NetworkManager/NetworkManager.conf should be commented out #dns=dnsmasq

@@ -1,13 +1,16 @@
 #!/bin/bash
 
+#RECDIR=/home/trim/Videos
+RECDIR=/media/trim/indrive/Casts
+
 if pgrep ffmpeg &>/dev/null; then
 	pkill ffmpeg
 else
-	while [[ -f $HOME/Videos/screencast$n.mkv ]]
+	while [[ -f $RECDIR/screencast$n.mkv ]]
 	do
 		n=$((n+1))
 	done
-	filename="$HOME/Videos/screencast$n.mkv"
+	filename="$RECDIR/screencast$n.mkv"
 
 	ffmpeg -y \
 	-f x11grab \

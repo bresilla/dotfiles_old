@@ -35,7 +35,7 @@ gaps outer 5
 floating_modifier $mod
 
 exec_always bash ~/.i3/polybar/launch
-exec_always feh --bg-fill /home/trim/Dots/.assets/.wallpapers/character/wallhaven-575332.jpg
+exec_always feh --bg-fill /home/trim/Dots/.assets/.wallpapers/fractal/wallhaven-123127.jpg
 exec_always sysclient PalmDetect=1
 #exec_always syndaemon -i 0.2 -K -d
 exec xautolock -time 55555 -locker ~/.i3/blurlock
@@ -268,9 +268,9 @@ exec xrdb -load ~/.Xdefaults
 ############################################################################################################
 #											KEYBINDING 					-- MOD + CTRL
 ############################################################################################################
-bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=14" -e tmux
-#bindsym $mod+Return exec sakura -f "Cousine for Powerline 14" -x tmux 
-bindsym $alt+Return exec sakura -f "Cousine for Powerline 14" -x tmux 
+bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
+#bindsym $mod+Return exec sakura -f "Cousine for Powerline 16" -x tmux 
+bindsym $alt+Return exec sakura -f "Cousine for Powerline 16" -x tmux 
 
 bindsym $alg+Return exec "nautilus --new-window"
 bindsym $ctr+Return exec "nautilus --new-window"
@@ -298,7 +298,6 @@ bindsym $mod+$alt+c exec "bash ~/.i3/rofi/confs"
 bindsym $mod+$alt+s exec "bash ~/.i3/rofi/lists script /home/trim/Dots/.scripts"
 bindsym $mod+$alt+f exec "bash ~/.i3/rofi/lists function /home/trim/Dots/.func"
 bindsym $mod+$alt+t exec "bash ~/.i3/rofi/lists tmux /home/trim/Dots/.tmux"
-bindsym $mod+$alt+a exec "bash ~/.i3/rofi/lists app /home/trim/Dots/.assets/.apps"
 bindsym $mod+$alt+n exec "bash ~/.i3/rofi/lists note /home/trim/Dots/.assets/.notes"
 bindsym $mod+$alt+i exec "bash ~/.i3/rofi/lists i3 /home/trim/Dots/.i3"
 bindsym $mod+$alt+r exec "bash ~/.i3/rofi/lists rofi /home/trim/Dots/.i3/rofi"

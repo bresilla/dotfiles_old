@@ -9,6 +9,7 @@ $HOME/Dots/.config/ranger/rc.conf
 $HOME/Dots/.config/ranger/rifle.conf
 $HOME/Dots/.zshrc
 $HOME/Dots/.bashrc
+$HOME/Dots/.tmux.conf
 $HOME/Dots/.spacevim
 $HOME/Dots/.alias" | rofi -dmenu -p "config: ")
 [[ -z $selected ]] && exit

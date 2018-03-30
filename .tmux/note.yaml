@@ -1,7 +1,7 @@
 session_name: note
 windows:
 - focus: 'true'
-  layout: 0fda,173x39,0,0{86x39,0,0,14,86x39,87,0,15}
+  layout: 5f1a,173x39,0,0{60x39,0,0,1,112x39,61,0,2}
   options:
     automatic-rename: 'off'
   panes:
@@ -12,7 +12,6 @@ windows:
       - wiki
   start_directory: /home/trim
   window_name: sync
-  
 - layout: 0fda,173x39,0,0{86x39,0,0,14,86x39,87,0,15}
   options:
     automatic-rename: 'off'

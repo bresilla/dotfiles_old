@@ -1,43 +1,43 @@
 session_name: 4by2
 windows:
 - focus: 'true'
-  layout: 6f6b,379x106,0,0[379x53,0,0{94x53,0,0,1,94x53,95,0,5,94x53,190,0,4,94x53,285,0,6},379x52,0,54{94x52,0,54,3,94x52,95,54,8,94x52,190,54,7,94x52,285,54,9}]
+  layout: 8a06,348x38,0,0{174x38,0,0,8,173x38,175,0,10}
+  options:
+    automatic-rename: 'off'
+  panes:
+  - shell_command:
+      - texas
+      - clear
+  start_directory: /home/trim
+  window_name: term1
+- layout: 6f6b,379x106,0,0[379x53,0,0{94x53,0,0,1,94x53,95,0,5,94x53,190,0,4,94x53,285,0,6},379x52,0,54{94x52,0,54,3,94x52,95,54,8,94x52,190,54,7,94x52,285,54,9}]
   options:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
     shell_command: 
-      - gotoros
-      - sourceros
+      - ros_source
       - clear
   - shell_command: 
-      - gotoros
-      - sourceros
+      - ros_source
       - clear
   - shell_command: 
-      - gotoros
-      - sourceros
+      - ros_source
       - clear
   - shell_command: 
-      - gotoros
-      - sourceros
+      - ros_source
       - clear
   - shell_command: 
-      - gotoros
-      - sourceros
+      - ros_source
       - clear
   - shell_command: 
-      - gotoros
-      - sourceros
+      - ros_source
       - clear
   - shell_command: 
-      - gotoros
-      - sourceros
+      - ros_source
       - clear
   - shell_command: 
-      - gotoros
-      - sourceros
+      - ros_source
       - clear
   start_directory: /home/trim
-  window_name: tmuxp
-
+  window_name: term2

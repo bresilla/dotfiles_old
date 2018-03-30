@@ -1,5 +1,7 @@
 https://www.youtube.com/feed/subscriptions
-https://www.github.com/bresilla
+https://github.com/bresilla?tab=stars
+https://hub.docker.com/u/bresilla/starred/
+https://onedrive.live.com/
 https://classroom.udacity.com/
 https://courses.edx.org/dashboard
 https://www.coursera.org/
