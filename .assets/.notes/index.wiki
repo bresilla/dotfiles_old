@@ -6,3 +6,4 @@
 [bookmarks](bookmarks) - fast acces bookmarks
 [commands](commands) - commands and utilities with helpers
 [paswords](paswords) - serial numbers, paswords atc...
+[robotics](robotics) - ros, gazebo and v-rep info

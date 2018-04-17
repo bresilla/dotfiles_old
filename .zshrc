@@ -24,6 +24,7 @@ source ~/.zsh/theme.sh
 ###CUDA
 export PATH=/usr/local/cuda-9.1/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=/usr/lib/nvidia-390:$LD_LIBReARY_PATH
 
 
 ###GAZEBO

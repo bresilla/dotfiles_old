@@ -34,3 +34,8 @@ source "$BASH_IT"/bash_it.sh
 
 export PATH=/usr/local/cuda-9.1/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64:$LD_LIBRARY_PATH
+
+#export LD_LIBRARY_PATH=/usr/lib/nvidia-390:$LD_LIBReARY_PATH
+
+# ROS and GAZEBO
+export GAZEBO_MODEL_PATH=/home/trim/gazebo/models

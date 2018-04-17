@@ -43,9 +43,11 @@ nodejs
 libvncserver-dev
 libqalculate-dev
 rosbash
+tig
 inxi
 syclient
 
+simplescreenrecorder
 firefox-trunk
 obs-studio
 uget

@@ -35,7 +35,7 @@ gaps outer 5
 floating_modifier $mod
 
 exec_always bash ~/.i3/polybar/launch
-exec_always feh --bg-fill /home/trim/Dots/.assets/.wallpapers/fractal/wallhaven-123127.jpg
+exec_always feh --bg-fill /home/trim/Dots/.assets/.wallpapers/fractal/wallhaven-175271.jpg
 exec_always sysclient PalmDetect=1
 #exec_always syndaemon -i 0.2 -K -d
 exec xautolock -time 55555 -locker ~/.i3/blurlock
@@ -95,10 +95,6 @@ client.urgent				$red		$red		$black		$red
 ############################################################################################################
 ##											WINDOWS
 ############################################################################################################
-bindsym --whole-window $mod+button1 kill
-
-bindsym $mod+Shift+q exec echo kill
-bindsym $mod+q exec echo kill
 bindsym $mod+$esc kill
 bindsym $alt+$esc kill
 
@@ -207,6 +203,7 @@ assign [class="Firefox"] $workspace2
 assign [class="Code"] $workspace8
 assign [class="gazeb"] $workspace9
 assign [class="rviz"] $workspace9
+assign [class="rtabmapviz"] $workspace9
 assign [class="QGroundControl"] $workspace9
 assign [class="obs"] $workspace7
 assign [class="MPlayer"] $workspace5
@@ -222,7 +219,7 @@ for_window [class="mpv"] sticky enable
 ############################################################################################################
 #											SCRATCHPAD
 ############################################################################################################
-set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/3by2.yaml -y
+set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/term.yaml -y
 for_window [instance="term"] floating enable
 for_window [instance="term"] resize set 1920 780
 for_window [instance="term"] move position center
@@ -277,7 +274,6 @@ bindsym $ctr+Return exec "nautilus --new-window"
 
 bindsym $mod+$ctl+c exec flameshot gui
 bindsym $mod+$ctl+k exec bash ~/.scripts/keyscreen
-bindsym $mod+$ctl+r exec bash ~/.scripts/recordscreen
 bindsym $mod+$ctl+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 bindsym $mod+$ctl+w exec gksudo systemctl restart network-manager
 

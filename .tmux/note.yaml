@@ -12,36 +12,32 @@ windows:
       - wiki
   start_directory: /home/trim
   window_name: sync
-- layout: 0fda,173x39,0,0{86x39,0,0,14,86x39,87,0,15}
-  options:
-    automatic-rename: 'off'
-  panes:
-  - focus: 'true'
-    shell_command:
-      - clear
-  - shell_command:
-      - bash ~/.scripts/syncto /home/trim/Dots /home/trim
-  start_directory: /home/trim
-  window_name: sync
-- layout: 8a06,348x38,0,0{174x38,0,0,8,173x38,175,0,10}
-  options:
-    automatic-rename: 'off'
-  panes:
-  - shell_command:
-      - htop
-  start_directory: /home/trim
-  window_name: htop
+
 - layout: bb0c,149x40,0,0{49x40,0,0,2,49x40,50,0,4,49x40,100,0,6}
   options:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
     shell_command:
-      - exit
+      - ls
   - shell_command:
-      - exit
+      - watch -n 10 ls
   - shell_command:
-      - exit
+      - bash ~/.scripts/syncto /home/trim/Dots /home/trim
   start_directory: /home/trim
-  window_name: distract
+  window_name: sync
+
+- layout: 0fda,173x39,0,0{86x39,0,0,14,86x39,87,0,15}
+  options:
+    automatic-rename: 'off'
+  panes:
+  - focus: 'true'
+    shell_command:
+      - sudo iftop
+  - shell_command:
+      - htop
+  start_directory: /home/trim
+  window_name: htop
+  
+
 

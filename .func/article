@@ -1,11 +1,13 @@
-NAME=bibliography.bib
-
-doi_bib(){
-    echo >> $NAME
-    curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex" >> $NAME
-    echo >> $NAME
+doi2bib(){
+    echo >> $BIB
+    curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex" >> $BIB
+    echo >> $BIB
 }
 
 get_doi(){
     pdftotext $1 - | grep -i "doi"
+}
+
+tex2pdf(){
+	ls $1 | entr latexmk -quiet -bibtex -f -pdf $1; latexmk -bibtex -c
 }
