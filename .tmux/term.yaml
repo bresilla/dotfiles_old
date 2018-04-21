@@ -17,21 +17,18 @@ windows:
   - focus: 'true'
     shell_command:
       - ros_source
-      - clear
   - shell_command:
       - ros_source
-      - clear
+      - exit
   - shell_command:
       - ros_source
-      - clear
   - shell_command:
       - ros_source
-      - clear
+      - exit
   - shell_command:
       - ros_source
-      - clear
   - shell_command:
       - ros_source
-      - clear
+      - exit
   start_directory: /home/trim
   window_name: term2

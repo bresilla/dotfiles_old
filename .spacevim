@@ -18,6 +18,7 @@ function! UserInit()
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe'
   Plug 'octol/vim-cpp-enhanced-highlight'
+  Plug 'dbgx/lldb.nvim'
   Plug 'Yggdroot/indentLine'
   Plug 'SirVer/ultisnips'
   Plug 'majutsushi/tagbar'
@@ -34,6 +35,7 @@ function! UserInit()
   Plug 'othree/xml.vim'
   Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
+  Plug 'powerman/vim-plugin-viewdoc'
   Plug 'rhysd/vim-grammarous'
   Plug 'vimwiki/vimwiki'
   Plug 'vim-pandoc/vim-pandoc'
@@ -97,5 +99,13 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+let g:syntastic_cpp_check_header = 1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0

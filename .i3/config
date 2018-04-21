@@ -35,9 +35,9 @@ gaps outer 5
 floating_modifier $mod
 
 exec_always bash ~/.i3/polybar/launch
-exec_always feh --bg-fill /home/trim/Dots/.assets/.wallpapers/fractal/wallhaven-175271.jpg
 exec_always sysclient PalmDetect=1
 #exec_always syndaemon -i 0.2 -K -d
+exec feh --bg-fill /home/trim/Dots/.assets/.wallpapers/.bresilla/000.jpg
 exec xautolock -time 55555 -locker ~/.i3/blurlock
 #exec bash ~/.i3/wall ~/.assets/.bresilla/wallpapers/ 60
 
@@ -135,16 +135,16 @@ bindsym $mod+$alt+Left resize grow width 5 px or 5 ppt
 ############################################################################################################
 #											WORKSPACES
 ############################################################################################################
-set $workspace1 "01: Media"
-set $workspace2 "02: Browse"
-set $workspace3 "03: Explore"
-set $workspace4 "04: Peak"
-set $workspace5 "05: Main"
-set $workspace6 "06: Browse"
-set $workspace7 "07: Explore"
-set $workspace8 "08: Code"
-set $workspace9 "09: Robot"
-set $workspace0 "10: Present"
+set $workspace1 "001"
+set $workspace2 "002"
+set $workspace3 "003"
+set $workspace4 "004"
+set $workspace5 "005"
+set $workspace6 "006"
+set $workspace7 "007"
+set $workspace8 "008"
+set $workspace9 "009"
+set $workspace0 "010"
 
 bindsym $mod+1 workspace $workspace1
 bindsym $mod+2 workspace $workspace2
@@ -180,39 +180,37 @@ set $monitor1 eDP-1-1
 set $monitor2 DP-1-1
 set $projector VGA-1
 
-exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 1920x0 --output $monitor2 --mode 1920x1080 --pos 0x0
+exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
 
-workspace $workspace1 output $monitor2
-workspace $workspace2 output $monitor2
-workspace $workspace3 output $monitor2
-workspace $workspace4 output $monitor2
+workspace $workspace1 output $monitor1
+workspace $workspace2 output $monitor1
+workspace $workspace3 output $monitor1
+workspace $workspace4 output $monitor1
 workspace $workspace5 output $monitor1
-workspace $workspace6 output $monitor1
-workspace $workspace7 output $monitor1
-workspace $workspace8 output $monitor1
-workspace $workspace9 output $monitor1
-workspace $workspace0 output $projector
+workspace $workspace6 output $monitor2
+workspace $workspace7 output $monitor2
+workspace $workspace8 output $monitor2
+workspace $workspace9 output $monitor2
+workspace $workspace0 output $monitor2
 
 
 
 ############################################################################################################
 #											ASSIGNMENTS
 ############################################################################################################
-assign [class="Nightly"] $workspace6
-assign [class="Firefox"] $workspace2
-assign [class="Code"] $workspace8
-assign [class="gazeb"] $workspace9
-assign [class="rviz"] $workspace9
-assign [class="rtabmapviz"] $workspace9
-assign [class="QGroundControl"] $workspace9
-assign [class="obs"] $workspace7
-assign [class="MPlayer"] $workspace5
-assign [class="Gnome-pomodoro"] $workspace1
-assign [class="inkscape"] $workspace6
-assign [class="Inkscape"] $workspace6
+assign [class="Firefox"] $workspace8
+assign [class="Code"] $workspace1
+assign [class="gazeb"] $workspace2
+assign [class="rviz"] $workspace2
+assign [class="rtabmapviz"] $workspace2
+assign [class="QGroundControl"] $workspace2
+assign [class="obs"] $workspace9
+assign [class="MPlayer"] $workspace9
+assign [class="mpv"] $workspace9
+assign [class="Gnome-pomodoro"] $workspace0
 
-for_window [class="mpv"] floating enable
-for_window [class="mpv"] sticky enable
+#for_window [class="mpv"] floating enable
+#for_window [class="mpv"] sticky enable
 
 
 
@@ -248,6 +246,7 @@ exec --no-startup-id compton --config ~/.i3/compton/.compton.conf
 exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.0:0.8
 
 exec --no-startup-id pulseaudio
+exec --no-startup-id variety
 exec --no-startup-id playerctl
 exec --no-startup-id xbacklight
 exec --no-startup-id flameshot
@@ -276,6 +275,9 @@ bindsym $mod+$ctl+c exec flameshot gui
 bindsym $mod+$ctl+k exec bash ~/.scripts/keyscreen
 bindsym $mod+$ctl+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 bindsym $mod+$ctl+w exec gksudo systemctl restart network-manager
+
+bindsym $ctl+space exec echo "cycle pause" > /home/trim/.config/mpv/control
+
 
 
 

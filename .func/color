@@ -1,0 +1,7 @@
+banner(){
+	toilet "$1" | lolcat
+}
+
+wisdom(){
+	fortune | cowsay -f tux | lolcat
+}
