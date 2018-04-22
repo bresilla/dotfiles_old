@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pkill mpv
+clipp=$(xsel --clipboard)
+mpv --ytdl-format='bestvideo[height<=?1080]+bestaudio/best' --input-file /home/trim/.config/mpv/control --pause --speed 1.5 "$clipp"

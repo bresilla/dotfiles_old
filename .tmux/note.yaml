@@ -33,11 +33,22 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-      - sudo iftop
+      - exit
   - shell_command:
       - htop
   start_directory: /home/trim
   window_name: htop
+- layout: 0fda,173x39,0,0{86x39,0,0,14,86x39,87,0,15}
+  options:
+    automatic-rename: 'off'
+  panes:
+  - focus: 'true'
+    shell_command:
+      - dry
+  - shell_command:
+      - exit
+  start_directory: /home/trim
+  window_name: dry
   
 
 

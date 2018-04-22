@@ -1,6 +1,0 @@
-#vlc "$(youtube-dl -g -f 18 $1)" &
-#youtube-dl -q -o- "$*" | mplayer  mplayer -input file=/home/trim/.mplayer/pipe -af scaletempo  -softvol -softvol-max 400  -cache 8192  -
-
-youplay(){
-	mpv --input-file /home/trim/.config/mpv/control "$1"
-}

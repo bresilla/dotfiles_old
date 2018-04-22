@@ -125,10 +125,10 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-bindsym $mod+$alt+Right resize shrink width 5 px or 5 ppt
-bindsym $mod+$alt+Up resize grow height 5 px or 5 ppt
-bindsym $mod+$alt+Down resize shrink height 5 px or 5 ppt
-bindsym $mod+$alt+Left resize grow width 5 px or 5 ppt
+bindsym $alt+Shift+Right resize shrink width 5 px or 5 ppt
+bindsym $alt+Shift+Up resize grow height 5 px or 5 ppt
+bindsym $alt+Shift+Down resize shrink height 5 px or 5 ppt
+bindsym $alt+Shift+Left resize grow width 5 px or 5 ppt
 
 
 
@@ -169,7 +169,14 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
 workspace_auto_back_and_forth yes
+
 bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+$alt+Left workspace prev
+bindsym $mod+$alt+Right workspace next
+
+bindsym Shift+space floating toggle
+bindsym $ctl+space fullscreen toggle
+bindsym $ctl+Shift+space sticky toggle
 
 
 
@@ -186,7 +193,7 @@ workspace $workspace1 output $monitor1
 workspace $workspace2 output $monitor1
 workspace $workspace3 output $monitor1
 workspace $workspace4 output $monitor1
-workspace $workspace5 output $monitor1
+workspace $workspace5 output $monitor2
 workspace $workspace6 output $monitor2
 workspace $workspace7 output $monitor2
 workspace $workspace8 output $monitor2
@@ -208,9 +215,12 @@ assign [class="obs"] $workspace9
 assign [class="MPlayer"] $workspace9
 assign [class="mpv"] $workspace9
 assign [class="Gnome-pomodoro"] $workspace0
+assign [class="Spotify"] $workspace0
 
-#for_window [class="mpv"] floating enable
-#for_window [class="mpv"] sticky enable
+for_window [class="mpv"] floating enable
+for_window [class="mpv"] resize set 1280 720
+for_window [class="mpv"] move position center
+for_window [class="Spotify"] floating enable
 
 
 
@@ -259,7 +269,7 @@ exec xrdb -load ~/.Xdefaults
 #exec_always --no-startup-id blueman-applet
 #exec_always --no-startup-id volti
 
-
+exec --no-startup-id /home/trim/.i3/altlay.py
 
 ############################################################################################################
 #											KEYBINDING 					-- MOD + CTRL
@@ -276,8 +286,8 @@ bindsym $mod+$ctl+k exec bash ~/.scripts/keyscreen
 bindsym $mod+$ctl+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 bindsym $mod+$ctl+w exec gksudo systemctl restart network-manager
 
-bindsym $ctl+space exec echo "cycle pause" > /home/trim/.config/mpv/control
-
+bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
+bindsym $mod+$alt+BackSpace exec bash ~/.scripts/play
 
 
 
@@ -288,7 +298,6 @@ bindsym $mod+space exec "rofi -modi 'run,drun' -show drun"
 bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
 
 bindsym $mod+$alt+$esc exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
-bindsym $mod+$alt+BackSpace exec "locate media | rofi -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open"
 bindsym $mod+$alt+Return exec "surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')"
 bindsym $mod+$alt+space exec "bash ~/.i3/rofi/marks"
 
