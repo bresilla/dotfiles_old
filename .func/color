@@ -5,3 +5,7 @@ banner(){
 wisdom(){
 	fortune | cowsay -f tux | lolcat
 }
+
+matrix(){
+	cmatrix | lolcat
+}

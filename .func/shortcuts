@@ -14,3 +14,7 @@ distract(){
 wiki(){
 	vim ~/Dots/.assets/.notes/index.wiki
 }
+
+weather(){
+	curl wttr.in
+}

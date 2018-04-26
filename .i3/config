@@ -7,10 +7,6 @@ exec_always xmodmap -e "clear lock"
 exec_always xmodmap -e "keycode 66 = Escape"
 exec_always setxkbmap -option caps:escape
 
-exec_always synclient PalmDetect=1
-exec_always synclient PalmMinWidth=4
-exec_always synclient PalmMinZ=50 
-
 set $mod mod4
 set $alt mod1
 set $esc Escape
@@ -28,23 +24,47 @@ set $ü udiaeresis
 
 
 ############################################################################################################
-#											SYSTEM						-- MOD + SHIFT
+#											SETTINGS
 ############################################################################################################
 gaps inner 15
 gaps outer 5
-floating_modifier $mod
+floating_modifier $alt
+workspace_auto_back_and_forth yes
+focus_follows_mouse yes
 
-exec_always bash ~/.i3/polybar/launch
+
+
+
+############################################################################################################
+#											AUTOSTART
+############################################################################################################
 exec_always sysclient PalmDetect=1
+exec_always synclient PalmDetect=1
+exec_always synclient PalmMinWidth=4
+exec_always synclient PalmMinZ=50
 #exec_always syndaemon -i 0.2 -K -d
-exec feh --bg-fill /home/trim/Dots/.assets/.wallpapers/.bresilla/000.jpg
-exec xautolock -time 55555 -locker ~/.i3/blurlock
-#exec bash ~/.i3/wall ~/.assets/.bresilla/wallpapers/ 60
+exec_always bash ~/.i3/polybar/launch
+exec --no-startup-id compton --config ~/.i3/compton/.compton.conf
+exec --no-startup-id udisksctl mount -b /dev/sda2
+exec xrdb -load ~/.Xdefaults
 
-bindsym $mod+Shift+r exec "xrdb -load ~/.Xdefaults"; reload; restart;
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b '  E X I T  ' 'i3-msg exit'"
-bindsym $mod+Shift+b exec mplayer ~/.assets/.bresilla/bresilla.mp4
-bindsym $mod+Shift+s exec bash ~/.i3/blurlock; exec xset -dpms s off
+exec xautolock -time 55555 -locker ~/.i3/blurlock
+exec bash ~/.i3/wall ~/.assets/.bresilla/wallpapers/ 60
+exec feh --bg-fill /home/trim/Dots/.assets/.wallpapers/.bresilla/000.jpg
+
+exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.0:0.8
+exec --no-startup-id /home/trim/.i3/altlay.py
+
+exec --no-startup-id pulseaudio
+exec --no-startup-id variety
+exec --no-startup-id playerctl
+exec --no-startup-id xbacklight
+exec --no-startup-id flameshot
+exec --no-startup-id hass
+#exec_always --no-startup-id nm-applet
+#exec_always --no-startup-id blueman-applet
+#exec_always --no-startup-id volti
+
 
 
 
@@ -65,6 +85,7 @@ bindsym XF86MonBrightnessDown exec light -U 10
 
 
 
+
 ############################################################################################################
 #											FONTS & COLORS
 ############################################################################################################
@@ -75,6 +96,7 @@ set $black				#000000
 set $grey				#373B41
 set $white				#FFFFFF
 set $red				#F10F09
+
 
 
 
@@ -89,6 +111,7 @@ client.focused				$accent		$accent		$black		$accent
 client.focused_inactive		$grey		$grey		$white		$grey
 client.unfocused			$grey		$grey		$white		$grey
 client.urgent				$red		$red		$black		$red
+
 
 
 
@@ -108,27 +131,31 @@ bindsym $mod+k focus left
 bindsym $mod+j focus down
 bindsym $mod+l focus right
 
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+j move up
-bindsym $mod+Shift+l move right
+bindsym $alt+h move left
+bindsym $alt+k move down
+bindsym $alt+j move up
+bindsym $alt+l move right
 
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $alt+Left move left
+bindsym $alt+Down move down
+bindsym $alt+Up move up
+bindsym $alt+Right move right
 
-bindsym $mod+f fullscreen toggle
 bindsym $mod+y split toggle
-
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-bindsym $alt+Shift+Right resize shrink width 5 px or 5 ppt
-bindsym $alt+Shift+Up resize grow height 5 px or 5 ppt
-bindsym $alt+Shift+Down resize shrink height 5 px or 5 ppt
-bindsym $alt+Shift+Left resize grow width 5 px or 5 ppt
+bindsym $alt+Shift+Right resize shrink width 8 px or 8 ppt
+bindsym $alt+Shift+Up resize grow height 8 px or 8 ppt
+bindsym $alt+Shift+Down resize shrink height 8 px or 8 ppt
+bindsym $alt+Shift+Left resize grow width 8 px or 8 ppt
+
+bindsym $mod+Shift+Right resize shrink width 4 px or 4 ppt
+bindsym $mod+Shift+Up resize grow height 4 px or 4 ppt
+bindsym $mod+Shift+Down resize shrink height 4 px or 4 ppt
+bindsym $mod+Shift+Left resize grow width 4 px or 4 ppt
+
 
 
 
@@ -157,18 +184,16 @@ bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace0
 
-bindsym $mod+Shift+1 move container to workspace $workspace1
-bindsym $mod+Shift+2 move container to workspace $workspace2
-bindsym $mod+Shift+3 move container to workspace $workspace3
-bindsym $mod+Shift+4 move container to workspace $workspace4
-bindsym $mod+Shift+5 move container to workspace $workspace5
-bindsym $mod+Shift+6 move container to workspace $workspace6
-bindsym $mod+Shift+7 move container to workspace $workspace7
-bindsym $mod+Shift+8 move container to workspace $workspace8
-bindsym $mod+Shift+9 move container to workspace $workspace9
-bindsym $mod+Shift+0 move container to workspace $workspace0
-
-workspace_auto_back_and_forth yes
+bindsym $alt+1 move container to workspace $workspace1; workspace $workspace1
+bindsym $alt+2 move container to workspace $workspace2; workspace $workspace2
+bindsym $alt+3 move container to workspace $workspace3; workspace $workspace3
+bindsym $alt+4 move container to workspace $workspace4; workspace $workspace4
+bindsym $alt+5 move container to workspace $workspace5; workspace $workspace5
+bindsym $alt+6 move container to workspace $workspace6; workspace $workspace6
+bindsym $alt+7 move container to workspace $workspace7; workspace $workspace7
+bindsym $alt+8 move container to workspace $workspace8; workspace $workspace8
+bindsym $alt+9 move container to workspace $workspace9; workspace $workspace9
+bindsym $alt+0 move container to workspace $workspace0; workspace $workspace0
 
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+$alt+Left workspace prev
@@ -177,6 +202,7 @@ bindsym $mod+$alt+Right workspace next
 bindsym Shift+space floating toggle
 bindsym $ctl+space fullscreen toggle
 bindsym $ctl+Shift+space sticky toggle
+
 
 
 
@@ -202,25 +228,27 @@ workspace $workspace0 output $monitor2
 
 
 
+
 ############################################################################################################
 #											ASSIGNMENTS
 ############################################################################################################
 assign [class="Firefox"] $workspace8
-assign [class="Code"] $workspace1
-assign [class="gazeb"] $workspace2
-assign [class="rviz"] $workspace2
-assign [class="rtabmapviz"] $workspace2
-assign [class="QGroundControl"] $workspace2
+assign [class="Code"] $workspace2
+assign [class="gazeb"] $workspace3
+assign [class="rviz"] $workspace3
+assign [class="rtabmapviz"] $workspace3
+assign [class="QGroundControl"] $workspace3
 assign [class="obs"] $workspace9
-assign [class="MPlayer"] $workspace9
-assign [class="mpv"] $workspace9
 assign [class="Gnome-pomodoro"] $workspace0
-assign [class="Spotify"] $workspace0
 
 for_window [class="mpv"] floating enable
-for_window [class="mpv"] resize set 1280 720
+for_window [class="mpv"] resize set 1600 900
 for_window [class="mpv"] move position center
-for_window [class="Spotify"] floating enable
+
+for_window [class="MPlayer"] floating enable
+for_window [class="MPlayer"] resize set 1600 900
+for_window [class="MPlayer"] move position center
+
 
 
 
@@ -247,47 +275,38 @@ exec --no-startup-id $note
 bindsym $mod+$alt+$acute exec $note
 bindsym $acute [instance="note"] scratchpad show; move position center
 
+for_window [class="Spotify"] floating enable
+for_window [class="Spotify"] sticky enable
+for_window [class="Spotify"] resize set 1600 900
+for_window [class="Spotify"] move position center
+for_window [class="Spotify"] move scratchpad
+bindsym $mod+$alt+1 [class="Spotify"] scratchpad show; move position center
+
+
 
 
 ############################################################################################################
-#											APPS AUTOSTARTS
-############################################################################################################
-exec --no-startup-id compton --config ~/.i3/compton/.compton.conf
-exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.0:0.8
-
-exec --no-startup-id pulseaudio
-exec --no-startup-id variety
-exec --no-startup-id playerctl
-exec --no-startup-id xbacklight
-exec --no-startup-id flameshot
-exec --no-startup-id hass
-
-exec --no-startup-id udisksctl mount -b /dev/sda2
-exec xrdb -load ~/.Xdefaults
-
-#exec_always --no-startup-id nm-applet
-#exec_always --no-startup-id blueman-applet
-#exec_always --no-startup-id volti
-
-exec --no-startup-id /home/trim/.i3/altlay.py
-
-############################################################################################################
-#											KEYBINDING 					-- MOD + CTRL
+#											KEYBINDINGS					-- MOD + CTRL     -- ALT + CTRL
 ############################################################################################################
 bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
 #bindsym $mod+Return exec sakura -f "Cousine for Powerline 16" -x tmux 
 bindsym $alt+Return exec sakura -f "Cousine for Powerline 16" -x tmux 
 
+bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
+
 bindsym $alg+Return exec "nautilus --new-window"
 bindsym $ctr+Return exec "nautilus --new-window"
 
-bindsym $mod+$ctl+c exec flameshot gui
 bindsym $mod+$ctl+k exec bash ~/.scripts/keyscreen
 bindsym $mod+$ctl+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 bindsym $mod+$ctl+w exec gksudo systemctl restart network-manager
+bindsym $mod+$ctl+r exec "xrdb -load ~/.Xdefaults"; reload; restart;
+bindsym $mod+$ctl+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b '  E X I T  ' 'i3-msg exit'"
+bindsym $mod+$ctl+l exec bash ~/.i3/blurlock; exec xset -dpms s off
 
-bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
-bindsym $mod+$alt+BackSpace exec bash ~/.scripts/play
+bindsym $alt+$ctl+v exec variety -n
+bindsym $alt+$ctl+c exec flameshot gui
+
 
 
 
@@ -300,6 +319,8 @@ bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
 bindsym $mod+$alt+$esc exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
 bindsym $mod+$alt+Return exec "surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')"
 bindsym $mod+$alt+space exec "bash ~/.i3/rofi/marks"
+
+bindsym $mod+$alt+BackSpace exec bash ~/.scripts/play
 
 bindsym $mod+$alt+c exec "bash ~/.i3/rofi/confs"
 bindsym $mod+$alt+s exec "bash ~/.i3/rofi/lists script /home/trim/Dots/.scripts"

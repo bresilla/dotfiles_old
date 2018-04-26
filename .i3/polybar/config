@@ -1,9 +1,9 @@
 [colors]
-	accent = #189AD3
-	background = 		#BF000000
+	accent = #EBA172
+	background = 		#A5000000
 	background-alt = 	#E6000000
 	foreground = 		#A5ffffff
-	foreground-alt = 	#40ffffffS		
+	foreground-alt = 	#40ffffff
 	;primary = 			${xrdb:accent}
 	primary = 			${self.accent}
 	alert = 			#bd2c40
@@ -30,7 +30,7 @@
 	dpi = 72
 	bottom = false
 	width = 100%
-	height = 36
+	height = 48
 
 	;override-redirect = true
 	offset-x = 0
@@ -50,8 +50,8 @@
 
 	spacing = 1
 	padding-left = 0
-	padding-right = 4
-	module-margin-left = 2
+	padding-right = 8
+	module-margin-left = 4
 	module-margin-right = 4
 
 	font-0 = Bahnschrift:size=12;0
@@ -60,9 +60,9 @@
 	font-3 = unifont:size=14;0
 
 
-	modules-left =  i3 
-	modules-center = mpd spotify
-	modules-right = backlight volume date powermenu
+	modules-left =  i3
+	modules-center = cpu memory
+	modules-right = backlight volume networkspeedup networkspeeddown wlan date battery
 
 	tray-position = right
 	tray-padding = 4
@@ -70,54 +70,6 @@
 	wm-restack = i3
 	scroll-up = i3wm-wsnext
 	scroll-down = i3wm-wsprev
-
-
-
-
-
-
-[bar/bottom]
-	monitor = ${env:MONITOR}
-	monitor-strict = true
-	dpi = 72
-	bottom = true
-	width = 100%
-	height = 36
-
-	;override-redirect = true
-	offset-x = 0
-	offset-y = 0
-
-	;background = ${xrdb:color9}
-	background = ${colors.background}
-	foreground = ${colors.foreground}
-
-	overline-size = 0
-	overline-color = #f00
-	underline-size = 0
-	underline-color = #00f
-
-	border-bottom-size = 0
-	border-bottom-color = ${colors.background}
-
-	spacing = 1
-	padding-left = 2
-	padding-right = 4
-	module-margin-left = 2
-	module-margin-right = 2
-
-	font-0 = Bahnschrift:size=12;0
-	font-1 = MaterialIcons:size=14;0
-	font-2 = FontAwesome:pixelsize=14;-3
-	font-3 = unifont:size=14;0
-
-	modules-left = xwindow
-	modules-center = networkspeedup networkspeeddown wlan
-	modules-right = cpu memory battery
-
-
-	tray-position = right
-	tray-padding = 2
 
 
 
@@ -170,8 +122,9 @@
 	wrapping-scroll = false
 	strip-wsnumbers = false
 	pin-workspaces = true
+	enable-scroll = false
 
-	label-mode-padding = 4
+	label-mode-padding = 8
 	label-mode-foreground = #000
 	label-mode-background = ${colors.primary}
 
@@ -179,33 +132,21 @@
 	label-focused-foreground= ${colors.primary}
 	label-focused-background = ${colors.background-alt}
 	label-focused-underline = ${colors.primary}
-	label-focused-padding = 6
+	label-focused-padding = 10
 
 	label-unfocused = %name%
-	label-unfocused-padding = 4
+	label-unfocused-padding = 8
 
 	label-urgent = %name%
 	label-urgent-foreground= ${colors.alert}
 	label-urgent-background = ${colors.background-alt}
 	label-urgent-underline = ${colors.alert}
-	label-urgent-padding = 4
+	label-urgent-padding = 8
 
 	label-visible = %name%
 	label-visible-background = ${self.label-focused-background}
 	label-visible-underline = ${self.label-focused-underline}
 	label-visible-padding = ${self.label-focused-padding}
-
-	ws-icon-0 = 1;
-	ws-icon-1 = 2;
-	ws-icon-2 = 3;
-	ws-icon-3 = 4;
-	ws-icon-4 = 5;
-	ws-icon-5 = 6;
-	ws-icon-6 = 7;
-	ws-icon-7 = 8;
-	ws-icon-8 = 9;
-	ws-icon-9 = 10;
-
 
 
 
@@ -309,7 +250,7 @@
 	format = <label> <bar-used>
 	label = RAM
 
-	bar-used-width = 30
+	bar-used-width = 16
 	bar-used-foreground-0 = ${colors.primary}
 	bar-used-foreground-1 = ${colors.primary}
 	bar-used-foreground-2 = ${colors.primary}
@@ -399,7 +340,7 @@
 	;format-prefix = 
 	format-prefix-foreground = ${colors.foreground-alt}
 
-	label = %date% %time%
+	label = %time%
 
 
 
@@ -556,9 +497,3 @@
 	type = custom/script
 	exec = ~/.i3/polybar/spotify
 	interval = 2
-	
-	
-[module/pomo]
-	type = custom/script
-	interval = 1
-	exec = ~/.scripts/pomo status
