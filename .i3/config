@@ -23,6 +23,7 @@ set $ü udiaeresis
 
 
 
+
 ############################################################################################################
 #											SETTINGS
 ############################################################################################################
@@ -30,7 +31,28 @@ gaps inner 15
 gaps outer 5
 floating_modifier $alt
 workspace_auto_back_and_forth yes
+popup_during_fullscreen smart
 focus_follows_mouse yes
+focus_on_window_activation focus
+focus_wrapping yes
+for_window [class=.*] border pixel 2
+
+
+
+############################################################################################################
+#											SHOTRCUTS
+############################################################################################################
+set $float_center floating enable, resize set 1600 900, move position center
+set $float_center2 floating enable, resize set 1920 780, move position center
+set $scratch_move sticky enable, move scratchpad, border pixel 0
+set $scratch_show scratchpad show, move position center
+
+set $note urxvt -name note -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/note.yaml -y
+set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/term.yaml -y
+set $htop urxvt -name htop -fn "xft:Noto Mono for Powerline:size=12" -e htop
+set $bmon urxvt -name bmon -fn "xft:Noto Mono for Powerline:size=12" -e bmon
+set $dry urxvt -name dry -fn "xft:Noto Mono for Powerline:size=12" -e dry
+set $sync urxvt -name sync -fn "xft:Noto Mono for Powerline:size=12" -e bash ~/.scripts/syncto /home/trim/Dots /home/trim
 
 
 
@@ -43,6 +65,7 @@ exec_always synclient PalmDetect=1
 exec_always synclient PalmMinWidth=4
 exec_always synclient PalmMinZ=50
 #exec_always syndaemon -i 0.2 -K -d
+exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
 exec_always bash ~/.i3/polybar/launch
 exec --no-startup-id compton --config ~/.i3/compton/.compton.conf
 exec --no-startup-id udisksctl mount -b /dev/sda2
@@ -65,11 +88,17 @@ exec --no-startup-id hass
 #exec_always --no-startup-id blueman-applet
 #exec_always --no-startup-id volti
 
+exec --no-startup-id $note
+exec --no-startup-id $term
+exec --no-startup-id $htop
+exec --no-startup-id $bmon
+exec --no-startup-id $dry
+exec --no-startup-id $sync
 
 
 
 ############################################################################################################
-#											FUNCTION KEYS
+#											MEDIA & FUNCTION KEYS
 ############################################################################################################
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"
 bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
@@ -83,11 +112,14 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
 
+bindsym $ctr+space exec bash ~/.scripts/play
+bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
+
 
 
 
 ############################################################################################################
-#											FONTS & COLORS
+#											FONTS & COLORS & FRAME
 ############################################################################################################
 font pango:Noto Mono for Powerline 14
 
@@ -96,15 +128,6 @@ set $black				#000000
 set $grey				#373B41
 set $white				#FFFFFF
 set $red				#F10F09
-
-
-
-
-############################################################################################################
-#											FRAME
-############################################################################################################
-for_window [class=.*] border pixel 2
-for_window [urgent=latest] focus
 
 #class						border		backgr.		text		split
 client.focused				$accent		$accent		$black		$accent
@@ -141,7 +164,6 @@ bindsym $alt+Down move down
 bindsym $alt+Up move up
 bindsym $alt+Right move right
 
-bindsym $mod+y split toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
@@ -155,6 +177,11 @@ bindsym $mod+Shift+Right resize shrink width 4 px or 4 ppt
 bindsym $mod+Shift+Up resize grow height 4 px or 4 ppt
 bindsym $mod+Shift+Down resize shrink height 4 px or 4 ppt
 bindsym $mod+Shift+Left resize grow width 4 px or 4 ppt
+
+bindsym F7 fullscreen toggle
+bindsym $mod+F7 floating toggle
+bindsym $alt+F7 floating toggle
+bindsym $mod+$alt+F7 sticky toggle
 
 
 
@@ -199,11 +226,6 @@ bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+$alt+Left workspace prev
 bindsym $mod+$alt+Right workspace next
 
-bindsym Shift+space floating toggle
-bindsym $ctl+space fullscreen toggle
-bindsym $ctl+Shift+space sticky toggle
-
-
 
 
 ############################################################################################################
@@ -212,8 +234,6 @@ bindsym $ctl+Shift+space sticky toggle
 set $monitor1 eDP-1-1
 set $monitor2 DP-1-1
 set $projector VGA-1
-
-exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
 
 workspace $workspace1 output $monitor1
 workspace $workspace2 output $monitor1
@@ -241,71 +261,62 @@ assign [class="QGroundControl"] $workspace3
 assign [class="obs"] $workspace9
 assign [class="Gnome-pomodoro"] $workspace0
 
-for_window [class="mpv"] floating enable
-for_window [class="mpv"] resize set 1600 900
-for_window [class="mpv"] move position center
-
-for_window [class="MPlayer"] floating enable
-for_window [class="MPlayer"] resize set 1600 900
-for_window [class="MPlayer"] move position center
+for_window [class="mpv"] $float_center
+for_window [class="MPlayer"] $float_center
+for_window [class="URxvt"] floating enable,  border pixel 0
+for_window [class="Sakura"] border pixel 0
 
 
 
 
 ############################################################################################################
-#											SCRATCHPAD
+#											SCRATCHPAD					   -- ALT + CTRL
 ############################################################################################################
-set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/term.yaml -y
-for_window [instance="term"] floating enable
-for_window [instance="term"] resize set 1920 780
-for_window [instance="term"] move position center
-for_window [instance="term"] move scratchpad
-for_window [instance="term"] border pixel 0
-exec --no-startup-id $term
+for_window [instance="term"] $float_center2, $scratch_move
+bindsym $crcum [instance="term"] $scratch_show
 bindsym $mod+$alt+$crcum exec $term
-bindsym $crcum [instance="term"] scratchpad show; move position center
 
-set $note urxvt -name note -fn "xft:Noto Mono for Powerline:size=12"  -e tmuxp load ~/.tmux/note.yaml -y
-for_window [instance="note"] floating enable
-for_window [instance="note"] resize set 1920 780
-for_window [instance="note"] move position center
-for_window [instance="note"] move scratchpad
-for_window [instance="note"] border pixel 0
-exec --no-startup-id $note
+for_window [instance="note"] $float_center2, $scratch_move
+bindsym $acute [instance="note"] $scratch_show
 bindsym $mod+$alt+$acute exec $note
-bindsym $acute [instance="note"] scratchpad show; move position center
 
-for_window [class="Spotify"] floating enable
-for_window [class="Spotify"] sticky enable
-for_window [class="Spotify"] resize set 1600 900
-for_window [class="Spotify"] move position center
-for_window [class="Spotify"] move scratchpad
-bindsym $mod+$alt+1 [class="Spotify"] scratchpad show; move position center
+for_window [instance="dry"] $float_center2, $scratch_move
+bindsym $mod+$alt+5 [instance="dry"] $scratch_show
 
+for_window [instance="htop"] $float_center2, $scratch_move
+bindsym $mod+$alt+6 [instance="htop"] $scratch_show
 
+for_window [instance="bmon"] $float_center2, $scratch_move
+bindsym $mod+$alt+7 [instance="bmon"] $scratch_show
+
+for_window [instance="sync"] $float_center2, $scratch_move
+bindsym $mod+$alt+8 [instance="sync"] $scratch_show
+
+for_window [class="Spotify"] $float_center, $scratch_move
+bindsym $mod+$alt+1 [class="Spotify"] $scratch_show
+ 
+ 
+bindsym $alt+$ctl+d	  exec bash ~/.scripts/termop dry
+bindsym $alt+$ctl+h	  exec bash ~/.scripts/termop htop
+bindsym $alt+$ctl+b	  exec bash ~/.scripts/termop bmon
 
 
 ############################################################################################################
-#											KEYBINDINGS					-- MOD + CTRL     -- ALT + CTRL
+#											KEYBINDINGS					-- MOD + CTRL 
 ############################################################################################################
-bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
-#bindsym $mod+Return exec sakura -f "Cousine for Powerline 16" -x tmux 
-bindsym $alt+Return exec sakura -f "Cousine for Powerline 16" -x tmux 
-
-bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
-
-bindsym $alg+Return exec "nautilus --new-window"
-bindsym $ctr+Return exec "nautilus --new-window"
+bindsym $alt+Return exec "nautilus --new-window"
+bindsym $mod+Return exec sakura -f "Cousine for Powerline 16" -x tmux 
+#bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
 
 bindsym $mod+$ctl+k exec bash ~/.scripts/keyscreen
 bindsym $mod+$ctl+h exec gksudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 bindsym $mod+$ctl+w exec gksudo systemctl restart network-manager
 bindsym $mod+$ctl+r exec "xrdb -load ~/.Xdefaults"; reload; restart;
-bindsym $mod+$ctl+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b '  E X I T  ' 'i3-msg exit'"
+bindsym $mod+$ctl+e exec "i3-nagbar -t warning -m '  E X I T' -b ' Y E S ' 'i3-msg exit'"
 bindsym $mod+$ctl+l exec bash ~/.i3/blurlock; exec xset -dpms s off
-
-bindsym $alt+$ctl+v exec variety -n
-bindsym $alt+$ctl+c exec flameshot gui
+bindsym $mod+$ctl+p exec bash ~/.scripts/play
+bindsym $mod+$ctl+v exec variety -n
+bindsym $mod+$ctl+c exec flameshot gui
 
 
 
@@ -320,12 +331,10 @@ bindsym $mod+$alt+$esc exec "rofi -modi 'run,drun' -show drun -theme-str '*{acce
 bindsym $mod+$alt+Return exec "surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')"
 bindsym $mod+$alt+space exec "bash ~/.i3/rofi/marks"
 
-bindsym $mod+$alt+BackSpace exec bash ~/.scripts/play
-
 bindsym $mod+$alt+c exec "bash ~/.i3/rofi/confs"
 bindsym $mod+$alt+s exec "bash ~/.i3/rofi/lists script /home/trim/Dots/.scripts"
 bindsym $mod+$alt+f exec "bash ~/.i3/rofi/lists function /home/trim/Dots/.func"
 bindsym $mod+$alt+t exec "bash ~/.i3/rofi/lists tmux /home/trim/Dots/.tmux"
 bindsym $mod+$alt+n exec "bash ~/.i3/rofi/lists note /home/trim/Dots/.assets/.notes"
 bindsym $mod+$alt+i exec "bash ~/.i3/rofi/lists i3 /home/trim/Dots/.i3"
-bindsym $mod+$alt+r exec "bash ~/.i3/rofi/lists rofi /home/trim/Dots/.i3/rofi"
+bindsym $mod+$alt+r exec "bash ~/.i3/rofi/lists rofi /home/trim/Dots/.i3/rofi" 3840x2160

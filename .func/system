@@ -33,4 +33,7 @@ bk(){
 	cd -
 }
 
+screen_size(){
+	xrandr | grep '*' | awk '{print $1;}'
+}
 

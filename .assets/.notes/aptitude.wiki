@@ -74,3 +74,4 @@ flameshot
 surfraw
 rxvt-unicode-256color
 mp-youtube
+bmon

@@ -31,88 +31,50 @@
 	bottom = false
 	width = 100%
 	height = 48
-
-	;override-redirect = true
 	offset-x = 0
 	offset-y = 0
-
-	;background = ${xrdb:color9}
 	background = ${colors.background}
 	foreground = ${colors.foreground}
-
 	overline-size = 0
 	overline-color = #f00
 	underline-size = 2
 	underline-color = #00f
-
 	border-bottom-size = 0
 	border-bottom-color = ${colors.background}
-
 	spacing = 1
 	padding-left = 0
 	padding-right = 8
 	module-margin-left = 4
 	module-margin-right = 4
-
 	font-0 = Bahnschrift:size=12;0
 	font-1 = MaterialIcons:size=14;0
 	font-2 = FontAwesome:pixelsize=14;-3
 	font-3 = unifont:size=14;0
-
-
-	modules-left =  i3
-	modules-center = cpu memory
-	modules-right = backlight volume networkspeedup networkspeeddown wlan date battery
-
 	tray-position = right
 	tray-padding = 4
-
 	wm-restack = i3
-	scroll-up = i3wm-wsnext
-	scroll-down = i3wm-wsprev
+	;scroll-up = i3wm-wsnext
+	;scroll-down = i3wm-wsprev
+
+	modules-left =  i3
+	modules-center = docker system bandwidth
+	modules-right = wlan volume cpu memory battery date
 
 
+[module/docker]
+	type = custom/text
+	content = %{F#666}%{F-}DOCKER
+	click-left = /home/trim/.i3/tdrop dry
+	
+[module/system]
+	type = custom/text
+	content = %{F#666}%{F-}SYSTEM
+	click-left = /home/trim/.i3/tdrop htop
 
-[module/xwindow]
-	type = internal/xwindow
-	label = "   %{F#ffffff}%{F-} %title:0:60:...%"
-
-
-
-[module/xkeyboard]
-	type = internal/xkeyboard
-	blacklist-0 = num lock
-
-	format-underline = ${colors.primary}
-	format-prefix = " "
-	format-prefix-foreground = ${colors.foreground}
-
-	label-layout = %layout%
-
-	label-indicator-padding = 2
-	label-indicator-background = ${colors.primary}
-	label-indicator-underline = ${colors.primary}
-
-
-
-[module/filesystem-home]
-	type = internal/fs
-	interval = 25
-
-	mount-0 = /home
-	label-mounted = "%{F#ffffff}%{F-}  %percentage_used%%"
-
-	[module/filesystem-slash]
-	type = internal/fs
-	interval = 25
-
-	mount-0 = /
-	label-mounted = "%{F#ffffff}%{F-}  %percentage_used%%"
-
-	;label-unmounted = %mountpoint%: not mounted
-	;label-unmounted-foreground = ${colors.foreground}
-
-
+[module/bandwidth]
+	type = custom/text
+	content = %{F#666}%{F-}NETWORK
+	click-left = /home/trim/.i3/tdrop bmon
 
 
 [module/i3]
@@ -123,146 +85,64 @@
 	strip-wsnumbers = false
 	pin-workspaces = true
 	enable-scroll = false
-
 	label-mode-padding = 8
 	label-mode-foreground = #000
 	label-mode-background = ${colors.primary}
-
 	label-focused = %name%
 	label-focused-foreground= ${colors.primary}
 	label-focused-background = ${colors.background-alt}
-	label-focused-underline = ${colors.primary}
 	label-focused-padding = 10
-
 	label-unfocused = %name%
 	label-unfocused-padding = 8
-
 	label-urgent = %name%
 	label-urgent-foreground= ${colors.alert}
 	label-urgent-background = ${colors.background-alt}
-	label-urgent-underline = ${colors.alert}
 	label-urgent-padding = 8
-
 	label-visible = %name%
 	label-visible-background = ${self.label-focused-background}
-	label-visible-underline = ${self.label-focused-underline}
 	label-visible-padding = ${self.label-focused-padding}
 
 
 
-[module/github]
-	type = internal/github
-	token = ${env:GITHUB_TOKEN}
-
-	label = "%notifications%"
-	format-underline = #2aa198
-	format-prefix = " "
-	format-prefix-foreground = #5b
-
-
-
-[module/mpd]
-	type = internal/mpd
-	format-online = <icon-prev> <icon-stop> <toggle> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
-
-	icon-play = 
-	icon-pause = 
-	icon-stop = 
-	icon-prev = 
-	icon-next = 
-	icon-random = 
-	icon-repeat = 
-
-	toggle-on-foreground = ${colors.primary}
-	toggle-off-foreground = #55
-
-	bar-progress-width = 30
-	bar-progress-format = %{A4:mpdseek+2: A5:mpdseek-2:}%fill%%indicator%%empty%%{A A}
-	bar-progress-indicator = |
-	bar-progress-indicator-foreground = ${colors.primary}
-	bar-progress-indicator-font = 3
-	bar-progress-fill = ─
-	bar-progress-fill-foreground = ${colors.primary}
-	bar-progress-fill-font = 3
-	bar-progress-empty = ─
-	bar-progress-empty-font = 3
-	bar-progress-empty-foreground = ${colors.foreground-alt}
-
-
-
-[module/backlight]
-	type = internal/backlight
-	card = intel_backlight
-	click-left = connman-gtk
-
-	format = <label> <bar>
-	label = ""
-
-	bar-width = 10
-	bar-indicator = |
-	bar-indicator-foreground = ${colors.primary}
-	bar-indicator-font = 2
-	bar-fill = ─
-	bar-fill-font = 2
-	bar-fill-foreground = ${colors.primary}
-	bar-empty = ─
-	bar-empty-font = 2
-	bar-empty-foreground = ${colors.foreground-alt}
-
-
-
-
 [module/cpu]
+	format-label = internal/cpu
+	format = <label>
 	type = internal/cpu
-	interval = 0.5
-	format = <label> <ramp-coreload>
-	label = CPU
-
-	ramp-coreload-0 = ▁
-	ramp-coreload-0-font = 2
-	ramp-coreload-0-foreground = ${colors.primary}
-	ramp-coreload-1 = ▂
-	ramp-coreload-1-font = 2
-	ramp-coreload-1-foreground = ${colors.primary}
-	ramp-coreload-2 = ▃
-	ramp-coreload-2-font = 2
-	ramp-coreload-2-foreground = ${colors.primary}
-	ramp-coreload-3 = ▄
-	ramp-coreload-3-font = 2
-	ramp-coreload-3-foreground = ${colors.primary}
-	ramp-coreload-4 = ▅
-	ramp-coreload-4-font = 2
-	ramp-coreload-4-foreground = ${colors.primary}
-	ramp-coreload-5 = ▆
-	ramp-coreload-5-font = 2
-	ramp-coreload-5-foreground = ${colors.primary}
-	ramp-coreload-6 = ▇
-	ramp-coreload-6-font = 2
-	ramp-coreload-6-foreground = ${colors.primary}
-	ramp-coreload-7 = █
-	ramp-coreload-7-font = 2
-	ramp-coreload-7-foreground = ${colors.primary}
-	
+	interval = 2
+	label = " %percentage%%"
 
 
 [module/memory]
 	type = internal/memory
-	format = <label> <bar-used>
-	label = RAM
+	interval = 2
+	label = " %percentage_used%%"
 
-	bar-used-width = 16
-	bar-used-foreground-0 = ${colors.primary}
-	bar-used-foreground-1 = ${colors.primary}
-	bar-used-foreground-2 = ${colors.primary}
-	bar-used-foreground-3 = ${colors.primary}
-	bar-used-indicator =
-	bar-used-indicator-font = 2
-	bar-used-indicator-foreground = ${colors.primary}
-	bar-used-fill = █
-	bar-used-fill-font = 2
-	bar-used-empty = ▁
-	bar-used-empty-font = 2
-	bar-used-empty-foreground = ${colors.primary}
+
+[module/temperature]
+	type = internal/temperature
+	warn-temperature = 65
+
+	format = <label> 
+	format-warn = <label-warn>
+
+	label = %temperature%
+	label-warn = %temperature%!!!
+
+
+	
+[module/cputemp]
+	type = custom/script
+	exec = sensors | grep --max-count=1 "CPU Temperature:" | awk '{print substr($0,22,2)}'
+	interval = 10
+	label = " %output%°C"
+
+
+
+[module/gputemp]
+	type = custom/script
+	exec = nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits
+	interval = 10
+	label = "GPU %output%°C"
 
 
 
@@ -270,17 +150,12 @@
 	type = internal/network
 	interface = wlp2s0
 	interval = 3.0
-
 	format-connected = <label-connected>
 	format-connected-prefix = " "
-
-	;format-disconnected-underline = ${self.format-connected-underline}
-
 	;label-connected = %local_ip%%essid%
 	label-connected = %local_ip%
 	label-disconnected = "%{A1:connman-gtk &:}%{A}"
 	label-disconnected-foreground = #5b
-
 	ramp-signal-0 = 
 	ramp-signal-1 = 
 	ramp-signal-2 = 
@@ -290,88 +165,32 @@
 
 
 
-[module/eth]
-	type = internal/network
-	;interface = br0
-	interval = 3.0
-
-	format-connected-underline = #55aa55
-	format-connected-prefix = " "
-	format-connected-foreground-foreground = ${colors.foreground-alt}
-	label-connected = %local_ip%
-
-	format-disconnected-underline = ${self.format-connected-underline}
-	label-disconnected = %ifname%
-	label-disconnected-foreground = ${colors.foreground-alt}
-
-
-
-[module/networkspeedup]
-	type = internal/network
-	interface = wlp2s0
-	label-connected = "%upspeed:7%"
-	format-connected = <label-connected>
-	format-connected-prefix = " "
-	format-connected-prefix-foreground = #ff
-
-
-
-
-[module/networkspeeddown]
-	type = internal/network
-	interface = wlp2s0
-	label-connected = "%downspeed:7%"
-	format-connected = <label-connected>
-	format-connected-prefix = " "
-	format-connected-prefix-foreground = #ff
-
-
-
 [module/date]
 	type = internal/date
-	interval = 1
-
-	date = "%d%{F#92}%m%{F-}%{F#49}%y%{F-}"
-	date-alt = " %d"
-
-	time = "%H%{F#92}%M%{F-}%{F#49}%S%{F-}"
-	time-alt =  %H:%M
-
-	;format-prefix = 
-	format-prefix-foreground = ${colors.foreground-alt}
-
-	label = %time%
+	interval = 1.0
+	date = %a %b %d, 
+	time = %H:%M
+	date-alt = %A, %d %B %Y
+	time-alt = %H:%M:%S
+	label = %date% %time%
+	format =    <label>
+	format-padding = 3
 
 
 
 [module/volume]
 	type = internal/volume
-
-	format-volume = <label-volume> <bar-volume>
-	label-volume = ""
-	label-volume-foreground = ${root.foreground}
-
-	format-muted-prefix = " "
-	format-muted-foreground = ${colors.foreground-alt}
-	label-muted = muted
-
-	bar-volume-width = 10
-	bar-volume-foreground-0 = ${colors.primary}
-	bar-volume-foreground-1 = ${colors.primary}
-	bar-volume-foreground-2 = ${colors.primary}
-	bar-volume-foreground-3 = ${colors.primary}
-	bar-volume-foreground-4 = ${colors.primary}
-	bar-volume-foreground-5 = ${colors.primary}
-	bar-volume-foreground-6 = ${colors.primary}
-	bar-volume-gradient = false
-	bar-volume-indicator = |
-	bar-volume-indicator-font = 2
-	bar-volume-indicator-foreground = ${colors.primary}
-	bar-volume-fill = ─
-	bar-volume-fill-font = 2
-	bar-volume-empty = ─
-	bar-volume-empty-font = 2
-	bar-volume-empty-foreground = ${colors.foreground-alt}
+	format-volume = <ramp-volume><label-volume>
+	format-muted = <label-muted>
+	label-volume = %percentage%
+	label-muted =   M
+	label-muted-foreground = #aaa
+	format-volume-padding = 3
+	format-muted-padding = 3
+	ramp-volume-0 = 
+	ramp-volume-1 = 
+	ramp-volume-2 = 
+	ramp-headphones-0 = 
 
 
 
@@ -381,23 +200,17 @@
 	adapter = AC
 	full-at = 98
 	time-format = "%H%{F#92}%M%{F-}"
-
 	label-discharging = %percentage% %time%
-
 	format-charging = <animation-charging> <label-charging>
-
 	format-discharging = <ramp-capacity> <label-discharging>
-
 	format-full-prefix = " "
 	format-full-prefix-foreground = ${colors.foreground}
-
 	ramp-capacity-0 = 
 	ramp-capacity-1 = 
 	ramp-capacity-2 = 
 	ramp-capacity-3 = 
 	ramp-capacity-4 = 
 	ramp-capacity-foreground = ${colors.foreground}
-
 	animation-charging-0 = 
 	animation-charging-1 = 
 	animation-charging-2 = 
@@ -405,95 +218,3 @@
 	animation-charging-4 = 
 	animation-charging-foreground = ${colors.foreground}
 	animation-charging-framerate = 750
-
-
-
-[module/temperature]
-	type = internal/temperature
-	thermal-zone = 1
-	warn-temperature = 60
-
-	format = <ramp> <label>
-	format-underline = #f50a4d
-	format-warn = <ramp> <label-warn>
-	format-warn-underline = ${self.format-underline}
-
-	label = %temperature%
-	label-warn = %temperature%
-	label-warn-foreground = ${colors.primary}
-
-	ramp-0 = 
-	ramp-1 = 
-	ramp-2 = 
-	ramp-foreground = ${colors.foreground-alt}
-
-
-
-[module/vpncheck]
-	type = custom/script
-	exec = pgrep openvpn
-	interval = 5
-	label = vpn
-	format-underline = #268bd2
-	format-prefix = " "
-	format-prefix-foreground = #5b
-
-
-
-[module/pptpcheck]
-	type = custom/script
-	exec = pgrep pppd
-	interval = 5
-	label = pptp
-	format-underline = #268bd2
-	format-prefix = " "
-	format-prefix-foreground = #5b
-
-
-
-[module/powermenu]
-	type = custom/menu
-
-	label-open = 
-	label-open-foreground = ${colors.primary}
-	label-close =  cancel
-	label-close-foreground = ${colors.primary}
-	label-separator = |
-	label-separator-foreground = ${colors.foreground-alt}
-
-	menu-0-0 = reboot
-	menu-0-0-exec = menu-open-1
-	menu-0-1 = power off
-	menu-0-1-exec = menu-open-2
-	menu-0-2 = log out
-	menu-0-2-exec = menu-open-3
-	menu-0-3 = 
-	menu-0-3-exec = "~/.i3/blurlock &"
-
-	menu-1-0 = cancel
-	menu-1-0-exec = menu-open-0
-	menu-1-1 = reboot
-	menu-1-1-exec = sudo reboot
-
-	menu-2-0 = power off
-	menu-2-0-exec = shutdown now
-	menu-2-1 = cancel
-	menu-2-1-exec = menu-open-0
-
-	menu-3-0 = log out
-	menu-3-0-exec = i3-msg exit
-	menu-3-1 = cancel
-	menu-3-1-exec = menu-open-0
-
-	{% include 'by_host/' + ansible_hostname + '/modules-def.j2' ignore missing %}
-
-	{% include 'by_os/' + ansible_distribution|lower + '/modules-def.j2' ignore missing %}
-
-	; vim:ft=dosini
-
-
-
-[module/spotify]
-	type = custom/script
-	exec = ~/.i3/polybar/spotify
-	interval = 2
