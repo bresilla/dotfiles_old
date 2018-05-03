@@ -1,0 +1,39 @@
+#!/bin/bash
+another=$(echo "RELOAD
+ACCENT
+LOCK
+LOGOUT
+REBOOT
+POWEROFF" | awk '{print $(NF-1)}' | rofi -dmenu -i -p "SYSTEM: ")
+
+
+if [ "$another" == "RELOAD" ] ; then
+	xrdb -load ~/.Xdefaults; 
+	i3-msg reload; 
+	i3-msg restart;
+
+elif [ "$another" == "ACCENT" ] ; then
+	exec ~/.i3/misc/accent;
+	
+elif [ "$another" == "LOCK" ] ; then
+	exec ~/.i3/misc/blurlock;
+		
+elif [ "$another" == "LOGOUT" ] ; then
+	prompt=$(echo -e "No\nYes" | rofi -dmenu -i -p "Are you shure you want to $another?")
+	[ "$prompt" == "Yes" ] && i3-msg exit
+	
+elif [ "$another" == "REBOOT" ] ; then
+	prompt=$(echo -e "No\nYes" | rofi -dmenu -i -p "Are you shure you want to $another?")
+	[ "$prompt" == "Yes" ] && reboot
+	
+elif [ "$another" == "POWEROFF" ] ; then
+	prompt=$(echo -e "No\nYes" | rofi -dmenu -i -p "Are you shure you want to $another?")
+	[ "$prompt" == "Yes" ] && poweroff
+	
+elif [ "$another" == "TEST" ] ; then
+	prompt=$(echo -e "No\nYes" | rofi -dmenu -i -p "$another")
+	[ "$prompt" == "Yes" ] && echo $prompt
+	
+else
+    echo $another
+fi

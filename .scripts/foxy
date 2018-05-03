@@ -1,0 +1,231 @@
+#!/bin/sh
+#
+# See LICENSE file for details
+
+#-------------------------------------------------------------------------------
+# files & browsers
+#-------------------------------------------------------------------------------
+
+#browser=chromium
+browser=firefox
+#browser=surf
+bookmarks=$HOME/repos/bookmarks/bookmarks.txt
+tmpbookmarks=$HOME/repos/foxy/tmp.txt
+
+#-------------------------------------------------------------------------------
+# functions
+#-------------------------------------------------------------------------------
+usage () {
+    printf "Usage: %s [-h] [-n] [-t] [-c tag] [-d tag] [-s tag]\n" "$0"
+    printf "\t[-i tag] [-a link @tag1 @tag2...@tagn] [-b @tag1 @tag2...@tagn]\n"
+
+    printf "%sh        show this message\n" -
+    printf "%sn        show the total number of bookmarks\n" -
+    printf "%st        show all available tags\n" -
+    printf "%sc        show the total number of bookarks tagged with tag\n" -
+    printf "%sd        search for bookmark, then delete it\n" -
+    printf "%ss        search for a bookmark\n" -
+    printf "%si        interactively delete bookmarks\n" -
+    printf "%sa        add a new bookmark\n" -
+}
+
+
+tag_array () {
+        numberofwords=$(echo "$@" | wc -w)
+        numberofwords=$((numberofwords-=1))
+        # keep only the tags
+        tags=$(echo "$@" |  cut -d' ' -f3-"$numberofwords")
+        # append ": " to the and of the tags and add the link
+        echo "$tags" | sed 's/$/: /' | sed "s%$%$url%" >> "$bookmarks"
+        # append new line to the end fo the bookmark file
+        echo >> "$bookmarks"
+        exit 0
+}
+
+show_bmarks () {
+    grep "$tag" "$bookmarks" | awk -F': ' '{print $2}' > "$tmpbookmarks"
+    url=$(dmenu -l 10 < "$tmpbookmarks")
+    if [ -n "$url" ];
+    then
+	if [ "$browser" = "firefox" ];
+	then
+            "$browser" -new-tab "$url" 2>/dev/null
+        elif [ "$browser" = "chromium" ];
+        then
+            "$browser" "$url" 2>/dev/null
+	else
+	    "$browser" -isg "$url" &
+	fi
+    else
+	echo "no links found"
+    fi	
+}
+
+show_tags () {
+    awk '{print $0}' RS=' ' "$bookmarks" | grep @ | sed 's/://' | sort -u
+}
+
+count_marks () {
+     sed '/^\s*$/d' < "$bookmarks" | wc -l
+}
+
+del_mark () {
+    deleting=$(grep "$mark" "$bookmarks" | dmenu -l 10)
+
+    if [ -n "$deleting" ];
+    then
+	# lines that are going to be deleted
+	l1=$(grep -n "$deleting" "$bookmarks" | awk -F":" '{ print $1 }')
+	l2=$((l1 + 1))
+
+	######################################################################
+	# uncomment 2 lines below if you want to read the bookmark you are
+	# deleting.
+	#
+	#open=$(echo "$deleting" | grep "$mark" | awk -F': ' '{print $2}')
+	#
+	#$browser -isg $open & # for surf
+	#$browser -new-tab $url 2>/dev/null # for firefox
+	#
+	######################################################################
+
+	#delete bookmarks and update $bookmarks
+	sed "$l1,${l2}d" "$bookmarks" > "$tmpbookmarks"
+	mv "$tmpbookmarks" "$bookmarks"
+    else
+	exit 0
+    fi
+}
+
+enum_marks () {
+    grep -c "$tag" "$bookmarks"
+}
+
+inter_delete () {
+    grep "$tag" "$bookmarks" | sed '/^\s*$/d' > tmp.txt
+
+    while read -r line <&3
+    do
+	echo "$line"
+	echo "Do you wish to delete this bookmark? (y|n)?"
+	read -r yn
+	case $yn in
+	    Y | y)
+		l1=$(grep -n "$line" "$bookmarks" | awk -F":" '{ print $1 }')
+		l2=$((l1 + 1))
+		sed "$l1,${l2}d" "$bookmarks" > temp.txt
+		mv temp.txt "$bookmarks"
+		continue
+		;;
+	    N | n)
+		continue
+		;;
+	    *)
+		echo "Are you a fushitass? Answer yes or no."
+		echo "$line"
+		echo "Do you wish to delete this bookmark? (y|n)?"
+		read -r yn
+		;;
+	esac
+    done 3< tmp.txt
+}
+#-------------------------------------------------------------------------------
+# argument parsing
+#-------------------------------------------------------------------------------
+
+aflag=0
+cflag=0
+dflag=0
+iflag=0
+nflag=0
+sflag=0
+tflag=0
+
+while :
+do
+    case $1 in
+	-h)
+	    usage
+	    exit 0
+	    ;;
+	-s)
+	    sflag=1
+	    tag=$2
+	    break
+	    ;;
+	-a)
+	    url=$2
+	    aflag=1
+	    break
+	    ;;
+	-t)
+	    tflag=1
+	    break
+	    ;;
+	-n)
+	    nflag=1
+	    break
+	    ;;
+	-d)
+	    dflag=1
+	    mark=$2
+	    mark=$(echo "$mark" | sed 's/^/@/')
+	    break
+	    ;;
+	-c)
+	    cflag=1
+	    tag=$2
+	    break
+	    ;;
+	-i)
+	    iflag=1
+	    tag=$2
+	    break
+	    ;;
+	*)
+	    usage
+	    exit 1
+	    ;;
+    esac
+done
+#-------------------------------------------------------------------------------
+
+if [ $sflag -eq 1 -o $cflag -eq 1 -o $iflag -eq 1 ];
+then
+    tag=$(echo "$tag" | sed 's/^/@/')
+fi
+
+if [ $sflag -eq 1 -a $# -lt 3 -a $tflag -eq 0 ];
+then
+    show_bmarks "$tag"
+    exit 0
+elif [ $aflag -eq 1 -a $# -gt 2 ];
+then
+    tag_array "$*" "$url"
+    exit 0
+elif [ $tflag -eq 1 -a $# -eq 1 ];
+then
+    show_tags
+    exit 0
+elif [ $nflag -eq 1 -a $# -eq 1 ];
+then
+    count_marks
+    exit 0
+elif [ $dflag -eq 1 -a $# -eq 2 ];
+then
+    del_mark "$mark"
+    exit 0
+elif [ $cflag -eq 1 -a $# -eq 2 ];
+then
+    enum_marks "$tag"
+    exit 0
+elif [ $iflag -eq 1 ];
+then
+    inter_delete "$tag"
+    exit 0
+else
+    echo 'not enough or too many params'
+    usage
+    exit 1
+fi
+

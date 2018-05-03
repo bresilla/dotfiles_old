@@ -1,0 +1,9 @@
+#!/bin/bash
+while true 
+do
+	for file in $1/*
+	do
+		feh --bg-fill $file
+		sleep $2
+	done
+done

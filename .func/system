@@ -1,6 +1,3 @@
-load=/home/trim
-save=/home/trim/dotfiles
-
 update(){
 	sudo apt update
 }
@@ -21,12 +18,12 @@ speaker(){
 	pacmd set-sink-port 0 analog-output-speaker
 }
 
-syncit(){
-	bash syncit
-}
-
 own(){
 	sudo chown -R $USER $1
+}
+
+exe(){
+	chmod +x $1
 }
 
 bk(){
@@ -37,3 +34,14 @@ screen_size(){
 	xrandr | grep '*' | awk '{print $1;}'
 }
 
+access_point(){
+	sudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
+}
+
+script_bin(){
+	sudo cp /home/trim/Dots/.scripts/* /usr/local/sbin/
+}
+
+script_del(){
+	sudo rm /usr/local/sbin/*
+}

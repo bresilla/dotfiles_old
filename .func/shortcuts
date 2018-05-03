@@ -1,7 +1,3 @@
-echoto(){
-	echo $2 >> ~/Dots/.assets/.notes/$1.wiki
-}
-
 distract(){
 	if [ $# -eq 0 ]; then
         vim ~/Dots/.assets/.notes/distracted.wiki
@@ -18,3 +14,9 @@ wiki(){
 weather(){
 	curl wttr.in
 }
+
+setwall(){
+	wget -O /tmp/wallpaper.jpg https://source.unsplash.com/3840x2160/?nature
+	feh --bg-fill /tmp/wallpaper.jpg
+}
+

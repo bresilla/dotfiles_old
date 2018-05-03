@@ -1,0 +1,16 @@
+#!/bin/bash	
+	
+clipp=$(xsel --clipboard)
+clipp=${clipp:1:6}
+
+sed -i "1s/.*/*accent:    ""#$clipp/" ~/.Xdefaults
+xrdb -load ~/.Xdefaults
+
+accent=$(xrdb -query | awk '/accent/{print $2}')
+sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/.i3/rofi/rofi.rasi"
+sed -i --follow-symlinks "/accent =/c\	accent = $accent" "$HOME/.i3/polybar/config"
+
+sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/Dots/.i3/rofi/rofi.rasi"
+sed -i --follow-symlinks "/accent =/c\	accent = $accent" "$HOME/Dots/.i3/polybar/config"
+
+i3-msg restart

@@ -1,8 +1,7 @@
 #!/bin/bash
 
-export PATH=/home/trim/.i3:$PATH
-export PATH=/home/trim/.i3/i3ass:$PATH
 export PATH=/home/trim/.scripts:$PATH
+export PATH=/home/trim/.i3:$PATH
 
 ###MODULES
 source ~/.scripts/texas
@@ -17,6 +16,12 @@ done
 ###ALIASES
 [ -f ~/.alias ] && source ~/.alias
 
+###FUZZYFINDER
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+fh() {
+	eval $(history | fzf +s | sed 's/ *[0-9]* *//')
+}
+bind '"\C-H":"fh\n"'
 
 
 # Path to the bash it configuration
@@ -39,3 +44,6 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64:$LD_LIBRARY_PATH
 
 # ROS and GAZEBO
 export GAZEBO_MODEL_PATH=/home/trim/gazebo/models
+
+
+

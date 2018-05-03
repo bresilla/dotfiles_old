@@ -11,6 +11,10 @@ ardusim(){
 		sim_vehicle.py -w -L Cadriano
 }
 
-raspi(){
-	ssh -R 52698:127.0.0.1:52698 trim@10.42.0.1 -X
+pissh(){
+	ssh -R 52698:127.0.0.1:52698 trim@$1 -X
+}
+
+pifss(){
+	sshfs trim@$1:/home/trim /home/trim/Remote
 }

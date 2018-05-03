@@ -1,5 +1,0 @@
-#!/bin/bash
-
-wget -O /tmp/wallpaper.jpg https://source.unsplash.com/3840x2160/?nature
-feh --bg-fill /tmp/wallpaper.jpg
-#feh --bg-fill /home/trim/Dots/.assets/.wallpapers/fractal/wallhaven-175271.jpg

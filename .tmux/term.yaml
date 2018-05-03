@@ -16,19 +16,16 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-      - ros_source
+      - clear
   - shell_command:
-      - ros_source
       - exit
   - shell_command:
-      - ros_source
+      - clear
   - shell_command:
-      - ros_source
       - exit
   - shell_command:
-      - ros_source
+      - clear
   - shell_command:
-      - ros_source
       - exit
   start_directory: /home/trim
   window_name: term2
