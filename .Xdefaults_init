@@ -1,4 +1,4 @@
-*accent:    #f98a4b
+*accent:    #EDB4D6
 
 *.foreground: #F8F8F2
 *.background: #282A36
@@ -22,7 +22,7 @@
 
 
 URxvt.intensityStyles:			false
-URxvt.background:       		[80]#000000
+URxvt.background:       		[90]#1E1E29
 URxvt.depth:					32
 URxvt.font: 					xft:Noto Mono for Powerline:size=12
 URxvt.scrollBar:				false
@@ -46,6 +46,4 @@ Xft.lcdfilter: 	lcddefault
 
 
 rofi.fullscreen:true
-rofi.theme: ~/.i3/rofi/rofi.rasi
-
-
+rofi.theme: ~/.i3/rofi

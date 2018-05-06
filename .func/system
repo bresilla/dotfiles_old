@@ -26,16 +26,8 @@ exe(){
 	chmod +x $1
 }
 
-bk(){
-	cd -
-}
-
 screen_size(){
 	xrandr | grep '*' | awk '{print $1;}'
-}
-
-access_point(){
-	sudo create_ap wlp2s0 wlp2s0 algorithm dyhere024
 }
 
 script_bin(){

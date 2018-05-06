@@ -1,0 +1,31 @@
+#!/bin/bash
+another=$(echo "RELOAD
+ACCENT
+LOCK
+LOGOUT
+REBOOT
+POWEROFF" | awk '{print $(NF-1)}' | rofi -fullscreen -theme /home/trim/.i3/rofi -dmenu -i -p "SYSTEM: ")
+
+
+if [ "$another" == "RELOAD" ] ; then
+	xrdb -load ~/.Xdefaults; 
+	i3-msg reload; 
+	i3-msg restart;
+
+elif [ "$another" == "ACCENT" ] ; then
+	exec ~/.i3/misc/accent;
+	
+elif [ "$another" == "LOCK" ] ; then
+	exec ~/.i3/misc/blurlock;
+		
+elif [ "$another" == "LOGOUT" ] ; then
+	prompt "i3-msg exit" LOGOUT
+	
+elif [ "$another" == "REBOOT" ] ; then
+	prompt "reboot" REBOOT
+	
+elif [ "$another" == "POWEROFF" ] ; then
+	prompt "poweroff" POWEROFF
+else
+    echo $another
+fi

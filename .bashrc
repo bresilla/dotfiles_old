@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PATH=/home/trim/.scripts:$PATH
-export PATH=/home/trim/.i3:$PATH
+export PATH=/home/trim/.i3/misc:$PATH
 
 ###MODULES
 source ~/.scripts/texas

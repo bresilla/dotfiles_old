@@ -3,8 +3,7 @@
 ###FUNCTION PATH
 export FPATH=~/.zsh:$FPATH
 export PATH=~/.scripts:$PATH
-export PATH=~/.i3:$PATH
-
+export PATH=~/.i3/misc:$PATH
 ###FUNCTIONS
 for file in ~/.func/*; do
     source "$file"

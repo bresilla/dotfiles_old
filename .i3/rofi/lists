@@ -1,5 +1,0 @@
-#!/bin/bash
-selected=$(ls "$2/" | rofi -dmenu -p "$1: ")
-[[ -z $selected ]] && exit
-
-exec ~/Dots/.scripts/fileit $2/$selected

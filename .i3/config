@@ -37,6 +37,7 @@ for_window [class=.*] border pixel 2
 ############################################################################################################
 #											SHOTRCUTS
 ############################################################################################################
+set $floater floating enable, resize set 1600 900, border pixel 0
 set $float_center floating enable, resize set 1920 780, move position center
 set $scratch_move sticky enable, move scratchpad, border pixel 0
 set $scratch_show scratchpad show, move position center
@@ -55,17 +56,19 @@ exec_always synclient PalmDetect=1
 exec_always synclient PalmMinWidth=4
 exec_always synclient PalmMinZ=50
 #exec_always syndaemon -i 0.2 -K -d
+
 exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
-exec_always bash ~/.i3/polybar/launch
-exec --no-startup-id compton --config ~/.i3/compton/.compton.conf
+exec_always bash ~/.i3/misc/monitor
+
+exec --no-startup-id compton --config ~/.i3/compton
 exec --no-startup-id udisksctl mount -b /dev/sda2
 exec xrdb -load ~/.Xdefaults
 
 exec xautolock -time 10 -locker ~/.i3/misc/blurlock
 #exec bash ~/.i3/misc/wall ~/.assets/.bresilla/wallpapers/ 60
-exec feh --bg-fill /home/trim/Dots/.assets/.wallpapers/character/wallhaven-575332.jpg 
+exec feh --bg-fill /home/trim/Dots/.assets/.wallpapers/digitalart/wallhaven-502369.jpg 
 
-exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.0:0.8
+exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.5:0.8
 exec --no-startup-id python /home/trim/.i3/layout
 
 exec --no-startup-id pulseaudio
@@ -98,7 +101,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
 
-bindsym XF86Search exec "find /media/trim/indrive | rofi -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open"
+
 
 bindsym $alg+BackSpace exec bash ~/.scripts/play
 bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
@@ -233,7 +236,7 @@ workspace $workspace6 output $monitor2
 workspace $workspace7 output $monitor2
 workspace $workspace8 output $monitor2
 workspace $workspace9 output $monitor2
-workspace $workspace0 output $monitor2
+workspace $workspace0 output $projector
 
 
 
@@ -250,33 +253,32 @@ assign [class="QGroundControl"] $workspace3
 assign [class="obs"] $workspace9
 assign [class="Gnome-pomodoro"] $workspace0
 
-for_window [class="mpv"] floating enable, resize set 1600 900
-for_window [class="MPlayer"] floating enable, resize set 1600 900
-for_window [class="URxvt"] floating enable,  border pixel 0
+for_window [class="mpv"] $floater
+for_window [class="MPlayer"] $floater
+for_window [class="URxvt"] $floater
+for_window [class="Pick-colour-picker"] $floater
 
 
 
 
 ############################################################################################################
-#											SCRATCHPAD
+#											SCRATCHPAD					-- MOD + ALT + nonfunc
 ############################################################################################################
 for_window [instance="term"] $float_center, $scratch_move
 bindsym $crcum [instance="term"] $scratch_show
 
-
 for_window [instance="note"] $float_center, $scratch_move
 bindsym $acute [instance="note"] $scratch_show
-
 
 for_window [class="Spotify"] $float_center, $scratch_move
 bindsym $mod+$alt+1 [class="Spotify"] $scratch_show
 
-bindsym $alt+$ctl+d exec termop dry dry
-bindsym $alt+$ctl+t exec termop htop htop
-bindsym $alt+$ctl+n exec termop bmon bmon
-bindsym $alt+$ctl+s exec termop '~/.scripts/syncto /home/trim/Dots /home/trim' sync
-bindsym $alt+$ctl+w exec termop 'watch -n 10 ls' watch
-bindsym $alt+$ctl+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024' hspot
+bindsym $mod+$alt+d exec termop dry DRY
+bindsym $mod+$alt+t exec termop htop TOP
+bindsym $mod+$alt+n exec termop bmon NET
+bindsym $mod+$alt+s exec termop '~/.scripts/syncto /home/trim/Dots /home/trim' SYC
+bindsym $mod+$alt+w exec termop 'watch -n 10 ls' WCH
+bindsym $mod+$alt+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024' HOT
 
 
 
@@ -290,27 +292,20 @@ bindsym $mod+Return exec sakura -f "Cousine for Powerline 12" -x tmux
 
 bindsym $mod+$ctl+Return exec $term, exec $note
 bindsym $mod+$ctl+k exec keyscreen
-bindsym $mod+$ctl+w exec rompt "gksudo systemctl restart network-manager"
+bindsym $mod+$ctl+w exec prompt "gksudo systemctl restart network-manager"
 bindsym $mod+$ctl+p exec bash ~/.scripts/play
 bindsym $mod+$ctl+v exec variety -n
 bindsym $mod+$ctl+c exec flameshot gui
 
-	
 
 
 ############################################################################################################
-#											LAUNCHER					-- MOD + ALT
+#											LAUNCHER					-- MOD + ALT + funckeys
 ############################################################################################################
-bindsym $mod+space exec "rofi -modi 'run,drun' -show drun"
-bindsym $alt+space exec "rofi -modi 'run,drun' -show drun"
+bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/system"
+bindsym $mod+$alt+Insert exec "bash ~/.i3/rofii/confs"
+bindsym XF86Search exec "bash ~/.i3/rofii/search"
 
-bindsym $mod+$alt+Delete exec "bash ~/.i3/rofi/system"
-bindsym $mod+$alt+$esc exec "rofi -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
-bindsym $mod+$alt+Return exec "surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')"
-bindsym $mod+$alt+space exec "bash ~/.i3/rofi/marks"
-
-bindsym $mod+$alt+c exec "bash ~/.i3/rofi/confs"
-bindsym $mod+$alt+s exec "bash ~/.i3/rofi/lists script /home/trim/Dots/.scripts"
-bindsym $mod+$alt+f exec "bash ~/.i3/rofi/lists function /home/trim/Dots/.func"
-bindsym $mod+$alt+r exec "bash ~/.i3/rofi/lists rofi /home/trim/Dots/.i3/rofi"
-bindsym $mod+$alt+m exec "bash ~/.i3/rofi/lists rofi /home/trim/Dots/.i3/misc"
+bindsym $alt+space exec "rofi -theme /home/trim/.i3/rofi2 -width 1500 -modi 'run,drun' -show drun"
+bindsym $mod+space exec "rofi -theme /home/trim/.i3/rofi2 -width 1500 -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
+bindsym $mod+$alt+space exec "bash ~/.i3/rofii/marks"

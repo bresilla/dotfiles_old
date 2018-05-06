@@ -1,0 +1,127 @@
+#backend = "glx";
+backend = "xrender";
+
+
+############################################################################################################
+#											GLX
+############################################################################################################
+
+#glx-no-stencil = true;			# Recommended.
+glx-copy-from-front = false;
+# glx-use-copysubbuffermesa = true;
+# glx-no-rebind-pixmap = true;
+glx-swap-method = "undefined";
+# glx-use-gpushader4 = true;
+
+# xrender-sync = true;
+# xrender-sync-fence = true;
+
+############################################################################################################
+#											Shadow
+############################################################################################################
+shadow = true;							# Enabled client-side shadows on windows.
+no-dnd-shadow = true;					# Don't draw shadows on DND windows.
+no-dock-shadow = true;					# Avoid drawing shadows on dock/panel windows.
+clear-shadow = true;					# Zero the part of the shadow's mask behind the
+										# window. Fix some weirdness with ARGB windows.
+shadow-radius = 7;						# The blur radius for shadows. (default 12)
+shadow-offset-x = -7;					# The left offset for shadows. (default -15)
+shadow-offset-y = -7;					# The top offset for shadows. (default -15)
+# shadow-opacity = 0.5;					# The translucency for shadows. (default .75)
+# shadow-red = 0.0;						# Red color value of shadow. (0.0 - 1.0, defaults to 0)
+
+shadow-exclude = [
+			"name = 'Notification'",
+			"class_g ?= 'Notify-osd'",
+			"class_g = 'albert'",
+			"class_g = 'Conky'",
+			"_GTK_FRAME_EXTENTS@:c",
+			"class_g = 'i3-frame'",
+			"class_g = 'rofi'",
+			"window_type *= 'normal' && ! name ~= ''"
+];
+
+shadow-ignore-shaped = true;
+
+############################################################################################################
+#												Opacity
+############################################################################################################
+menu-opacity = 0.9;						# The opacity for menus. (default 1.0)
+inactive-opacity = 0.9;					# Default opacity of inactive windows. (0.0 - 1.0)
+active-opacity = 1.0;					# Default opacity for active windows. (0.0 - 1.0)
+frame-opacity = 1.0;					# Opacity of window titlebars and borders. (0.1 - 1.0)
+
+alpha-step = 0.02;
+#inactive-dim = 0.2;					# Dim inactive windows. (0.0 - 1.0)
+#inactive-dim-fixed = true;				# Do not let dimness adjust based on window opacity.
+
+#blur-background = true;
+#blur-background-frame = true;
+blur-background-fixed = false;
+blur-kern = "5x5box";
+blur-background-exclude = [
+				"window_type = 'tooltip'",
+				"_GTK_FRAME_EXTENTS@:c"
+];
+
+opacity-rule = [ "50:class_g = 'rofi'"];
+
+############################################################################################################
+#												Fading
+############################################################################################################
+fading = true;							# Fade windows during opacity changes.
+# fade-delta = 10;						# The time between steps in a fade in milliseconds. (default 10).
+fade-in-step = 0.05;					# Opacity change between steps while fading in. (default 0.028).
+fade-out-step = 0.05;					# Opacity change between steps while fading out. (default 0.03).
+# no-fading-openclose = true;			# Avoid fade windows in/out when opening/closing.
+# no-fading-destroyed-argb = true;
+focus-exclude = [
+				"class_g = 'albert'",
+     			"class_g *?= 'Virtualbox'"
+];
+
+############################################################################################################
+#												Other
+############################################################################################################
+
+mark-wmwin-focused = true;				# Try to detect WM windows and mark them as active.
+mark-ovredir-focused = true;			# Mark all non-WM but override-redirect windows active (e.g. menus).
+use-ewmh-active-win = false;			# Use EWMH _NET_WM_ACTIVE_WINDOW to determine which window is focused
+										# instead of using FocusIn/Out events. Usually more reliable but
+										# depends on a EWMH-compliant WM.
+detect-rounded-corners = true;			# Detect rounded corners and treat them as rectangular when --shadow-ignore- shaped is on.
+detect-client-opacity = true;			# Detect _NET_WM_OPACITY on client windows, useful for window
+										# managers not passing _NET_WM_OPACITY of client windows to frame
+										# windows.
+refresh-rate = 0;						# For --sw-opti: Specify refresh rate of the screen. 0 for auto.
+vsync = "none";							# "none", "drm", "opengl", "opengl-oml", "opengl-swc", "opengl-mswc"
+										# See man page for more details.
+dbe = false;							# Enable DBE painting mode. Rarely needed.
+paint-on-overlay = false;				# Painting on X Composite overlay window. Recommended.
+sw-opti = false;						# Limit compton to repaint at most once every 1 / refresh_rate.
+										# Incompatible with certain VSync methods.
+unredir-if-possible = false;			# Unredirect all windows if a full-screen opaque window is
+										# detected, to maximize performance for full-screen windows.
+# unredir-if-possible-delay = 5000;
+# unredir-if-possible-exclude = [ ];
+
+detect-transient = true;				# Use WM_TRANSIENT_FOR to group windows, and consider windows in
+										# the same group focused at the same time.
+detect-client-leader = true;			# Use WM_CLIENT_LEADER to group windows.
+invert-color-include = [ ];				# Conditions for windows to be painted with inverted color.
+
+# resize-damage = 1;
+
+
+############################################################################################################
+#											Window type settings
+############################################################################################################
+wintypes:
+{
+  tooltip = { fade = true; shadow = true; opacity = 0.75; focus = true; };
+  # fade: Fade the particular type of windows.
+  # shadow: Give those windows shadow
+  # opacity: Default opacity for the type of windows.
+  # focus: Whether to always consider windows of this type focused.
+};
+

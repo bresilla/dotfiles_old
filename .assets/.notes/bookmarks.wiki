@@ -1,10 +1,11 @@
-https://www.youtube.com/feed/subscriptions
-https://github.com/bresilla?tab=stars
-https://hub.docker.com/u/bresilla/starred/
-https://onedrive.live.com/
-https://classroom.udacity.com/
-https://courses.edx.org/dashboard
-https://www.coursera.org/
-https://twitter.com/trimbresilla
-https://medium.com/@bresilla
-https://www.amazon.it/
+YOUTUBE https://www.youtube.com/feed/subscriptions
+GITHUB https://github.com/bresilla?tab=stars
+DOCKER https://hub.docker.com/u/bresilla/starred/
+ONEDRIVE https://onedrive.live.com/
+UDACITY https://classroom.udacity.com/
+EDX https://courses.edx.org/dashboard
+COURSERA https://www.coursera.org/
+TWITTER https://twitter.com/trimbresilla
+MEDIUM https://medium.com/@bresilla
+AMAZON https://www.amazon.it/
+UNIXPORN https://www.reddit.com/r/unixporn/

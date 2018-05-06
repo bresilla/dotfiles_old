@@ -7,9 +7,9 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-      - distract
+      - vim ~/Dots/.assets/.notes/distracted.wiki
   - shell_command:
-      - wiki
+      - vim ~/Dots/.assets/.notes/index.wiki
   start_directory: /home/trim
   window_name: sync
 

@@ -22,3 +22,6 @@ mplayer --input-file /home/<username>/.config/mpv/control <file/link>
 ###use command to control
 echo "cycle pause" > /home/<username>/.config/mpv/control
 
+#FIX MOUNTING DRIVE
+####change sdXY to sda2 or other partition
+sudo ntfsfix /dev/sdXY

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+if [ -z "$2" ] ; then
+	ask="run $1"
+else
+    ask=$2
+fi
+
+
+prompt=$(echo -e "Yes\nNo" | rofi -fullscreen -theme /home/trim/.i3/rofi -dmenu -i -p "Are you shure you want to $ask?")
+
+
+if [ "$prompt" == "Yes" ] ; then
+	$1
+else
+    echo $ask
+fi

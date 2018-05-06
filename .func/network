@@ -1,4 +1,4 @@
-##NETWORK ALIAS
+##NETWORK
 
 ## Gets, Saves and Echoes IP from MAC (given as argument)
 getip(){
