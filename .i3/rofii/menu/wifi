@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Starts a scan of available broadcasting SSIDs
+# nmcli dev wifi rescan
+
+THEME="/home/trim/.i3/rofii/rofi_menu"
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+POSITION=1
+YOFF=58
+XOFF=3138
+WIDTH=18
+
+
+LIST=$(nmcli --fields SSID,SECURITY device wifi list)
+
+
+LINENUM=$(echo "$LIST" | wc -l)
+
+KNOWNCON=$(nmcli connection show)
+
+CURRSSID=$(iwgetid -r)
+
+if [[ ! -z $CURRSSID ]]; then
+	HIGHLINE=$(echo  "$(echo "$LIST" | awk -F "[  ]{2,}" '{print $1}' | grep -Fxn -m 1 "$CURRSSID" | awk -F ":" '{print $1}') + 1" | bc ) 
+fi
+
+
+if [ "$LINENUM" -gt 8 ] && [[ "$CONSTATE" =~ "enabled" ]]; then
+	LINENUM=8
+elif [[ "$CONSTATE" =~ "disabled" ]]; then
+	LINENUM=1
+fi
+
+
+
+CHENTRY=$(echo -e "$LIST" | uniq -u | rofi -theme "$THEME" -dmenu -p "Wi-Fi SSID: " -lines "$LINENUM" -m 0 -a "$HIGHLINE" -location "$POSITION" -yoffset "$YOFF" -xoffset "$XOFF" -width $WIDTH)
+
+CHSSID=$(echo "$CHENTRY" | sed  's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
+
+if [ "$CHSSID" = "*" ]; then
+	CHSSID=$(echo "$CHENTRY" | sed  's/\s\{2,\}/\|/g' | awk -F "|" '{print $3}')
+fi
+
+if [[ $(echo "$KNOWNCON" | grep "$CHSSID") = "$CHSSID" ]]; then
+	nmcli con up "$CHSSID"
+else
+	if [[ "$CHENTRY" =~ "WPA2" ]] || [[ "$CHENTRY" =~ "WEP" ]]; then
+		WIFIPASS=$(echo "if connection is stored, hit enter" | rofi -dmenu -theme "$THEME" -p "password: " -lines 1 )
+	fi
+	nmcli dev wifi con "$CHSSID" password "$WIFIPASS"
+fi
+
+

@@ -1,5 +1,5 @@
 [colors]
-	accent = #C8FBFD
+	accent = #E1F859
 	background = 		#1E1E29
 	background-alt = 	#333347
 	foreground = 		#A5ffffff
@@ -87,7 +87,7 @@
 	font-0 = Bahnschrift:size=12;3
 	font-5 = unifont:size=12;3
 	modules-left = search
-	click-left = bash ~/.i3/rofii/search
+	click-left = bash ~/.i3/rofii/menu/search
 
 
 
@@ -266,7 +266,6 @@
 	interval = 3.0
 	format-connected = <label-connected>
 	format-connected-prefix = " "
-	;label-connected = %local_ip%%essid%
 	label-connected = %local_ip%
 	label-disconnected = "%{A1:connman-gtk &:}%{A}"
 	label-disconnected-foreground = #5b
@@ -276,9 +275,8 @@
 	ramp-signal-3 = 
 	ramp-signal-4 = 
 	ramp-signal-foreground = ${colors.foreground}
-	click-left = gksudo systemctl restart network-manager
 	format-connected-foreground = ${colors.primary}
-
+	click-left = bash -/home/trim/.i3/rofii/menu/wifi
 
 
 [module/date]

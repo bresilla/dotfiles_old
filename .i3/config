@@ -302,10 +302,10 @@ bindsym $mod+$ctl+c exec flameshot gui
 ############################################################################################################
 #											LAUNCHER					-- MOD + ALT + funckeys
 ############################################################################################################
-bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/system"
-bindsym $mod+$alt+Insert exec "bash ~/.i3/rofii/confs"
-bindsym XF86Search exec "bash ~/.i3/rofii/search"
+bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/menu/system"
+bindsym $mod+$alt+Insert exec "bash ~/.i3/rofii/menu/confs"
+bindsym $mod+$alt+space exec "bash ~/.i3/rofii/menu/marks"
+bindsym XF86Search exec "bash ~/.i3/rofii/menu/search"
+bindsym $alt+space exec "rofi -theme /home/trim/.i3/rofii/rofi_bar -width 1500 -modi 'run,drun' -show drun"
+bindsym $mod+space exec "rofi -theme /home/trim/.i3/rofii/rofi_bar -width 1500 -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
 
-bindsym $alt+space exec "rofi -theme /home/trim/.i3/rofi2 -width 1500 -modi 'run,drun' -show drun"
-bindsym $mod+space exec "rofi -theme /home/trim/.i3/rofi2 -width 1500 -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
-bindsym $mod+$alt+space exec "bash ~/.i3/rofii/marks"

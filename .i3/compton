@@ -53,7 +53,7 @@ alpha-step = 0.02;
 #inactive-dim = 0.2;					# Dim inactive windows. (0.0 - 1.0)
 #inactive-dim-fixed = true;				# Do not let dimness adjust based on window opacity.
 
-blur-background = true;
+blur-background = false;
 blur-kern = "7x7box";
 blur-background-exclude = [
 				"window_type = 'tooltip'",

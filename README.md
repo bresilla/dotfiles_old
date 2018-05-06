@@ -8,6 +8,8 @@ my dotfiles :)
 
 ![demo-1](.assets/.shoots/scrot4.png)
 
+![demo-1](.assets/.shoots/scrot8.png)
+
 ![demo-1](.assets/.shoots/scrot5.png)
 
 ![demo-1](.assets/.shoots/scrot6.png)
