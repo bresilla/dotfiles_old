@@ -1,20 +1,18 @@
-#backend = "glx";
-backend = "xrender";
+backend = "glx"
+#backend = "xrender";
 
 
 ############################################################################################################
 #											GLX
 ############################################################################################################
 
-#glx-no-stencil = true;			# Recommended.
+#GLX backend
+# glx-no-stencil = true;
 glx-copy-from-front = false;
 # glx-use-copysubbuffermesa = true;
 # glx-no-rebind-pixmap = true;
 glx-swap-method = "undefined";
 # glx-use-gpushader4 = true;
-
-# xrender-sync = true;
-# xrender-sync-fence = true;
 
 ############################################################################################################
 #											Shadow
@@ -24,9 +22,9 @@ no-dnd-shadow = true;					# Don't draw shadows on DND windows.
 no-dock-shadow = true;					# Avoid drawing shadows on dock/panel windows.
 clear-shadow = true;					# Zero the part of the shadow's mask behind the
 										# window. Fix some weirdness with ARGB windows.
-shadow-radius = 7;						# The blur radius for shadows. (default 12)
-shadow-offset-x = -7;					# The left offset for shadows. (default -15)
-shadow-offset-y = -7;					# The top offset for shadows. (default -15)
+shadow-radius = 5;						# The blur radius for shadows. (default 12)
+shadow-offset-x = -7.5;					# The left offset for shadows. (default -15)
+shadow-offset-y = -7.5;					# The top offset for shadows. (default -15)
 # shadow-opacity = 0.5;					# The translucency for shadows. (default .75)
 # shadow-red = 0.0;						# Red color value of shadow. (0.0 - 1.0, defaults to 0)
 
@@ -36,7 +34,7 @@ shadow-exclude = [
 			"class_g = 'albert'",
 			"class_g = 'Conky'",
 			"_GTK_FRAME_EXTENTS@:c",
-			"class_g = 'i3-frame'",
+		    "_NET_WM_NAME@:s = 'rofi'",
 			"class_g = 'rofi'",
 			"window_type *= 'normal' && ! name ~= ''"
 ];
@@ -46,7 +44,7 @@ shadow-ignore-shaped = true;
 ############################################################################################################
 #												Opacity
 ############################################################################################################
-menu-opacity = 0.9;						# The opacity for menus. (default 1.0)
+menu-opacity = 1;						# The opacity for menus. (default 1.0)
 inactive-opacity = 0.9;					# Default opacity of inactive windows. (0.0 - 1.0)
 active-opacity = 1.0;					# Default opacity for active windows. (0.0 - 1.0)
 frame-opacity = 1.0;					# Opacity of window titlebars and borders. (0.1 - 1.0)
@@ -55,10 +53,8 @@ alpha-step = 0.02;
 #inactive-dim = 0.2;					# Dim inactive windows. (0.0 - 1.0)
 #inactive-dim-fixed = true;				# Do not let dimness adjust based on window opacity.
 
-#blur-background = true;
-#blur-background-frame = true;
-blur-background-fixed = false;
-blur-kern = "5x5box";
+blur-background = true;
+blur-kern = "7x7box";
 blur-background-exclude = [
 				"window_type = 'tooltip'",
 				"_GTK_FRAME_EXTENTS@:c"
@@ -70,15 +66,15 @@ opacity-rule = [ "50:class_g = 'rofi'"];
 #												Fading
 ############################################################################################################
 fading = true;							# Fade windows during opacity changes.
-# fade-delta = 10;						# The time between steps in a fade in milliseconds. (default 10).
+fade-delta = 20;						# The time between steps in a fade in milliseconds. (default 10).
 fade-in-step = 0.05;					# Opacity change between steps while fading in. (default 0.028).
 fade-out-step = 0.05;					# Opacity change between steps while fading out. (default 0.03).
 # no-fading-openclose = true;			# Avoid fade windows in/out when opening/closing.
 # no-fading-destroyed-argb = true;
 focus-exclude = [
-				"class_g = 'albert'",
-     			"class_g *?= 'Virtualbox'"
+				"class_g = 'albert'"
 ];
+
 
 ############################################################################################################
 #												Other
@@ -116,12 +112,58 @@ invert-color-include = [ ];				# Conditions for windows to be painted with inver
 ############################################################################################################
 #											Window type settings
 ############################################################################################################
+
+
+
 wintypes:
 {
-  tooltip = { fade = true; shadow = true; opacity = 0.75; focus = true; };
-  # fade: Fade the particular type of windows.
-  # shadow: Give those windows shadow
-  # opacity: Default opacity for the type of windows.
-  # focus: Whether to always consider windows of this type focused.
+    unknown = {
+    };
+    desktop = { 
+        fade = true;
+    };
+    dock = {
+        shadow = false;
+        fade = true;
+    };
+    toolbar = {
+        shadow = true;
+    };
+    menu = {
+        shadow = true;
+    };
+    utility = {
+    };
+    splash = {
+        fade = true;
+        shadow = true;
+    };
+    dialog = {
+        fade = true;
+        shadow = true;
+    };
+    dropdown_menu = {
+        shadow = true;
+    };
+    popup_menu = {
+        shadow = true;
+    };
+    tooltip = {
+        fade = true;
+        #opacity = 0.90;
+        focus = true;
+    };
+    notification = {
+    };
+    combo = {
+        shadow = true;
+    };
+    dnd = {
+        fade = true;
+        shadow = true;
+    };
+    normal = {
+        fade = true;
+        shadow = true;
+    };
 };
-
