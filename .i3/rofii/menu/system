@@ -1,19 +1,23 @@
 #!/bin/bash
 
-THEME="/home/trim/.i3/rofi"
+ROFI_OPTIONS=(-theme /home/trim/.i3/rofii/rofi_full -m 0 -fullscreen)
 
 another=$(echo "RELOAD
 ACCENT
 LOCK
 LOGOUT
 REBOOT
-POWEROFF" | awk '{print $(NF-1)}' | rofi -fullscreen -theme "$THEME" -dmenu -i -p "SYSTEM: ")
+POWEROFF" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")
 
+script2bin(){
+	cat /home/trim/pass | sudo -S cp /home/trim/Dots/.scripts/* /usr/local/sbin/
+}
 
 if [ "$another" == "RELOAD" ] ; then
 	xrdb -load ~/.Xdefaults; 
 	i3-msg reload; 
 	i3-msg restart;
+	script2bin
 
 elif [ "$another" == "ACCENT" ] ; then
 	exec ~/.i3/misc/accent;
@@ -32,3 +36,5 @@ elif [ "$another" == "POWEROFF" ] ; then
 else
     echo $another
 fi
+
+

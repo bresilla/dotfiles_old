@@ -33,7 +33,3 @@ screen_size(){
 script_bin(){
 	sudo cp /home/trim/Dots/.scripts/* /usr/local/sbin/
 }
-
-script_del(){
-	sudo rm /usr/local/sbin/*
-}

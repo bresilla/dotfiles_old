@@ -1,24 +1,24 @@
 #!/bin/bash
 
-THEME="/home/trim/.i3/rofi2"
+ROFI_OPTIONS=(-theme /home/trim/.i3/rofii/rofi_bar -m 0 -width 1500)
 
 another=$(echo "locate
 websearch
 youtube
-bookmarks" | awk '{print $(NF-1)}' | rofi -theme "$THEME" -width 1500 -dmenu -i -p "search: ")
+bookmarks" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
 
 
 if [ "$another" == "locate" ] ; then
-	find /media/trim/indrive/Code | rofi -theme "$THEME" -width 1500 -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
+	find /media/trim/indrive/Code | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
 
 elif [ "$another" == "websearch" ] ; then
-	surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi -theme "$THEME" -width 1500 -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')
+	surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi "${ROFI_OPTIONS[@]}" -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')
 
 elif [ "$another" == "youtube" ] ; then
-	exec ~/.i3/rofii/uplay;
+	exec ~/.i3/rofii/menu/uplay;
 
 elif [ "$another" == "bookmarks" ] ; then
-	exec ~/.i3/rofii/marks;
+	exec ~/.i3/rofii/menu/marks;
 else
     echo $another
 fi

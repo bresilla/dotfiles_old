@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THEME="/home/trim/.i3/rofi"
+ROFI_OPTIONS=(-theme /home/trim/.i3/rofii/rofi_full -m 0 -fullscreen)
 
 another=$(echo "I3
 CONFS
@@ -8,7 +8,7 @@ SCRIPTS
 FUNCTIS
 MENU
 MISC
-TMUX" | awk '{print $(NF-1)}' | rofi -fullscreen -theme /home/trim/.i3/rofi -dmenu -i -p "SYSTEM: ")
+TMUX" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")
 
 file_it(){
 	if [[ -f $1 ]]; then
@@ -21,7 +21,7 @@ file_it(){
 }
 
 list_it(){
-	selected=$(ls "$2/" | rofi -fullscreen -theme "$THEME" -dmenu -p "$1: ")
+	selected=$(ls "$2/" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "$1: ")
 	[[ -z $selected ]] && exit
 	file_it $2/$selected
 }
@@ -33,7 +33,7 @@ $HOME/Dots/.bashrc
 $HOME/Dots/.tmux.conf
 $HOME/Dots/.spacevim
 $HOME/Dots/.alias
-$HOME/Dots/.config/ranger/rc.conf" | rofi -fullscreen -theme "$THEME" -dmenu -p "shell: ")
+$HOME/Dots/.config/ranger/rc.conf" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "shell: ")
 	[[ -z $selected ]] && exit
 	gedit $selected
 

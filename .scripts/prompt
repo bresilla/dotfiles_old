@@ -1,5 +1,6 @@
 #!/bin/bash
 
+ROFI_OPTIONS=(-theme /home/trim/.i3/rofii/rofi_full -m 0 -fullscreen)
 
 if [ -z "$2" ] ; then
 	ask="run $1"
@@ -7,12 +8,14 @@ else
     ask=$2
 fi
 
-
-prompt=$(echo -e "Yes\nNo" | rofi -fullscreen -theme /home/trim/.i3/rofi -dmenu -i -p "Are you shure you want to $ask?")
-
+prompt=$(echo -e "Yes\nNo" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Are you shure you want to $ask?")
 
 if [ "$prompt" == "Yes" ] ; then
-	$1
+	if [ "$1" == "sudo" ] ; then
+		cat /home/trim/pass | sudo -S $2
+	else
+		$1
+	fi
 else
     echo $ask
 fi

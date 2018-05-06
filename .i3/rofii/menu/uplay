@@ -1,12 +1,12 @@
 #!/bin/bash
 
-THEME="/home/trim/.i3/rofi2"
+ROFI_OPTIONS=(-theme /home/trim/.i3/rofii/rofi_bar -m 0 -width 1500)
 
 search='results?search_query='
 playlist='&sp=EgIQA0IECAESAA%253D%253D'
 entries=0
 
-input=`rofi -theme "$THEME" -width 1500 -dmenu -p "youtube" | sed 's/ /+/g'`
+input=`rofi "${ROFI_OPTIONS[@]}" -dmenu -p "youtube" | sed 's/ /+/g'`
 
 result=$(curl -s "https://www.youtube.com/$search$input" 2>/dev/null) <<< $result
 
@@ -23,7 +23,7 @@ while IFS= read -r line
         fi
     fi	
 done <<< "$result"
-) | sed 's/<RETURN>/\n/g' | sed 's/^[ ]//' | rofi -dmenu -theme "$THEME" -width 1500 -p "results"`
+) | sed 's/<RETURN>/\n/g' | sed 's/^[ ]//' | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "results"`
 
 while IFS= read -r line
   do

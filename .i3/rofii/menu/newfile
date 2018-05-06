@@ -1,7 +1,0 @@
-#!/bin/bash
-title="title"
-menu=(
-    [option 1]="command to execute 1"
-    [option 2]="command to execute 2"
-)
-

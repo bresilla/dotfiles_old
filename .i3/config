@@ -292,7 +292,7 @@ bindsym $mod+Return exec sakura -f "Cousine for Powerline 12" -x tmux
 
 bindsym $mod+$ctl+Return exec $term, exec $note
 bindsym $mod+$ctl+k exec keyscreen
-bindsym $mod+$ctl+w exec prompt "gksudo systemctl restart network-manager"
+bindsym $mod+$ctl+w exec prompt sudo "systemctl restart network-manager"
 bindsym $mod+$ctl+p exec bash ~/.scripts/play
 bindsym $mod+$ctl+v exec variety -n
 bindsym $mod+$ctl+c exec flameshot gui
@@ -306,6 +306,6 @@ bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/menu/system"
 bindsym $mod+$alt+Insert exec "bash ~/.i3/rofii/menu/confs"
 bindsym $mod+$alt+space exec "bash ~/.i3/rofii/menu/marks"
 bindsym XF86Search exec "bash ~/.i3/rofii/menu/search"
-bindsym $alt+space exec "rofi -theme /home/trim/.i3/rofii/rofi_bar -width 1500 -modi 'run,drun' -show drun"
-bindsym $mod+space exec "rofi -theme /home/trim/.i3/rofii/rofi_bar -width 1500 -modi 'run,drun' -show drun -theme-str '*{accent: $red;}' -run-command 'gksudo {cmd}'"
+bindsym $alt+space exec "rofi -theme /home/trim/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun"
+bindsym $mod+space exec "SUDO_ASKPASS=/home/trim/.scripts/askpass rofi -theme /home/trim/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun -theme-str '*{accent: #F10F09;}' -run-command 'sudo -A {cmd}'"
 
