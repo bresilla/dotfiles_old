@@ -38,7 +38,7 @@ for_window [class=.*] border pixel 2
 #											SHOTRCUTS
 ############################################################################################################
 set $floater floating enable, resize set 1600 900, border pixel 0
-set $float_center floating enable, resize set 1920 780, move position center
+set $float_center floating enable, resize set 1920 783, move position center
 set $scratch_move sticky enable, move scratchpad, border pixel 0
 set $scratch_show scratchpad show, move position center
 

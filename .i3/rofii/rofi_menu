@@ -8,7 +8,7 @@
 
 * {
 
-	accent: #E1F859;
+	accent: #EDB4D6;
     foreground:         @accent;
     foreground-alt:     #ebebeb;
     background:		 	#1E1E29;

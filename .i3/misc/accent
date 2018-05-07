@@ -3,20 +3,30 @@
 clipp=$(xsel --clipboard)
 clipp=${clipp:1:6}
 
-sed -i "1s/.*/*accent:    ""#$clipp/" ~/.Xdefaults
-xrdb -load ~/.Xdefaults
+if [[ $clipp =~ ^([[:xdigit:]]{3}){1,2}$ ]]; then 
+	sed -i "1s/.*/*accent:    ""#$clipp/" ~/.Xdefaults
+	xrdb -load ~/.Xdefaults
 
-accent=$(xrdb -query | awk '/accent/{print $2}')
-sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/.i3/rofii/rofi_full"
-sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/.i3/rofii/rofi_bar"
-sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/.i3/rofii/rofi_menu"
-sed -i --follow-symlinks "/accent =/c\	accent = $accent" "$HOME/.i3/polybar"
-sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = $accent\FF" "$HOME/.i3/lock"
+	accent=$(xrdb -query | awk '/accent/{print $2}')
+	sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/.i3/rofii/rofi_full"
+	sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/.i3/rofii/rofi_bar"
+	sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/.i3/rofii/rofi_menu"
+	sed -i --follow-symlinks "/accent =/c\	accent = $accent" "$HOME/.i3/polybar"
+	sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = $accent\FF" "$HOME/.i3/lock"
 
-sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/Dots/.i3/rofii/rofi_full"
-sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/Dots/.i3/rofii/rofi_bar"
-sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/Dots/.i3/rofii/rofi_menu"
-sed -i --follow-symlinks "/accent =/c\	accent = $accent" "$HOME/Dots/.i3/polybar"
-sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = $accent\FF" "$HOME/Dots/.i3/lock"
+	sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/Dots/.i3/rofii/rofi_full"
+	sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/Dots/.i3/rofii/rofi_bar"
+	sed -i --follow-symlinks "/accent:/c\	accent: $accent\;" "$HOME/Dots/.i3/rofii/rofi_menu"
+	sed -i --follow-symlinks "/accent =/c\	accent = $accent" "$HOME/Dots/.i3/polybar"
+	sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = $accent\FF" "$HOME/Dots/.i3/lock"
+	i3-msg restart
+	
+    echo "Valid"; 
+    echo $clipp 
+else
+    echo "Invalid"; 
+    echo $clipp 
+fi
 
-i3-msg restart
+
+

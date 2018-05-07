@@ -1,5 +1,5 @@
 [colors]
-	accent = #E1F859
+	accent = #EDB4D6
 	background = 		#1E1E29
 	background-alt = 	#333347
 	foreground = 		#A5ffffff
@@ -63,7 +63,6 @@
 	font-5 = unifont:size=12;3
 	tray-position = right
 	tray-padding = 4
-	wm-restack = i3
 
 	modules-left = TOP DRY NET HOT SYC WCH
 	modules-right = wlan backlight volume cpu memory battery date
@@ -88,6 +87,8 @@
 	font-5 = unifont:size=12;3
 	modules-left = search
 	click-left = bash ~/.i3/rofii/menu/search
+	;wm-restack = i3
+
 
 
 
