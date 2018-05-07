@@ -1,7 +1,7 @@
 #AUTOMATIC SSH INTO DEVICE
 
 ###generate SSH key in local folder (skip if it exits)
-ssh-keygen -t rsa -b 2048 -C "trim.bresilla@gmail.com"
+ssh-keygen -t rsa -b 4096 -C "trim.bresilla@gmail.com"
 
 ###run command to copy this key to server
 ssh-copy-id id@server

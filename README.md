@@ -16,6 +16,4 @@ my dotfiles :)
 
 ![demo-1](.assets/.shoots/scrot6.png)
 
-
-
 ![demo-1](.assets/.shoots/scrot7.png)
