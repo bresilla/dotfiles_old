@@ -32,7 +32,8 @@ $HOME/Dots/.bashrc
 $HOME/Dots/.tmux.conf
 $HOME/Dots/.spacevim
 $HOME/Dots/.alias
-$HOME/Dots/.config/ranger/rc.conf" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "shell: ")
+$HOME/Dots/.config/ranger/rc.conf
+$HOME/.Xdefaults" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "shell: ")
 	[[ -z $selected ]] && exit
 	gedit $selected
 

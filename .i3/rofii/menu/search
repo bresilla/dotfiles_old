@@ -2,7 +2,8 @@
 
 ROFI_OPTIONS=(-theme /home/bresilla/.i3/rofii/rofi_bar -m 0 -width 1500)
 
-another=$(echo "locate
+another=$(echo "runapp
+locate
 websearch
 youtube
 bookmarks
@@ -21,8 +22,11 @@ elif [ "$another" == "youtube" ] ; then
 elif [ "$another" == "bookmarks" ] ; then
 	exec ~/.i3/rofii/menu/marks;
 
+elif [ "$another" == "runapp" ] ; then
+	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun
+
 elif [ "$another" == "sudorun" ] ; then
-	SUDO_ASKPASS=/home/bresilla/.scripts/askpass rofi -theme /home/bresilla/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun -theme-str '*{accent: #F10F09;}' -run-command 'sudo -A {cmd}'
+	SUDO_ASKPASS=/home/bresilla/.scripts/askpass rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -theme-str '*{accent: #F10F09;}' -run-command 'sudo -A {cmd}'
 else
     echo $another
 fi

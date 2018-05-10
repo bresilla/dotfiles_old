@@ -1,12 +1,16 @@
 [colors]
-	accent = #EDB4D6
-	background = 		#1E1E29
-	background-alt = 	#333347
-	foreground = 		#A5ffffff
+	accent = #DECCD5
+	bckgrd = #131313
+	select = #222222
+
+
+	background = 			${self.bckgrd}
+	background-alt = 		${self.select}
+	foreground = 			#A5ffffff
 	;primary = 			${xrdb:accent}
 	primary = 			${self.accent}
 	alert = 			#bd2c40
-	transparent = 		#00000000
+	transparent = 			#00000000
 
 
 
@@ -186,7 +190,7 @@
 	label = "WCH"
 	format = <label>
 	format-foreground = ${colors.primary}
-	click-left = bash ~/.scripts/termop 'watch -n 10 ls' WCH 1920 1080 10 55
+	click-left = bash ~/.scripts/termop 'watch -n 10 rsync -avz /media/bresilla/indrive1/Code/Raspi/ /home/bresilla/Remote/Code/' WCH 1920 1080 10 55
 
 
 [module/space]

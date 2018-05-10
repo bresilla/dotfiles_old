@@ -1,0 +1,5 @@
+###stream video
+raspivid -t 0 -w 1280 -h 720 -hf -ih -fps 15 -o - | nc -k -l 2222
+
+###mavroxy start
+sudo screen -S mavproxy -dm mavproxy.py --master=/dev/ttyS0 --baudrate=57600 --baudrate=57601 --baudrate=57602 --baudrate=57603 --baudrate=57604 --out=udp:10.42.0.1:14550 --out=udp:10.42.0.10:14550 --out=udp:10.42.0.253:14550

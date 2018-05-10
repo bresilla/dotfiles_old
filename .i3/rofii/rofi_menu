@@ -7,14 +7,18 @@
  */
 
 * {
+	accent: #DECCD5;
+	backgr:			#1E1E29;
+	altern:			#222229;
 
-	accent: #EDB4D6;
-    foreground:         @accent;
-    foreground-alt:     #ebebeb;
-    background:		 	#1E1E29;
-	background-alt: 	#333347;
-    transparent:		rgba(0, 0, 0, 0);
+
+	foreground:         	@accent;
+	foreground-alt:    	#ebebeb;
+	background:		@backgr;
+	background-alt: 	@altern;
+	transparent:		rgba(0, 0, 0, 0);
 	urgentcolor:      	#e53714;
+
 
    font: 				"Bahnschrift 12";
    border-color:        @background;

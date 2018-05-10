@@ -249,7 +249,7 @@ bindsym $mod+$alt+d exec termop dry DRY
 bindsym $mod+$alt+t exec termop htop TOP
 bindsym $mod+$alt+n exec termop bmon NET
 bindsym $mod+$alt+s exec termop '~/.scripts/syncto /home/bresilla/Dots /home/bresilla' SYC
-bindsym $mod+$alt+w exec termop 'watch -n 10 ls' WCH
+bindsym $mod+$alt+w exec termop 'watch -n 10 rsync -avz /media/bresilla/indrive1/Code/Raspi/ /home/bresilla/Remote/Code/' WCH
 bindsym $mod+$alt+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024' HOT
 
 
@@ -271,6 +271,7 @@ bindsym $mod+$ctl+c exec flameshot gui
 
 
 
+
 ############################################################################################################
 #		MEDIA KEYBINDINGS				-- funckeys
 ############################################################################################################
@@ -286,6 +287,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
+
 
 
 

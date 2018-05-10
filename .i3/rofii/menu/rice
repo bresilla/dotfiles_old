@@ -3,7 +3,7 @@
 ROFI_OPTIONS=(-theme $HOME/.i3/rofii/rofi_full -m 0 -fullscreen)
 
 another=$(echo "RELOAD
-ACCENT
+COLORS
 WALLPAPER" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")
 
 
@@ -19,8 +19,8 @@ if [ "$another" == "RELOAD" ] ; then
 	i3-msg restart;
 	script2bin
 
-elif [ "$another" == "ACCENT" ] ; then
-	exec ~/.i3/misc/accent;
+elif [ "$another" == "COLORS" ] ; then
+	exec ~/.i3/rofii/menu/color;
 
 elif [ "$another" == "WALLPAPER" ] ; then
 wallppr=$(echo -e "BRESILLA
