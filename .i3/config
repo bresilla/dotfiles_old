@@ -73,35 +73,10 @@ exec --no-startup-id python /home/bresilla/.scripts/layout
 
 exec --no-startup-id pulseaudio
 exec --no-startup-id playerctl
-exec --no-startup-id xbacklight
 exec --no-startup-id flameshot
-exec --no-startup-id hass
-#exec_always --no-startup-id nm-applet
-#exec_always --no-startup-id blueman-applet
-#exec_always --no-startup-id volti
 
 exec --no-startup-id $note
 exec --no-startup-id $term
-
-
-
-############################################################################################################
-#		MEDIA & FUNCTION KEYS
-############################################################################################################
-bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"
-bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
-
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
-#bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-#bindsym XF86MonBrightnessDown exec xbacklight -dec 10
-bindsym XF86MonBrightnessUp exec light -A 10
-bindsym XF86MonBrightnessDown exec light -U 10
-
-bindsym $alg+BackSpace exec bash ~/.scripts/play
-bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
 
 
 
@@ -281,7 +256,7 @@ bindsym $mod+$alt+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024'
 
 
 ############################################################################################################
-#		KEYBINDINGS					-- MOD + CTRL 
+#		APPS KEYBINDINGS				-- MOD + CTRL 
 ############################################################################################################
 bindsym $alt+Return exec "nautilus --new-window"
 bindsym $mod+Return exec sakura -f "Cousine for Powerline 14" -x tmux
@@ -296,9 +271,26 @@ bindsym $mod+$ctl+c exec flameshot gui
 
 
 
+############################################################################################################
+#		MEDIA KEYBINDINGS				-- funckeys
+############################################################################################################
+bindsym $alg+BackSpace exec bash ~/.scripts/play
+bindsym $alg+space exec echo "cycle pause" > /home/bresilla/.config/mpv/control
+
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86MonBrightnessUp exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
+
+
 
 ############################################################################################################
-#		LAUNCHER					-- MOD + ALT + funckeys
+#		LAUNCHER KEYBINDINGS				-- MOD + ALT + funckeys
 ############################################################################################################
 bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/menu/rice"
 bindsym $mod+$alt+Escape exec "bash ~/.i3/rofii/menu/system"
