@@ -41,24 +41,23 @@ rustc
 cargo
 nodejs
 libvncserver-dev
-libqalculate-dev
 rosbash
 tig
 inxi
-syclient
+				syclient
 
 simplescreenrecorder
-firefox-trunk
+				firefox-trunk
 obs-studio
 uget
-code
+				code
 pandoc
+feh
 entr
 zathura
 variety
-conky
 compton
-playerctl
+				playerctl
 xbacklight
 scrot
 redshft
@@ -71,9 +70,10 @@ xsel
 pass
 blueman
 flameshot
+mosh
 surfraw
 rxvt-unicode-256color
-mp-youtube
+				mp-youtube
 bmon
-fzf
-ripgrep
+				fzf
+				ripgrep

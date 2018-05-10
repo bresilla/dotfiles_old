@@ -4,6 +4,12 @@ alias la='ls -a'
 alias rm='rm -i'
 alias df='df -h'
 
+
+alias v='nvim'
+alias s='cat ~/pass | sudo -S nvim'
+
+alias ls='exa'
+
 #DIRECTORY
 alias ..='cd ..'
 alias ...='cd ../../../'

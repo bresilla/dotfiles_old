@@ -1,0 +1,41 @@
+#!/bin/bash
+
+ROFI_OPTIONS=(-theme $HOME/.i3/rofii/rofi_full -m 0 -fullscreen)
+
+another=$(echo "RELOAD
+ACCENT
+WALLPAPER" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")
+
+
+
+script2bin(){
+	cat /home/bresilla/pass | sudo -S cp /home/bresilla/Dots/.scripts/* /usr/local/sbin/
+}
+
+
+if [ "$another" == "RELOAD" ] ; then
+	xrdb -load ~/.Xdefaults; 
+	i3-msg reload; 
+	i3-msg restart;
+	script2bin
+
+elif [ "$another" == "ACCENT" ] ; then
+	exec ~/.i3/misc/accent;
+
+elif [ "$another" == "WALLPAPER" ] ; then
+wallppr=$(echo -e "BRESILLA
+WALLPAPER" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "WALLPAPER: ")
+	if [ "$wallppr" == "BRESILLA" ] ; then
+		bash ~/.i3/misc/wall ~/.assets/.bresilla/wallpapers/ 60
+
+	elif [ "$wallppr" == "WALLPAPER" ] ; then
+		feh --bg-fill /home/bresilla/Dots/.assets/.wallpapers/minimal/wallhaven-13698.jpg
+	fi
+
+else
+    echo $another
+fi
+
+
+
+

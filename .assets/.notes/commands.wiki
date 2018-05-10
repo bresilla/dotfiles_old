@@ -18,7 +18,7 @@
 ####mpv mediakeys control
 make>  mkfifo ~/.config/mpv/control
 ####run mpv with
-mplayer --input-file /home/<username>/.config/mpv/control <file/link>
+mpv --input-file /home/<username>/.config/mpv/control <file/link>
 ###use command to control
 echo "cycle pause" > /home/<username>/.config/mpv/control
 

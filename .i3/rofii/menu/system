@@ -1,28 +1,17 @@
 #!/bin/bash
 
-ROFI_OPTIONS=(-theme /home/trim/.i3/rofii/rofi_full -m 0 -fullscreen)
+ROFI_OPTIONS=(-theme $HOME/.i3/rofii/rofi_full -m 0 -fullscreen)
 
-another=$(echo "RELOAD
-ACCENT
-LOCK
+another=$(echo "LOCK
 LOGOUT
 REBOOT
 POWEROFF" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")
 
 script2bin(){
-	cat /home/trim/pass | sudo -S cp /home/trim/Dots/.scripts/* /usr/local/sbin/
+	cat /home/bresilla/pass | sudo -S cp /home/bresilla/Dots/.scripts/* /usr/local/sbin/
 }
 
-if [ "$another" == "RELOAD" ] ; then
-	xrdb -load ~/.Xdefaults; 
-	i3-msg reload; 
-	i3-msg restart;
-	script2bin
-
-elif [ "$another" == "ACCENT" ] ; then
-	exec ~/.i3/misc/accent;
-	
-elif [ "$another" == "LOCK" ] ; then
+if [ "$another" == "LOCK" ] ; then
 	exec ~/.i3/misc/blurlock;
 		
 elif [ "$another" == "LOGOUT" ] ; then
@@ -32,7 +21,8 @@ elif [ "$another" == "REBOOT" ] ; then
 	prompt "reboot" REBOOT
 	
 elif [ "$another" == "POWEROFF" ] ; then
-	prompt "poweroff" POWEROFF
+	prompt "poweroff" POWEROFF	
+
 else
     echo $another
 fi

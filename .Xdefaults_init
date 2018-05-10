@@ -22,7 +22,7 @@
 
 
 URxvt.intensityStyles:			false
-URxvt.background:       		[90]#1E1E29
+URxvt.background:       		#1E1E29
 URxvt.depth:					32
 URxvt.font: 					xft:Noto Mono for Powerline:size=12
 URxvt.scrollBar:				false
@@ -42,8 +42,3 @@ Xft.hintstyle: 	hintslight
 Xft.dpi: 		96
 Xft.rgba: 		rgb
 Xft.lcdfilter: 	lcddefault
-
-
-
-rofi.fullscreen:true
-rofi.theme: ~/.i3/rofi

@@ -15,8 +15,8 @@ pissh(){
 	ssh -R 52698:127.0.0.1:52698 trim@$1 -X
 }
 
-pifss(){
-	sshfs trim@$1:/home/trim /home/trim/Remote
+pifsh(){
+	sshfs trim@$1:/home/trim /home/bresilla/Remote
 }
 
 pivid(){
@@ -24,5 +24,5 @@ pivid(){
 }
 
 pisyc(){
-	rsync -avz /media/trim/indrive/Code/Raspi/ trim@$1:/home/trim/Code/
+	rsync -avz /media/bresilla/indrive/Code/Raspi/ trim@$1:/home/trim/Code/
 }

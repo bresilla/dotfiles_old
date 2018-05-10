@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ROFI_OPTIONS=(-theme /home/trim/.i3/rofii/rofi_bar -m 0 -width 1500)
+ROFI_OPTIONS=(-theme /home/bresilla/.i3/rofii/rofi_bar -m 0 -width 1500)
 BROWSER="firefox"
 bookmarks="$HOME/Dots/.assets/.notes/bookmarks.wiki"
 

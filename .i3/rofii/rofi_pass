@@ -37,7 +37,7 @@
     separatorcolor:              @foreground;
     background-color:            @transparent;
     spacing:                     10;
-   	font: 						"Bahnschrift 64";
+   font: 			"Bahnschrift 64";
 }
 
 #window {
@@ -125,7 +125,6 @@
     spacing:    			0;
     text-color: 			@normal-foreground;
     padding:    			1px ;
-    horizontal-align: 		1;
 }
 #case-indicator {
     spacing:    			0;
@@ -134,10 +133,8 @@
 #entry {
     spacing:    			0;
     text-color: 			@normal-foreground;
-    horizontal-align: 		1;
 }
 #prompt, button{
     spacing:    			0;
     text-color: 			@normal-foreground;
-    horizontal-align: 		1;
 }

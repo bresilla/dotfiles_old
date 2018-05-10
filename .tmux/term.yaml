@@ -9,16 +9,4 @@ windows:
       - texas
   start_directory: /home/trim
   window_name: term1
-- focus: 'true'
-  layout: 6ce6,174x39,0,0{58x39,0,0,4,57x39,59,0,8,57x39,117,0,11}
-  options:
-    automatic-rename: 'off'
-  panes:
-  - focus: 'true'
-    shell_command:
-  - shell_command:
-  - shell_command:
-  start_directory: /home/trim
-  window_name: term2
-  
 

@@ -6,10 +6,10 @@ monitor2=DP-1-1
 killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
-MONITOR=$monitor1 polybar -c ~/.i3/polybar center &
-MONITOR=$monitor1 polybar -c ~/.i3/polybar top &
-MONITOR=$monitor1 polybar -c ~/.i3/polybar workspaces &
-MONITOR=$monitor2 polybar -c ~/.i3/polybar workspaces &
+MONITOR=$monitor1 polybar -c ~/.i3/polybar/polybar center &
+MONITOR=$monitor1 polybar -c ~/.i3/polybar/polybar top &
+MONITOR=$monitor1 polybar -c ~/.i3/polybar/polybar workspaces &
+MONITOR=$monitor2 polybar -c ~/.i3/polybar/polybar workspaces &
 
 #for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
 #  MONITOR=$m polybar -c ~/.i3/polybar top &

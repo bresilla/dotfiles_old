@@ -5,3 +5,9 @@ ssh-keygen -t rsa -b 4096 -C "trim.bresilla@gmail.com"
 
 ###run command to copy this key to server
 ssh-copy-id id@server
+
+###start the ssh-agent
+eval "$(ssh-agent -s)"
+
+###add ssh-key to ssh-agent
+ssh-add -k ~/.ssh/id_rsa

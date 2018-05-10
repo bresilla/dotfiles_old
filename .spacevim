@@ -16,8 +16,6 @@ function! UserInit()
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
   Plug 'scrooloose/syntastic'
-  Plug 'Valloric/YouCompleteMe'
-  Plug 'octol/vim-cpp-enhanced-highlight'
   Plug 'dbgx/lldb.nvim'
   Plug 'Yggdroot/indentLine'
   Plug 'SirVer/ultisnips'

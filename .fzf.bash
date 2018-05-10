@@ -1,14 +1,14 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */home/trim/.fzf/bin* ]]; then
-  export PATH="$PATH:/home/trim/.fzf/bin"
+if [[ ! "$PATH" == */home/bresilla/.fzf/bin* ]]; then
+  export PATH="$PATH:/home/bresilla/.fzf/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/trim/.fzf/shell/completion.bash" 2> /dev/null
+[[ $- == *i* ]] && source "/home/bresilla/.fzf/shell/completion.bash" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/home/trim/.fzf/shell/key-bindings.bash"
+source "/home/bresilla/.fzf/shell/key-bindings.bash"
 

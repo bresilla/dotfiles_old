@@ -1,5 +1,5 @@
 ############################################################################################################
-#											MODIFIERS
+#		MODIFIERS
 ############################################################################################################
 set $mod mod4
 set $alt mod1
@@ -19,23 +19,7 @@ set $ü udiaeresis
 
 
 ############################################################################################################
-#											SETTINGS
-############################################################################################################
-gaps inner 15
-gaps outer 5
-floating_modifier $alt
-workspace_auto_back_and_forth yes
-popup_during_fullscreen smart
-focus_follows_mouse yes
-focus_on_window_activation focus
-focus_wrapping yes
-for_window [class=.*] border pixel 2
-
-
-
-
-############################################################################################################
-#											SHOTRCUTS
+#		SHOTRCUTS
 ############################################################################################################
 set $floater floating enable, resize set 1600 900, border pixel 0
 set $float_center floating enable, resize set 1920 783, move position center
@@ -48,8 +32,25 @@ set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp lo
 
 
 
+
 ############################################################################################################
-#											AUTOSTART
+#		SETTINGS
+############################################################################################################
+gaps inner 30
+gaps outer 5
+floating_modifier $alt
+workspace_auto_back_and_forth yes
+popup_during_fullscreen smart
+focus_follows_mouse yes
+focus_on_window_activation focus
+focus_wrapping yes
+for_window [class=.*] border pixel 0
+
+
+
+
+############################################################################################################
+#		AUTOSTART
 ############################################################################################################
 exec_always sysclient PalmDetect=1
 exec_always synclient PalmDetect=1
@@ -60,16 +61,15 @@ exec_always synclient PalmMinZ=50
 exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
 exec_always bash ~/.i3/misc/monitor
 
-exec --no-startup-id compton --config ~/.i3/compton
-exec --no-startup-id udisksctl mount -b /dev/sda2
+exec --no-startup-id compton --config ~/.i3/compton/compton
+exec --no-startup-id udisksctl mount -b /dev/sdb1
 exec xrdb -load ~/.Xdefaults
 
-exec xautolock -time 10 -locker ~/.i3/misc/blurlock
-#exec bash ~/.i3/misc/wall ~/.assets/.bresilla/wallpapers/ 60
-exec feh --bg-fill /home/trim/Dots/.assets/.wallpapers/digitalart/wallhaven-502369.jpg 
 
+exec xautolock -time 10 -locker ~/.i3/misc/blurlock
+exec feh --bg-fill /home/bresilla/Dots/.assets/.wallpapers/minimal/wallhaven-13703.jpg
 exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.5:0.8
-exec --no-startup-id python /home/trim/.i3/layout
+exec --no-startup-id python /home/bresilla/.scripts/layout
 
 exec --no-startup-id pulseaudio
 exec --no-startup-id playerctl
@@ -85,9 +85,8 @@ exec --no-startup-id $term
 
 
 
-
 ############################################################################################################
-#										MEDIA & FUNCTION KEYS
+#		MEDIA & FUNCTION KEYS
 ############################################################################################################
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"
 bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
@@ -101,8 +100,6 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
 
-
-
 bindsym $alg+BackSpace exec bash ~/.scripts/play
 bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
 
@@ -110,7 +107,7 @@ bindsym $alg+space exec echo "cycle pause" > /home/trim/.config/mpv/control
 
 
 ############################################################################################################
-#										FONTS & COLORS & FRAME
+#		FONTS & COLORS & FRAME
 ############################################################################################################
 font pango:Noto Mono for Powerline 14
 
@@ -120,9 +117,9 @@ set $grey				#373B41
 set $white				#FFFFFF
 set $red				#F10F09
 
-#class						border		backgr.		text		split
+#class					border		backgr.		text		split
 client.focused				$accent		$accent		$black		$accent
-client.focused_inactive		$grey		$grey		$white		$grey
+client.focused_inactive			$grey		$grey		$white		$grey
 client.unfocused			$grey		$grey		$white		$grey
 client.urgent				$red		$red		$black		$red
 
@@ -130,7 +127,7 @@ client.urgent				$red		$red		$black		$red
 
 
 ############################################################################################################
-##											WINDOWS
+#		WINDOWS
 ############################################################################################################
 bindsym $mod+$esc kill
 bindsym $alt+$esc kill
@@ -178,7 +175,7 @@ bindsym $mod+$alt+F7 sticky toggle
 
 
 ############################################################################################################
-#											WORKSPACES
+#		WORKSPACES
 ############################################################################################################
 set $workspace1 "001"
 set $workspace2 "002"
@@ -221,7 +218,7 @@ bindsym $mod+$alt+Right workspace next
 
 
 ############################################################################################################
-#											MONITORS
+#		MONITORS
 ############################################################################################################
 set $monitor1 eDP-1-1
 set $monitor2 DP-1-1
@@ -242,7 +239,7 @@ workspace $workspace0 output $projector
 
 
 ############################################################################################################
-#											ASSIGNMENTS
+#		ASSIGNMENTS
 ############################################################################################################
 assign [class="Firefox"] $workspace8
 assign [class="Code"] $workspace2
@@ -262,7 +259,7 @@ for_window [class="Pick-colour-picker"] $floater
 
 
 ############################################################################################################
-#											SCRATCHPAD					-- MOD + ALT + nonfunc
+#		SCRATCHPAD					-- MOD + ALT + nonfunc
 ############################################################################################################
 for_window [instance="term"] $float_center, $scratch_move
 bindsym $crcum [instance="term"] $scratch_show
@@ -276,7 +273,7 @@ bindsym $mod+$alt+1 [class="Spotify"] $scratch_show
 bindsym $mod+$alt+d exec termop dry DRY
 bindsym $mod+$alt+t exec termop htop TOP
 bindsym $mod+$alt+n exec termop bmon NET
-bindsym $mod+$alt+s exec termop '~/.scripts/syncto /home/trim/Dots /home/trim' SYC
+bindsym $mod+$alt+s exec termop '~/.scripts/syncto /home/bresilla/Dots /home/bresilla' SYC
 bindsym $mod+$alt+w exec termop 'watch -n 10 ls' WCH
 bindsym $mod+$alt+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024' HOT
 
@@ -284,10 +281,10 @@ bindsym $mod+$alt+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024'
 
 
 ############################################################################################################
-#											KEYBINDINGS					-- MOD + CTRL 
+#		KEYBINDINGS					-- MOD + CTRL 
 ############################################################################################################
 bindsym $alt+Return exec "nautilus --new-window"
-bindsym $mod+Return exec sakura -f "Cousine for Powerline 12" -x tmux 
+bindsym $mod+Return exec sakura -f "Cousine for Powerline 14" -x tmux
 #bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
 
 bindsym $mod+$ctl+Return exec $term, exec $note
@@ -299,13 +296,15 @@ bindsym $mod+$ctl+c exec flameshot gui
 
 
 
+
 ############################################################################################################
-#											LAUNCHER					-- MOD + ALT + funckeys
+#		LAUNCHER					-- MOD + ALT + funckeys
 ############################################################################################################
-bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/menu/system"
+bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/menu/rice"
+bindsym $mod+$alt+Escape exec "bash ~/.i3/rofii/menu/system"
 bindsym $mod+$alt+Insert exec "bash ~/.i3/rofii/menu/confs"
 bindsym $mod+$alt+space exec "bash ~/.i3/rofii/menu/marks"
-bindsym XF86Search exec "bash ~/.i3/rofii/menu/search"
-bindsym $alt+space exec "rofi -theme /home/trim/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun"
-bindsym $mod+space exec "SUDO_ASKPASS=/home/trim/.scripts/askpass rofi -theme /home/trim/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun -theme-str '*{accent: #F10F09;}' -run-command 'sudo -A {cmd}'"
 
+bindsym XF86Search exec "bash ~/.i3/rofii/menu/search"
+bindsym $alt+space exec "rofi -theme /home/bresilla/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun"
+bindsym $mod+space exec "rofi -theme /home/bresilla/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun"

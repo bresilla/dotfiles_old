@@ -5,4 +5,4 @@ scrot /tmp/screenshot.png
 
 convert /tmp/screenshot.png -blur 0x5 /tmp/screenshotblur.png
 
-i3lock -c /home/trim/.i3/lock
+i3lock -c /home/bresilla/.i3/i3lock/lock
