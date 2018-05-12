@@ -225,6 +225,8 @@ assign [class="QGroundControl"] $workspace3
 assign [class="obs"] $workspace9
 assign [class="Gnome-pomodoro"] $workspace0
 
+
+for_window [class="Nautilus"] $floater
 for_window [class="mpv"] $floater
 for_window [class="MPlayer"] $floater
 for_window [class="URxvt"] $floater
