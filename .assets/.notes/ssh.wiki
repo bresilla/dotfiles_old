@@ -11,3 +11,12 @@ eval "$(ssh-agent -s)"
 
 ###add ssh-key to ssh-agent
 ssh-add -k ~/.ssh/id_rsa
+
+
+#USE SSH WITH  GITHUB
+
+###make the repo use git+ssh instead of https, to check it use
+git remote show origin
+
+###change repo from https to git+ssh
+git remote set-url origin git+ssh://git@hithub.com/<username>/<reponame.git>

@@ -1,7 +1,7 @@
 [colors]
-	accent = #DECCD5
+	accent = #56B2E5
 	bckgrd = #131313
-	select = #2D3033
+	select = #222222
 
 
 	background = 			${self.bckgrd}

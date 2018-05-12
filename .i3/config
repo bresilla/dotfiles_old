@@ -62,6 +62,7 @@ exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --out
 exec_always bash ~/.i3/misc/monitor
 
 exec --no-startup-id compton --config ~/.i3/compton/compton
+exec --no-startup-id conky -c /home/bresilla/.i3/conky/conky
 exec --no-startup-id udisksctl mount -b /dev/sdb1
 exec xrdb -load ~/.Xdefaults
 
@@ -226,7 +227,7 @@ assign [class="obs"] $workspace9
 assign [class="Gnome-pomodoro"] $workspace0
 
 
-for_window [class="Nautilus"] $floater
+#for_window [class="Nautilus"] $floater
 for_window [class="mpv"] $floater
 for_window [class="MPlayer"] $floater
 for_window [class="URxvt"] $floater
@@ -270,10 +271,10 @@ bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
 
 bindsym $mod+$ctl+Return exec $term, exec $note
 bindsym $mod+$ctl+k exec keyscreen
-bindsym $mod+$ctl+w exec prompt sudo "systemctl restart network-manager"
-bindsym $mod+$ctl+p exec bash ~/.scripts/play
 bindsym $mod+$ctl+v exec variety -n
 bindsym $mod+$ctl+c exec flameshot gui
+
+bindsym $mod+p exec xdotool type $(cat /home/bresilla/pass)
 
 
 
