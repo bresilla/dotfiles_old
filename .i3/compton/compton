@@ -50,10 +50,10 @@ active-opacity = 1.0;					# Default opacity for active windows. (0.0 - 1.0)
 frame-opacity = 1.0;					# Opacity of window titlebars and borders. (0.1 - 1.0)
 
 alpha-step = 0.04;
-#inactive-dim = 0.2;					# Dim inactive windows. (0.0 - 1.0)
+inactive-dim = 0.3; 					# Dim inactive windows. (0.0 - 1.0)
 #inactive-dim-fixed = true;				# Do not let dimness adjust based on window opacity.
 
-blur-background = false;
+blur-background = true;
 blur-kern = "7x7box";
 blur-background-exclude = [
 				"window_type = 'tooltip'",

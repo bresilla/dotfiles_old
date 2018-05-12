@@ -9,7 +9,7 @@
 * {
 	accent: #DECCD5;
     foreground:         		@accent;
-    background:         		rgba(0, 0, 0, 0.75);
+    background:         		rgba(0, 0, 0, 0.5);
     transparent:				rgba(0, 0, 0, 0);
     
     normal-background: 			@transparent;

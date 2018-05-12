@@ -245,6 +245,10 @@ bindsym $acute [instance="note"] $scratch_show
 for_window [class="Spotify"] $float_center, $scratch_move
 bindsym $mod+$alt+1 [class="Spotify"] $scratch_show
 
+for_window [class="pulseeffects"] $float_center, $scratch_move
+bindsym $mod+$alt+2 [class="pulseeffects"] $scratch_show
+
+
 bindsym $mod+$alt+d exec termop dry DRY
 bindsym $mod+$alt+t exec termop htop TOP
 bindsym $mod+$alt+n exec termop bmon NET
@@ -259,8 +263,8 @@ bindsym $mod+$alt+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024'
 #		APPS KEYBINDINGS				-- MOD + CTRL 
 ############################################################################################################
 bindsym $alt+Return exec "nautilus --new-window"
-bindsym $mod+Return exec sakura -f "Cousine for Powerline 14" -x tmux
-#bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
+#bindsym $mod+Return exec sakura -f "Cousine for Powerline 14" -x tmux
+bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
 
 bindsym $mod+$ctl+Return exec $term, exec $note
 bindsym $mod+$ctl+k exec keyscreen
