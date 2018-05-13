@@ -1,36 +1,34 @@
-*accent:    #DECCD5
+*accent:    #DD9DB8
 *bckgrd:    #1E1E29
 *select:    #222229
 
 
-*.foreground: #F8F8F2
-*.background: #282A36
-*.color0:     #000000
-*.color8:     #4D4D4D
-*.color1:     #FF5555
-*.color9:     #FF6E67
-*.color2:     #50FA7B
-*.color10:    #5AF78E
-*.color3:     #F1FA8C
-*.color11:    #F4F99D
-*.color4:     #BD93F9
-*.color12:    #CAA9FA
-*.color5:     #FF79C6
-*.color13:    #FF92D0
-*.color6:     #8BE9FD
-*.color14:    #9AEDFE
-*.color7:     #BFBFBF
-*.color15: 	  #E6E6E6
+*.foreground:	#F8F8F2
+*.background:	#282A36
+*.color0:	#000000
+*.color8:	#4D4D4D
+*.color1:	#FF5555
+*.color9:	#FF6E67
+*.color2:	#50FA7B
+*.color10:	#5AF78E
+*.color3:	#F1FA8C
+*.color11:	#F4F99D
+*.color4:	#BD93F9
+*.color12:	#CAA9FA
+*.color5:	#FF79C6
+*.color13:	#FF92D0
+*.color6:	#8BE9FD
+*.color14:	#9AEDFE
+*.color7:	#BFBFBF
+*.color15: 	#E6E6E6
 
-URxvt*internalBorder: 			50
-URxvt.intensityStyles:			false
-	 URxvt.background: #131313
+URxvt*internalBorder: 				50
+URxvt.intensityStyles:				false
+URxvt.background: 				#121212
 URxvt.depth:					32
 URxvt.font: 					xft:Noto Mono for Powerline:size=12
 URxvt.scrollBar:				false
 URxvt.cursorColor:				white
-URxvt.resize-font.smaller:		C-Down
-URxvt.resize-font.bigger:		C-Up
 URxvt.colorUL:					#4682B4
 URxvt.keysym.Shift-Control-V: 	eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: 	eval:selection_to_clipboard
@@ -41,6 +39,6 @@ Xft.autohint: 	0
 Xft.antialias: 	1
 Xft.hinting: 	true
 Xft.hintstyle: 	hintslight
-Xft.dpi: 		96
-Xft.rgba: 		rgb
+Xft.dpi: 	96
+Xft.rgba: 	rgb
 Xft.lcdfilter: 	lcddefault

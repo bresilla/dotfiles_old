@@ -77,3 +77,4 @@ rxvt-unicode-256color
 bmon
 				fzf
 				ripgrep
+fasd

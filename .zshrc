@@ -8,25 +8,57 @@ for file in ~/.func/*; do
     source "$file"
 done
 
-###MODULES & ALIASES
-[ -f ~/.alias ] && source ~/.alias
-source ~/.zsh/texas_init.zsh
-source ~/.zsh/theme.sh
-source ~/.zsh/extract.plugin.zsh
 
-
+###COLOR OUTPUTS
+autoload -U colors && colors
+alias grep="grep --color=auto"
+###CASE INSENSITIVE
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 
 #--------------------------------------------------------------------------------------------------------------------
 ###HISTORY STAFF
-HISTSIZE=5000               #How many lines of history to keep in memory
-HISTFILE=~/.zsh_history     #Where to save history to disk
-SAVEHIST=5000               #Number of history entries to save to disk
-HISTDUP=erase               #Erase duplicates in the history file
-setopt    appendhistory     #Append history to the history file (no overwriting)
-setopt    sharehistory      #Share history across terminals
-setopt 	  incappendhistory  #Immediately append to the history file, not just when a term is killed
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt append_history
+setopt sharehistory  
+setopt incappendhistory
+setopt inc_append_history
+setopt hist_ignore_all_dups
+export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+setopt hist_reduce_blanks
+setopt hist_ignore_space
+setopt interactive_comments
+setopt correct
+setopt no_beep
+setopt prompt_subst
 
+
+
+#--------------------------------------------------------------------------------------------------------------------
+###FASD and ENHANCD
+[ -f ~/.enhancd/./init.sh ] && source ~/.enhancd/./init.sh
+eval "$(fasd --init posix-alias zsh-hook)"
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
+###PERCON AUTOSUGESTION
+function exists { which $1 &> /dev/null }
+
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
+
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi
 
 
 
@@ -53,24 +85,7 @@ fzf_locate() {
 	zle -I; xdg-open "$(locate "*" | fzf -e)" ;}
 	zle -N fzf_locate
 bindkey '^L' fzf_locate
-	
 
-[ -f ~/.enhancd/./init.sh ] && source ~/.enhancd/./init.sh
-
-
-
-
-#--------------------------------------------------------------------------------------------------------------------
-###FUZZYFINDER
-[ -f ~/.antigen/antigen.zsh ] && source ~/.antigen/antigen.zsh
-antigen bundle supercrabtree/k
-antigen bundle psprint/zsh-navigation-tools
-antigen bundle willghatch/zsh-snippets
-antigen bundle gko/ssh-connect
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen apply
 
 
 
@@ -94,4 +109,29 @@ zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
 
 
+
 #--------------------------------------------------------------------------------------------------------------------
+###BOUNDLES
+[ -f ~/.antigen/antigen.zsh ] && source ~/.antigen/antigen.zsh
+antigen bundle supercrabtree/k
+antigen bundle psprint/zsh-navigation-tools
+antigen bundle willghatch/zsh-snippets
+antigen bundle gko/ssh-connect
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search
+antigen apply
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
+###MODULES & ALIASES
+[ -f ~/.alias ] && source ~/.alias
+source ~/.zsh/texas_init.zsh
+source ~/.zsh/theme.sh
+source ~/.zsh/extract.plugin.zsh
+source ~/.zsh/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-history-substring-search.zsh
+source ~/.zsh/zsh-miscellaneous.zsh
+

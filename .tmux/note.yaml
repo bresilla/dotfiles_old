@@ -7,33 +7,9 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-      - vim ~/Dots/.assets/.notes/distracted.wiki
+      - tudu
   - shell_command:
       - vim ~/Dots/.assets/.notes/index.wiki
   start_directory: /home/trim
-  window_name: sync
-
-- layout: e6b1,173x39,0,0{57x39,0,0[57x19,0,0,2,57x19,0,20,11],57x39,58,0[57x19,58,0,3,57x19,58,20,12],57x39,116,0[57x19,116,0,4,57x19,116,20,13]}
-  options:
-    automatic-rename: 'off'
-  panes:
-  - focus: 'true'
-    shell_command:
-      - ros_source
-  - shell_command:
-      - ros_source
-      - exit
-  - shell_command:
-      - ros_source
-  - shell_command:
-      - ros_source
-      - exit
-  - shell_command:
-      - ros_source
-  - shell_command:
-      - ros_source
-      - exit
-  start_directory: /home/trim
-  window_name: ros
-
+  window_name: note
 

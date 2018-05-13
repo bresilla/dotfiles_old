@@ -26,3 +26,7 @@ pivid(){
 pisyc(){
 	watch -n 10 rsync -avz /media/bresilla/indrive/Code/Raspi/ trim@$1:/home/trim/Code/
 }
+
+pirdp(){
+	rdesktop $1
+}

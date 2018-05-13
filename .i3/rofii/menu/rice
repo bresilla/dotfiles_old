@@ -10,6 +10,7 @@ WALLPAPER" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYS
 
 script2bin(){
 	cat /home/bresilla/pass | sudo -S cp /home/bresilla/Dots/.scripts/* /usr/local/sbin/
+	cat /home/bresilla/pass | sudo -S cp /home/bresilla/Dots/.bin/* /usr/local/bin/
 }
 
 
