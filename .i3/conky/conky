@@ -85,9 +85,11 @@ ${endif}\
 --]]
 conky.text = [[
 ${alignc}${color0}${font Daytona-W01:pixelsize=80}${time %I:%M}${font ubuntu light:pixelsize=18}${time %P}$font
-$hr
 ${alignc}${time %A }${color0}${time %d}$color ${time %B} ${time %Y}$font
+$hr
 
+${alignc}${color0}${font Daytona-W01:pixelsize=80}bresilla$font
+$hr
 
 ${color0}SYSTEM ${hr 1}${color}
 Hostname: $alignr$nodename
@@ -97,7 +99,6 @@ Uptime: $alignr$uptime
 Temp: ${alignr}${acpitemp}C
 
 
-
 ${color0}CPU: \
 $hr
 Model: ${alignr}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 1-28}
@@ -105,8 +106,8 @@ ${goto 50}$cpu%\
 ${goto 90}${freq}mHz\
 ${goto 180}${color0}${acpitemp}℃\
 ${alignr 40}${color0}RAM: $memperc% = $mem / $memmax
-${color0}${cpugraph 60,250 00ffff 00ff00} \
-${color0}${memgraph 60,250 00ffff 00ff00}
+${color0}${cpugraph 120,250 00ffff 00ff00} \
+${color0}${memgraph 120,250 00ffff 00ff00}
 ${color0}CPU 1 : $color0${cpu cpu1}% ${goto 100}${cpubar cpu1 12,150}  \
 ${color0}CPU 5 : ${alignr 5}$color0${cpu cpu5}% ${cpubar cpu5 12,150}
 ${color0}CPU 2 : $color0${cpu cpu2}% ${goto 100}${cpubar cpu2 12,150}  \
@@ -119,7 +120,6 @@ ${color0}Swap Usage: $swapperc% = $swap/$swapmax \
 ${color0} ${swapbar 4 00ff00 ff0000}\
 
 
-
 ${color0}DiskIO: $diskio \
 $hr
  ${color0}/dev/sda2\
@@ -128,7 +128,6 @@ $hr
  ${goto 320}${color0}${diskio_write sda2}
 ${color0}${diskiograph_read 30,250 00ffff 00ff00} \
 ${color0}${diskiograph_write 30,250 00ffff 00ff00} \
-
 
 
 ${color0}File systems: \
@@ -163,7 +162,6 @@ ${color0}indrive ${alignr 300}\
  ${color0}${fs_bar 6 /media/bresilla/indrive1}\
 
 
-
 ${color0}Processes: \
 $hr
 ${color0}Active:$color $processes  \
@@ -192,7 +190,6 @@ ${color0} ${top     name 9} ${top     pid 9} ${top     cpu 9} | \
 ${color0} ${top_mem name 9} ${top_mem pid 9} ${top_mem mem 9}\
 
 
-
 ${color0}Networking: \
 $hr
 ${if_up wlp2s0}\
@@ -211,7 +208,6 @@ ${color0}essid: ${color0}${wireless_essid wlp2s0}
 ${color0}${downspeedgraph wlp2s0 60,250 00ffff 00ff00} \
 ${color0}${downspeedgraph wlp2s0 60,250 00ffff 00ff00}
 ${endif}\
-
 
 ${color0}Port(s) \
 $hr

@@ -1,4 +1,7 @@
 my dotfiles :)
+
+![demo-1](.assets/.shoots/cover.png)
+
 ![demo-1](.assets/.shoots/scrot0.png)
 
 ![demo-1](.assets/.shoots/scrot1.png)

@@ -57,6 +57,18 @@ blur-background = true;
 blur-kern = "7x7box";
 blur-background-exclude = [
 				"window_type = 'tooltip'",
+				"window_type = 'dock'",
+				"window_type = 'desktop'",
+				"class_g = 'mpv'",
+				"class_g = 'Firefox'",
+				"class_g = 'Nautilus'",
+				"class_g = 'Gedit'",
+				"class_g = 'Code'",
+				"class_g = 'rviz'",
+				"class_g = 'rtabmapviz'",
+				"class_g = 'obs'",
+				"class_g = 'gazeb'",
+				"class_g = 'QGroundControl'",
 				"_GTK_FRAME_EXTENTS@:c"
 ];
 

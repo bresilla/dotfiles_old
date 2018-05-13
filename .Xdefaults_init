@@ -1,4 +1,7 @@
-*accent:    #EDB4D6
+*accent:    #DECCD5
+*bckgrd:    #1E1E29
+*select:    #222229
+
 
 *.foreground: #F8F8F2
 *.background: #282A36
@@ -19,10 +22,9 @@
 *.color7:     #BFBFBF
 *.color15: 	  #E6E6E6
 
-
-
+URxvt*internalBorder: 			50
 URxvt.intensityStyles:			false
-URxvt.background:       		#1E1E29
+	 URxvt.background: #131313
 URxvt.depth:					32
 URxvt.font: 					xft:Noto Mono for Powerline:size=12
 URxvt.scrollBar:				false

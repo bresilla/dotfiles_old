@@ -61,14 +61,14 @@ exec_always synclient PalmMinZ=50
 exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
 exec_always bash ~/.i3/misc/monitor
 
-exec --no-startup-id compton --config ~/.i3/compton/compton
+exec --no-startup-id compton --glx-no-stencil --glx-no-rebind-pixmap --glx-swap-method exchange --config ~/.i3/compton/compton
 exec --no-startup-id conky -c /home/bresilla/.i3/conky/conky
 exec --no-startup-id udisksctl mount -b /dev/sdb1
 exec xrdb -load ~/.Xdefaults
 
 
 exec xautolock -time 10 -locker ~/.i3/misc/blurlock
-exec feh --bg-fill /home/bresilla/Dots/.assets/.wallpapers/minimal/wallhaven-13703.jpg
+exec feh --bg-fill /home/bresilla/Dots/.assets/.wallpapers/nature/'wallhaven-642497.jpg'
 exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.5:0.8
 exec --no-startup-id python /home/bresilla/.scripts/layout
 
@@ -230,6 +230,7 @@ assign [class="Gnome-pomodoro"] $workspace0
 #for_window [class="Nautilus"] $floater
 for_window [class="mpv"] $floater
 for_window [class="MPlayer"] $floater
+for_window [class="Wpg"] $floater
 for_window [class="URxvt"] $floater
 for_window [class="Pick-colour-picker"] $floater
 
