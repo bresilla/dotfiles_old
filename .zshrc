@@ -67,18 +67,18 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 fzf_history() { 
-	zle -I; eval $(history | fzf +s | sed 's/ *[0-9]* *//') ; }; 
-	zle -N fzf_history; 
+	zle -I; eval $(history | fzf +s | sed 's/ *[0-9]* *//') ; }
+	zle -N fzf_history
 bindkey '^H' fzf_history
 
 fzf_killps() { 
-	zle -I; ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9} ; }; 
-	zle -N fzf_killps; 
+	zle -I; ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9} ; }
+	zle -N fzf_killps
 bindkey '^X' fzf_killps
 
 fzf_cd() { 
-	zle -I; DIR=$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf) && cd "$DIR" ; }; 
-	zle -N fzf_cd; 
+	zle -I; DIR=$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf) && cd "$DIR" ; }
+	zle -N fzf_cd
 	bindkey '^E' fzf_cd
 	
 fzf_locate() {
@@ -87,6 +87,12 @@ fzf_locate() {
 bindkey '^L' fzf_locate
 
 
+fzf-file() {
+	LBUFFER="${LBUFFER}$(__fsel)"
+	local ret=$?
+	zle redisplay; typeset -f zle-line-init >/dev/null && zle zle-line-init; return $ret}
+	zle -N   fzf-file
+bindkey '^P' fzf-file
 
 
 #--------------------------------------------------------------------------------------------------------------------
@@ -116,7 +122,6 @@ bindkey "\e\e" sudo-command-line
 antigen bundle supercrabtree/k
 antigen bundle psprint/zsh-navigation-tools
 antigen bundle willghatch/zsh-snippets
-antigen bundle gko/ssh-connect
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting

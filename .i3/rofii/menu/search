@@ -32,5 +32,5 @@ elif [ "$another" == "clipboard" ] ; then
 elif [ "$another" == "sudorun" ] ; then
 	SUDO_ASKPASS=/home/bresilla/.scripts/askpass rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -theme-str '*{accent: #F10F09;}' -run-command 'sudo -A {cmd}'
 else
-    echo $another
+    xdg-open https://www.google.com/search?q=$another
 fi

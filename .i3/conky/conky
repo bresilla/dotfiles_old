@@ -84,10 +84,10 @@ ${endif}\
 
 --]]
 conky.text = [[
+$hr
 ${alignc}${color0}${font Daytona-W01:pixelsize=80}${time %I:%M}${font ubuntu light:pixelsize=18}${time %P}$font
 ${alignc}${time %A }${color0}${time %d}$color ${time %B} ${time %Y}$font
 $hr
-
 ${alignc}${color0}${font Daytona-W01:pixelsize=80}bresilla$font
 $hr
 
@@ -117,7 +117,7 @@ ${color0}CPU 7 : ${alignr 5}$color0${cpu cpu7}% ${cpubar cpu7 12,150}
 ${color0}CPU 4 : $color0${cpu cpu4}% ${goto 100}${cpubar cpu4 12,150}  \
 ${color0}CPU 8 : ${alignr 5}$color0${cpu cpu8}% ${cpubar cpu8 12,150}
 ${color0}Swap Usage: $swapperc% = $swap/$swapmax \
-${color0} ${swapbar 4 00ff00 ff0000}\
+${color0} ${swapbar 12 00ff00 ff0000}\
 
 
 ${color0}DiskIO: $diskio \
@@ -126,8 +126,8 @@ $hr
  ${goto 160}${color0}${diskio_read sda2}\
  ${goto 242}${color0}R|${color0}|W\
  ${goto 320}${color0}${diskio_write sda2}
-${color0}${diskiograph_read 30,250 00ffff 00ff00} \
-${color0}${diskiograph_write 30,250 00ffff 00ff00} \
+${color0}${diskiograph_read 60,250 00ffff 00ff00} \
+${color0}${diskiograph_write 60,250 00ffff 00ff00} \
 
 
 ${color0}File systems: \
@@ -144,14 +144,6 @@ ${color0}/opt  ${alignr 300}\
  ${color0}${fs_used /opt} /\
  ${color0}${fs_size /opt} \
  ${color0}${fs_bar 6 /opt}
-${color0}/var  ${alignr 300}\
- ${color0}${fs_used /var} /\
- ${color0}${fs_size /var} \
- ${color0}${fs_bar 6 /var}
-${color0}/tmp  ${alignr 300}\
- ${color0}${fs_used /tmp} /\
- ${color0}${fs_size /tmp} \
- ${color0}${fs_bar 6 /tmp}
 ${color0}/home ${alignr 300}\
  ${color0}${fs_used /home} /\
  ${color0}${fs_size /home} \
@@ -198,15 +190,14 @@ ${color0}${font Conky Icons by Carelli:size=14}ID: ${font}\
  ${color0}${font Conky Icons by Carelli:size=14}IP: ${font}${addr wlp2s0}\
  ${color0}${alignr}AP MAC addr: ${color0}${wireless_ap wlp2s0}
 ${color0} channel: ${color0}${wireless_channel wlp2s0}  \
-${color0}freq: ${color0}${wireless_freq wlp2s0}  \
-${color0}mode: ${color0}${wireless_mode wlp2s0}  \
-${color0}essid: ${color0}${wireless_essid wlp2s0}
+${alignc}${color0}freq: ${color0}${wireless_freq wlp2s0}  \
+${alignr}${color0}essid: ${color0}${wireless_essid wlp2s0}
  ${color0}total:${totaldown wlp2s0} \
  ${goto 180}${color0}${downspeed wlp2s0}\
  ${goto 245}↓${color0}↑ ${upspeed wlp2s0}\
  ${goto 350}${color0}total:${totalup wlp2s0}
 ${color0}${downspeedgraph wlp2s0 60,250 00ffff 00ff00} \
-${color0}${downspeedgraph wlp2s0 60,250 00ffff 00ff00}
+${color0}${upspeedgraph wlp2s0 60,250 00ffff 00ff00}
 ${endif}\
 
 ${color0}Port(s) \
@@ -221,4 +212,5 @@ ${tcp_portmon 32768 61000 rhost 4} ${alignr} ${tcp_portmon 32768 61000 rservice 
 ${color0}Inbound Connection ${alignr} Local Service/Port${color}
 ${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
 ${tcp_portmon 1 32767 rhost 1} ${alignr} ${tcp_portmon 1 32767 lservice 1}
+$hr
 ]]

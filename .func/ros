@@ -59,19 +59,19 @@ ros_gitpack(){
 }
 
 ros-start(){
-docker run -it --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /home/$(whoami)/ros:/ros --device /dev/video0 --device /dev/dri osrf/ros:kinetic-desktop-full bash -c "cp /ros/.bashrc /root/.bashrc && bash"
+	docker run -it --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /home/$(whoami)/ros:/ros --device /dev/video0 --device /dev/dri osrf/ros:kinetic-desktop-full bash -c "cp /ros/.bashrc /root/.bashrc && bash"
 }
  
 ros-connect(){
-docker exec -ti $(docker ps -aq --filter ancestor=osrf/ros:kinetic-desktop-full --filter status=running) bash
+	docker exec -ti $(docker ps -aq --filter ancestor=osrf/ros:kinetic-desktop-full --filter status=running) bash
 }
  
 ros-clean(){
-docker rm $(docker ps -aq --filter ancestor=osrf/ros:kinetic-desktop-full --filter status=exited)
+	docker rm $(docker ps -aq --filter ancestor=osrf/ros:kinetic-desktop-full --filter status=exited)
 }
 
 gazebo-cli(){
-export GAZEBO_MASTER_IP=$(sudo docker inspect –format ‘’ “id of running container”) 
-export GAZEBO_MASTER_URI=$GAZEBO_MASTER_IP:11345
-gzclient
+	export GAZEBO_MASTER_IP=$(sudo docker inspect –format ‘’ “id of running container”) 
+	export GAZEBO_MASTER_URI=$GAZEBO_MASTER_IP:11345
+	gzclient
 }
