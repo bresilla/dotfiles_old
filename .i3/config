@@ -30,6 +30,7 @@ set $scratch_show scratchpad show, move position center
 
 set $note urxvt -name note -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/note.yaml -y
 set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/term.yaml -y
+set $ross urxvt -name ross -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.tmux/ross.yaml -y
 
 
 
@@ -60,20 +61,15 @@ exec_always synclient PalmMinZ=50
 #exec_always syndaemon -i 0.2 -K -d
 
 exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
-exec_always bash ~/.i3/misc/monitor
-
-exec --no-startup-id compton --glx-no-stencil --glx-no-rebind-pixmap --glx-swap-method exchange --config ~/.i3/compton/compton
-exec --no-startup-id conky -c /home/bresilla/.i3/conky/conky
-exec --no-startup-id udisksctl mount -b /dev/sdb1
-exec greenclip daemon
-exec xrdb -load ~/.Xdefaults
-
+exec_always bash ~/.i3/element
+exec_always xrdb -load ~/.Xdefaults
 
 exec xautolock -time 10 -locker ~/.i3/misc/blurlock
 exec feh --bg-fill /home/bresilla/Dots/.assets/.wallpapers/minimal/'wallhaven-618958.jpg'
+exec --no-startup-id udisksctl mount -b /dev/sdb1
 exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.5:0.8
 exec --no-startup-id python /home/bresilla/.scripts/layout
-
+exec --no-startup-id greenclip daemon
 exec --no-startup-id pulseaudio
 exec --no-startup-id playerctl
 exec --no-startup-id flameshot
@@ -229,7 +225,6 @@ assign [class="rviz"] $workspace3
 assign [class="rtabmapviz"] $workspace3
 assign [class="QGroundControl"] $workspace3
 assign [class="obs"] $workspace9
-assign [class="Gnome-pomodoro"] $workspace0
 
 for_window [class="Nautilus"] $floater
 for_window [class="mpv"] $floater
@@ -245,11 +240,15 @@ for_window [class="Pick-colour-picker"] $floater
 #|||	SCRATCHPAD					-- MOD + ALT + nonfunc
 #########################################################################################################################################
 for_window [class="Spotify"] mark "scratch", $float_center, $scratch_move
-for_window [instance="term"] $float_center, $scratch_move
-for_window [instance="note"] $float_center, $scratch_move
 
+for_window [instance="term"] $float_center, $scratch_move
 bindsym $crcum [instance="term"] $scratch_show
+
+for_window [instance="note"] $float_center, $scratch_move
 bindsym $acute [instance="note"] $scratch_show
+
+for_window [instance="ross"] $float_center, $scratch_move
+bindsym $mod+$alt+1 [instance="ross"] $scratch_show
 
 bindsym $mod+$alt+d exec termop dry DRY
 bindsym $mod+$alt+t exec termop htop TOP
@@ -257,8 +256,6 @@ bindsym $mod+$alt+n exec termop bmon NET
 bindsym $mod+$alt+s exec termop '~/.scripts/syncto /home/bresilla/Dots /home/bresilla' SYC
 bindsym $mod+$alt+w exec termop 'watch -n 10 rsync -avz /media/bresilla/indrive1/Code/Raspi/ /home/bresilla/Remote/Code/' WCH
 bindsym $mod+$alt+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024' HOT
-
-bindsym $mod+$alt+Return [con_mark="scratch"] $scratch_show
 
 
 
@@ -272,12 +269,11 @@ bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
 
 bindsym $mod+$ctl+$crcum exec $term
 bindsym $mod+$ctl+$acute exec $note
+bindsym $mod+$ctl+1 exec $ross
 
 bindsym $mod+$ctl+k exec keyscreen
 bindsym $mod+$ctl+v exec variety -n
 bindsym $mod+$ctl+c exec flameshot gui
-
-bindsym $mod+p exec "xdotool type $(cat /home/bresilla/pass)"
 
 
 
@@ -285,8 +281,8 @@ bindsym $mod+p exec "xdotool type $(cat /home/bresilla/pass)"
 #########################################################################################################################################
 #|||	MEDIA KEYBINDINGS				-- funckeys
 #########################################################################################################################################
-bindsym $alg+BackSpace exec bash ~/.scripts/play
-bindsym $alg+Shift exec bash ~/.scripts/play
+bindsym $alg+BackSpace [class="Spotify"] $scratch_show
+bindsym $alg+Return exec bash ~/.scripts/play
 bindsym $alg+space exec echo "cycle pause" > /home/bresilla/.config/mpv/control
 
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"
@@ -305,11 +301,11 @@ bindsym XF86MonBrightnessDown exec light -U 10
 #########################################################################################################################################
 #|||	LAUNCHER KEYBINDINGS				-- MOD + ALT + funckeys
 #########################################################################################################################################
-bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/menu/rice"
-bindsym $mod+$alt+Escape exec "bash ~/.i3/rofii/menu/system"
-bindsym $mod+$alt+Insert exec "bash ~/.i3/rofii/menu/confs"
+bindsym $mod+$alt+Escape exec "bash ~/.i3/rofii/menu/SYSTEM"
+bindsym $mod+$alt+Delete exec "bash ~/.i3/rofii/menu/CONFIG"
 bindsym $mod+$alt+space exec "bash ~/.i3/rofii/menu/marks"
 
 bindsym XF86Search exec "bash ~/.i3/rofii/menu/search"
+
 bindsym $alt+space exec "rofi -theme /home/bresilla/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun"
 bindsym $mod+space exec "rofi -theme /home/bresilla/.i3/rofii/rofi_bar -m 0 -width 1500 -modi 'run,drun' -show drun"

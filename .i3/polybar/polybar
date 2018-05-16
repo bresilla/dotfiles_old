@@ -192,6 +192,14 @@
 	format-foreground = ${colors.primary}
 	click-left = bash ~/.scripts/termop 'watch -n 10 rsync -avz /media/bresilla/indrive1/Code/Raspi/ /home/bresilla/Remote/Code/' WCH 1920 1080 10 55
 
+[module/pomo]
+	type = custom/script
+	interval = 1
+	label = %output%
+	format = <label>
+	format-foreground = ${colors.primary}
+	exec = pomo status
+
 
 [module/space]
 	type = custom/text

@@ -19,4 +19,4 @@ ssh-add -k ~/.ssh/id_rsa
 git remote show origin
 
 ###change repo from https to git+ssh
-git remote set-url origin git+ssh://git@hithub.com/<username>/<reponame.git>
+git remote set-url origin git+ssh://git@github.com/<username>/<reponame.git>

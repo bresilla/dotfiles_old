@@ -1,4 +1,7 @@
 #!/bin/bash
+
+#usage: bash ~/.i3/misc/wall ~/.assets/.bresilla/wallpapers/ 60
+
 while true 
 do
 	for file in $1/*

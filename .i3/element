@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+monitor1=eDP-1-1
+monitor2=DP-1-1
+
+
+#POLYBAR
+killall -q polybar
+while pgrep -x polybar >/dev/null; do sleep 1; done
+MONITOR=$monitor1 polybar -c ~/.i3/polybar/polybar center &
+MONITOR=$monitor1 polybar -c ~/.i3/polybar/polybar top &
+MONITOR=$monitor1 polybar -c ~/.i3/polybar/polybar workspaces &
+MONITOR=$monitor2 polybar -c ~/.i3/polybar/polybar workspaces &
+
+
+#COMPTON
+killall -q compton
+while pgrep -x compton >/dev/null; do sleep 1; done
+compton --glx-no-stencil --glx-no-rebind-pixmap --glx-swap-method exchange --config ~/.i3/compton/compton &
+
+
+#CONKY
+killall -q conky
+while pgrep -x conky >/dev/null; do sleep 1; done
+conky -c /home/bresilla/.i3/conky/conky &
