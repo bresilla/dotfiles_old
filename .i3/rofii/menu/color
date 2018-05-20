@@ -23,7 +23,7 @@ selected" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "COLO
 		sed -i --follow-symlinks "/accent:/c\	accent: #$clipp\;" "$HOME/Dots/.i3/rofii/rofi_bar"
 		sed -i --follow-symlinks "/accent:/c\	accent: #$clipp\;" "$HOME/Dots/.i3/rofii/rofi_menu"
 		sed -i --follow-symlinks "/accent =/c\	accent = #$clipp" "$HOME/Dots/.i3/polybar/polybar"
-		sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = #$accent\FF" "$HOME/Dots/.i3/i3lock/lock"
+		sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = #$clipp\FF" "$HOME/Dots/.i3/i3lock/lock"
 			
 
 	elif [ "$another" == "background" ] ; then

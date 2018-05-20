@@ -1,21 +1,17 @@
 my dotfiles :)
 
-![demo-1](.assets/.shoots/cover.png)
+![demo-1](.assets/.shoots/001.png)
 
-![demo-1](.assets/.shoots/scrot0.png)
+![demo-1](.assets/.shoots/002.png)
 
-![demo-1](.assets/.shoots/scrot1.png)
+![demo-1](.assets/.shoots/003.png)
 
-![demo-1](.assets/.shoots/scrot2.png)
+![demo-1](.assets/.shoots/004.png)
 
-![demo-1](.assets/.shoots/scrot3.png)
+![demo-1](.assets/.shoots/005.png)
 
-![demo-1](.assets/.shoots/scrot4.png)
+![demo-1](.assets/.shoots/006.png)
 
-![demo-1](.assets/.shoots/scrot5.png)
+![demo-1](.assets/.shoots/007.png)
 
-![demo-1](.assets/.shoots/scrot6.png)
-
-![demo-1](.assets/.shoots/scrot7.png)
-
-![demo-1](.assets/.shoots/scrot8.png)
+![demo-1](.assets/.shoots/008.png)
