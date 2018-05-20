@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 pkill mpv
 clipp=$(xsel --clipboard)
-mpv --ytdl-format='bestvideo[height<=?1080]+bestaudio/best' --input-file /home/bresilla/.config/mpv/control --speed 1.5 "$clipp"
+mpv --ytdl-format='bestvideo[height<=?1080]+bestaudio/best' --input-file /home/bresilla/.config/mpv/control --panscan=1.0 --no-keepaspect --speed=1.5 $clipp

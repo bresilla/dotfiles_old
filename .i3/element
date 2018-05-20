@@ -23,3 +23,9 @@ compton --glx-no-stencil --glx-no-rebind-pixmap --glx-swap-method exchange --con
 killall -q conky
 while pgrep -x conky >/dev/null; do sleep 1; done
 conky -c /home/bresilla/.i3/conky/conky &
+
+
+#DUNST
+killall -q dunst
+while pgrep -x dunst >/dev/null; do sleep 1; done
+dunst -config /home/bresilla/.i3/dunst/dunst

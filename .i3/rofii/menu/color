@@ -7,7 +7,7 @@ clipp=${clipp:1:6}
 
 if [[ $clipp =~ ^([[:xdigit:]]{3}){1,2}$ ]]; then 
 	another=$(echo "accent
-bacground
+background
 selected" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "COLOURS: ")
 
 
@@ -26,7 +26,7 @@ selected" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "COLO
 		sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = #$accent\FF" "$HOME/Dots/.i3/i3lock/lock"
 			
 
-	elif [ "$another" == "bacground" ] ; then
+	elif [ "$another" == "background" ] ; then
 		sed -i --follow-symlinks "/URxvt.background:/c\	 URxvt.background: #$clipp"  ~/.Xdefaults
 		sed -i --follow-symlinks "/bckgrd:/c\	bckgrd: #$clipp\;" "$HOME/.i3/rofii/rofi_bar"
 		sed -i --follow-symlinks "/bckgrd:/c\	bckgrd: #$clipp\;" "$HOME/.i3/rofii/rofi_menu"

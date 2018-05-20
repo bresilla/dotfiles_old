@@ -26,7 +26,7 @@ conky.config = {
     --draw_shades = false,
     --extra_newline = false,
     font = 'NotoSansMonoCJKSC:size=12',
-    gap_x = 3250,
+    gap_x = 3285,
     gap_y = 80,
 	--http_refresh = false,
 	if_up_strictness = 'link',
@@ -46,7 +46,6 @@ conky.config = {
 	--override_utf8_locale = true,
     own_window = true,
     --own_window_class = 'Conky',
-	--own_window_colour = '#000000'
 	--own_window_title = 'conky0 (<hostname>)'
 	own_window_argb_visual = true,
 	own_window_argb_value = 0,
@@ -69,43 +68,26 @@ conky.config = {
 
 
 
---[[
-${scroll 16 $nodename - $sysname $kernel on $machine | }
-${color0}Frequency (in MHz):$color $freq
-${color0}Frequency (in GHz):$color $freq_g
-${color0}MEM Usage:$color $memperc% ${membar 8 00ff00 ff0000}
-$memwithbuffers $memdirty $memeasyfree $memfree
-
-${if $memperc > 10}\
-${alignr 40}${color #ff0000}RAM: $memperc% = $mem / $memmax
-${else}\
-${alignr 40}${color #00ff00}RAM: $memperc% = $mem / $memmax
-${endif}\
-
---]]
 conky.text = [[
 $hr
 ${alignc}${color0}${font Daytona-W01:pixelsize=80}${time %I:%M}${font ubuntu light:pixelsize=18}${time %P}$font
 ${alignc}${time %A }${color0}${time %d}$color ${time %B} ${time %Y}$font
 $hr
+
 ${alignc}${color0}${font Daytona-W01:pixelsize=80}bresilla$font
-$hr
 
 ${color0}SYSTEM ${hr 1}${color}
 Hostname: $alignr$nodename
+Processor: ${alignr}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 1-27}
 Kernel: $alignr$kernel
 Load: ${alignr}${loadavg}
 Uptime: $alignr$uptime
-Temp: ${alignr}${acpitemp}C
 
 
-${color0}CPU: \
+${color0}CPU & RAM: \
 $hr
-Model: ${alignr}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 1-28}
-${goto 50}$cpu%\
-${goto 90}${freq}mHz\
-${goto 180}${color0}${acpitemp}℃\
-${alignr 40}${color0}RAM: $memperc% = $mem / $memmax
+${goto 50}$cpu% ${goto 90}${freq}mHz ${goto 180}${color0}${acpitemp}℃\
+${alignr 40}${color0}$memperc% = $mem / $memmax
 ${color0}${cpugraph 120,250 00ffff 00ff00} \
 ${color0}${memgraph 120,250 00ffff 00ff00}
 ${color0}CPU 1 : $color0${cpu cpu1}% ${goto 100}${cpubar cpu1 12,150}  \
@@ -120,46 +102,31 @@ ${color0}Swap Usage: $swapperc% = $swap/$swapmax \
 ${color0} ${swapbar 12 00ff00 ff0000}\
 
 
-${color0}DiskIO: $diskio \
+${color0}DISK: $diskio \
 $hr
- ${color0}/dev/sda2\
- ${goto 160}${color0}${diskio_read sda2}\
+ ${color0}/dev/sda1\
+ ${goto 160}${color0}${diskio_read sda1}\
  ${goto 242}${color0}R|${color0}|W\
- ${goto 320}${color0}${diskio_write sda2}
+ ${goto 320}${color0}${diskio_write sda1}
 ${color0}${diskiograph_read 60,250 00ffff 00ff00} \
-${color0}${diskiograph_write 60,250 00ffff 00ff00} \
-
-
-${color0}File systems: \
-$hr
-${color0}/     ${alignr 300}\
+${color0}${diskiograph_write 60,250 00ffff 00ff00}
  ${color0}${fs_used /} /\
  ${color0}${fs_size /} \
- ${color0}${fs_bar 6 /}
-${color0}/usr  ${alignr 300}\
- ${color0}${fs_used /usr} /\
- ${color0}${fs_size /usr} \
- ${color0}${fs_bar 6 /usr}
-${color0}/opt  ${alignr 300}\
- ${color0}${fs_used /opt} /\
- ${color0}${fs_size /opt} \
- ${color0}${fs_bar 6 /opt}
-${color0}/home ${alignr 300}\
- ${color0}${fs_used /home} /\
- ${color0}${fs_size /home} \
- ${color0}${fs_bar 6 /home}
-${color0}indrive ${alignr 300}\
+ ${color0}${fs_bar 12 /} 
+
+ ${color0}/dev/sdb1\
+ ${goto 160}${color0}${diskio_read sdb1}\
+ ${goto 242}${color0}R|${color0}|W\
+ ${goto 320}${color0}${diskio_write sdb1}
+${color0}${diskiograph_read 60,250 00ffff 00ff00} \
+${color0}${diskiograph_write 60,250 00ffff 00ff00}
  ${color0}${fs_used /media/bresilla/indrive1} /\
  ${color0}${fs_size /media/bresilla/indrive1} \
- ${color0}${fs_bar 6 /media/bresilla/indrive1}\
+ ${color0}${fs_bar 12 /media/bresilla/indrive1}\
 
 
-${color0}Processes: \
+${color0}PROCESS: \
 $hr
-${color0}Active:$color $processes  \
-${color0}Running:$color $running_processes \
-	${sysname} ${kernel}
-\
 ${color0}Highest CPU         PID   CPU% | \
 ${color0}Highest MEM         PID   MEM%
 ${color0} ${top     name 1} ${top     pid 1} ${top     cpu 1} | \
@@ -182,35 +149,35 @@ ${color0} ${top     name 9} ${top     pid 9} ${top     cpu 9} | \
 ${color0} ${top_mem name 9} ${top_mem pid 9} ${top_mem mem 9}\
 
 
-${color0}Networking: \
+${color0}NETWORK: \
 $hr
 ${if_up wlp2s0}\
-${color0}${font Conky Icons by Carelli:size=14}ID: ${font}\
- ${color0}wlp2s0\
- ${color0}${font Conky Icons by Carelli:size=14}IP: ${font}${addr wlp2s0}\
- ${color0}${alignr}AP MAC addr: ${color0}${wireless_ap wlp2s0}
-${color0} channel: ${color0}${wireless_channel wlp2s0}  \
-${alignc}${color0}freq: ${color0}${wireless_freq wlp2s0}  \
-${alignr}${color0}essid: ${color0}${wireless_essid wlp2s0}
- ${color0}total:${totaldown wlp2s0} \
+${color0}ID: ${color0}wlp2s0    \
+${alignc}${color0}MAC: ${color0}${wireless_ap wlp2s0} \
+${alignr}${color0}IP: ${addr wlp2s0}
+${color0}CHN: ${color0}${wireless_channel wlp2s0}\
+${alignc}${color0}FRQ: ${color0}${wireless_freq wlp2s0}  \
+${alignr}${color0}ESSID: ${color0}${wireless_essid wlp2s0}
+ ${goto 80}${color0}T:${totaldown wlp2s0} \
  ${goto 180}${color0}${downspeed wlp2s0}\
  ${goto 245}↓${color0}↑ ${upspeed wlp2s0}\
- ${goto 350}${color0}total:${totalup wlp2s0}
-${color0}${downspeedgraph wlp2s0 60,250 00ffff 00ff00} \
-${color0}${upspeedgraph wlp2s0 60,250 00ffff 00ff00}
+ ${goto 350}${color0}T:${totalup wlp2s0}
+${color0}${downspeedgraph wlp2s0 90,250 00ffff 00ff00} \
+${color0}${upspeedgraph wlp2s0 90,250 00ffff 00ff00}
 ${endif}\
 
-${color0}Port(s) \
+${color0}PORTS: \
 $hr
-${color}Inbound: ${tcp_portmon 1 32767 count}  Outbound: ${tcp_portmon 32768 61000 count}${alignr}ALL: ${tcp_portmon 1 65535 count}
 ${color0}Outbound Connection ${alignr} Remote Service/Port${color}
 ${tcp_portmon 32768 61000 rhost 0} ${alignr} ${tcp_portmon 32768 61000 rservice 0}
 ${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1}
 ${tcp_portmon 32768 61000 rhost 2} ${alignr} ${tcp_portmon 32768 61000 rservice 2}
 ${tcp_portmon 32768 61000 rhost 3} ${alignr} ${tcp_portmon 32768 61000 rservice 3}
 ${tcp_portmon 32768 61000 rhost 4} ${alignr} ${tcp_portmon 32768 61000 rservice 4}
+${tcp_portmon 32768 61000 rhost 5} ${alignr} ${tcp_portmon 32768 61000 rservice 5}
 ${color0}Inbound Connection ${alignr} Local Service/Port${color}
 ${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
 ${tcp_portmon 1 32767 rhost 1} ${alignr} ${tcp_portmon 1 32767 lservice 1}
+${tcp_portmon 1 32767 rhost 2} ${alignr} ${tcp_portmon 1 32767 lservice 2}
 $hr
 ]]

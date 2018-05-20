@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ROFI_OPTIONS=(-theme /home/bresilla/.i3/rofii/rofi_full -m 0 -fullscreen)
 
 another=$(echo "I3WM
@@ -7,23 +6,25 @@ SHELL
 SCRIPTS
 FUNCTIS
 MENUS
+TMUX
 ZSH" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")
 
-file_it(){
-	if [[ -f $1 ]]; then
-	  gedit $1
+
+
+browse(){
+	selected=$(ls "$1/" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "$1: ")
+	[[ -z $selected ]] && exit
+	if [[ -f $1/$selected ]]; then
+		gedit $1/$selected
+	elif [[ -d $1/$selected ]]; then
+		browse $1/$selected
 	else
-	  touch $1
-	  chmod +x $1
-	  xdg-open $1
+		touch $1/$selected
+		chmod +x $1/$selected
+		gedit $1/$selected
 	fi
 }
 
-list_it(){
-	selected=$(ls "$2/" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "$1: ")
-	[[ -z $selected ]] && exit
-	file_it $2/$selected
-}
 
 
 if [ "$another" == "SHELL" ] ; then
@@ -38,23 +39,23 @@ $HOME/.Xdefaults" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "shell: ")
 	gedit $selected
 
 elif [ "$another" == "I3WM" ] ; then
-	list_it i3 /home/bresilla/Dots/.i3;
+	browse /home/bresilla/Dots/.i3;
 
 elif [ "$another" == "SCRIPTS" ] ; then
-	list_it scripts /home/bresilla/Dots/.scripts;
+	browse /home/bresilla/Dots/.scripts;
 
 elif [ "$another" == "FUNCTIS" ] ; then
-	list_it functis /home/bresilla/Dots/.func;
+	browse /home/bresilla/Dots/.func;
 
 elif [ "$another" == "MENUS" ] ; then
-	list_it rofi /home/bresilla/Dots/.i3/rofii/menu;
+	browse /home/bresilla/Dots/.i3/rofii/menu;
+
+elif [ "$another" == "TMUX" ] ; then
+	browse /home/bresilla/Dots/.tmux;
 
 elif [ "$another" == "ZSH" ] ; then
-	list_it misc /home/bresilla/Dots/.zsh;
+	browse /home/bresilla/Dots/.zsh;
 
 else
     echo $another
 fi
-
-
-

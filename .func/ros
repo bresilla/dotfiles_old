@@ -58,8 +58,29 @@ ros_gitpack(){
 	ros_path
 }
 
+idonknow(){
+	xhost +local:root
+	nvidia-docker run -it \
+	--env="DISPLAY"  \
+	--env="QT_X11_NO_MITSHM=1"  \
+	--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+	--workdir="/home/$USER" \
+	--volume="/home/$USER:/home/$USER" \
+	--volume="/etc/group:/etc/group:ro" \
+	--volume="/etc/passwd:/etc/passwd:ro" \
+	--volume="/etc/shadow:/etc/shadow:ro" \
+	--volume="/etc/sudoers.d:/etc/sudoers.d:ro" \
+	--volume="$HOME/host_docker:/home/user/host_docker" \
+	-e LOCAL_USER_ID=`id -u $USER` \
+	-e LOCAL_GROUP_ID=`id -g $USER` \
+	-e LOCAL_GROUP_NAME=`id -gn $USER` \
+	 ros:kinetic-desktop-full
+
+	xhost -local:root
+}
+
 ros-start(){
-	docker run -it --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /home/$(whoami)/ros:/ros --device /dev/video0 --device /dev/dri osrf/ros:kinetic-desktop-full bash -c "cp /ros/.bashrc /root/.bashrc && bash"
+	docker run -it --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /home/$(whoami)/ros:/ros --device /dev/video0 --device /dev/dri osrf/ros:kinetic-desktop-full bash
 }
  
 ros-connect(){
@@ -71,7 +92,7 @@ ros-clean(){
 }
 
 gazebo-cli(){
-	export GAZEBO_MASTER_IP=$(sudo docker inspect –format ‘’ “id of running container”) 
+	export GAZEBO_MASTER_IP=$(sudo docker inspect –format ‘’ “8a2ffd1e5736”) 
 	export GAZEBO_MASTER_URI=$GAZEBO_MASTER_IP:11345
 	gzclient
 }

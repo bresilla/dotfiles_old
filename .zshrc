@@ -58,6 +58,7 @@ if exists percol; then
 
     zle -N percol_select_history
     bindkey '^R' percol_select_history
+	bindkey -M vicmd '^R' percol_select_history
 fi
 
 
@@ -69,22 +70,26 @@ fi
 fzf_history() { 
 	zle -I; eval $(history | fzf +s | sed 's/ *[0-9]* *//') ; }
 	zle -N fzf_history
-bindkey '^H' fzf_history
+bindkey '^H' fzf_killps
+bindkey -M vicmd '^H' fzf_killps
 
 fzf_killps() { 
 	zle -I; ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9} ; }
 	zle -N fzf_killps
 bindkey '^X' fzf_killps
+bindkey -M vicmd '^X' fzf_killps
 
 fzf_cd() { 
 	zle -I; DIR=$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf) && cd "$DIR" ; }
 	zle -N fzf_cd
-	bindkey '^E' fzf_cd
+bindkey '^E' fzf_cd
+bindkey -M vicmd '^E' fzf_cd
 	
 fzf_locate() {
 	zle -I; xdg-open "$(locate "*" | fzf -e)" ;}
 	zle -N fzf_locate
 bindkey '^L' fzf_locate
+bindkey -M vicmd '^L' fzf_locate
 
 
 fzf-file() {
@@ -93,6 +98,27 @@ fzf-file() {
 	zle redisplay; typeset -f zle-line-init >/dev/null && zle zle-line-init; return $ret}
 	zle -N   fzf-file
 bindkey '^P' fzf-file
+bindkey -M vicmd '^P' fzf-file
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
+###VI MODE
+bindkey -v
+KEYTIMEOUT=1
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+bindkey -a u undo
+bindkey -a '^T' redo
+bindkey '^?' backward-delete-char
+bindkey -M viins '^r' history-incremental-search-backward
+bindkey -M vicmd '^r' history-incremental-search-backward
 
 
 #--------------------------------------------------------------------------------------------------------------------
@@ -112,7 +138,7 @@ sudo-command-line() {
     fi
 }
 zle -N sudo-command-line
-bindkey "\e\e" sudo-command-line
+bindkey -M vicmd "\e\e" sudo-command-line
 
 
 
@@ -127,7 +153,6 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 antigen apply
-
 
 
 #--------------------------------------------------------------------------------------------------------------------

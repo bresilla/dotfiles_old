@@ -1,14 +1,14 @@
 update(){
-	sudo apt update
+	cat /home/bresilla/pass | sudo -S apt update
 }
 upgrade(){
-	sudo apt upgrade
+	cat /home/bresilla/pass | sudo -S apt upgrade
 }
 autoremove(){
-	sudo apt autoremove
+	cat /home/bresilla/pass | sudo -S apt autoremove
 }
 clean(){
-	sudo apt clean
+	cat /home/bresilla/pass | sudo -S apt clean
 }
 
 headphones(){
@@ -19,7 +19,7 @@ speaker(){
 }
 
 own(){
-	sudo chown -R $USER $1
+	cat /home/bresilla/pass | sudo -S chown -R $USER $1
 }
 
 exe(){
@@ -28,8 +28,4 @@ exe(){
 
 screen_size(){
 	xrandr | grep '*' | awk '{print $1;}'
-}
-
-script_bin(){
-	sudo cp /home/trim/Dots/.scripts/* /usr/local/sbin/
 }
