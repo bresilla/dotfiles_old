@@ -65,7 +65,7 @@ exec_always bash ~/.i3/element
 exec_always xrdb -load ~/.Xdefaults
 
 exec xautolock -time 10 -locker ~/.i3/misc/blurlock
-exec feh --bg-fill /media/bresilla/indrive1/Wall/minimal/'wallhaven-618958.jpg'
+exec_always feh --bg-fill /media/bresilla/indrive1/Wall/digitalart/'wallhaven-444636.jpg'
 exec --no-startup-id udisksctl mount -b /dev/sdb1
 exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.5:0.8
 exec --no-startup-id python /home/bresilla/.scripts/layout
@@ -145,6 +145,8 @@ bindsym $mod+F7 floating toggle
 bindsym $alt+F7 floating toggle
 bindsym $mod+$alt+F7 sticky toggle
 bindsym $alt+Tab focus mode_toggle
+bindsym Insert workspace "000"
+#bindsym --release Insert workspace "000"
 
 
 

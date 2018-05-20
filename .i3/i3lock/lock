@@ -118,7 +118,7 @@
 	datecolor 				= #000000ff
 
 	; Set the color of the ring 'highlight' strokes that appear upon keypress
-	keyhlcolor = #F9CCE8FF
+	keyhlcolor = #F69F3EFF
 	; Set the color of the ring 'highlight' strokes that appear upon backspace
 	bshlcolor 				= #e03a3eff
 	; Set the color of the 'separator' which is at both ends oof the ring highlights

@@ -15,6 +15,9 @@ done
 ###ALIASES
 [ -f ~/.alias ] && source ~/.alias
 
+###SECRETS
+[ -f ~/secret ] && source ~/secret
+
 ###FUZZYFINDER
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fh() {

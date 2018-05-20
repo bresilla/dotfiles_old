@@ -8,6 +8,8 @@ for file in ~/.func/*; do
     source "$file"
 done
 
+###SECRETS
+[ -f ~/secret ] && source ~/secret
 
 ###COLOR OUTPUTS
 autoload -U colors && colors

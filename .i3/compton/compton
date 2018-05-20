@@ -64,6 +64,7 @@ blur-background-exclude = [
 				"class_g = 'Nautilus'",
 				"class_g = 'Gedit'",
 				"class_g = 'Code'",
+				"class_g = 'Conky'",
 				"class_g = 'rviz'",
 				"class_g = 'rtabmapviz'",
 				"class_g = 'obs'",
