@@ -7,9 +7,9 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-      - tudu
+      - vim ~/Sets/.notes/distracted.wiki
   - shell_command:
-      - vim ~/Dots/.assets/.notes/index.wiki
+      - vim ~/Sets/.notes/index.wiki
   start_directory: /home/trim
   window_name: note
 

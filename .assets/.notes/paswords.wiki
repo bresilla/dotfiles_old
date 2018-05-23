@@ -1,4 +1,0 @@
-#This code for VSCode to GitHub to synchronise extensions
-
-    Token: 0eec5109e7f358693b742b1b3afd6f92735f0194
-

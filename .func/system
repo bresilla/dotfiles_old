@@ -1,21 +1,14 @@
 update(){
-	cat /home/bresilla/pass | sudo -S apt update
+	sudo -S apt update
 }
 upgrade(){
-	cat /home/bresilla/pass | sudo -S apt upgrade
+	sudo -S apt upgrade
 }
 autoremove(){
-	cat /home/bresilla/pass | sudo -S apt autoremove
+	sudo -S apt autoremove
 }
 clean(){
-	cat /home/bresilla/pass | sudo -S apt clean
-}
-
-headphones(){
-	pacmd set-sink-port 0 analog-output-headphones
-}
-speaker(){
-	pacmd set-sink-port 0 analog-output-speaker
+	sudo -S apt clean
 }
 
 own(){

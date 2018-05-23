@@ -1,3 +1,0 @@
-mpl(){
-	echo "$1" > /home/trim/.mplayer/pipe 
-}

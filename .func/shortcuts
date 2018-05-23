@@ -3,7 +3,7 @@ wisdom(){
 }
 
 dotshot(){
-	scr=/home/bresilla/Dots/.assets/.shoots/$1.png && \
+	scr=/home/bresilla/Dots/.assets/$1.png && \
 	scrot -d 10 $scr && \
 	convert $scr -gravity East -chop 1920x0 $scr
 }
