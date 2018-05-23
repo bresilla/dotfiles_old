@@ -1,0 +1,135 @@
+/**
+ * ROFI Color theme2
+ * User: bresilla
+ copy those lines to: ~/.conf/rofi/ or ~/.Xdefaults
+	rofi.fullscreen:true
+	rofi.theme: ~/.i3/rofi.rasi
+ */
+
+* {
+	accent: #F69CDA;
+	backgr:			#1E1E29;
+	altern:			#222229;
+
+
+	foreground:         	@accent;
+	foreground-alt:    	#ebebeb;
+	background:		@backgr;
+	background-alt: 	@altern;
+	transparent:		rgba(0, 0, 0, 0);
+	urgentcolor:      	#e53714;
+
+
+   font: 				"Bahnschrift 12";
+   border-color:        @background;
+   separatorcolor:      @foreground;
+   background-color: 	@background;
+   
+}
+
+#window {
+   background-color: 	@background;
+}
+
+#mainbox {
+   background-color: 	@background;
+   spacing:				0px;
+   children: 			[inputbar, message, sidebar, listview];
+}
+
+#message {
+   background-color:	@background;
+   padding: 			10 1% 10;
+}
+
+#textbox {
+   text-color:			@background;
+   background-color:	@foreground;
+}
+
+#listview {
+   fixed-height: 		false;
+   dynamic: 			true;
+   scrollbar: 			false;
+   padding: 			1px;
+   background: 			@background;
+}
+
+#element {
+    border:  			0;
+    padding: 			5px;
+}
+
+#element.normal.normal {
+   background-color: 	@background;
+   text-color: 			@foreground-alt;
+}
+
+#element.normal.urgent {
+   background-color: 	@background;
+   text-color: 			@urgentcolor;
+}
+
+#element.normal.active {
+   background-color: 	@foreground;
+   text-color: 			@foreground;
+}
+
+#element.selected.normal {
+    background-color: 	@background-alt;
+    text-color:       	@foreground-alt;
+}
+
+#element.selected.urgent {
+    background-color: 	@urgentcolor;
+    text-color:       	@background;
+}
+
+#element.selected.active {
+    background-color: 	@foreground;
+    text-color:       	@background;
+}
+
+#element.alternate.normal {
+    background-color: 	@background;
+    text-color:       	@foreground-alt;
+}
+
+#element.alternate.urgent {
+    background-color: 	@background;
+    text-color:       	@urgentcolor;
+}
+
+#element.alternate.active {
+    background-color: 	@background;
+    text-color:       	@foreground;
+}
+
+#button {
+   background-color: 	@background;
+   text-color:       	@background;
+}
+
+
+#button.selected {
+    text-color:      	@foreground;
+}
+
+#inputbar {
+   background-color: 	@foreground;
+   spacing:				0px;
+}
+
+#prompt {
+   padding:				6px 9px;
+   background-color:	@foreground;
+   text-color:			@background-alt;
+   padding: 			14 1% 14;
+}
+
+#entry {
+   padding:				6px 10px;
+   background-color:	@background-alt;
+   text-color:			@foreground;
+   padding: 			14px;
+}

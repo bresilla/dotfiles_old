@@ -1,11 +1,9 @@
 run(){
 	g++ -std=c++11 $1 -o out &&
 	./out &&
-	rm out	
 }
 
 run_wall(){
 	g++ -std=c++11 -Wall $1 -o out &&
 	./out &&
-	rm out	
 }

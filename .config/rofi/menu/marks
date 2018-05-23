@@ -1,0 +1,19 @@
+#!/bin/bash
+
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500)
+BROWSER="firefox"
+bookmarks="$HOME/Dots/.assets/.notes/bookmarks.wiki"
+
+
+output=$(cat $bookmarks | awk '{print $1}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p 'bookmarks: ')
+choice=$?
+    
+if [ $choice -ne 0 ]; then
+    	echo "$choice"
+else
+	url=$(cat $bookmarks | grep "$output" | awk '{print $2}');
+	echo $url
+    if [ ${#url} -gt 0 ]; then
+        $BROWSER $url
+    fi
+fi

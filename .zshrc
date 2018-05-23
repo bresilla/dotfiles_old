@@ -40,7 +40,7 @@ setopt prompt_subst
 
 #--------------------------------------------------------------------------------------------------------------------
 ###FASD and ENHANCD
-[ -f ~/.enhancd/./init.sh ] && source ~/.enhancd/./init.sh
+[ -f ~/.zsh/enhancd/./init.sh ] && source ~/.zsh/enhancd/./init.sh
 eval "$(fasd --init posix-alias zsh-hook)"
 
 

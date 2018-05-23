@@ -1,0 +1,24 @@
+#!/bin/bash
+
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500)
+
+another=$(echo "code
+home
+dots" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
+
+
+if [ "$another" == "code" ] ; then
+	find /media/bresilla/indrive/Code | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
+
+elif [ "$another" == "home" ] ; then
+	find /home/bresilla | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
+
+elif [ "$another" == "youtube" ] ; then
+	find /home/bresilla/Dots -type d -iname ".*" | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
+
+else
+    echo $another
+fi
+
+
+

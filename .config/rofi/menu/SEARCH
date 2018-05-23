@@ -1,0 +1,40 @@
+#!/bin/bash
+
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500)
+
+another=$(echo "runapp
+locate
+websearch
+youtube
+bookmarks
+clipboard
+sudorun" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
+
+
+if [ "$another" == "locate" ] ; then
+	find /media/bresilla/indrive1/Code | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
+
+elif [ "$another" == "websearch" ] ; then
+	surfraw -browser=firefox-trunk $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi "${ROFI_OPTIONS[@]}" -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')
+
+elif [ "$another" == "youtube" ] ; then
+	exec ~/.config/rofi/menu/uplay;
+
+elif [ "$another" == "bookmarks" ] ; then
+	exec ~/.config/rofi/menu/marks;
+
+elif [ "$another" == "runapp" ] ; then
+	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun
+
+elif [ "$another" == "clipboard" ] ; then
+	rofi "${ROFI_OPTIONS[@]}" -modi "clipboard:greenclip print" -show clipboard
+
+elif [ "$another" == "sudorun" ] ; then
+	SUDO_ASKPASS=/home/bresilla/.scripts/askpass rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -theme-str '*{accent: #F10F09;}' -run-command 'sudo -A {cmd}'
+
+elif [ -z "$another" ] ; then
+	echo "variable empty"
+
+else
+    xdg-open https://www.google.com/search?q=$another
+fi

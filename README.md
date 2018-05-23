@@ -1,4 +1,4 @@
-my dotfiles :)
+y dotfiles :)
 
 ![demo-1](.assets/.shoots/001.png)
 

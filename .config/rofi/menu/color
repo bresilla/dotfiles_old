@@ -1,0 +1,56 @@
+#!/bin/bash
+
+ROFI_OPTIONS=(-theme $HOME/.i3/rofii/rofi_full -m 0 -fullscreen)
+
+clipp=$(xsel --clipboard)
+clipp=${clipp:1:6}
+
+if [[ $clipp =~ ^([[:xdigit:]]{3}){1,2}$ ]]; then 
+	another=$(echo "accent
+background
+selected" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "COLOURS: ")
+
+
+	if [ "$another" == "accent" ] ; then
+		sed -i "1s/.*/*accent:    ""#$clipp/" ~/.Xdefaults
+		sed -i --follow-symlinks "/accent:/c\	accent: #$clipp\;" "$HOME/.config/rofi/rofi_full"
+		sed -i --follow-symlinks "/accent:/c\	accent: #$clipp\;" "$HOME/.config/rofi/rofi_bar"
+		sed -i --follow-symlinks "/accent:/c\	accent: #$clipp\;" "$HOME/.config/rofi/rofi_menu"
+		sed -i --follow-symlinks "/accent =/c\	accent = #$clipp" "$HOME/.config/polybar/polybar"
+		sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = #$clipp\FF" "$HOME/.config/i3lock/lock"
+
+		sed -i --follow-symlinks "/accent:/c\	accent: #$clipp\;" "$HOME/Dots/.config/rofi/rofi_full"
+		sed -i --follow-symlinks "/accent:/c\	accent: #$clipp\;" "$HOME/Dots/.config/rofi/rofi_bar"
+		sed -i --follow-symlinks "/accent:/c\	accent: #$clipp\;" "$HOME/Dots/.config/rofi/rofi_menu"
+		sed -i --follow-symlinks "/accent =/c\	accent = #$clipp" "$HOME/Dots/.config/polybar/polybar"
+		sed -i --follow-symlinks "/keyhlcolor/c\	keyhlcolor = #$clipp\FF" "$HOME/Dots/.config/i3lock/lock"
+		sed -i --follow-symlinks "/color5 = /c\	color5 = '#$clipp'\," "$HOME/Dots/.config/conky/conky"
+			
+
+	elif [ "$another" == "background" ] ; then
+		sed -i --follow-symlinks "/URxvt.background:/c\	 URxvt.background: #$clipp"  ~/.Xdefaults
+		sed -i --follow-symlinks "/bckgrd:/c\	bckgrd: #$clipp\;" "$HOME/.config/rofii/rofi_bar"
+		sed -i --follow-symlinks "/bckgrd:/c\	bckgrd: #$clipp\;" "$HOME/.config/rofii/rofi_menu"
+		sed -i --follow-symlinks "/bckgrd =/c\	bckgrd = #$clipp" "$HOME/.configi3/polybar/polybar"
+
+		sed -i --follow-symlinks "/bckgrd:/c\	bckgrd: #$clipp\;" "$HOME/Dots/.config/rofi/rofi_bar"
+		sed -i --follow-symlinks "/bckgrd:/c\	bckgrd: #$clipp\;" "$HOME/Dots/.config/rofi/rofi_menu"
+		sed -i --follow-symlinks "/bckgrd =/c\	bckgrd = #$clipp" "$HOME/Dots/.config/polybar/polybar"
+		
+
+	elif [ "$another" == "selected" ] ; then
+		sed -i --follow-symlinks "/select:/c\	select: #$clipp\;" "$HOME/.config/rofi/rofi_bar"
+		sed -i --follow-symlinks "/select:/c\	select: #$clipp\;" "$HOME/.config/rofi/rofi_menu"
+		sed -i --follow-symlinks "/select =/c\	select = #$clipp" "$HOME/.config/polybar/polybar"
+
+		sed -i --follow-symlinks "/select:/c\	select: #$clipp\;" "$HOME/Dots/.config/rofi/rofi_bar"
+		sed -i --follow-symlinks "/select:/c\	select: #$clipp\;" "$HOME/Dots/.config/rofi/rofi_menu"
+		sed -i --follow-symlinks "/select =/c\	select = #$clipp" "$HOME/Dots/.config/polybar/polybar"
+
+	fi
+	xrdb -load ~/.Xdefaults
+	i3-msg reload; 
+	i3-msg restart;
+else
+    echo "invalid color"; 
+fi

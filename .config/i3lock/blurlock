@@ -1,0 +1,8 @@
+#!/bin/bash
+sleep .2
+
+scrot /tmp/screenshot.png
+
+convert /tmp/screenshot.png -blur 0x5 /tmp/screenshotblur.png
+
+i3lock -c /home/bresilla/.config/i3lock/lock
