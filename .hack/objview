@@ -1,0 +1,902 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import argparse
+import re
+import sys
+
+VERSION = '1.0.10'
+SUPPORTED_TARGETS = ['elf32-littlearm', 'elf32-tradlittlemips',
+	'elf32-tradbigmips', 'elf32-i386', 'elf64-x86-64']
+
+# ugly hack to escape [ and ]
+ESCLP = 'y=y=y'
+ESCLS = 'y=y=y'
+ESCRP = 'z=z=z'
+ESCRS = 'z=z=z'
+
+def check_support(target):
+	if target not in SUPPORTED_TARGETS:
+		print("{} is not a supported target".format(target))
+		print("supported targets: {}".format(', '.join(SUPPORTED_TARGETS)))
+		exit(0)
+
+### -------------------------------------------------------------------- ###
+class State():
+	""" container for informations """
+
+	def __init__(self):
+		self.file_name = ''
+		self.target = ''
+		self.part = ''
+		self.section = ''
+		self.function = ''
+		self.line_type = ''
+		self.addr = 0 # unused for the moment
+		self.ln = 0
+
+### -------------------------------------------------------------------- ###
+class Color():
+	""" container for colors and colorizing functions """
+
+	def __init__(self, palette):
+		self.palette = palette
+		if self.palette == 'standard':
+			self.BLACK         = '\x1b[30m'
+			self.RED           = '\x1b[31m'
+			self.GREEN         = '\x1b[32m'
+			self.YELLOW        = '\x1b[33m'
+			self.BLUE          = '\x1b[34m'
+			self.MAGENTA       = '\x1b[35m'
+			self.CYAN          = '\x1b[36m'
+			self.WHITE         = '\x1b[37m'
+
+			self.LIGHT_BLACK   = '\x1b[90m'
+			self.LIGHT_RED     = '\x1b[91m'
+			self.LIGHT_GREEN   = '\x1b[92m'
+			self.LIGHT_YELLOW  = '\x1b[93m'
+			self.LIGHT_BLUE    = '\x1b[94m'
+			self.LIGHT_MAGENTA = '\x1b[95m'
+			self.LIGHT_CYAN    = '\x1b[96m'
+			self.LIGHT_WHITE   = '\x1b[97m'
+
+		elif self.palette == 'custom':
+			self.BLACK         = self.set_rgb_fore(0, 0, 0)
+			self.RED           = self.set_rgb_fore(4, 0, 0)
+			self.GREEN         = self.set_rgb_fore(1, 3, 0)
+			self.YELLOW        = self.set_rgb_fore(4, 3, 0)
+			self.BLUE          = self.set_rgb_fore(0, 1, 3)
+			self.MAGENTA       = self.set_rgb_fore(2, 1, 2)
+			self.CYAN          = self.set_rgb_fore(0, 2, 2)
+			self.WHITE         = self.set_rgb_fore(4, 4, 4)
+
+			self.LIGHT_BLACK   = self.set_rgb_fore(1, 1, 1)
+			self.LIGHT_RED     = self.set_rgb_fore(5, 1, 1)
+			self.LIGHT_GREEN   = self.set_rgb_fore(2, 5, 0)
+			self.LIGHT_YELLOW  = self.set_rgb_fore(5, 5, 1)
+			self.LIGHT_BLUE    = self.set_rgb_fore(1, 3, 5)
+			self.LIGHT_MAGENTA = self.set_rgb_fore(4, 2, 5)
+			self.LIGHT_CYAN    = self.set_rgb_fore(1, 5, 5)
+			self.LIGHT_WHITE   = self.set_rgb_fore(5, 5, 5)
+
+		self.DEFAULT = Color.RESET
+		self.default = self.DEFAULT
+
+	RESET          = '\x1b[0m'
+	BOLD_ON        = '\x1b[1m'
+	FAINT_ON       = '\x1b[2m'
+	ITALIC_ON      = '\x1b[3m'
+	UNDERLINE_ON   = '\x1b[4m'
+	INVERSE_ON     = '\x1b[7m'
+	#BOLD_OFF       = '\x1b[21m' # same effect as B_AND_F_OFF
+	B_AND_F_OFF    = '\x1b[22m' # BOLD AND FAINT OFF
+	ITALIC_OFF     = '\x1b[23m'
+	UNDERLINE_OFF  = '\x1b[24m'
+	INVERSE_OFF    = '\x1b[27m'
+
+	def rgb(self, r, g, b):
+		return str(16 + 36 * r + 6 * g + b)
+	def set_rgb_fore(self, r, g, b):
+		return "\x1b[38;5;" + self.rgb(r, g, b) + "m"
+
+	def bold(self, s):
+		return self.BOLD_ON + s + self.B_AND_F_OFF
+	def faint(self, s):
+		return self.FAINT_ON + s + self.B_AND_F_OFF
+	def italic(self, s):
+		return self.ITALIC_ON + s + self.ITALIC_OFF
+	def underline(self, s):
+		return self.UNDERLINE_ON + s + self.UNDERLINE_OFF
+	def inverse(self, s):
+		return self.INVERSE_ON + s + self.INVERSE_OFF
+
+	def set_default(self, default):
+		self.default = default
+
+	def reset_default(self):
+		self.default = self.DEFAULT
+
+	def colorize(self, s, color):
+		return color + s + self.default
+
+	def black(self, s):
+		return self.colorize(s, self.BLACK)
+	def red(self, s):
+		return self.colorize(s, self.RED)
+	def green(self, s):
+		return self.colorize(s, self.GREEN)
+	def yellow(self, s):
+		return self.colorize(s, self.YELLOW)
+	def blue(self, s):
+		return self.colorize(s, self.BLUE)
+	def magenta(self, s):
+		return self.colorize(s, self.MAGENTA)
+	def cyan(self, s):
+		return self.colorize(s, self.CYAN)
+	def white(self, s):
+		return self.colorize(s, self.WHITE)
+	def lblack(self, s):
+		return self.colorize(s, self.LIGHT_BLACK)
+	def lred(self, s):
+		return self.colorize(s, self.LIGHT_RED)
+	def lgreen(self, s):
+		return self.colorize(s, self.LIGHT_GREEN)
+	def lyellow(self, s):
+		return self.colorize(s, self.LIGHT_YELLOW)
+	def lblue(self, s):
+		return self.colorize(s, self.LIGHT_BLUE)
+	def lmagenta(self, s):
+		return self.colorize(s, self.LIGHT_MAGENTA)
+	def lcyan(self, s):
+		return self.colorize(s, self.LIGHT_CYAN)
+	def lwhite(self, s):
+		return self.colorize(s, self.LIGHT_WHITE)
+
+### -------------------------------------------------------------------- ###
+class Custom():
+	""" customizable items """
+	def __init__(self, color):
+		self.dots = color.faint('...')
+		self.default_operands = color.CYAN
+
+	def sec_name(self, sec_name, color):
+		return color.bold(color.lyellow(sec_name))
+
+	def func_addr(self, func_addr, color):
+		return color.bold(color.lgreen(func_addr))
+
+	def func_name(self, func_name, color):
+		return color.bold(color.lcyan(func_name))
+
+	def not_inst_addr(self, not_inst_addr, color):
+		return color.faint(color.green(not_inst_addr))
+
+	def not_inst_content(self, not_inst_content, color):
+		return color.faint(color.blue(not_inst_content))
+
+	def addr(self, addr, color):
+		return color.green(addr)
+
+	def byte(self, byte, color):
+		if byte == 0:
+			cb = color.GREEN
+		elif byte == 0x7f:
+			cb = color.CYAN
+		elif byte == 0xff:
+			cb = color.RED
+		elif byte >= 0x20 and byte <= 0x7e:
+			cb = color.YELLOW
+		else:
+			cb = color.WHITE
+		return color.colorize("%02x" % byte, cb)
+
+	def char(self, char, color):
+		if char == 0:
+			return color.green('.')
+		elif char == 0x7f:
+			return color.cyan('.')
+		elif char == 0xff:
+			return color.red('.')
+		elif char >= 0x20 and char <= 0x7e:
+			return color.yellow(chr(char))
+		else:
+			return color.white('.')
+
+	def generic_mnemonic(self, mnemonic, color):
+		return color.magenta(mnemonic)
+
+	def branch_mnemonic(self, mnemonic, color):
+		return color.bold(color.lmagenta(mnemonic))
+
+	def interrupt_mnemonic(self, mnemonic, color):
+		return color.bold(color.lred(mnemonic))
+
+	def operands(self, operands, color):
+		return color.cyan(operands)
+
+	def comment(self, comment, color):
+		return color.blue(comment)
+
+class Custom__elf32_littlearm(Custom):
+	""" elf32-littlearm customizable items """
+
+	def __init__(self, color):
+		Custom.__init__(self, color)
+		self.dot_word = color.bold(color.lblue('.word'))
+		self.minus_sign = color.LIGHT_WHITE + '-' + self.default_operands
+		self.comma = color.RED + ',' + self.default_operands
+
+	def barrel_shifter(self, shift, color):
+		return color.green(shift)
+
+	def excl_mark_caret(self, symbol, color):
+		return color.bold(color.lred(symbol))
+
+	def full_hex_number(self, full_hex_number, color):
+		return color.bold(color.lyellow(full_hex_number))
+
+	def number(self, number, color):
+		return color.yellow(number)
+
+	def brackets(self, symbol, color):
+		return color.white(symbol)
+
+# group what is common between targets elf32_tradlittlemips and
+# elf32_tradbigemips
+class Custom__elf32_tradmips(Custom):
+	def __init__(self, color):
+		Custom.__init__(self, color)
+		# a space is added after the comma (to make things more readable,
+		# and more similar to ARM, which is important for the regexps, since
+		# we recycle them from ARM to MIPS)
+		self.comma = color.RED + ',' + self.default_operands + ' '
+
+	def full_hex_number(self, full_hex_number, color):
+		return color.yellow(full_hex_number)
+
+	def number(self, number, color):
+		return color.yellow(number)
+
+	def brackets(self, symbol, color):
+		return color.white(symbol)
+
+class Custom__elf32_tradlittlemips(Custom__elf32_tradmips):
+	""" elf32-tradlittlemips customizable items """
+	def __init__(self, color):
+		Custom__elf32_tradmips.__init__(self, color)
+
+class Custom__elf32_tradbigmips(Custom__elf32_tradmips):
+	""" elf32-tradbigmips customizable items """
+	def __init__(self, color):
+		Custom__elf32_tradmips.__init__(self, color)
+
+# group what is common between targets elf32-i386 and elf64-x86-64
+class Custom__elf_86(Custom):
+	def __init__(self, color):
+		Custom.__init__(self, color)
+		# a space is added after the comma (to make things more readable,
+		# and more similar to ARM, which is important for the regexps, since
+		# we recycle them from ARM to 86)
+		self.comma = color.RED + ',' + self.default_operands + ' '
+		self.deref = color.bold(color.lred('*')) + self.default_operands
+		self.colon = color.RED + ':' + self.default_operands
+
+	def full_hex_number(self, full_hex_number, color):
+		return color.yellow(full_hex_number)
+
+	def number(self, number, color):
+		return color.yellow(number)
+
+	def brackets(self, symbol, color):
+		return color.white(symbol)
+
+	def operation(self, symbol, color):
+		return color.red(symbol)
+
+class Custom__elf32_i386(Custom__elf_86):
+	""" elf32-i386 customizable items """
+
+	def __init__(self, color):
+		Custom__elf_86.__init__(self, color)
+
+class Custom__elf64_x86_64(Custom__elf_86):
+	""" elf64-x86-64 customizable items """
+
+	def __init__(self, color):
+		Custom__elf_86.__init__(self, color)
+
+
+### -------------------------------------------------------------------- ###
+class Beautify():
+	""" container for beautifying functions """
+
+	def __init__(self):
+		pass
+
+	def first_line(self, line, color, state):
+		""" beautifies line number 1 and
+		    stores file_name and target in state"""
+
+		file_fmt_str = 'file format '
+		file_fmt_str_len = len(file_fmt_str)
+		colon_pos = line.find(':')
+		state.file_name = line[:colon_pos]
+		file_fmt_start = line.find(file_fmt_str)
+		file_fmt_end = file_fmt_start + file_fmt_str_len
+		state.target = line[file_fmt_end:].lower()
+		bl = ''
+		bl += color.colorize(state.file_name, color.YELLOW)
+		bl += line[colon_pos:file_fmt_end]
+		bl += color.bold(color.colorize(state.target, color.LIGHT_RED))
+		return bl
+
+	contents_str = 'Contents of section '
+	contents_str_len = len(contents_str)
+	contents_sec_pattern = re.compile(contents_str + '(.*):')
+	disass_str = 'Disassembly of section '
+	disass_str_len = len(disass_str)
+	disass_sec_pattern = re.compile(disass_str + '(.*):')
+	addr_func_name_pattern = re.compile('([0-9a-f]+) (<.*>):$')
+
+	def update_state(self, line, state):
+		""" update state depending on line's content """
+		if line == '':
+			state.line_type = 'Normal'
+		elif line == '\t...':
+			state.line_type = 'Normal'
+		# Contents of section .sec
+		elif line[:self.contents_str_len] == self.contents_str:
+			state.part = 'Contents'
+			state.section = line[self.contents_str_len:-1]
+			state.line_type = 'Head'
+		# Disassembly of section .sec
+		elif line[:self.disass_str_len] == self.disass_str:
+			state.part = 'Disassembly'
+			state.section = line[self.disass_str_len:-1]
+			state.line_type = 'Head'
+		# addr <func_name>:
+		elif state.part == 'Disassembly' and \
+				self.addr_func_name_pattern.match(line):
+			state.line_type = 'Head'
+			name_start = line.find('<')
+			name_end = line.find('>')
+			state.function = line[name_start + 1:name_end]
+		# content line
+		elif state.part == 'Contents':
+			state.line_type = 'Normal'
+		# other lines: do nothing
+		else:
+			state.line_type = 'Normal'
+
+	def line(self, line, color, custom, state):
+		""" beautifies line """
+
+		if line == '':
+			return line
+		elif line == '\t...':
+			return '\t' + custom.dots
+		# Contents of section .sec
+		elif line[:self.contents_str_len] == self.contents_str:
+			return self.beautify_contents_sec(line, color, custom)
+		# Disassembly of section .sec
+		elif line[:self.disass_str_len] == self.disass_str:
+			return self.beautify_disass_sec(line, color, custom)
+		# addr <func_name>:
+		elif state.part == 'Disassembly' and \
+				self.addr_func_name_pattern.match(line):
+			return self.beautify_func_addr_name(line, color, custom)
+		# content line
+		elif state.part == 'Contents':
+			return self.beautify_contents_line(line, color, custom)
+		# other lines: do nothing
+		else:
+			pass
+		split_line = line.split('\t')
+		# line made of a single block (like when using objdump -f)
+		if len(split_line) == 1:
+			return '\t'.join(split_line)
+		# line of 2 blocks, that is not containing an instruction
+		elif len(split_line) == 2:
+			split_line = self.beautify_not_inst(split_line, color, custom)
+		# addr: opcode mnemonic operands ; comment more
+		else:
+			split_line = self.beautify_line(split_line, color, custom, state)
+		return split_line
+
+	def beautify_contents_sec(self, line, color, custom):
+		return self.contents_sec_pattern.sub( \
+			self.contents_str + custom.sec_name('\g<1>', color) + ':', \
+			line)
+
+	def beautify_disass_sec(self, line, color, custom):
+		return self.disass_sec_pattern.sub( \
+			self.disass_str + custom.sec_name('\g<1>', color) + ':', \
+			line)
+
+	def beautify_func_addr_name(self, line, color, custom):
+		return self.addr_func_name_pattern.sub( \
+			custom.func_addr('\g<1>', color) + ' ' + \
+			custom.func_name('\g<2>', color) + ':', \
+			line)
+
+	def beautify_not_inst(self, split_line, color, custom):
+		return custom.not_inst_addr(split_line[0], color), \
+			custom.not_inst_content(split_line[1], color)
+
+	def get_field(self, split_line, n):
+		if n < len(split_line):
+			return split_line[n]
+		else:
+			return ''
+
+	def comment_exists(self, split_line):
+		comment_position = 0
+		for field in split_line:
+			if field.find(self.comment_char) != -1:
+				return True, comment_position
+			else:
+				comment_position += 1
+		return False, -1
+
+	def beautify_addr(self, addr, color, custom):
+		return custom.addr(addr, color)
+
+	def beautify_opcode(self, opcode, color, custom):
+		split_opcode = opcode.split(' ')
+		bo = []
+		for opcode_bytes in split_opcode:
+			bo.append(self.beautify_opcode_bytes(opcode_bytes, color, custom))
+		return ' '.join(bo)
+
+	def beautify_opcode_bytes(self, opcode_bytes, color, custom):
+		bob = ''
+		for i in range(len(opcode_bytes) / 2):
+			byte = int('0x' + opcode_bytes[2 * i : 2 * (i + 1)], 16)
+			bob += custom.byte(byte, color)
+		return bob
+
+	def beautify_mnemonic(self, mnemonic, color, custom):
+		if mnemonic in self.all_branch_mnemonics:
+			return custom.branch_mnemonic(mnemonic, color)
+		elif mnemonic in self.all_interrupt_mnemonics:
+			return custom.interrupt_mnemonic(mnemonic, color)
+		# specific to elf32-littlearm, but simpler to do here than anywhere else
+		elif mnemonic == '.word':
+			return custom.dot_word
+		else:
+			return custom.generic_mnemonic(mnemonic, color)
+
+	def beautify_comment(self, comment, color, custom):
+		return custom.comment(comment, color)
+
+	def beautify_contents_bytes(self, contents_bytes, color, custom):
+		bcb = ''
+		bcc = ''
+		for i in range(len(contents_bytes) / 2):
+			byte = int('0x' + contents_bytes[2 * i : 2 * (i + 1)], 16)
+			bcb += custom.byte(byte, color)
+			bcc += custom.char(byte, color)
+		return bcb, bcc
+
+	def beautify_contents_line(self, line, color, custom):
+		pos_space = line[1:].find(' ') + 1
+		addr = self.beautify_addr(line[0:pos_space], color, custom)
+		split_contents_bytes =  line[pos_space:pos_space + 36].split(' ')
+		bcb = []
+		bcc = ''
+		for contents_bytes in split_contents_bytes:
+			b, c = self.beautify_contents_bytes(contents_bytes, color, custom)
+			bcb.append(b)
+			bcc += c
+		beautiful_contents_bytes = ' '.join(bcb)
+		# we insert one more space after the address for better readability
+		return addr + ' ' + beautiful_contents_bytes + '  ' + bcc
+
+class Beautify__elf32_littlearm(Beautify):
+	""" elf32-littlearm beautify items """
+
+	def __init__(self):
+		Beautify.__init__(self)
+
+	comment_char = ';'
+	# conditions, in this order, cf
+	# http://vision.gel.ulaval.ca/~jflalonde/cours/1001/h17/docs/arm-instructionset.pdf
+	cond = ['eq', 'ne', 'cs', 'cc', 'mi', 'pl', 'vs', 'vc',
+			'hi', 'ls', 'ge', 'lt', 'gt', 'le', 'al', '']
+#			'hs', 'lo']
+#	 		'hs' and 'lo' are synonyms of 'cs' and 'cc' resp., see
+# 			http://infocenter.arm.com/help/topic/com.arm.doc.qrc0001l/QRC0001_UAL.pdf
+# 			but they are not used by objdump
+
+	# width specifier
+	width_spec = ['.w', '.n', '']
+
+	branch_mnemonics = ['b', 'bl', 'bx', 'blx']
+	all_branch_mnemonics = []
+	for m in branch_mnemonics:
+		for c in cond:
+			for w in width_spec:
+				all_branch_mnemonics.append(m + c + w)
+
+	all_interrupt_mnemonics = ['svc']
+	for c in cond:
+		all_interrupt_mnemonics.append('svc' + c)
+
+	# regexps
+	brackets_pattern = re.compile('([\{\}\[\]])')
+	comma_pattern = re.compile(',')
+	barrel_shifter_asr_pattern = re.compile('asr')
+	barrel_shifter_lsl_pattern = re.compile('lsl')
+	barrel_shifter_lsr_pattern = re.compile('lsr')
+	barrel_shifter_ror_pattern = re.compile('ror')
+	barrel_shifter_rrx_pattern = re.compile('rrx')
+	addresses_from_branches_pattern = re.compile('^([0-9a-f]*) (<.*>)$')
+	excl_mark_caret_pattern = re.compile('([!\^])')
+	numbers_1_pattern = re.compile('^(0x[0-9a-f]+)')
+	numbers_2_pattern = re.compile('(#[-]?[0-9]+)')
+	numbers_3_pattern = re.compile('( [0-9]+)')
+	numbers_4_pattern = re.compile('(^[0-9]+)')
+	numbers_5_pattern = re.compile(ESCRP + '([0-9]+)' + ESCLP)
+	numbers_6_pattern = re.compile(ESCRP + '(-?[0-9]+)')
+	minus_sign_pattern = re.compile('-([a-z])')
+	brackets_reverse_pattern = re.compile(ESCLP + '([\{\}\[\]])' + ESCRP)
+
+	def beautify_line(self, split_line, color, custom, state):
+		no_fields = len(split_line)
+		addr = self.get_field(split_line, 0)
+		addr = self.beautify_addr(addr[:-1], color, custom) + ':'
+		opcode = self.beautify_opcode(self.get_field(split_line, 1), \
+			color, custom)
+		ce, cp = self.comment_exists(split_line)
+		if ce:
+			if cp < 4:
+				print('Problem with comment on target {}'.format(state.target))
+				exit(0)
+			comment = self.beautify_comment(self.get_field(split_line, cp), \
+				color, custom)
+		else:
+			comment = ''
+		mnemonic = self.beautify_mnemonic(self.get_field(split_line, 2), \
+			color, custom)
+		operands = self.beautify_operands(self.get_field(split_line, 3), \
+			color, custom)
+		return addr, opcode, mnemonic, operands, comment
+
+	def beautify_operands(self, operands, color, custom):
+		color.set_default(custom.default_operands)
+
+		# homemade escape of {, }, [ and ] (even if the escape is only
+		# really necessary for [ and ])
+		op = self.brackets_pattern.sub(ESCLS + '\g<1>' + ESCRS, operands)
+
+		# commas
+		op = self.comma_pattern.sub(custom.comma, op)
+
+		# barrel shifter operations
+		op = self.barrel_shifter_asr_pattern.sub( \
+			custom.barrel_shifter('asr', color), op)
+		op = self.barrel_shifter_lsl_pattern.sub( \
+			custom.barrel_shifter('lsl', color), op)
+		op = self.barrel_shifter_lsr_pattern.sub( \
+			custom.barrel_shifter('lsr', color), op)
+		op = self.barrel_shifter_ror_pattern.sub( \
+			custom.barrel_shifter('ror', color), op)
+		op = self.barrel_shifter_rrx_pattern.sub( \
+			custom.barrel_shifter('rrx', color), op)
+
+		# addresses from branches
+		op = self.addresses_from_branches_pattern.sub( \
+			custom.func_addr('\g<1>', color) + ' ' + \
+			custom.func_name('\g<2>', color), op)
+
+		# ! and ^
+		op = self.excl_mark_caret_pattern.sub( \
+			custom.excl_mark_caret('\g<1>', color), op)
+
+		# treat numbers
+		op = self.numbers_1_pattern.sub( \
+			custom.full_hex_number('\g<1>', color), op)
+		op = self.numbers_2_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_3_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_4_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_5_pattern.sub(ESCRS + \
+			custom.number('\g<1>', color) + ESCLS, op)
+		op = self.numbers_6_pattern.sub(ESCRS + \
+			custom.number('\g<1>', color), op)
+
+		# minus sign
+		op = self.minus_sign_pattern.sub(custom.minus_sign + '\g<1>', op)
+
+		# unescape the {, }, [ and ]
+		op = self.brackets_reverse_pattern.sub( \
+			custom.brackets('\g<1>', color), op)
+
+		color.reset_default()
+		op = color.colorize(op, custom.default_operands)
+		return op
+
+# group what is common between targets elf32_tradlittlemips and
+# elf32_tradbigemips
+class Beautify__elf32_tradmips(Beautify):
+	def __init__(self):
+		Beautify.__init__(self)
+
+	comment_char = ';' # TODO TO BE CHECKED!!!
+
+	# from https://courses.cs.washington.edu/courses/cse378/02au/Lectures/07controlI.pdf
+	# but this does not seem to be complete... so let's take this too:
+	# http://pages.cs.wisc.edu/~markhill/cs354/Fall2008/notes/MAL.instructions.html
+	# and this is not enough... so let's also take this:
+	# https://ti.tuwien.ac.at/cps/teaching/courses/cavo/files/MIPS32-IS.pdf
+	all_branch_mnemonics = ['b', 'bal', 'beq', 'bne', 'bgt', 'bge', 'blt', 'ble',
+				'beqz', 'bnez', 'bgtz', 'bltz', 'bgez', 'blez',
+				'j', 'jal', 'jalr']
+
+	all_interrupt_mnemonics = ['syscall']
+
+	# regexps
+	brackets_pattern = re.compile('([()])')
+	comma_pattern = re.compile(',')
+	addresses_from_branches_pattern = re.compile('([0-9a-f]*) (<.*>)$')
+	numbers_1_pattern = re.compile('(0x[0-9a-f]+)')
+	numbers_2_pattern = re.compile('( [-]?[0-9]+)')
+	numbers_3_pattern = re.compile('( [0-9]+)')
+	numbers_4_pattern = re.compile('(^[0-9]+)')
+
+	def beautify_line(self, split_line, color, custom, state):
+		no_fields = len(split_line)
+		addr = self.get_field(split_line, 0)
+		addr = self.beautify_addr(addr[:-1], color, custom) + ':'
+		opcode = self.beautify_opcode(self.get_field(split_line, 1), \
+			color, custom)
+		ce, cp = self.comment_exists(split_line)
+		if ce:
+			if cp < 4:
+				print('Problem with comment on target {}'.format(state.target))
+				exit(0)
+			comment = self.beautify_comment(self.get_field(split_line, cp), \
+				color, custom)
+		else:
+			comment = ''
+		mnemonic = self.beautify_mnemonic(self.get_field(split_line, 2), \
+			color, custom)
+		operands = self.beautify_operands(self.get_field(split_line, 3), \
+			color, custom)
+		return addr, opcode, mnemonic, operands, comment
+
+	def beautify_operands(self, operands, color, custom):
+		color.set_default(custom.default_operands)
+
+		# parenthesis
+		op = self.brackets_pattern.sub(custom.brackets('\g<1>', color),
+			operands)
+
+		# commas
+		op = self.comma_pattern.sub(custom.comma, op)
+
+		# addresses from branches
+		op = self.addresses_from_branches_pattern.sub( \
+			custom.func_addr('\g<1>', color) + ' ' + \
+			custom.func_name('\g<2>', color), op)
+
+		# treat numbers
+		op = self.numbers_1_pattern.sub( \
+			custom.full_hex_number('\g<1>', color), op)
+		op = self.numbers_2_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_3_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_4_pattern.sub(custom.number('\g<1>', color), op)
+
+		color.reset_default()
+		op = color.colorize(op, custom.default_operands)
+		return op
+
+class Beautify__elf32_tradlittlemips(Beautify__elf32_tradmips):
+	""" elf32-tradlittlemips beautify items """
+	def __init__(self):
+		Beautify__elf32_tradmips.__init__(self)
+
+class Beautify__elf32_tradbigmips(Beautify__elf32_tradmips):
+	""" elf32-tradbigmips beautify items """
+	def __init__(self):
+		Beautify__elf32_tradmips.__init__(self)
+
+# group what is common between targets elf32-i386 and elf64-x86-64
+class Beautify__elf_86(Beautify):
+	def __init__(self):
+		Beautify.__init__(self)
+
+	comment_char = '#'
+
+	# regexps
+	brackets_pattern = re.compile('([()\[\]])')
+	dereference_star_pattern = re.compile(' \*')
+	operations_in_brackets_1_pattern = re.compile(ESCRP + \
+		'(.*?)([-\+])([a-z0-9]*)' + ESCLP)
+	operations_in_brackets_2_pattern = re.compile(ESCRP + \
+		'([a-z0-9]*)([-\+])(.*?)' + ESCLP)
+	operations_in_brackets_3_pattern = re.compile(ESCRP + \
+		'(.*)([\*])(.*)' + ESCLP)
+	comma_pattern = re.compile(',')
+	colon_pattern = re.compile(':')
+	uppercase_pattern = re.compile('([A-Z]+ )')
+	addresses_from_branches_pattern = re.compile('([0-9a-f]*) (<.*>)$')
+	numbers_0_pattern = re.compile('(\$0x[0-9a-f]+)')
+	numbers_1_pattern = re.compile('([-]?0x[0-9a-f]+)')
+	numbers_2_pattern = re.compile('( [-]?[0-9]+)')
+	numbers_3_pattern = re.compile('( [0-9]+)')
+	numbers_4_pattern = re.compile('(^[0-9]+)')
+	numbers_5_pattern = re.compile(ESCRP + '([0-9]+)' + ESCLP)
+	numbers_6_pattern = re.compile(ESCRP + '(-?[0-9]+)')
+	brackets_reverse_pattern = re.compile(ESCLP + '([()\[\]])' + ESCRP)
+
+	def beautify_line(self, split_line, color, custom, state):
+		no_fields = len(split_line)
+		addr = self.get_field(split_line, 0)
+		addr = self.beautify_addr(addr[:-1], color, custom) + ':'
+		opcode = self.beautify_opcode(self.get_field(split_line, 1), \
+			color, custom)
+		ce, cp = self.comment_exists(split_line)
+		if ce:
+			if cp != 2:
+				print('Problem with comment on target {}'.format(state.target))
+				exit(0)
+			split_comment = split_line[cp].split(self.comment_char)
+			split_comment[1] = self.comment_char + split_comment[1]
+			split_line = split_line[:2]
+			split_line.extend(split_comment)
+			comment = self.beautify_comment(split_line[3],color, custom)
+		else:
+			comment = ''
+		mnemops = split_line[2].split(' ') # mixture of mnemonic and operands
+		mnemonic = mnemops[0]
+		operands = ' '.join(mnemops[1:])
+		mnemonic = self.beautify_mnemonic(mnemonic, color, custom)
+		operands = self.beautify_operands(operands, color, custom)
+		mnemops = ' '.join((mnemonic, operands))
+		return addr, opcode, mnemops, comment
+
+	def beautify_operands(self, operands, color, custom):
+		color.set_default(custom.default_operands)
+
+		# homemade escape of [ and ]
+		op = self.brackets_pattern.sub(ESCLS + '\g<1>' + ESCRS, operands)
+
+		# * (dereference)
+		op = self.dereference_star_pattern.sub(' ' + custom.deref, op)
+
+		# -, +, * in between brackets
+		# we introduce some space before and after for better clarity
+		op = self.operations_in_brackets_1_pattern.sub( \
+			ESCRS + '\g<1>' + custom.operation(' \g<2> ', color) + \
+			'\g<3>' + ESCLS, op)
+		op = self.operations_in_brackets_2_pattern.sub( \
+			ESCRS + '\g<1>' + custom.operation(' \g<2> ', color) + \
+			'\g<3>' + ESCLS, op)
+		op = self.operations_in_brackets_3_pattern.sub( \
+			ESCRS + '\g<1>' + custom.operation(' \g<2> ', color) + \
+			'\g<3>' + ESCLS, op)
+
+		# colons
+		op = self.colon_pattern.sub(custom.colon, op)
+
+		# commas
+		op = self.comma_pattern.sub(custom.comma, op)
+
+		# uppercase (*WORD, BYTE, PTR, etc)
+		op = self.uppercase_pattern.sub(color.green('\g<1>'), op)
+
+		# addresses from branches
+		op = self.addresses_from_branches_pattern.sub( \
+			custom.func_addr('\g<1>', color) + ' ' + \
+			custom.func_name('\g<2>', color), op)
+
+		# treat numbers
+		op = self.numbers_0_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_1_pattern.sub( \
+			custom.full_hex_number('\g<1>', color), op)
+		op = self.numbers_2_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_3_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_4_pattern.sub(custom.number('\g<1>', color), op)
+		op = self.numbers_5_pattern.sub(ESCRS + \
+			custom.number('\g<1>', color) + ESCLS, op)
+		op = self.numbers_6_pattern.sub(ESCRS + \
+			custom.number('\g<1>', color), op)
+
+		# unescape the [ and ]
+		op = self.brackets_reverse_pattern.sub( \
+			custom.brackets('\g<1>', color), op)
+
+		color.reset_default()
+		op = color.colorize(op, custom.default_operands)
+		return op
+
+class Beautify__elf32_i386(Beautify__elf_86):
+	def __init__(self):
+		Beautify__elf_86.__init__(self)
+
+	all_branch_mnemonics = ['call']
+	all_interrupt_mnemonics = ['int']
+
+class Beautify__elf64_x86_64(Beautify__elf_86):
+	def __init__(self):
+		Beautify__elf_86.__init__(self)
+
+	all_branch_mnemonics = ['call', 'callq']
+	all_interrupt_mnemonics = ['syscall']
+
+
+### -------------------------------------------------------------------- ###
+def main():
+	parser = argparse.ArgumentParser(
+		description = 'Beautify ObjDump (bod) v{}'.format(VERSION),
+		prog = 'bod',
+		usage = 'objdump <objdump options> | %(prog)s <%(prog)s options>')
+	parser.add_argument('-v', '--version', action='version', version='v{} by Github user diouziou'.format(VERSION))
+	parser.add_argument('-p', '--palette',
+		default = u'standard',
+		choices = ['standard', 'custom'],
+		action = 'store',
+		help = 'set color palette')
+	parser.add_argument('-f', '--function',
+		default = '',
+		action = 'store',
+		help = 'only show disassembly of selected function')
+	parser.add_argument('-l', '--list',
+		default = False,
+		action = 'store_true',
+		help = 'only display head lines')
+	args = parser.parse_args()
+	color = Color(args.palette)
+	custom = Custom(color) # generic for now
+	beautify = Beautify()  # generic for now
+	state = State()
+	for line in sys.stdin:
+		if state.ln == 0: # first line is always empty
+			print('')
+		elif state.ln == 1: # get file_name, target and beautify line 1
+			bl = beautify.first_line(line.strip('\n'), color, state)
+			print(bl)
+			check_support(state.target) # exits if target not supported
+			# we can now use the target specific Custom and Beautify
+			if state.target == 'elf32-littlearm':
+				custom = Custom__elf32_littlearm(color)
+				beautify = Beautify__elf32_littlearm()
+			elif state.target == 'elf32-tradlittlemips':
+				custom = Custom__elf32_tradlittlemips(color)
+				beautify = Beautify__elf32_tradlittlemips()
+			elif state.target == 'elf32-tradbigmips':
+				custom = Custom__elf32_tradbigmips(color)
+				beautify = Beautify__elf32_tradbigmips()
+			elif state.target == 'elf32-i386':
+				custom = Custom__elf32_i386(color)
+				beautify = Beautify__elf32_i386()
+			elif state.target == 'elf64-x86-64':
+				custom = Custom__elf64_x86_64(color)
+				beautify = Beautify__elf64_x86_64()
+			else:
+				pass
+		else:
+			beautify.update_state(line.rstrip('\n'), state)
+			if state.section == '' or \
+				(args.list and state.line_type == 'Head') or \
+				(not args.list and \
+					(args.function == '' or \
+						args.function == state.function)):
+				bl = beautify.line(line.rstrip('\n'), color, custom, state)
+				if isinstance(bl, tuple):
+					bl = '\t'.join(bl)
+				print(bl)
+			if not args.list and \
+					(args.function == '' or \
+						args.function == state.function) and \
+					args.function != '' and bl == '':
+					break
+		state.ln += 1
+
+if __name__ == '__main__':
+	main()
+

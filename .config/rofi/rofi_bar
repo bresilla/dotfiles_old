@@ -7,9 +7,9 @@
  */
 
 * {
-	accent: #F69CDA;
+	accent: #FFFFFF;
 	bckgrd: #121212;
-	select: #222222;
+	select: #161A1B;
 
 
 
@@ -21,18 +21,17 @@
 	urgentcolor:      	#e53714;
 
 
-   font: 				"Bahnschrift 12";
+   font: 				"Monoid 14";
    border-color:        @background;
    separatorcolor:      @foreground;
    background-color: 	@background;
-   
 }
 
 #window {
    background-color: 	@background;
    anchor: 				north;
    location: 			north;
-   y-offset: 			10;
+   y-offset: 			700;
 }
 
 #mainbox {
@@ -55,13 +54,13 @@
    fixed-height: 		false;
    dynamic: 			true;
    scrollbar: 			false;
-   padding: 			15px;
+   padding: 			10px;
    background: 			@background;
 }
 
 #element {
     border:  			0;
-    padding: 			15px;
+    padding: 			10px;
 }
 
 #element.normal.normal {
@@ -128,12 +127,12 @@
    padding:				6px 9px;
    background-color:	@foreground;
    text-color:			@background-alt;
-   padding: 			14 1% 14;
+   padding: 			10 1% 10;
 }
 
 #entry {
    padding:				6px 10px;
    background-color:	@background-alt;
    text-color:			@foreground;
-   padding: 			14px;
+   padding: 			10px;
 }

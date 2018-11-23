@@ -1,23 +1,21 @@
 [colors]
-	accent = #F69CDA
+	accent = #EDD080
 	bckgrd = #121212
-	select = #222222
-
+	select = #161A1B
 
 	background = 			${self.bckgrd}
 	background-alt = 		${self.select}
 	foreground = 			#A5ffffff
-	;primary = 			${xrdb:accent}
 	primary = 			${self.accent}
 	alert = 			#bd2c40
+	white = 			#FFFFFF
+    grey =              #AAAAAA
 	transparent = 			#00000000
-
 
 
 [global/wm]
 	margin-top = 5
 	margin-bottom = 0
-
 
 
 [settings]
@@ -28,7 +26,6 @@
 	bargapp= 10
 	barwidth = 100%
 	barheigh = 48
-
 
 
 [bar/top]
@@ -55,22 +52,39 @@
 	radius-top = 10
 	radius-bottom = 10
 	spacing = 2
-	padding-left = 10
-	padding-right = 10
+	padding-left = 2
+	padding-right = 2
 	module-margin-left = 4
 	module-margin-right = 4
-	font-0 = Bahnschrift:size=12;2
-	font-1 = FontAwesome:pixelsize=12;3
-	font-2 = Font Awesome 5 Free:pixelsize=12;3
-	font-3 = Font Awesome 5 Free Solid:pixelsize=12;3
-	font-4 = Font Awesome 5 Brands:pixelsize=12;3
-	font-5 = unifont:size=12;3
+	font-0 = Monoid:size=12;4
+    font-1 = unifont:size=12;1
+    font-2 = FontAwesome:size=12;3
+    font-3 = NotoSans-Regular:size=12;-1
+    font-4 = MaterialIcons:size=16;5
 	tray-position = right
 	tray-padding = 4
 
-	modules-left = TOP DRY NET HOT SYC WCH
-	modules-right = backlight volume cpu memory battery date
+	modules-left = i3 BSP
+	modules-center = mpd
+	modules-right = date
 
+
+[bar/bottom]
+	monitor = ${env:MONITOR}
+	monitor-strict = true
+	dpi = 96
+	bottom = true
+	width = ${settings.barwidth}
+	height = 22
+	background = ${colors.transparent}
+	foreground = ${colors.foreground}
+	border-top-size = 0
+	border-bottom-size = 0
+	border-color = ${colors.transparent}
+	font-0 = Monoisome:size=10;4
+	font-1 = FontAwesome:pixelsize=10;3
+	font-5 = unifont:size=14;1
+	modules-center = secondi3 secondBSP
 
 
 [bar/center]
@@ -87,30 +101,11 @@
 	background = ${colors.background-alt}
 	foreground = ${colors.foreground}
 	spacing = 2
-	font-0 = Bahnschrift:size=12;3
-	font-5 = unifont:size=12;3
+	font-0 = Monoisome:size=14;4
+	font-1 = FontAwesome:pixelsize=12;3
+	font-5 = unifont:size=12;1
 	modules-left = search
-	click-left = bash ~/.i3/rofii/menu/search
-	;wm-restack = i3
-
-
-
-[bar/workspaces]
-	monitor = ${env:MONITOR}
-	monitor-strict = true
-	dpi = 96
-	bottom = true
-	width = ${settings.barwidth}
-	height = 26
-	background = ${colors.transparent}
-	foreground = ${colors.foreground}
-	border-top-size = 0
-	border-bottom-size = 10
-	border-color = ${colors.transparent}
-	font-0 = Bahnschrift:size=10;1
-	font-5 = unifont:size=14;1
-	modules-center = i3
-
+	click-left = bash ~/.config/rofi/menu/SEARCH
 
 
 [module/i3]
@@ -121,96 +116,144 @@
 	strip-wsnumbers = false
 	pin-workspaces = true
 	enable-scroll = false
-	label-mode-padding = 8
+	label-mode-padding = 2
+	label-mode-foreground = ${colors.foreground}
+	label-mode-background = ${colors.primary}
+	label-focused = %name%
+	label-focused-foreground= ${colors.primary}
+	label-focused-background = ${colors.background-alt}
+	label-focused-padding = 3
+	label-unfocused = %name%
+	label-unfocused-padding = 2
+	label-unfocused-background = ${colors.background}
+	label-urgent = %name%
+	label-urgent-foreground= ${colors.alert}
+	label-urgent-background = ${colors.background-alt}
+	label-urgent-padding = 2
+	label-visible = %name%
+	label-visible-background = ${colors.background-alt}
+	label-visible-padding = ${self.label-focused-padding}
+	label-separator = |
+
+
+[module/secondi3]
+	type = internal/i3
+	format = <label-state> <label-mode>
+	index-sort = true
+	wrapping-scroll = false
+	strip-wsnumbers = false
+	pin-workspaces = true
+	enable-scroll = false
+	label-mode-padding = 2
 	label-mode-foreground = ${colors.foreground}
 	label-mode-background = ${colors.primary}
 	label-focused = %name%
 	label-focused-foreground= ${colors.background}
 	label-focused-background = ${colors.primary}
 	label-focused-underline = ${colors.primary}
-	label-focused-padding = 12
+	label-focused-padding = 3
 	label-unfocused = %name%
-	label-unfocused-padding = 8
+	label-unfocused-padding = 2
 	label-unfocused-background = ${colors.background}
 	label-urgent = %name%
 	label-urgent-foreground= ${colors.alert}
 	label-urgent-background = ${colors.background-alt}
-	label-urgent-padding = 8
+	label-urgent-padding = 2
 	label-visible = %name%
 	label-visible-background = ${colors.background-alt}
 	label-visible-padding = ${self.label-focused-padding}
-	
-	
-	
-[module/DRY]
+
+
+[module/secondBSP]
+	type = internal/bspwm
+	pin-workspaces = true
+	inline-mode = false
+	enable-click = false
+	enable-scroll = false
+	reverse-scroll = false
+	format = <label-state> <label-mode>
+	label-focused-foreground= ${colors.primary}
+	label-focused-background = ${colors.background-alt}
+	label-focused-padding = 2
+	label-urgent-foreground= ${colors.alert}
+	label-urgent-background = ${colors.background-alt}
+
+
+[module/BSP]
+	type = internal/bspwm
+	format = <label-state> <label-mode>
+	index-sort = true
+	strip-wsnumbers = false
+	pin-workspaces = true
+	enable-scroll = false
+	label-focused-padding = 3
+	label-separator =" | "
+    label-separator-foreground = ${colors.grey}
+	label-focused = %name%
+	label-focused-foreground= ${colors.primary}
+	label-focused-background = ${colors.background-alt}
+	label-urgent = %name%
+	label-urgent-foreground= ${colors.alert}
+	label-urgent-background = ${colors.background-alt}
+	label-occupied = %name%
+    label-occupied-foreground= ${colors.white}
+	label-occupied-background = ${colors.background-alt}
+	label-empty = %name%
+    label-empty-foreground= ${colors.grey}
+	label-empty-background = ${colors.background-alt}
+
+
+[module/mouseloc]
 	type = custom/script
-	exec = echo "DRY"
-	interval = 60
-	label = "DRY"
+	exec = echo "X:" $(xdotool getmouselocation | awk '{print substr($2,3,4)}') "  Y:" $(xdotool getmouselocation | awk '{print substr($1,3,4)}')
+	interval = 0.1
+	label = %output%
 	format = <label>
 	format-foreground = ${colors.primary}
-	click-left = bash ~/.scripts/termop dry DRY 1920 1080 10 55
-[module/TOP]
-	type = custom/script
-	exec = echo "TOP"
-	interval = 60
-	label = "TOP"
+
+[module/mpd]
+    type = internal/mpd
+    host = 127.0.0.1
+    port = 6600
+    interval = 1
+    format-online = <icon-prev> <icon-stop> <toggle> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
+    icon-play = 
+    icon-pause = 
+    icon-stop = 
+    icon-prev = 
+    icon-next = 
+    icon-random = 
+    icon-repeat = 
+    toggle-on-foreground =
+    toggle-off-foreground = #55
+    bar-progress-width = 30
+    bar-progress-format = %{A4:mpdseek+2: A5:mpdseek-2:}%fill%%indicator%%empty%%{A A}
+    bar-progress-indicator = |
+    bar-progress-indicator-foreground = #ff
+    bar-progress-indicator-font = 3
+    bar-progress-fill = —
+    bar-progress-fill-foreground = #bb
+    bar-progress-fill-font = 3
+    bar-progress-empty = —
+    bar-progress-empty-font = 3
+    bar-progress-empty-foreground = #44
+
+[module/title]
+	type = internal/xwindow
 	format = <label>
-	format-foreground = ${colors.primary}
-	click-left = bash ~/.scripts/termop htop TOP 1920 1080 10 55
-[module/NET]
-	type = custom/script
-	exec = echo "NET"
-	interval = 60
-	label = "NET"
-	format = <label>
-	format-foreground = ${colors.primary}
-	click-left = bash ~/.scripts/termop bmon NET 1920 1080 10 55
-[module/SYC]
-	type = custom/script
-	exec = echo "SYC"
-	interval = 60
-	label = "SYC"
-	format = <label>
-	format-foreground = ${colors.primary}
-	click-left = bash ~/.scripts/termop '~/.scripts/syncto /home/bresilla/Dots /home/bresilla' SYC 1920 1080 10 55
-[module/HOT]
-	type = custom/script
-	exec = echo "HOT"
-	interval = 60
-	label = "HOT"
-	format = <label>
-	format-foreground = ${colors.primary}
-	click-left = bash ~/.scripts/termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024' HOT 1920 1080 10 55
-[module/WCH]
-	type = custom/script
-	exec = echo "WCH"
-	interval = 60
-	label = "WCH"
-	format = <label>
-	format-foreground = ${colors.primary}
-	click-left = bash ~/.scripts/termop 'watch -n 10 rsync -avz /media/bresilla/indrive1/Code/Raspi/ /home/bresilla/Remote/Code/' WCH 1920 1080 10 55
+	;format-foreground = ${colors.primary}
 
 
 [module/search]
 	type = custom/script
-	exec = echo "             search:              "
+	exec = echo "   search:    "
 	interval = 60
 	label = %output%
 	format = <label>
 	format-foreground = ${colors.background}
 	format-background = ${colors.primary}
-	
 
-[module/mouseloc]
-	type = custom/script
-	exec = xdotool getmouselocation | awk '{print $1 "   " $2}'
-	interval = 0.1
-	label = %output%
-	format = <label>
-	format-foreground = ${colors.primary}
-	
-	
+
 [module/cpu]
 	format-label = internal/cpu
 	format = <label>
@@ -220,13 +263,11 @@
 	format-foreground = ${colors.primary}
 
 
-
 [module/memory]
 	type = internal/memory
 	interval = 2
 	label = " %percentage_used%%"
 	format-foreground = ${colors.primary}
-
 
 
 [module/temperature]
@@ -240,7 +281,6 @@
 	label-warn = %temperature%!!!
 
 
-	
 [module/cputemp]
 	type = custom/script
 	exec = sensors | grep --max-count=1 "CPU Temperature:" | awk '{print substr($0,22,2)}'
@@ -249,14 +289,12 @@
 	format-foreground = ${colors.primary}
 
 
-
 [module/gputemp]
 	type = custom/script
 	exec = nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits
 	interval = 10
 	label = "GPU %output%°C"
 	format-foreground = ${colors.primary}
-
 
 
 [module/wlan]
@@ -286,10 +324,9 @@
 	date-alt = %A, %d %B %Y
 	time-alt = %H:%M:%S
 	label = %date% %time%
-	format =    <label>
+	format = <label>
 	format-padding = 3
 	format-foreground = ${colors.primary}
-
 
 
 [module/volume]
@@ -307,7 +344,23 @@
 	ramp-volume-2 = 
 	ramp-headphones-0 = 
 
-	
+
+[module/pomo]
+	type = custom/script
+	interval = 1
+	exec = pomo status | awk '{print substr($3,1,6)}' | grep -o '[0-9]\+' | sed 'N;s/\n/ : /'
+	label = "  %output%"
+	format-foreground = ${colors.primary}
+
+
+[module/bresilla]
+	type = custom/script
+	interval = 1
+	exec = echo "BRESILLA"
+	label = "%output%"
+	click-left = firefox --new-tab "www.bresilla.com"
+	format-foreground = ${colors.primary}
+
 
 [module/backlight]
 	type = internal/backlight
@@ -324,7 +377,7 @@
 	adapter = AC
 	full-at = 98
 	time-format = %H:%M
-	label-discharging = %percentage% %time%
+	label-discharging = %percentage%%
 	format-charging = <animation-charging> <label-charging>
 	format-charging-foreground = ${colors.primary}
 	label-charging-foreground = ${colors.primary}
@@ -347,3 +400,15 @@
 	animation-charging-4 = 
 	animation-charging-foreground = ${colors.primary}
 	animation-charging-framerate = 750
+
+
+[module/spotify]
+	type = custom/script
+	exec = /home/bresilla/.config/polybar/spotify
+	interval = 1
+
+[module/jgmenu]
+    type = custom/text
+    content-padding = 2
+    content = menu
+    click-left = "jgmenu_run >/dev/null 2>&1 &"

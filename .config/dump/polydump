@@ -26,6 +26,25 @@
 	barheigh = 48
 
 
+[bar/center]
+	monitor = ${env:MONITOR}
+	monitor-strict = true
+	fixed-center = true
+	dpi = 96
+	bottom = false
+	width = 1500
+	height = ${settings.barheigh}
+	override-redirect = true
+	offset-x = 1170
+	offset-y = ${settings.bargapp}
+	background = ${colors.background-alt}
+	foreground = ${colors.foreground}
+	spacing = 2
+	font-0 = Bahnschrift:size=12;3
+	font-5 = unifont:size=12;3
+	modules-left = search
+	click-left = bash ~/.config/rofi/menu/SEARCH
+
 
 [bar/top]
 	monitor = ${env:MONITOR}
@@ -67,6 +86,15 @@
 
 	modules-left = TOP DRY NET HOT SYC WCH
 	modules-right = wlan backlight volume cpu memory battery date
+
+[module/search]
+	type = custom/script
+	exec = echo "             search:              "
+	interval = 60
+	label = %output%
+	format = <label>
+	format-foreground = ${colors.background}
+	format-background = ${colors.primary}
 
 [universal]
 	width = 1150

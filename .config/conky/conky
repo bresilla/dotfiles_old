@@ -4,7 +4,7 @@ conky.config = {
     border_width = 0,
 	color0 = 'white',
 	color1 = 'black',
-	color5 = '#F69CDA',
+	color5 = '#FFFFFF',
     --cpu_avg_samples = 2,
 	--default_color = 'white',
 	--default_bar_height = 6,
@@ -25,7 +25,7 @@ conky.config = {
     --draw_outline = false,
     --draw_shades = false,
     --extra_newline = false,
-    font = 'NotoSansMonoCJKSC:size=12',
+    font = 'Noto Sans Mono:size=10',
     gap_x = 3285,
     gap_y = 80,
 	--http_refresh = false,
@@ -78,7 +78,6 @@ ${alignc}${color5}${font ChessType:pixelsize=80}BRESILLA$font
 ${color0}
 Hostname: $alignr$nodename
 Processor: ${alignr}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 1-27}
-Graphics: ${alignr}${exec nvidia-smi --query-gpu=name --format=csv,noheader}
 Kernel: $alignr$kernel
 Battery: ${battery_percent BAT0}% ${battery_bar 12 BAT0}
 Volume: ${exec amixer -c 0 get Master | grep Mono: | cut -d " " -f6} ${goto 200}\
@@ -98,7 +97,6 @@ ${color0}CPU 3 : $color0${cpu cpu3}% ${goto 100}${cpubar cpu3 12,150}  \
 ${color0}CPU 7 : ${alignr 5}$color0${cpu cpu7}% ${cpubar cpu7 12,150}
 ${color0}CPU 4 : $color0${cpu cpu4}% ${goto 100}${cpubar cpu4 12,150}  \
 ${color0}CPU 8 : ${alignr 5}$color0${cpu cpu8}% ${cpubar cpu8 12,150}
-GPU:${alignr}${exec nvidia-smi --query-gpu=memory.used --format=csv,noheader} / ${exec nvidia-smi --query-gpu=memory.total --format=csv,noheader}
 ${color0}Swap memory: $swapperc% = $swap/$swapmax \
 ${color0} ${swapbar 12 00ff00 ff0000}
 
@@ -119,12 +117,12 @@ ${color0}${diskiograph_write 60,250 00ffff 00ff00}
  ${goto 320}${color0}${diskio_write sdb1}
 ${color0}${diskiograph_read 60,250 00ffff 00ff00} \
 ${color0}${diskiograph_write 60,250 00ffff 00ff00}
- ${color0}${fs_used /media/bresilla/indrive1} /\
- ${color0}${fs_size /media/bresilla/indrive1} \
- ${color0}${fs_bar 12 /media/bresilla/indrive1}
- ${color0}${fs_used /media/bresilla/code} /\
- ${color0}${fs_size /media/bresilla/code} \
- ${color0}${fs_bar 12 /media/bresilla/code}
+ ${color0}${fs_used /run/media/bresilla/datasd} /\
+ ${color0}${fs_size /run/media/bresilla/datasd} \
+ ${color0}${fs_bar 12 /run/media/bresilla/datasd}
+ ${color0}${fs_used /home} /\
+ ${color0}${fs_size /home} \
+ ${color0}${fs_bar 12 /home}
 
 $color5${hr 2}
 

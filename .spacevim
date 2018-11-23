@@ -3,23 +3,25 @@ filetype plugin on
 syntax on
 let mapleader = "\<Space>"
 set encoding=utf8
-set guifont=Fira\ Code\ 11
+set guifont=Monoisome\ 12
 set laststatus=2
 set viminfo=""
+
+if $TERM =~ "-256color"
+  set t_Co=256
+endif
 
 function! UserInit()
   Plug 'junegunn/seoul256.vim'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'vim-airline/vim-airline'
-  Plug 'edkolev/tmuxline.vim'
   Plug 'edkolev/promptline.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
   Plug 'scrooloose/syntastic'
   Plug 'dbgx/lldb.nvim'
   Plug 'Yggdroot/indentLine'
-  Plug 'SirVer/ultisnips'
-  Plug 'majutsushi/tagbar'
+"  Plug 'SirVer/ultisnips'
   Plug 'tpope/vim-surround'
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
@@ -42,6 +44,7 @@ function! UserInit()
   Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
   Plug '907th/vim-auto-save'
+  Plug '~/.fzf'
 endfunction
 
 let spacevim_plug_home = '~/.vim/plugged'
@@ -54,11 +57,6 @@ if g:spacevim_gui
 endif
 
 
-augroup programm
-  autocmd!
-  autocmd FileType cpp,python TagbarToggle
-augroup END
-
 augroup markdown
   autocmd!
   autocmd FileType markdown,tex,wiki AutoSaveToggle
@@ -70,17 +68,17 @@ function! UserConfig()
   hi Normal guibg=NONE ctermbg=NONE
   let g:airline_powerline_fonts=1
   let g:airline_theme='jellybeans'
-  if has('termguicolors')
-    set termguicolors
-    if g:spacevim_tmux
-      let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-      let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    endif
+  if g:spacevim_tmux
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   endif
 endfunction
 
 
 map <C-n> :NERDTreeToggle<CR>
+map <C-f> :FZF<CR>
+noremap <C-End>   :bn<CR>
+noremap <C-Home>   :bp<CR>
 
 let g:vimwiki_list = [{'path': '~/Dots/.assets/.notes/', 'syntax': 'markdown', 'ext': '.wiki'}]
 
@@ -89,6 +87,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'

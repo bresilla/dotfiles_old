@@ -1,9 +1,13 @@
 #!/bin/bash
 
 ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500)
-BROWSER="firefox"
-bookmarks="$HOME/Dots/.assets/.notes/bookmarks.wiki"
+bookmarks=$1
 
+if [ -z "$3" ];
+	then BROWSER="firefox"
+else
+	BROWSER=$3
+fi
 
 output=$(cat $bookmarks | awk '{print $1}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p 'bookmarks: ')
 choice=$?

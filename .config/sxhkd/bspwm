@@ -1,0 +1,52 @@
+{alt,super} + space
+	bash ~/.config/rofi/menu/SEARCH
+super + alt + {Escape,Delete}
+    bash ~/.config/rofi/menu/{SYSTEM,CONFIG}
+
+super + alt + space; {n,f,s,c}
+    {nautilus,firefox,sakura,code}
+super + {Print,Insert,Delete}
+    {flameshot gui,kmag,gpick -pso --no-newline | xclip -i -selection c}
+
+{super,alt} + Escape
+	bspc node -{c,k}
+
+{dead_acute,dead_circumflex}
+    termop {NOTE,MAIN} 2500 1050
+
+XF86Audio{Prev,Next,Play}
+	mpc -q {prev,next,toggle} & playerctl {previous,next,play-pause}
+
+XF86Audio{Raise,Lower}Volume
+    pulsemixer --change-volume {+,-}5
+XF86AudioMute
+    pulsemixer --toggle-mute
+
+XF86MonBrightness{Up,Down}
+	light -{A,U} 5
+
+F12
+    /home/bresilla/.config/bspwm/scripts/floatruner
+
+super + P
+    xdotool type $(cat $PASS)
+
+super + F{1-9,10}
+    bspc desktop -f 00{1-9,10}
+alt + F{1-9,10}
+    bspc node -d 00{1-9,10} --follow
+
+super + alt + {Left,Right}
+    bspc desktop -f {prev,next}.local
+
+{super,alt} + {Left,Down,Up,Right}
+    /home/bresilla/.config/bspwm/scripts/{focusmover,swapormove} {west,south,north,east}
+
+{super,alt,alt+super} + Return
+    bspc node -t ~{fullscreen,floating,tiled}
+{super,alt,alt+super} + BackSpace
+    bspc node -g {locked,private,sticky}
+
+mode_switch + {Left,Right,space}
+    {echo "seek -10" > /home/bresilla/.config/mpv/control, exec echo "seek 10" > /home/bresilla/.config/mpv/control, echo "cycle pause" > /home/bresilla/.config/mpv/control}
+

@@ -1,305 +1,48 @@
 #########################################################################################################################################
-#|||	MODIFIERS
+#|||	SETTINGS
 #########################################################################################################################################
-exec_always xmodmap ~/.Xmodmap
-
-set $mod mod4
-set $alt mod1
-set $esc Escape
-set $ctl Control
-set $ctr mod3
-set $alg mod5
-
-set $crcum dead_circumflex
-set $acute dead_acute
-
-set $ä adiaeresis
-set $ö odiaeresis
-set $ü udiaeresis
-
-exec xset -r 73 #F7
-exec xset -r 118 #Insert
-exec xset -r 225 #Search
-exec xset -r 107 #Print
-exec xset -r 23 #Tab
-
-
-
-
-#########################################################################################################################################
-#|||	SHOTRCUTS
-#########################################################################################################################################
-set $floater floating enable, resize set 1600 900
-set $float_center floating enable, resize set 1920 783, move position center
-set $scratch_move sticky enable, move scratchpad
-set $scratch_show scratchpad show, move position center
-
-set $note urxvt -name note -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.config/tmux/note.yaml -y
-set $term urxvt -name term -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.config/tmux/term.yaml -y
-set $ross urxvt -name ross -fn "xft:Noto Mono for Powerline:size=12" -e tmuxp load ~/.config/tmux/3by2.yaml -y
-
-
-
-
-#########################################################################################################################################
-#		SETTINGS
-#########################################################################################################################################
-gaps inner 30
+gaps inner 10
 gaps outer 5
-floating_modifier $alt
 workspace_auto_back_and_forth yes
 popup_during_fullscreen smart
 focus_follows_mouse yes
 focus_on_window_activation focus
 focus_wrapping yes
+floating_minimum_size 1600x900
 for_window [class=.*] border pixel 0
-
-
-
-
-#########################################################################################################################################
-#|||	AUTOSTART
-#########################################################################################################################################
-exec_always sysclient PalmDetect=1
-exec_always synclient PalmDetect=1
-exec_always synclient PalmMinWidth=4
-exec_always synclient PalmMinZ=50
-#exec_always syndaemon -i 0.2 -K -d
-
-exec_always xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x0 --output $monitor2 --mode 1920x1080 --pos 3840x0
-exec_always bash ~/.config/i3/element
-exec_always xrdb -load ~/.Xdefaults
-
-exec xautolock -time 10 -locker ~/.config/i3lock/blurlock
-exec_always feh --bg-fill /media/bresilla/indrive1/Wall/minimal/'wallhaven-618958.jpg'
-exec --no-startup-id udisksctl mount -b /dev/sdb1
-exec --no-startup-id redshift -l 44.4949:11.3426 -b 1.5:0.8
-exec --no-startup-id python /home/bresilla/.scripts/layout
-exec --no-startup-id greenclip daemon
-exec --no-startup-id pulseaudio
-exec --no-startup-id playerctl
-exec --no-startup-id flameshot
-
-exec --no-startup-id $note
-exec --no-startup-id $term
-
-
-
+font pango:Monoid 12px
+floating_modifier mod4
+bindsym mod4+e layout toggle split
+bindsym F12 exec "bash ~/.config/rofi/menu/SEARCH"
+bindsym F11 exec "bash ~/.config/rofi/menu/SYSTEM"
 
 #########################################################################################################################################
-#|||	FONTS & COLORS & FRAME
+#|||	WORKSPACES & MONITORS
 #########################################################################################################################################
-font pango:Noto Mono for Powerline 14
-
-set_from_resource $accent accent #000000
-set $black				#000000
-set $grey				#373B41
-set $white				#FFFFFF
-set $red				#F10F09
-
-#class						border		backgr.		text		split
-client.focused				$accent		$accent		$black		$accent
-client.focused_inactive		$grey		$grey		$white		$grey
-client.unfocused			$grey		$grey		$white		$grey
-client.urgent				$red		$red		$black		$red
-
-
-
-
-#########################################################################################################################################
-#|||	WINDOWS
-#########################################################################################################################################
-bindsym $mod+$esc kill
-bindsym $alt+$esc kill
-
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-bindsym $alt+Left move left
-bindsym $alt+Down move down
-bindsym $alt+Up move up
-bindsym $alt+Right move right
-
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-bindsym $alt+Shift+Right resize shrink width 8 px or 8 ppt
-bindsym $alt+Shift+Up resize grow height 8 px or 8 ppt
-bindsym $alt+Shift+Down resize shrink height 8 px or 8 ppt
-bindsym $alt+Shift+Left resize grow width 8 px or 8 ppt
-
-bindsym $mod+Shift+Right resize shrink width 4 px or 4 ppt
-bindsym $mod+Shift+Up resize grow height 4 px or 4 ppt
-bindsym $mod+Shift+Down resize shrink height 4 px or 4 ppt
-bindsym $mod+Shift+Left resize grow width 4 px or 4 ppt
-
-bindsym Insert workspace back_and_forth
-bindsym $mod+Insert fullscreen toggle
-bindsym $alt+Insert floating toggle
-bindsym $mod+$alt+Insert sticky toggle
-
-
-
-
-#########################################################################################################################################
-#|||	WORKSPACES
-#########################################################################################################################################
-set $workspace1 "001"
-set $workspace2 "002"
-set $workspace3 "003"
-set $workspace4 "004"
-set $workspace5 "005"
-set $workspace6 "006"
-set $workspace7 "007"
-set $workspace8 "008"
-set $workspace9 "009"
-set $workspace0 "010"
-
-bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace $workspace2
-bindsym $mod+3 workspace $workspace3
-bindsym $mod+4 workspace $workspace4
-bindsym $mod+5 workspace $workspace5
-bindsym $mod+6 workspace $workspace6
-bindsym $mod+7 workspace $workspace7
-bindsym $mod+8 workspace $workspace8
-bindsym $mod+9 workspace $workspace9
-bindsym $mod+0 workspace $workspace0
-
-bindsym $alt+1 move container to workspace $workspace1; workspace $workspace1
-bindsym $alt+2 move container to workspace $workspace2; workspace $workspace2
-bindsym $alt+3 move container to workspace $workspace3; workspace $workspace3
-bindsym $alt+4 move container to workspace $workspace4; workspace $workspace4
-bindsym $alt+5 move container to workspace $workspace5; workspace $workspace5
-bindsym $alt+6 move container to workspace $workspace6; workspace $workspace6
-bindsym $alt+7 move container to workspace $workspace7; workspace $workspace7
-bindsym $alt+8 move container to workspace $workspace8; workspace $workspace8
-bindsym $alt+9 move container to workspace $workspace9; workspace $workspace9
-bindsym $alt+0 move container to workspace $workspace0; workspace $workspace0
-
-bindsym $mod+$alt+Left workspace prev_on_output
-bindsym $mod+$alt+Right workspace next_on_output
-
-bindsym $mod+Tab workspace back_and_forth
-bindsym $alt+Tab workspace back_and_forth
-bindsym F7 workspace back_and_forth
-bindsym F7 --release workspace back_and_forth
-
-
-
-
-#########################################################################################################################################
-#|||	MONITORS
-#########################################################################################################################################
-set $monitor1 eDP-1-1
-set $monitor2 DP-1-1
-set $projector VGA-1
-
-workspace $workspace1 output $monitor1
-workspace $workspace2 output $monitor1
-workspace $workspace3 output $monitor1
-workspace $workspace4 output $monitor1
-workspace $workspace5 output $monitor2
-workspace $workspace6 output $monitor2
-workspace $workspace7 output $monitor2
-workspace $workspace8 output $monitor2
-workspace $workspace9 output $monitor2
-workspace $workspace0 output $projector
-
-
+workspace 001 output eDP1
+workspace 002 output eDP1
+workspace 003 output eDP1
+workspace 004 output eDP1
+workspace 005 output DP1
+workspace 006 output DP1
+workspace 007 output DP1
+workspace 008 output DP1
+workspace 009 output DP1
 
 #########################################################################################################################################
 #|||	ASSIGNMENTS
 #########################################################################################################################################
-assign [class="Firefox"] $workspace8
-assign [class="Code"] $workspace2
-assign [class="gazeb"] $workspace3
-assign [class="rviz"] $workspace3
-assign [class="rtabmapviz"] $workspace3
-assign [class="QGroundControl"] $workspace3
-assign [class="obs"] $workspace9
-
-for_window [class="Nautilus"] $floater
-for_window [class="mpv"] $floater
-for_window [class="MPlayer"] $floater
-for_window [class="Wpg"] $floater
-for_window [class="URxvt"] $floater
-for_window [class="Pick-colour-picker"] $floater
-
-
-
+assign [class="Firefox"] "009"
+assign [class="Code"] "002"
+assign [class="Nautilus"] "001"
+for_window [class="MPlayer"] floating enable, move position center
+for_window [class="URxvt"] floating enable, move position center
+for_window [class="kitty"] floating enable, move position center
+for_window [class="mpv"] floating enable, move scratchpad, scratchpad show
+for_window [class="matplotlib"] floating enable, move position center, fullscreen enable
 
 #########################################################################################################################################
-#|||	SCRATCHPAD					-- MOD + ALT + nonfunc
+#|||	KICKSTART
 #########################################################################################################################################
-for_window [class="Spotify"] mark "scratch", $float_center, $scratch_move
-
-for_window [instance="term"] $float_center, $scratch_move
-bindsym $crcum [instance="term"] $scratch_show
-
-for_window [instance="note"] $float_center, $scratch_move
-bindsym $acute [instance="note"] $scratch_show
-
-for_window [instance="ross"] $float_center, $scratch_move
-bindsym $mod+$alt+1 [instance="ross"] $scratch_show
-
-bindsym $mod+$alt+d exec termop dry DRY
-bindsym $mod+$alt+t exec termop htop TOP
-bindsym $mod+$alt+n exec termop bmon NET
-bindsym $mod+$alt+s exec termop '~/.scripts/syncto /home/bresilla/Dots /home/bresilla' SYC
-bindsym $mod+$alt+w exec termop 'watch -n 10 rsync -avz /media/bresilla/indrive1/Code/Raspi/ /home/bresilla/Remote/Code/' WCH
-bindsym $mod+$alt+h exec termop 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024' HOT
-
-
-
-
-#########################################################################################################################################
-#|||	APPS KEYBINDINGS				-- MOD + CTRL 
-#########################################################################################################################################
-bindsym $alt+Return exec "nautilus --new-window"
-#bindsym $mod+Return exec sakura -f "Cousine for Powerline 14" -x tmux
-bindsym $mod+Return exec urxvt -fn "xft:Cousine for Powerline:size=16" -e tmux
-
-bindsym $mod+$ctl+$crcum exec $term
-bindsym $mod+$ctl+$acute exec $note
-bindsym $mod+$ctl+1 exec $ross
-
-bindsym $mod+$ctl+k exec keyscreen
-bindsym $mod+$ctl+v exec variety -n
-bindsym $mod+$ctl+c exec flameshot gui
-
-
-
-
-#########################################################################################################################################
-#|||	MEDIA KEYBINDINGS				-- funckeys
-#########################################################################################################################################
-bindsym $alg+BackSpace [class="Spotify"] $scratch_show
-bindsym $alg+Return exec bash ~/.scripts/play
-bindsym $alg+space exec echo "cycle pause" > /home/bresilla/.config/mpv/control
-
-bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"
-bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
-
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
-bindsym XF86MonBrightnessUp exec light -A 10
-bindsym XF86MonBrightnessDown exec light -U 10
-
-
-
-
-#########################################################################################################################################
-#|||	LAUNCHER KEYBINDINGS				-- MOD + ALT + funckeys
-#########################################################################################################################################
-bindsym $mod+$alt+Escape exec "bash ~/.config/rofi/menu/SYSTEM"
-bindsym $mod+$alt+Delete exec "bash ~/.config/rofi/menu/CONFIG"
-bindsym $mod+$alt+space exec "bash ~/.config/rofi/menu/SEARCH"
-bindsym $mod+space exec "bash ~/.config/rofi/menu/SEARCH"
-bindsym $alt+space exec "bash ~/.config/rofi/menu/SEARCH"
-bindsym $mod+$alt+Return exec "bash ~/.config/rofi/menu/SEARCH"
+exec bash ~/.startup
+exec_always bash ~/.startup -r

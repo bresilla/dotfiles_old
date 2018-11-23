@@ -1,0 +1,27 @@
+#!/bin/bash
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -font "Monoisome 16" -m 0 -fullscreen)
+
+
+select=$(echo "MOUNT
+UMOUNT" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Choose to: ")
+
+if [ "$select" == "MOUNT" ] ; then
+	mountable=$(lsblk -lp | grep part | grep -v "t /" | awk '{print $1, "(" $4 ")"}')
+	mountdrive=$(echo "$mountable" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Choose drive to mount:" | awk '{print $1}'); 
+	[[ -z $mountdrive ]] && echo "exiting 1" && exit
+	directory=$(find /media /home -type d -maxdepth 3 2>/dev/null)
+	mountpoint=$(echo "$directory" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Choose mounting directory:"); 
+	[[ -z $mountpoint ]] && echo "exiting 2" && exit
+	[[ ! -d "$mountpoint" ]] &&	prompt=$(echo -e "No\nYes" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p  "Create $mountpoint?");
+	[[ "$prompt" = No ]] && echo "exiting 3" && exit
+	SUDO_ASKPASS=/home/bresilla/.sbin/askpass sudo -A mkdir -p $mountpoint && sudo mount $mountdrive $mountpoint
+fi
+
+if [ "$select" == "UMOUNT" ] ; then
+	mounted=$(lsblk -lp | grep "t /" | grep -v "\(/boot\|/home\|/\)$" | awk '{print $1, "(" $4 ")", "on", $7}')
+	unmountdrive=$(echo "$mounted" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Choose drive to unmount:");
+	[[ -z $unmountdrive ]] && echo "exiting 4" && exit
+	drive=$(echo $unmountdrive | awk '{print $1}')
+	folder=$(echo $unmountdrive | awk '{print $4}')
+	SUDO_ASKPASS=/home/bresilla/.sbin/askpass sudo -A umount $drive && sudo -A rm -r $folder
+fi

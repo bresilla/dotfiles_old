@@ -1,7 +1,10 @@
-##NETWORK
+dnsinuse(){
+	nmcli dev show | grep IP4.DNS }
 
-## Gets, Saves and Echoes IP from MAC (given as argument)
-getip(){
-	IP=$(bash mac2ip $1 "echo IP" | awk -F'[ :]+' '/echo /{print $3}')  && 
-	echo "IP="$IP
-}
+findip(){
+    suda arp-scan --localnet }
+
+hotspot(){
+    sudo /home/bresilla/.sbin/hotspot wlp2s0 wlp2s0 algorithm dyhere024 }
+
+alias speed=speedtest-net

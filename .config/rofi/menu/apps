@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500)
+rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun

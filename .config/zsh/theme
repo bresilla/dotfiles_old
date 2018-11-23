@@ -1,0 +1,208 @@
+#
+# This shell prompt config file was created by promptline.vim
+#
+function __promptline_wrapper {
+  [[ -n "$1" ]] || return 1
+  printf "%s" "${2}${1}${3}"
+}
+
+function __promptline_host {
+  local only_if_ssh="0"
+  if [ $only_if_ssh -eq 0 -o -n "${SSH_CLIENT}" ]; then
+    if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
+  fi
+}
+
+function __promptline_last_exit_code {
+  [[ $last_exit_code -gt 0 ]] || return 1;
+  printf "%s" "$last_exit_code"
+}
+
+function __sudo_warning {
+  [[ $(trap "" XFSZ; limit filesize 0; LC_ALL=C sudo -n true 2>&1) != *"password is required" ]] && printf ' sudo'
+}
+
+function __promptline_vcs_branch {
+  local branch
+  local branch_symbol=" "
+
+  # git
+  if hash git 2>/dev/null; then
+    if branch=$( { git symbolic-ref --quiet HEAD || git rev-parse --short HEAD; } 2>/dev/null ); then
+      branch=${branch##*/}
+      printf "%s" "${branch_symbol}${branch:-unknown}"
+      return
+    fi
+  fi
+  return 1
+}
+
+function __promptline_battery {
+  if (( $+commands[acpi] )) ; then
+    [[ $(acpi | cut -f2 -d ',' | tr -cd '[:digit:]') != 100 ]] && printf "$(acpi | cut -f2 -d ',' | tr -cd '[:digit:]')"
+  fi
+}
+
+function __update_packages {
+  [[ $(/usr/lib/update-notifier/apt-check --human-readable | awk 'NR==1 {print $1}') > 1 ]] && printf "$(/usr/lib/update-notifier/apt-check --human-readable | awk 'NR==1 {print $1}')"
+}
+
+function __pow_consume {
+echo - | awk "{printf \"%.1f\", \
+$(( \
+  $(cat /sys/class/power_supply/BAT0/current_now) * \
+  $(cat /sys/class/power_supply/BAT0/voltage_now) \
+)) / 1000000000000 }" ; echo " W "
+}
+
+function __load_average {
+  eval loadav01=$(uptime | awk ' {print substr($0,length($0)-15)}' | awk '{print $1}' | sed 's/,//g')
+  eval loadav15=$(uptime | awk ' {print substr($0,length($0)-15)}' | awk '{print $3}' | sed 's/,//g')
+  printf "$loadav01"
+}
+
+function __promptline_cwd {
+  local dir_limit="3"
+  local truncation="⋯"
+  local first_char
+  local part_count=0
+  local formatted_cwd=""
+  local dir_sep="  "
+  local tilde="~"
+  local cwd="${PWD/#$HOME/$tilde}"
+  # get first char of the path, i.e. tilde or slash
+  [[ -n ${ZSH_VERSION-} ]] && first_char=$cwd[1,1] || first_char=${cwd::1}
+  # remove leading tilde
+  cwd="${cwd#\~}"
+
+  while [[ "$cwd" == */* && "$cwd" != "/" ]]; do
+    # pop off last part of cwd
+    local part="${cwd##*/}"
+    cwd="${cwd%/*}"
+    formatted_cwd="$dir_sep$part$formatted_cwd"
+    part_count=$((part_count+1))
+    [[ $part_count -eq $dir_limit ]] && first_char="$truncation" && break
+  done
+  printf "%s" "$first_char$formatted_cwd"
+}
+
+function __vi_mode_select {
+    printf "${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
+}
+
+
+function __promptline_left_prompt {
+  local slice_prefix slice_empty_prefix slice_joiner slice_suffix is_prompt_empty=1
+
+  # HOST
+  slice_prefix="${bg_blue}${sep}${tx_white}${bg_blue}${space}" slice_suffix="$space${tx_blue}" slice_joiner="${tx_white}${bg_blue}${alt_sep}${space}" slice_empty_prefix="${tx_white}${bg_blue}${space}"
+  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
+  __promptline_wrapper '$(__promptline_host)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+
+  # USER
+  slice_prefix="${bg_grey}${sep}${tx_orange}${bg_grey}${space}" slice_suffix="${tx_grey6}" slice_joiner="${tx_white}${bg_grey}${alt_sep}${space}" slice_empty_prefix="${tx_white}${bg_grey}${space}"
+  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
+  __promptline_wrapper ' $USER' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+
+  # SUDO WARN
+  slice_prefix="${bg_grey}${sep}${tx_red}${bg_grey}" slice_suffix="$space${tx_grey6}" slice_joiner="${tx_white}${bg_grey}${alt_sep}${space}" slice_empty_prefix="${tx_white}${bg_grey}${space}"
+  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
+  __promptline_wrapper '$(__sudo_warning)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+
+  # PATH
+  slice_prefix="${bg_black}${sep}${tx_grey4}${bg_black}${space}" slice_suffix="$space${tx_black}" slice_joiner="${tx_grey4}${bg_black}${alt_sep}${space}" slice_empty_prefix="${tx_grey4}${bg_black}${space}"
+  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
+  __promptline_wrapper '$(__promptline_cwd)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+
+  printf "%s" "$reset${tx_grey4} $reset"
+
+}
+
+function __promptline_right_prompt {
+  local slice_prefix slice_empty_prefix slice_joiner slice_suffix
+
+  printf "%s" "$reset${tx_grey4} $reset"
+
+  # GIT
+  slice_prefix="${tx_black}${rsep}${tx_grey4}${bg_black}" slice_suffix="$space${tx_black}${tx_grey4}${alt_rsep}" slice_joiner="${tx_grey4}${bg_black}${alt_rsep}${space}" slice_empty_prefix=""
+  __promptline_wrapper "$(__promptline_vcs_branch)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
+
+  # WARN
+  slice_prefix="${tx_black}${rsep}${tx_red}${bg_black}" slice_suffix="$space${tx_black}${tx_grey4}${alt_rsep}" slice_joiner="${tx_grey4}${bg_black}${alt_rsep}${space}" slice_empty_prefix=""
+  __promptline_wrapper "$(__promptline_last_exit_code)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
+
+  # CMD TIME
+  slice_prefix="${tx_grey6}${rsep}${tx_white}${bg_grey}${space}" slice_suffix="$space${tx_white}${alt_rsep}" slice_joiner="${tx_white}${bg_grey}${alt_rsep}${space}" slice_empty_prefix=""
+  __promptline_wrapper "$timer_show" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
+
+  # LOAD AVERAGE
+  slice_prefix="${tx_grey6}${rsep}${tx_white}${bg_grey}${space}" slice_suffix="$space${tx_grey6}" slice_joiner="${tx_white}${bg_grey}${alt_rsep}${space}" slice_empty_prefix=""
+  __promptline_wrapper '$(__load_average)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
+ 
+  # VIM MODE
+  slice_prefix="${tx_blue}${rsep}${tx_white}${bg_blue}${space}" slice_suffix="$space${tx_blue}" slice_joiner="${tx_white}${bg_blue}${alt_rsep}${space}" slice_empty_prefix=""
+  __promptline_wrapper '$(__vi_mode_select)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
+
+  # BATTERY
+  slice_prefix="${tx_blue}${rsep}${tx_white}${bg_blue}${space}" slice_suffix="$space${tx_blue}" slice_joiner="${tx_white}${bg_blue}${alt_rsep}${space}" slice_empty_prefix=""
+  #__promptline_wrapper '$(__promptline_battery)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
+}
+
+function __promptline {
+  last_exit_code="${PROMPTLINE_LAST_EXIT_CODE:-$?}"
+
+  esc=$'[' end_esc=m
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    local noprint='%{' end_noprint='%}'
+  elif [[ -n ${FISH_VERSION-} ]]; then
+    local noprint='' end_noprint=''
+  else
+    local noprint='\[' end_noprint='\]'
+  fi
+	local wrap="$noprint$esc" end_wrap="$end_esc$end_noprint"
+	local space=" "
+	local sep=""
+	local rsep=""
+	local alt_sep=""
+	local alt_rsep=""
+	local reset="${wrap}0${end_wrap}"
+	local reset_bg="${wrap}49${end_wrap}"
+
+	local tx_white="${wrap}38;5;231${end_wrap}"
+  	local bg_blue="${wrap}48;5;25${end_wrap}"
+  	local tx_blue="${wrap}38;5;25${end_wrap}"
+  	local tx_orange="${wrap}38;5;228${end_wrap}"
+  	local tx_violet="${wrap}38;5;183${end_wrap}"
+	local bg_grey="${wrap}48;5;235${end_wrap}"
+	local tx_grey6="${wrap}38;5;235${end_wrap}"
+ 	local tx_grey4="${wrap}38;5;59${end_wrap}"
+  	local bg_black="${wrap}48;5;233${end_wrap}"
+  	local tx_black="${wrap}38;5;233${end_wrap}"
+  	local tx_red="${wrap}38;5;9${end_wrap}"
+  	local bg_red="${wrap}48;5;9${end_wrap}"
+
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    PROMPT="$(__promptline_left_prompt)$reset"
+    RPROMPT="$(__promptline_right_prompt)$reset"
+  elif [[ -n ${FISH_VERSION-} ]]; then
+    if [[ -n "$1" ]]; then
+      [[ "$1" = "left" ]] && __promptline_left_prompt || __promptline_right_prompt
+    else
+      __promptline_left_prompt
+    fi
+  else
+    PS1="$(__promptline_left_prompt)"
+  fi
+}
+
+if [[ -n ${ZSH_VERSION-} ]]; then
+  if [[ ! ${precmd_functions[(r)__promptline]} == __promptline ]]; then
+    precmd_functions+=(__promptline)
+  fi
+elif [[ -n ${FISH_VERSION-} ]]; then
+  __promptline "$1"
+else
+  if [[ ! "$PROMPT_COMMAND" == *__promptline* ]]; then
+    PROMPT_COMMAND='__promptline;'$'\n'"$PROMPT_COMMAND"
+  fi
+fi

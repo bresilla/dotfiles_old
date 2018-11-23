@@ -1,0 +1,18 @@
+#!/bin/bash
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -m 0 -fullscreen)
+
+browse(){
+	selected=$(ls "$1/" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "$1: ")
+	[[ -z $selected ]] && exit
+	if [[ -f $1/$selected ]]; then
+		gedit $1/$selected
+	elif [[ -d $1/$selected ]]; then
+		browse $1/$selected
+	else
+		touch $1/$selected
+		chmod +x $1/$selected
+		gedit $1/$selected
+	fi
+}
+
+another=$(browse /home/bresilla/Dots/.config/rofi/menu | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")

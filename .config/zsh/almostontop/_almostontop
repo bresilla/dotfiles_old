@@ -1,0 +1,16 @@
+#compdef almostontop
+
+_almostontop_cmds() {
+  local commands; commands=(
+    'on:Enables almostontop plugin'
+    'off:Disables almostontop plugin'
+    'toggle:Toggles almostontop plugin'
+  )
+  _describe -t commands 'almostontop command' commands "$@"
+}
+
+_almostontop() {
+  _arguments -C '1: :_almostontop_cmds'
+}
+
+_almostontop "$@"

@@ -1,24 +1,83 @@
-update(){
-	sudo -S apt update
-}
-upgrade(){
-	sudo -S apt upgrade
-}
-autoremove(){
-	sudo -S apt autoremove
-}
-clean(){
-	sudo -S apt clean
-}
+#PACKET
+alias pack='yay'
+alias list="expac --timefmt='%F %T' '%l %n' | sort -n"
+alias sudo='sudo '
 
-own(){
-	cat /home/bresilla/pass | sudo -S chown -R $USER $1
-}
+man() {
+    LESS_TERMCAP_mb=$'\e'"[1;31m" \
+    LESS_TERMCAP_md=$'\e'"[1;31m" \
+    LESS_TERMCAP_me=$'\e'"[0m" \
+    LESS_TERMCAP_se=$'\e'"[0m" \
+    LESS_TERMCAP_so=$'\e'"[1;44;33m" \
+    LESS_TERMCAP_ue=$'\e'"[0m" \
+    LESS_TERMCAP_us=$'\e'"[1;32m" \
+    command man "$@" }
 
-exe(){
-	chmod +x $1
-}
+#LOGING
+alias syslog2='grc cat /var/log/syslog | less -R'
+alias syslog='ccze -A < /var/log/syslog | less -R'
+alias kerlog2='grc cat /var/log/kern.log | less -R'
+alias kerlog='ccze -A < /var/log/kern.log | less -R'
 
-screen_size(){
-	xrandr | grep '*' | awk '{print $1;}'
-}
+setx(){
+	eval "$(echo "sudo systemctl set-default graphical.target\nsudo systemctl set-default multi-user.target" | fzf)" }
+
+#SYSTEM
+alias ls='exa --color-scale'
+alias ll='exa -liHS --color-scale'
+alias lt='exa -liHST --color-scale'
+alias la='exa -laiHS --color-scale'
+alias rm='rm -ir'
+alias df='df -h'
+
+alias du='du -sh'
+alias z='ncdu'
+alias mut='neomutt'
+alias vim='nvim'
+alias v='nvim'
+alias s='sudo -E nvim'
+alias e='emacs -nw'
+alias cat='bat'
+alias c='bat'
+alias less='slit'
+alias l='slit'
+alias m='man'
+alias g='rg -i'
+
+up() {
+    cat $PASS | sudo -S systemctl $@ }
+
+##FILES
+alias own='suda chown -R $USER'
+alias exe='chmod +x'
+alias dxe='chmod -x'
+
+#DIRECTORY
+alias ..='cd ..'
+alias .='cd $(ls | fzy)'
+alias .a='cd $(ls -a | fzy)'
+
+##PROGRAMS
+alias docker=supdock
+alias fzp='fzf --preview="head -$LINES {}"'
+alias wisdom='fortune | cowsay -f tux | lolcat'
+alias ari=aria2c
+
+#OTHER
+valid(){
+	if $1; then echo true; else echo false; fi }
+
+run(){
+    nohup $1 > /dev/null 2>&1 &! }
+
+opn(){
+    nohup xdg-open $1 > /dev/null 2>&1 &! }
+
+notes(){
+	nvim ~/Sets/.notes/index.wiki }
+
+phone(){
+	sshfs -p 1234 bresilla@$1:/storage/emulated/0 /home/bresilla/OnePlus }
+
+pow(){
+    echo $(($(($(cat /sys/class/power_supply/BAT0/current_now) * $(cat /sys/class/power_supply/BAT0/voltage_now)))/1000000000000)) }

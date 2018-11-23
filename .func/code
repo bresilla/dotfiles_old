@@ -1,9 +1,34 @@
 run(){
-	g++ -std=c++11 $1 -o out &&
-	./out &&
+	g++ -std=c++17 -Wall -o ${2:-main} ${1:-main.cpp} && ./${2:-main} &&  rm ${2:-main}
 }
 
-run_wall(){
-	g++ -std=c++11 -Wall $1 -o out &&
-	./out &&
+cppfile(){
+	echo "#pragma once\n#include <iostream>" > $1.h && \
+	echo "#include \"$1.h\"" > $1.cpp && \
+	code $1.h $1.cpp
+}
+
+cpptemp(){
+	mkdir $1 && cd $1
+	mkdir bin build lib src test thrd
+	touch CMakeLists.txt src/CMakeLists.txt thrd/CMakeLists.txt test/CMakeLists.txt
+	echo "#include <iostream>\n#include \"$1.h\"" > src/main.cpp
+	echo "#pragma once\n#include <iostream>" > src/$1.h
+	echo "#include \"$1.h\"" > src/$1.cpp
+}
+
+asmview(){
+	objdump -d $@ | objview | less -R
+}
+
+hexview(){
+	xxd $@ | less -R
+}
+
+get(){
+	dir=$PWD
+    cd ~/Downloads
+    clipp=$(xsel --clipboard)
+	git clone $clipp
+    cd $dir
 }

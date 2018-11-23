@@ -1,0 +1,7 @@
+img2svg() {
+	convert -channel RGB -compress None $1 ppm:- | potrace -s --flat - -o $1.svg && suda rm -r $1
+}
+
+playdown(){
+	youtube-dl -f 22 --restrict-filenames -o '%(playlist_index)s_%(title)s.%(ext)s' --no-part --skip-unavailable-fragments --no-overwrites $1 --playlist-start ${1:-$2}
+}

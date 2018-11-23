@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+WALL=/usr/share/backgrounds
+
+
+suda cp $PWD/$1 $WALL/wall &&
+suda convert $WALL/wall $WALL/wall.jpg &&
+suda convert $WALL/wall.jpg -blur 0x5 $WALL/blur.jpg

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -font "Monoisome 16" -m 0 -fullscreen)
+
+another=$(echo "dotsync
+hotspot
+watch" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "TERMINAL OF: ")
+
+if [ "$another" == "dotsync" ] ; then
+	tdrop -w 1500 -h 500 -x 1000 -y 1500 -n SYC -f "-e bash -c 'syncto /home/bresilla/Dots /home/bresilla'" urxvt
+
+elif [ "$another" == "hotspot" ] ; then
+	tdrop -w 1500 -h 500 -x 1000 -y 1500 -n HOT -f "-e bash -c 'sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024'" urxvt
+
+elif [ "$another" == "watch" ] ; then
+	tdrop -w 1500 -h 500 -x 1000 -y 1500 -n WCH -f "-e bash -c 'watch -n 10 rsync -avz /media/bresilla/indrive1/Code/Raspi/ /home/bresilla/Remote/Code/'" urxvt
+else
+    echo $another
+fi

@@ -1,5 +1,0 @@
-clear Lock
-keycode 66 = Escape
-add Mod4 = Hyper_L
-remove control = Control_R
-add Mod3 = Control_R

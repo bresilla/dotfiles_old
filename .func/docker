@@ -1,3 +1,36 @@
-hassio(){
-    docker run -d --name="home-assistant" -v /home/bresilla/.hassio:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
+hass(){
+    docker run -d --name=hass --volume="/home/bresilla/.hassio:/config" --volume="/etc/localtime:/etc/localtime:ro" --net=host homeassistant/home-assistant
 }
+
+port(){
+	docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer --no-auth && xdg-open "http://localhost:9000/#/dashboard" || docker start port && xdg-open "http://localhost:9000/#/dashboard"
+}
+
+dock(){
+	optirun docker run \
+		--runtime=nvidia \
+		--net=host  \
+		--env="DISPLAY" \
+		--device=/dev/dri \
+		--device /dev/snd \
+		--device=/dev/video0 \
+		--expose=5900 \
+		--expose=6080 \
+        -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+        --rm -it bresilla/$1 start
+}
+
+container(){
+	if [[ $1 == "exe" ]] ; then
+		xhost +local:root && contrun ${2:-$cont}
+		docker exec -it ${2:-$cont} ${3:-bash}
+	elif [[ $1 == "vnc" ]] ; then
+		xhost +local:root && contrun ${2:-$cont}
+		cat ~/pass | sudo -S rm -r /tmp/.X11-unix/X{2,3,4,5,6,7,8,9,0}
+		docker exec -it ${2:-$cont} start &
+		sleep 3 && vncviewer localhost:2 &>/dev/null &
+	else
+		echo "please give an argument..."
+	fi
+}
+

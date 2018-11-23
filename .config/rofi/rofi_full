@@ -7,9 +7,9 @@
  */
 
 * {
-	accent: #F69CDA;
+	accent: #FFFFFF;
     foreground:         		@accent;
-    background:         		rgba(0, 0, 0, 0.50);
+    background:         		rgba(0, 0, 0, 0.70);
     transparent:				rgba(0, 0, 0, 0);
     
     normal-background: 			@transparent;

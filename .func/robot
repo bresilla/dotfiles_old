@@ -1,0 +1,43 @@
+ros_exist(){
+	export CATKIN_PATH=$PWD
+	cd src && catkin_init_workspace
+	cd .. && catkin_make
+}
+
+ros_init(){
+	mkdir "$1" && cd "$1"
+	export CATKIN_PATH=$PWD
+	mkdir src && cd src && 
+	catkin_init_workspace &&
+	cd $CATKIN_PATH && catkin_make
+}
+
+ros_source(){
+	source /opt/ros/kinetic/setup.bash && 
+	cd $CATKIN_PATH && source devel/setup.bash
+}
+
+ros_build(){
+	TEMPATH=$PWD
+	cd $CATKIN_PATH && catkin_make
+	cd $TEMPATH
+}
+
+ros_depend(){
+	cd $CATKIN_PATH && 
+	rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
+}
+
+ros_makepack(){
+	cd $CATKIN_PATH/src &&
+	catkin_create_pkg "$1" &&
+	mkdir "$1"/src/ &&
+	touch "$1"/src/"$1" &&
+	chmod u+x "$1"/src/"$1" &&
+	echo '#!/usr/bin/env python' >> "$1"/src/"$1"
+}
+
+ros_gitpack(){
+	cd $CATKIN_PATH/src &&
+	git clone $1 &&	cd $CATKIN_PATH
+}
