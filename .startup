@@ -15,8 +15,9 @@ refresh() {
   #TASKBAR
   killall -q polybar
   while pgrep -x polybar >/dev/null; do sleep 1; done
-  MONITOR=$monitor1 polybar -rq -c ~/.config/polybar/polybar top &
-  MONITOR=$monitor2 polybar -rq -c ~/.config/polybar/polybar bottom &
+  MONITOR=$monitor1 polybar -rq -c ~/.config/polybar/polybar main &
+  MONITOR=$monitor1 polybar -rq -c ~/.config/polybar/polybar workspaces &
+  MONITOR=$monitor2 polybar -rq -c ~/.config/polybar/polybar workspaces &
 
   #COMPTOSITOR
   killall -q compton
@@ -25,7 +26,7 @@ refresh() {
 
   #WALLPAPER
   pkill -f loopwall
-  /home/bresilla/.config/dump/./loopwall /home/bresilla/Sets/.wallpaper/kvacm 300 &
+  /home/bresilla/.sbin/./loopwall /home/bresilla/Sets/.wallpaper 300 &
 
   #NOTIFICATION
   killall -q dunst
@@ -58,7 +59,7 @@ runonce() {
   udisksctl mount -b /dev/mmcblk0p1 &
 
   #WM
-  flashfocus &
+  flashfocus &>/dev/null & 
 
   #SYNCING
   #watchdot &
@@ -69,11 +70,8 @@ runonce() {
   echo "Script loaded"
 }
 
-
 if [ "$1" == "-r" ] ;then
   refresh
 else
   runonce
 fi
-
-

@@ -31,13 +31,12 @@ alias rm='rm -ir'
 alias df='df -h'
 
 alias du='du -sh'
-alias z='ncdu'
-alias mut='neomutt'
+alias z='ncdu --color=dark'
+alias mutt='neomutt'
 alias vim='nvim'
 alias v='nvim'
 alias s='sudo -E nvim'
 alias e='emacs -nw'
-alias cat='bat'
 alias c='bat'
 alias less='slit'
 alias l='slit'
@@ -81,3 +80,7 @@ phone(){
 
 pow(){
     echo $(($(($(cat /sys/class/power_supply/BAT0/current_now) * $(cat /sys/class/power_supply/BAT0/voltage_now)))/1000000000000)) }
+
+rofit(){
+    rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>'    
+}

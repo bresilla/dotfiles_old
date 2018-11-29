@@ -6,7 +6,7 @@ super + alt + {Escape,Delete}
 super + alt + space; {n,f,s,c}
     {nautilus,firefox,sakura,code}
 super + {Print,Insert,Delete}
-    {flameshot gui,kmag,gpick -pso --no-newline | xclip -i -selection c}
+    {flameshot gui,kmag,wal -Re}
 
 {super,alt} + Escape
 	bspc node -{c,k}
@@ -38,6 +38,8 @@ alt + F{1-9,10}
 
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local
+super + alt + {Down,Up}
+    bspc monitor -f {prev,next}
 
 {super,alt} + {Left,Down,Up,Right}
     /home/bresilla/.config/bspwm/scripts/{focusmover,swapormove} {west,south,north,east}

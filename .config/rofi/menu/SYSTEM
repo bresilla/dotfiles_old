@@ -1,16 +1,13 @@
 #!/bin/bash
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -font "Monoisome 16" -m 0 -fullscreen 0 -theme-str "*{accent: $FOREGROUND;}")
 
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -font "Monoisome 16" -m 0 -fullscreen)
 
 another=$(echo "POWER
-COLOR
 MOUNT" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")
 
 if [ "$another" == "MOUNT" ] ; then
 	exec ~/.config/rofi/menu/mount;
-
-elif [ "$another" == "COLOR" ] ; then
-	exec ~/.config/rofi/menu/color;
 
 elif [ "$another" == "POWER" ] ; then
 	exec ~/.config/rofi/menu/logout;

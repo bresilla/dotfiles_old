@@ -1,92 +1,20 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
-
-
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty itself.
 env:
-  # TERM variable
-  #
-  # This value is used to set the `$TERM` environment variable for
-  # each instance of Alacritty. If it is not present, alacritty will
-  # check the local terminfo database and use 'alacritty' if it is
-  # available, otherwise 'xterm-256color' is used.
-  #
   TERM: xterm-256color
-
 window:
-  # Window dimensions (changes require restart)
-  #
-  # Specified in number of columns/lines, not pixels.
-  # If both are `0`, this setting is ignored.
   dimensions:
     columns: 0
     lines: 0
-
-  # Window padding (changes require restart)
-  #
-  # Blank space added around the window in pixels. This padding is not scaled
-  # by DPI and the specified value is always added at both opposing sides.
   padding:
     x: 50
     y: 50
-
-  # Window decorations
-  #
-  # Values for `decorations`:
-  #     - full: Borders and title bar
-  #     - none: Neither borders nor title bar
   decorations: full
 
 scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
   history: 10000
-
-  # Number of lines the viewport will move for every line scrolled when
-  # scrollback is enabled (history > 0).
   multiplier: 3
-
-  # Faux Scrolling
-  #
-  # The `faux_multiplier` setting controls the number of lines the terminal
-  # should scroll when the alternate screen buffer is active. This is used
-  # to allow mouse scrolling for applications like `man`.
-  #
-  # Specifying `0` will disable faux scrolling.
   faux_multiplier: 3
-
-  # Scroll to the bottom when new text is written to the terminal.
   auto_scroll: false
-
-# Spaces per Tab (changes require restart)
-#
-# This setting defines the width of a tab in cells.
-#
-# Some applications, like Emacs, rely on knowing about the width of a tab.
-# To prevent unexpected behavior in these applications, it's also required to
-# change the `it` value in terminfo when altering this setting.
 tabspaces: 8
-
-# Font configuration (changes require restart)
-#
-# Important font attributes like antialiasing, subpixel aa, and hinting can be
-# controlled through fontconfig. Specifically, the following attributes should
-# have an effect:
-#   - hintstyle
-#   - antialias
-#   - lcdfilter
-#   - rgba
-
-
-
-# For instance, if you wish to disable subpixel antialiasing, you might set the
-# rgba property to `none`. If you wish to completely disable antialiasing, you
-# can set antialias to `false`.
-#
-# Please see these resources for more information on how to use fontconfig:
-#   - https://wiki.archlinux.org/index.php/font_configuration#Fontconfig_configuration
-#   - file:///usr/share/doc/fontconfig/fontconfig-user.html
 font:
   normal:
     family: Monoisome
@@ -94,7 +22,7 @@ font:
     family: Monoisome
   italic:
     family: Monoisome
-  size: 13.0
+  size: 14.0
   offset:
     x: 0
     y: 0
@@ -102,25 +30,18 @@ font:
     x: 0
     y: 0
   scale_with_dpi: false
-
 render_timer: false
-
 custom_cursor_colors: false
 draw_bold_text_with_bright_colors: true
-
 colors:
   primary:
     background: '0x121212'
     foreground: '0xeaeaea'
     #dim_foreground: '0x9a9a9a'
     #bright_foreground: '0xffffff'
-
-  # These will only be used when the `custom_cursor_colors` field is set to `true`.
   cursor:
     text: '0x000000'
     cursor: '0xffffff'
-
-  # Normal colors
   normal:
     black:   '0x000000'
     red:     '0xff5555'
@@ -130,8 +51,6 @@ colors:
     magenta: '0xff79c6'
     cyan:    '0x8be9fd'
     white:   '0xbfbfbf'
-
-  # Bright colors
   bright:
     black:   '0x282a35'
     red:     '0xff6e67'
@@ -141,180 +60,22 @@ colors:
     magenta: '0xff92d0'
     cyan:    '0x9aedfe'
     white:   '0xe6e6e6'
-
-  # Indexed Colors
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  #indexed_colors:
-  #  - { index: 16, color: '0x000000' }
-
-# Visual Bell
-#
-# Any time the BEL code is received, Alacritty "rings" the visual bell. Once
-# rung, the terminal background will be set to white and transition back to the
-# default background color. You can control the rate of this transition by
-# setting the `duration` property (represented in milliseconds). You can also
-# configure the transition function by setting the `animation` property.
-#
-# Values for `animation`:
-#   - Ease
-#   - EaseOut
-#   - EaseOutSine
-#   - EaseOutQuad
-#   - EaseOutCubic
-#   - EaseOutQuart
-#   - EaseOutQuint
-#   - EaseOutExpo
-#   - EaseOutCirc
-#   - Linear
-#
-# Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
-  animation: EaseOutExpo
-  duration: 0
-
-# Background opacity
-#
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
 background_opacity: 1.0
-
-# Mouse bindings
-#
-# Available fields:
-#   - mouse
-#   - action
-#   - mods (optional)
-#
-# Values for `mouse`:
-#   - Middle
-#   - Left
-#   - Right
-#   - Numeric identifier such as `5`
-#
-# All available `mods` and `action` values are documented in the key binding
-# section.
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
-
 mouse:
-  # Click settings
-  #
-  # The `double_click` and `triple_click` settings control the time
-  # alacritty should wait for accepting multiple clicks as one double
-  # or triple click.
   double_click: { threshold: 300 }
   triple_click: { threshold: 300 }
-
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
-
-  # When set to `true`, selected text will be copied to both the primary and
-  # the selection clipboard. Otherwise, it will only be copied to the selection
-  # clipboard.
   save_to_clipboard: true 
-
 dynamic_title: true
-
 hide_cursor_when_typing: false
-
-# Cursor style
-#
-# Values for 'cursor_style':
-#   - Block
-#   - Underline
-#   - Beam
 cursor_style: Block
-
-# If this is `true`, the cursor will be rendered as a hollow box when the
-# window is not focused.
 unfocused_hollow_cursor: true
-
-# Live config reload (changes require restart)
 live_config_reload: true
-
-# Shell
-#
-# You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
-# Entries in `shell.args` are passed unmodified as arguments to the shell.
-#
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
-
-# Key bindings
-#
-# Key bindings are specified as a list of objects. Each binding will specify
-# a key and modifiers required to trigger it, terminal modes where the binding
-# is applicable, and what should be done when the key binding fires. It can
-# either send a byte sequnce to the running application (`chars`), execute
-# a predefined action (`action`) or fork and execute a specified command plus
-# arguments (`command`).
-#
-# Example:
-#   `- { key: V, mods: Command, action: Paste }`
-#
-# Available fields:
-#   - key
-#   - mods (optional)
-#   - chars | action | command (exactly one required)
-#   - mode (optional)
-#
-# Values for `key`:
-#   - `A` -> `Z`
-#   - `F1` -> `F12`
-#   - `Key1` -> `Key0`
-#
-#   A full list with available key codes can be found here:
-#   https://docs.rs/glutin/*/glutin/enum.VirtualKeyCode.html#variants
-#
-# Values for `mods`:
-#   - Command
-#   - Control
-#   - Shift
-#   - Alt
-#
-#   Multiple `mods` can be combined using `|` like this: `mods: Control|Shift`.
-#   Whitespace and capitalization is relevant and must match the example.
-#
-# Values for `chars`:
-#   The `chars` field writes the specified string to the terminal. This makes
-#   it possible to pass escape sequences.
-#   To find escape codes for bindings like `PageUp` ("\x1b[5~"), you can run
-#   the command `showkey -a` outside of tmux.
-#   Note that applications use terminfo to map escape sequences back to
-#   keys. It is therefore required to update the terminfo when
-#   changing an escape sequence.
-#
-# Values for `action`:
-#   - Paste
-#   - PasteSelection
-#   - Copy
-#   - IncreaseFontSize
-#   - DecreaseFontSize
-#   - ResetFontSize
-#   - ScrollPageUp
-#   - ScrollPageDown
-#   - ScrollToTop
-#   - ScrollToBottom
-#   - ClearHistory
-#   - Hide
-#   - Quit
-#
-# Values for `command`:
-#   The `command` field must be a map containing a `program` string and
-#   an `args` array of command line parameter strings.
-#
-#   Example:
-#       `command: { program: "alacritty", args: ["-e", "vttest"] }`
-#
-# Values for `mode`:
-#   - ~AppCursor
-#   - AppCursor
-#   - ~AppKeypad
-#   - AppKeypad
+shell:
+  program: /bin/bash
 key_bindings:
   - { key: V,        mods: Control|Shift,    action: Paste               }
   - { key: C,        mods: Control|Shift,    action: Copy                }
@@ -326,6 +87,8 @@ key_bindings:
   - { key: Key0,     mods: Control, action: ResetFontSize                }
   - { key: Equals,   mods: Control, action: IncreaseFontSize             }
   - { key: Subtract, mods: Control, action: DecreaseFontSize             }
+  - { key: L,        mods: Control, action: ClearLogNotice               }
+  - { key: L,        mods: Control, chars: "\x0c"                        }
   - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }

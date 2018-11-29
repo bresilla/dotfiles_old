@@ -1,0 +1,25 @@
+name: NOTE
+windows:
+- name: notes
+  layout: b56d,215x40,0,0{135x40,0,0,1,79x40,136,0,2}
+  panes:
+  - commands:
+    - notes
+    focus: true
+    root: /home/bresilla
+  - commands:
+    - calcurse
+    root: /home/bresilla
+- name: glances
+  layout: 20f6,215x40,0,0[215x35,0,0,37,215x4,0,36,38]
+  panes:
+  - commands:
+    - gotop
+    root: /home/bresilla
+  - commands:
+    - pulsemixer
+    focus: true
+    root: /home/bresilla
+  - commands:
+    - exit
+    root: /home/bresilla

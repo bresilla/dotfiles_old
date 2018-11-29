@@ -1,47 +1,63 @@
 #!/bin/bash
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500)
+apps=runapps
+sodo=sudorun
+exce=command
+file=documents
+clip=clipboard
+srch=search
+locl=local
+pass=password
+note=notes
+task=taskwarrior
+mark=bookmarks
+tube=youtube
 
-another=$(echo "runapp
-sudorun
-command
-files
-clipboard
-websearch
-youtube
-localhost
-password
-bookmarks" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
+another=$(echo "$apps
+$sodo
+$exce
+$file
+$clip
+$srch
+$pass
+$note
+$task
+$mark" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
 
+if [ "$another" == "$file" ] ; then
+	exec ~/.config/rofi/menu/locate
 
-if [ "$another" == "files" ] ; then
-	find /media/bresilla/indrive1 -type f | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
-
-elif [ "$another" == "websearch" ] ; then
+elif [ "$another" == "$srch" ] ; then
 	surfraw -browser=firefox $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi "${ROFI_OPTIONS[@]}" -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')
 
-elif [ "$another" == "youtube" ] ; then
+elif [ "$another" == "$tube" ] ; then
 	exec ~/.config/rofi/menu/uplay
 
-elif [ "$another" == "command" ] ; then
-	exec urxvt -hold -e zsh -c $(rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -fuzzy  -lines 0 -show run)
+elif [ "$another" == "$exce" ] ; then
+	exec urxvt -hold -e sh -c $(rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -fuzzy  -lines 0 -show run -theme-str "*{accent: $FOREGROUND;}")
 
-elif [ "$another" == "bookmarks" ] ; then
-	exec ~/.config/rofi/menu/marks $HOME/Sets/.notes/bookmarks.wiki
+elif [ "$another" == "$mark" ] ; then
+  exec ~/.config/rofi/menu/buku
 
-elif [ "$another" == "localhost" ] ; then
+elif [ "$another" == "$task" ] ; then
+  exec ~/.config/rofi/menu/task
+
+elif [ "$another" == "$locl" ] ; then
 	exec ~/.config/rofi/menu/marks $HOME/Sets/.notes/localhost.wiki
 
-elif [ "$another" == "runapp" ] ; then
+elif [ "$another" == "$apps" ] ; then
 	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -show-icons
 
-elif [ "$another" == "password" ] ; then
-  exec ~/.sbin/passfill
-elif [ "$another" == "clipboard" ] ; then
+elif [ "$another" == "$pass" ] ; then
+  exec ~/.config/rofi/menu/pass
+
+elif [ "$another" == "$clip" ] ; then
 	rofi "${ROFI_OPTIONS[@]}" -modi "clipboard:greenclip print" -show clipboard
 
-elif [ "$another" == "sudorun" ] ; then
-	SUDO_ASKPASS=/home/bresilla/.sbin/askpass rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -theme-str '*{accent: #F10F09;}' -run-command 'sudo -A {cmd}'
+elif [ "$another" == "$sodo" ] ; then
+	SUDO_ASKPASS=/home/bresilla/.sbin/askpass rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -theme-str "*{accent: #e53714;}" -run-command 'sudo -A {cmd}'
 
 elif [ -z "$another" ] ; then
 	echo "variable empty"

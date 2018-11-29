@@ -147,7 +147,7 @@ bindkey '\eu' deer
 [ -f ~/.config/zsh/theme ] && source ~/.config/zsh/theme
 #TMOUT=1
 TRAPALRM() zle reset-prompt
-
+(cat ~/.cache/wal/sequences &)
 (( $+commands[thefuck] )) && eval $(thefuck --alias)
 [ -f ~/.config/zsh/async ] && autoload -U async
 [ -d ~/.config/zsh/cmdtime ] && source ~/.config/zsh/cmdtime/zsh-command-time.zsh

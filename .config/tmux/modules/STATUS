@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 cpu=$(/home/bresilla/.config/tmux/modules/cpu-stat)
 mem=$(free | grep Mem | awk '{print (100 - ($4/($3+$4) * 100.0));}')
 bat=$(acpi | awk '{print $4}' | tr -d '%,')
@@ -9,67 +11,57 @@ wat=$(echo - | awk "{printf \"%.1f\", $(($(cat /sys/class/power_supply/BAT0/curr
 cpu=${cpu%.*}
 mem=${mem%.*}
 
-whiteTX="#[fg=colour231]"
-blackTX="#[fg=colour233]"
-blackBG="#[bg=colour233]"
-blueTX="#[fg=colour25]"
-blueBG="#[bg=colour25]"
+foreground="#[fg=colour15]"
+blackTX="#[fg=colour0]"
+blackBG="#[bg=colour0]"
+blueTX="#[fg=colour1]"
+blueBG="#[bg=colour1]"
 orangeBG="#[bg=colour208]"
 orangeTX="#[fg=colour208]"
-greenBG="#[bg=colour42]"
-greenTX="#[fg=colour42]"
 redBG="#[bg=colour196]"
 redTX="#[fg=colour196]"
-grayBG="#[bg=colour235]"
-grayTX="#[fg=colour235]"
+grayBG="#[bg=colour8]"
+grayTX="#[fg=colour8]"
 sealTX="#[fg=colour59]"
+defaBG="#[bg=default]"
+defaTX="#[fg=default]"
 BLD="#[bold]"
+NLD="#[nobold]"
 
 
 if [ $(cat /proc/acpi/bbswitch | awk 'NF>1{print $NF}') == ON ]; then
-  power="$sealTX $redTX$BLD$wat W "
+    power="$sealTX $redTX$BLD$wat W $NLD"
 else
-  power="$sealTX $wat W "
+    power="$sealTX $wat W "
 fi
-
 
 if [ "$chrg" != "Discharging" ] ;then
     encap1="["
     encap2="]"
 fi
-battery="$grayTX$grayBG $greenTX$encap1$bat%$encap2$grayBG "
 
-
-memo="$blueTX$blueBG $whiteTX$mem% "
-
-
+battery="$grayTX$grayBG $blackTX$encap1$bat%$encap2$grayBG "
+memo="$blueTX$blueBG $foreground$mem% "
 spacer="$blackTX$blackBG"
 
-
 if (( cpu > 80 )); then
-    proc="$redTX$redBG $BLD$whiteTX$cpu% "
+    proc="$redTX$redBG $BLD$foreground$cpu% "
 elif (( cpu > 50 )); then
-    proc="$orangeTX$orangeBG $BLD$whiteTX$cpu% "
+    proc="$orangeTX$orangeBG $BLD$foreground$cpu% "
 else
-    proc="$blueTX$blueBG $whiteTX$cpu% "
+    proc="$blueTX$blueBG $foreground$cpu% "
 fi
-
 
 RIGHT_STATUS="$power$battery$memo$spacer$proc"
 
-
-
-main="$blueBG$whiteTX #S $blueTX$grayBG"
-name="$whiteTX #W $grayTX$blackBG"
+main="$blueBG$foreground #S $blueTX$grayBG"
+name="$blackTX #W $grayTX$defaBG"
 utim="$sealTX $tmu "
 
 LEFT_STATUS="$main$name$utim"
 
-
-
 if [ "$1" == "RIGHT" ] ;then
     echo $RIGHT_STATUS
-
 elif [ "$1" == "LEFT" ] ;then
     echo $LEFT_STATUS
 fi

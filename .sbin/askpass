@@ -5,6 +5,6 @@ rofi -theme /home/bresilla/.config/rofi/rofi_full -m 0 -fullscreen \
 	-dmenu \
 	-password \
 	-padding 2000 \
-	-theme-str '*{accent: #F10F09;}' \
+	-theme-str '*{accent: #e53714;}' \
 	-font "Monoisome 64" \
 	-p "$(printf " -	" | sed s/://)"

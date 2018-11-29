@@ -11,7 +11,7 @@
     foreground:         		@accent;
     background:         		rgba(0, 0, 0, 0.70);
     transparent:				rgba(0, 0, 0, 0);
-    
+
     normal-background: 			@transparent;
     normal-foreground: 			@foreground;
     urgent-background: 			@transparent;

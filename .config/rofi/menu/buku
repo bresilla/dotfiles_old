@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}")
+
+LINK=$(buku --nc -p -f 4 | awk -F'\t' '{print $1 "\t\t\t\t" $3 "\t\t" $4 "\t\t" $2}' | tail -n +2 | column -t -s $'\t' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p 'buku: ' | sed 's/ .*//;s/[^0-9]//g') 
+
+[[ -z $LINK ]] && exit 1
+buku -o $LINK

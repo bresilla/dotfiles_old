@@ -30,14 +30,15 @@ export SET=/home/bresilla/Sets/
 export WALL=/usr/share/backgrounds
 export PASS=/home/bresilla/Sets/pass
 
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
-export ORANGE='\033[0;33m'
-export BLUE='\033[0;34m'
-export PURPLE='\033[0;35m'
-export CAYN='\033[0;36m'
-export GRAY='\033[0;37m'
-export YELLOW='\033[1;33m'
-export NOCOLOR='\033[0m'
+export FOREGROUND=$(xrdb -query | grep 'foreground:'| awk 'NR==1{print $NF}')
+export BACKGROUND=$(xrdb -query | grep 'background:'| awk 'NR==1{print $NF}')
+export BLACK=$(xrdb -query | grep 'color0:'| awk 'NR==1{print $NF}')
+export RED=$(xrdb -query | grep 'color1:'| awk 'NR==1{print $NF}')
+export GREEN=$(xrdb -query | grep 'color2:'| awk 'NR==1{print $NF}')
+export YELLOW=$(xrdb -query | grep 'color3:'| awk 'NR==1{print $NF}')
+export BLUE=$(xrdb -query | grep 'color4:'| awk 'NR==1{print $NF}')
+export MAGENTA=$(xrdb -query | grep 'color5:'| awk 'NR==1{print $NF}')
+export CYAN=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+export WHITE=$(xrdb -query | grep 'color7:'| awk 'NR==1{print $NF}')
 
-export BAT_THEME="TwoDark"
+#export BAT_THEME="TwoDark"

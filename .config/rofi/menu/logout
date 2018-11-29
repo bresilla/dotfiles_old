@@ -1,6 +1,7 @@
 #!/bin/bash
 
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -font "Monoisome 16" -m 0 -fullscreen)
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -font "Monoisome 16" -m 0 -fullscreen 0 -theme-str "*{accent: $FOREGROUND;}")
 
 another=$(echo "RELOAD
 LOCKWM
@@ -18,16 +19,14 @@ elif [ "$another" == "LOCKWM" ] ; then
 	exec  ~/.config/i3lock/blurlock;
 
 elif [ "$another" == "LOGOUT" ] ; then
-	[ $(echo -e "Yes\nNo" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Are you shure you want to proceed?") == Yes ] && i3-msg exit || bspc quit
+	[ $(echo -e "Yes\nNo" | rofi "${ROFI_OPTIONS[@]}" -theme-str "*{accent: #e53714;}" -dmenu -i -p "Are you shure you want to proceed?") == Yes ] && i3-msg exit || bspc quit
 	
 elif [ "$another" == "REBOOT" ] ; then
-	[ $(echo -e "Yes\nNo" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Are you shure you want to proceed?") == Yes ] && reboot
+	[ $(echo -e "Yes\nNo" | rofi "${ROFI_OPTIONS[@]}" -theme-str "*{accent: #e53714;}" -dmenu -i -p "Are you shure you want to proceed?") == Yes ] && reboot
 	
 elif [ "$another" == "POWOFF" ] ; then
-	[ $(echo -e "Yes\nNo" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Are you shure you want to proceed?") == Yes ] && poweroff
+	[ $(echo -e "Yes\nNo" | rofi "${ROFI_OPTIONS[@]}" -theme-str "*{accent: #e53714;}" -dmenu -i -p "Are you shure you want to proceed?") == Yes ] && poweroff
 
 else
     echo $another
 fi
-
-

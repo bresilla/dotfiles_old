@@ -3,18 +3,20 @@
 	bckgrd = #121212
 	select = #161A1B
 
-	background = 			${self.bckgrd}
+	background =            ${xrdb:color0:self.bckgrd}
 	background-alt = 		${self.select}
-	foreground = 			#A5ffffff
-	primary = 			${self.accent}
-	alert = 			#bd2c40
-	white = 			#FFFFFF
-    grey =              #AAAAAA
+	foreground =            ${xrdb:color6:#A5ffffff}
+	foreground-alt =        ${xrdb:color7:#222}
+    primary =               ${xrdb:color1:self.accent}
+	secondary =             ${xrdb:color2:#222}
+	alert =                 ${xrdb:color3:#bd2c40}
+	white = 			    #FFFFFF
+    grey =                  #AAAAAA
 	transparent = 			#00000000
 
 
 [global/wm]
-	margin-top = 5
+	margin-top = 0
 	margin-bottom = 0
 
 
@@ -28,7 +30,7 @@
 	barheigh = 48
 
 
-[bar/top]
+[bar/main]
 	monitor = ${env:MONITOR}
 	monitor-strict = true
 	fixed-center = true
@@ -54,8 +56,8 @@
 	spacing = 2
 	padding-left = 2
 	padding-right = 2
-	module-margin-left = 4
-	module-margin-right = 4
+	module-margin-left = 2
+	module-margin-right = 2
 	font-0 = Monoid:size=12;4
     font-1 = unifont:size=12;1
     font-2 = FontAwesome:size=12;3
@@ -63,19 +65,18 @@
     font-4 = MaterialIcons:size=16;5
 	tray-position = right
 	tray-padding = 4
+	modules-left = wlan filesystem
+    modules-center = mpd
+	modules-right = battery volume light date
 
-	modules-left = i3 BSP
-	modules-center = mpd
-	modules-right = date
 
-
-[bar/bottom]
+[bar/workspaces]
 	monitor = ${env:MONITOR}
 	monitor-strict = true
 	dpi = 96
 	bottom = true
-	width = ${settings.barwidth}
-	height = 22
+    width = ${settings.barwidth}
+    height = 3
 	background = ${colors.transparent}
 	foreground = ${colors.foreground}
 	border-top-size = 0
@@ -84,73 +85,17 @@
 	font-0 = Monoisome:size=10;4
 	font-1 = FontAwesome:pixelsize=10;3
 	font-5 = unifont:size=14;1
-	modules-center = secondi3 secondBSP
-
-
-[bar/center]
-	monitor = ${env:MONITOR}
-	monitor-strict = true
-	fixed-center = true
-	dpi = 96
-	bottom = false
-	width = 1500
-	height = ${settings.barheigh}
-	override-redirect = true
-	offset-x = 1170
-	offset-y = ${settings.bargapp}
-	background = ${colors.background-alt}
-	foreground = ${colors.foreground}
-	spacing = 2
-	font-0 = Monoisome:size=14;4
-	font-1 = FontAwesome:pixelsize=12;3
-	font-5 = unifont:size=12;1
-	modules-left = search
-	click-left = bash ~/.config/rofi/menu/SEARCH
+	modules-center = i3 BSP
 
 
 [module/i3]
 	type = internal/i3
 	format = <label-state> <label-mode>
-	index-sort = true
-	wrapping-scroll = false
-	strip-wsnumbers = false
 	pin-workspaces = true
-	enable-scroll = false
-	label-mode-padding = 2
-	label-mode-foreground = ${colors.foreground}
-	label-mode-background = ${colors.primary}
-	label-focused = %name%
-	label-focused-foreground= ${colors.primary}
-	label-focused-background = ${colors.background-alt}
-	label-focused-padding = 3
-	label-unfocused = %name%
-	label-unfocused-padding = 2
-	label-unfocused-background = ${colors.background}
-	label-urgent = %name%
-	label-urgent-foreground= ${colors.alert}
-	label-urgent-background = ${colors.background-alt}
-	label-urgent-padding = 2
-	label-visible = %name%
-	label-visible-background = ${colors.background-alt}
-	label-visible-padding = ${self.label-focused-padding}
-	label-separator = |
-
-
-[module/secondi3]
-	type = internal/i3
-	format = <label-state> <label-mode>
-	index-sort = true
-	wrapping-scroll = false
-	strip-wsnumbers = false
-	pin-workspaces = true
-	enable-scroll = false
-	label-mode-padding = 2
-	label-mode-foreground = ${colors.foreground}
-	label-mode-background = ${colors.primary}
 	label-focused = %name%
 	label-focused-foreground= ${colors.background}
-	label-focused-background = ${colors.primary}
-	label-focused-underline = ${colors.primary}
+	label-focused-background = ${colors.foreground}
+	label-focused-underline = ${colors.foreground}
 	label-focused-padding = 3
 	label-unfocused = %name%
 	label-unfocused-padding = 2
@@ -159,48 +104,28 @@
 	label-urgent-foreground= ${colors.alert}
 	label-urgent-background = ${colors.background-alt}
 	label-urgent-padding = 2
-	label-visible = %name%
-	label-visible-background = ${colors.background-alt}
-	label-visible-padding = ${self.label-focused-padding}
-
-
-[module/secondBSP]
-	type = internal/bspwm
-	pin-workspaces = true
-	inline-mode = false
-	enable-click = false
-	enable-scroll = false
-	reverse-scroll = false
-	format = <label-state> <label-mode>
-	label-focused-foreground= ${colors.primary}
-	label-focused-background = ${colors.background-alt}
-	label-focused-padding = 2
-	label-urgent-foreground= ${colors.alert}
-	label-urgent-background = ${colors.background-alt}
+	label-empty = %name%
+	label-empty-background = ${colors.background-alt}
+	label-empty-padding = ${self.label-focused-padding}
 
 
 [module/BSP]
 	type = internal/bspwm
-	format = <label-state> <label-mode>
-	index-sort = true
-	strip-wsnumbers = false
 	pin-workspaces = true
-	enable-scroll = false
+	format = <label-state> <label-mode>
+	label-mode-background = ${colors.foreground}
+	label-focused = "_"
+	label-focused-background = ${colors.foreground}
 	label-focused-padding = 3
-	label-separator =" | "
-    label-separator-foreground = ${colors.grey}
-	label-focused = %name%
-	label-focused-foreground= ${colors.primary}
-	label-focused-background = ${colors.background-alt}
-	label-urgent = %name%
-	label-urgent-foreground= ${colors.alert}
-	label-urgent-background = ${colors.background-alt}
-	label-occupied = %name%
-    label-occupied-foreground= ${colors.white}
-	label-occupied-background = ${colors.background-alt}
-	label-empty = %name%
-    label-empty-foreground= ${colors.grey}
-	label-empty-background = ${colors.background-alt}
+	label-occupied = "_"
+	label-occupied-background = #808080
+	label-occupied-padding = 3
+	label-empty = "_"
+	label-empty-background = #404040
+	label-empty-padding = 3
+	label-separator = "_"
+	label-separator-background = ${colors.transparent}
+
 
 
 [module/mouseloc]
@@ -209,7 +134,7 @@
 	interval = 0.1
 	label = %output%
 	format = <label>
-	format-foreground = ${colors.primary}
+	format-foreground = ${colors.foreground}
 
 [module/mpd]
     type = internal/mpd
@@ -241,7 +166,7 @@
 [module/title]
 	type = internal/xwindow
 	format = <label>
-	;format-foreground = ${colors.primary}
+	;format-foreground = ${colors.foreground}
 
 
 [module/search]
@@ -251,7 +176,7 @@
 	label = %output%
 	format = <label>
 	format-foreground = ${colors.background}
-	format-background = ${colors.primary}
+	format-background = ${colors.foreground}
 
 
 [module/cpu]
@@ -260,14 +185,14 @@
 	type = internal/cpu
 	interval = 2
 	label = " %percentage%%"
-	format-foreground = ${colors.primary}
+	format-foreground = ${colors.foreground}
 
 
 [module/memory]
 	type = internal/memory
 	interval = 2
 	label = " %percentage_used%%"
-	format-foreground = ${colors.primary}
+	format-foreground = ${colors.foreground}
 
 
 [module/temperature]
@@ -286,7 +211,7 @@
 	exec = sensors | grep --max-count=1 "CPU Temperature:" | awk '{print substr($0,22,2)}'
 	interval = 10
 	label = " %output%°C"
-	format-foreground = ${colors.primary}
+	format-foreground = ${colors.foreground}
 
 
 [module/gputemp]
@@ -294,7 +219,7 @@
 	exec = nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits
 	interval = 10
 	label = "GPU %output%°C"
-	format-foreground = ${colors.primary}
+	format-foreground = ${colors.foreground}
 
 
 [module/wlan]
@@ -312,7 +237,7 @@
 	ramp-signal-3 = 
 	ramp-signal-4 = 
 	ramp-signal-foreground = ${colors.foreground}
-	format-connected-foreground = ${colors.primary}
+	format-connected-foreground = ${colors.foreground}
 	click-left = bash -/home/bresilla/.i3/rofii/menu/wifi
 
 
@@ -325,20 +250,17 @@
 	time-alt = %H:%M:%S
 	label = %date% %time%
 	format = <label>
-	format-padding = 3
-	format-foreground = ${colors.primary}
+	format-foreground = ${colors.foreground}
 
 
 [module/volume]
 	type = internal/volume
 	format-volume = <ramp-volume><label-volume>
 	format-muted = <label-muted>
-	format-volume-foreground = ${colors.primary}
+	format-volume-foreground = ${colors.foreground}
 	label-volume = %percentage%
 	label-muted =   M
 	label-muted-foreground = #aaa
-	format-volume-padding = 3
-	format-muted-padding = 3
 	ramp-volume-0 = 
 	ramp-volume-1 = 
 	ramp-volume-2 = 
@@ -350,7 +272,7 @@
 	interval = 1
 	exec = pomo status | awk '{print substr($3,1,6)}' | grep -o '[0-9]\+' | sed 'N;s/\n/ : /'
 	label = "  %output%"
-	format-foreground = ${colors.primary}
+	format-foreground = ${colors.foreground}
 
 
 [module/bresilla]
@@ -359,16 +281,16 @@
 	exec = echo "BRESILLA"
 	label = "%output%"
 	click-left = firefox --new-tab "www.bresilla.com"
-	format-foreground = ${colors.primary}
+	format-foreground = ${colors.foreground}
 
 
-[module/backlight]
+[module/light]
 	type = internal/backlight
 	card = intel_backlight
 	enable-scroll = true
 	format = <label>
 	label =  %percentage%%
-	label-foreground = ${colors.primary}
+	label-foreground = ${colors.foreground}
 
 
 [module/battery]
@@ -377,29 +299,31 @@
 	adapter = AC
 	full-at = 98
 	time-format = %H:%M
+	label-charging = %percentage%%
 	label-discharging = %percentage%%
 	format-charging = <animation-charging> <label-charging>
-	format-charging-foreground = ${colors.primary}
-	label-charging-foreground = ${colors.primary}
-	format-discharging = <ramp-capacity> <label-discharging>
-	format-discharging-foreground = ${colors.primary}
-	label-discharging-foreground = ${colors.primary}
+	format-discharging = <animation-discharging> <label-discharging>
+	format-charging-foreground = ${colors.foreground}
+	label-charging-foreground = ${colors.foreground}
+	format-discharging-foreground = ${colors.foreground}
+	label-discharging-foreground = ${colors.foreground}
 	format-full-prefix = " "
-	format-full-prefix-foreground = ${colors.primary}
-	label-full-foreground = ${colors.primary}
-	ramp-capacity-0 = 
-	ramp-capacity-1 = 
-	ramp-capacity-2 = 
-	ramp-capacity-3 = 
-	ramp-capacity-4 = 
-	ramp-capacity-foreground = ${colors.primary}
+	format-full-prefix-foreground = ${colors.foreground}
+	label-full-foreground = ${colors.foreground}
 	animation-charging-0 = 
 	animation-charging-1 = 
 	animation-charging-2 = 
 	animation-charging-3 = 
 	animation-charging-4 = 
-	animation-charging-foreground = ${colors.primary}
-	animation-charging-framerate = 750
+	animation-charging-foreground = ${colors.foreground}
+	animation-charging-framerate = 500
+    animation-discharging-0 = 
+    animation-discharging-1 = 
+    animation-discharging-2 = 
+    animation-discharging-3 = 
+    animation-discharging-4 = 
+    animation-discharging-framerate = 1000
+	animation-discharging-foreground = ${colors.foreground}
 
 
 [module/spotify]
@@ -412,3 +336,17 @@
     content-padding = 2
     content = menu
     click-left = "jgmenu_run >/dev/null 2>&1 &"
+
+[module/filesystem]
+    type = internal/fs
+    mount-0 = /
+    ;mount-1 = /run/media/bresilla/datasd
+    interval = 10
+    fixed-values = true
+    spacing = 4
+    format-mounted = <label-mounted>
+    format-unmounted = <label-unmounted>
+    label-mounted = %mountpoint%: %used% of %total%
+    label-mounted-foreground = ${colors.foreground}
+    label-unmounted = %mountpoint%: not mounted
+    label-unmounted-foreground = ${colors.foreground}

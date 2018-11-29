@@ -1,0 +1,13 @@
+session_name: volt
+windows:
+- focus: 'true'
+  layout: 2d53,105x99,0,0[105x49,0,0,67,105x24,0,50,70,105x24,0,75,71]
+  options:
+    automatic-rename: 'off'
+  panes:
+  - voltron view disasm
+  - voltron view register
+  - voltron view stack
+  start_directory: /home/bresilla
+  window_name: volt
+

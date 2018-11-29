@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-while true; do ls $1/* | sort -R | tail -$N | while read file; do	feh --bg-fill $file; sleep $2; done; done
+while true; do ls $1/* | sort -R | tail -$N | while read file; do	wal -i $file --backend haishoku --saturate 0.8; sleep $2; done; done

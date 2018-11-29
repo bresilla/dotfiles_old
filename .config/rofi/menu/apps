@@ -1,4 +1,5 @@
 #!/bin/bash
 
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500)
+FOREGROUND=$(xrdb -query | grep 'foreground:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: $FOREGROUND;}")
 rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun
