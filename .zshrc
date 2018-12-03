@@ -51,7 +51,7 @@ setopt no_beep
 #--------------------------------------------------------------------------------------------------------------------
 ###FUZZYFINDER
 fzf_history() {
-	zle -I; eval $(history | tzf +s | sed 's/ *[0-9]* *//') ; }
+	zle -I; eval $(history | tux +s | sed 's/ *[0-9]* *//') ; }
 	zle -N fzf_history
 #bindkey '^H' fzf_history
 bindkey -M vicmd '^H' fzf_history
@@ -64,7 +64,7 @@ fzf_killps() {
 bindkey -M vicmd '^X' fzf_killps
 
 fzf-find() {
-	zle -I; nvim "$(find $PWD -name "*" | tzf -e)"}
+	zle -I; nvim "$(find $PWD -name "*" | tux -e)"}
 	zle -N   fzf-find
 #bindkey '^F' fzf-file
 bindkey -M vicmd '^F' fzf-find
@@ -157,3 +157,4 @@ TRAPALRM() zle reset-prompt
 #[ -d ~/.config/zsh/almostontop ] && source ~/.config/zsh/almostontop/almostontop.plugin.zsh
 [ -d ~/.config/zsh/upsearch ] && source ~/.config/zsh/upsearch/zsh-history-substring-search.zsh
 [ -d ~/.config/zsh/upsearch ] && source ~/.config/zsh/upsearch/zsh-miscellaneous.zsh
+[ -d ~/.config/zsh/autopair ] && source ~/.config//zsh/autopair/autopair.zh  

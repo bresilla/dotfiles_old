@@ -1,0 +1,78 @@
+#!/bin/sh
+. "${HOME}/.cache/wal/colors.sh"
+[[  $BROWSER && ${BROWSER-x} ]] && browser=$BROWSER || browser='firefox'
+[[  $GUI_EDITOR && ${GUI_EDITOR-x} ]] && gui_editor=$GUI_EDITOR || gui_editor='nvim'
+DMENU_FN="Monoid-16"
+DMENU_NB="$color0"
+DMENU_NF="$color6"
+DMENU_SB="$color6"
+DMENU_SF="$color0"
+DMENU_OPTIONS="-fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB"
+
+
+
+eval $(xdotool getmouselocation --shell)
+menu_widht=400
+monitor_widht=$(wattr w $(lsw -r))
+monitor_height=$(wattr h $(lsw -r))
+lines=14
+menu_height=$(( $lines * 23 ))
+maxx=$(( $monitor_widht - $menu_widht ))
+miny=$PANEL_HEIGHT
+maxy=$(( $monitor_height - $menu_height ))
+XP=$X
+[[ $XP -gt $maxx ]] && XP=$maxx
+YP=$Y
+[[ $YP -lt $miny ]] && YP=$miny
+[[ $YP -gt $maxy ]] && YP=$maxy
+
+#DMENU='dmenu $DMENU_OPTIONS'
+if [[ "$@" == "" ]]; then
+	choice=$(echo -e "Window\nMove\nSplit\nClose\nHide\nUrgent" | dmenu -i -l $lines -y $YP -x $XP -w $menu_widht -fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB)
+	else
+	case $@ in
+	Window)
+		choice=$(echo -e "Floating\nMonocle\nFullscreen\nSticky\nPrivate\nLock" | dmenu -i -l $lines -y $YP -x $XP -w $menu_widht -fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB)
+		;;
+	Split)
+		choice=$(echo -e "Split up\nSplit down\nSplit left\nSplit right\nSplit 25%\nSplit 50%\nSplit 75%\nMove to split" | dmenu -i -l $lines -y $YP -x $XP -w $menu_widht -fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB)		
+		;;
+	"Move to")
+
+		choice=$(echo -e "Desktop...\nNext free desktop\nLast focused desktop\nPromote" | dmenu -i -l $lines -y $YP -x $XP -w $menu_widht -fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB)
+		;;
+	esac
+fi
+
+move2desktop(){
+	name="$(bspc query -D | dmenu -i -l 10 -y $PANEL_HEIGHT -w 500 $DMENU_OPTIONS -p 'Move to workspace:')";
+	bspc node -d "$name";
+}
+
+
+case "$choice" in
+  Window) $0 Window & ;;
+  "Move to") $0 Move to & ;;
+  Split) $0 Split & ;;
+  Close) bspc node -c & ;;
+  "Close windo class") xdo close -cd & ;;
+  Hide) whid hide & ;;
+  Urgent) bspc node -f next.urgent & ;;
+  Floating) bspc node -t '~floating' & ;;
+  Monocle) bspc desktop -l next & ;;
+  Fullscreen) bspc node -t '~fullscreen' & ;;
+  Private) bspc node -g private & ;;
+  Lock) bspc node -g lock & ;;
+  Desktop...) move2desktop & ;;
+  "Next free desktop") bspc node -d next.free & ;;
+  "Last focused desktop") bspc node -d last & ;;
+  Promote) bspc node -w biggest.local & ;;
+  "Split up") bspc node -p north & ;;  
+  "Split down") bspc node -p south & ;;
+  "Split left") bspc node -p west & ;;
+  "Split right") bspc node -p east & ;;
+  "Split 25%") bspc node -o 0.25 & ;;
+  "Split 50%") bspc node -o 0.5 & ;;
+  "Split 75%") bspc node -o 0.75 & ;;
+  "Move to split") bspc node -n last.\!automatic & ;;
+esac

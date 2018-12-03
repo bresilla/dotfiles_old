@@ -1,2 +1,4 @@
 
-\.assets/\.wallpapers/
+.assets
+.wallpapers
+.bin

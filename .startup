@@ -60,6 +60,7 @@ runonce() {
 
   #WM
   flashfocus &>/dev/null & 
+  /home/bresilla/.config/bspwm/scripts/./btops &
 
   #SYNCING
   #watchdot &

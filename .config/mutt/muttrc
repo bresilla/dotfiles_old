@@ -6,10 +6,10 @@ folder-hook 'account.com.unibo.kushtrim' 'source ~/.config/mutt/account.com.unib
 # Default account
 source ~/.config/mutt/account.com.gmail.kushtrim
 # Macros for switching accounts
-macro index <F9> '<sync-mailbox><enter-command>source ~/.config/mutt/account.com.gmail.kushtrim<enter><change-folder>!<enter>'
-macro index <F8> '<sync-mailbox><enter-command>source ~/.config/mutt/account.com.hotmail.kushtrim<enter><change-folder>!<enter>'
-macro index <F7> '<sync-mailbox><enter-command>source ~/.config/mutt/account.com.yahoo.kushtrim<enter><change-folder>!<enter>'
-macro index <F6> '<sync-mailbox><enter-command>source ~/.config/mutt/account.com.unibo.kushtrim<enter><change-folder>!<enter>'
+macro index <F1> '<sync-mailbox><enter-command>source ~/.config/mutt/account.com.gmail.kushtrim<enter><change-folder>!<enter>'
+macro index <F2> '<sync-mailbox><enter-command>source ~/.config/mutt/account.com.hotmail.kushtrim<enter><change-folder>!<enter>'
+macro index <F3> '<sync-mailbox><enter-command>source ~/.config/mutt/account.com.yahoo.kushtrim<enter><change-folder>!<enter>'
+macro index <F4> '<sync-mailbox><enter-command>source ~/.config/mutt/account.com.unibo.kushtrim<enter><change-folder>!<enter>'
 
 # vim: filetype=neomuttrc
 # This is the general mutt config which has the settings that all accounts use.

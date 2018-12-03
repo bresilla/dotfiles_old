@@ -1,0 +1,76 @@
+#!/bin/sh
+. "${HOME}/.cache/wal/colors.sh"
+[[  $BROWSER && ${BROWSER-x} ]] && browser=$BROWSER || browser='firefox'
+[[  $GUI_EDITOR && ${GUI_EDITOR-x} ]] && gui_editor=$GUI_EDITOR || gui_editor='nvim'
+DMENU_FN="Monoid-16"
+DMENU_NB="$color0"
+DMENU_NF="$color6"
+DMENU_SB="$color6"
+DMENU_SF="$color0"
+DMENU_OPTIONS="-fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB"
+
+
+
+eval $(xdotool getmouselocation --shell)
+menu_widht=400
+monitor_widht=$(wattr w $(lsw -r))
+monitor_height=$(wattr h $(lsw -r))
+lines=14
+menu_height=$(( $lines * 23 ))
+maxx=$(( $monitor_widht - $menu_widht ))
+miny=$PANEL_HEIGHT
+maxy=$(( $monitor_height - $menu_height ))
+XP=$X
+[[ $XP -gt $maxx ]] && XP=$maxx
+YP=$Y
+[[ $YP -lt $miny ]] && YP=$miny
+[[ $YP -gt $maxy ]] && YP=$maxy
+
+#DMENU='dmenu $DMENU_OPTIONS'
+if [[ "$@" == "" ]]; then
+	choice=$(echo -e "Flip\nRotate\nBalance windows\nEqualize windows\nRename desktop\nAdd desktop\nRemove desktop\nShow hidden windows\nEnable autogap" | dmenu -i -l $lines -y $YP -x $XP -w $menu_widht -fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB)
+	else
+	case $@ in
+	Flip)
+		choice=$(echo -e "Vertically\nHorizontally" | dmenu -i -l $lines -y $YP -x $XP -w $menu_widht -fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB)
+		;;
+	Rotate)
+		choice=$(echo -e "Right\nLeft\nFull turn" | dmenu -i -l $lines -y $YP -x $XP -w $menu_widht -fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB)		
+		;;
+	esac
+fi
+
+
+desktop2add(){
+	name="$(echo " " | dmenu -i -l 10 -y $PANEL_HEIGHT -w 500 $DMENU_OPTIONS -p 'Name new workspace:')";
+	bspc monitor -a "$name";
+}
+
+desktop2remove(){
+	name="$(bspc query -D | dmenu -i -l 10 -y $PANEL_HEIGHT -w 500 $DMENU_OPTIONS -p 'Remove workspace:')";
+	bspc monitor -r "$name";
+}
+
+desktop2rename(){
+	name="$(dmenu -i -l 10 -y $PANEL_HEIGHT -w 500 $DMENU_OPTIONS -p 'Rename workspace to:')";
+	bspc desktop -n "$name";
+}
+
+case "$choice" in
+  Flip) $0 Flip & ;;
+  Rotate) $0 Rotate & ;;
+  "Balance windows") bspc node @/ -B & ;;
+  "Equalize windows") bspc node @/ -E & ;;
+  "Rename desktop") desktop2rename & ;;
+  "Add desktop") desktop2add & ;;
+  "Remove desktop") desktop2remove & ;;
+  "Focus follows pointer") toggle-focus-follows-pointer & ;;
+  "Pointer follows focus") toggle-pointer-follows-focus & ;;
+  "Show hidden windows") whid dmenu & ;;
+  "Enable autogap") autogap & ;;
+  "Left") bspc node @/ -R -90 & ;;
+  "Right") bspc node @/ -R 90 & ;;
+  "Full turn") bspc node @/ -R 180 & ;;
+  "Vertically") bspc node @/ -F vertical & ;;
+  "Horizontally") bspc node @/ -F horizontal & ;;
+esac

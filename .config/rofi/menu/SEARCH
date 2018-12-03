@@ -16,11 +16,11 @@ mark=bookmarks
 tube=youtube
 
 another=$(echo "$apps
+$srch
 $sodo
 $exce
 $file
 $clip
-$srch
 $pass
 $note
 $task
@@ -43,6 +43,9 @@ elif [ "$another" == "$mark" ] ; then
 
 elif [ "$another" == "$task" ] ; then
   exec ~/.config/rofi/menu/task
+
+elif [ "$another" == "$note" ] ; then
+  exec ~/.config/rofi/menu/note
 
 elif [ "$another" == "$locl" ] ; then
 	exec ~/.config/rofi/menu/marks $HOME/Sets/.notes/localhost.wiki

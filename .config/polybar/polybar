@@ -67,7 +67,7 @@
 	tray-padding = 4
 	modules-left = wlan filesystem
     modules-center = mpd
-	modules-right = battery volume light date
+	modules-right = down up battery volume light date
 
 
 [bar/workspaces]
@@ -328,8 +328,31 @@
 
 [module/spotify]
 	type = custom/script
-	exec = /home/bresilla/.config/polybar/spotify
+	exec = /home/bresilla/.config/polybar/scripts/spotify
 	interval = 1
+
+[module/bandwidth]
+	type = custom/script
+	interval = 5
+	exec = /home/bresilla/.config/polybar/scripts/netwidth
+    label = "%output%"
+	format-foreground = ${colors.foreground}
+
+[module/down]
+	type = custom/script
+	interval = 1
+	exec = /home/bresilla/.bin/bandwidth -c 1 | awk '{print $2 $3}' 
+	;exec = /home/bresilla/.config/polybar/scripts/netwidth | awk '{print $2;}' 
+    label = " %output%"
+	format-foreground = ${colors.foreground}
+
+[module/up]
+	type = custom/script
+	interval = 1
+	;exec = /home/bresilla/.config/polybar/scripts/netwidth | awk '{print $4;}'
+	exec = /home/bresilla/.bin/bandwidth -c 1 | awk '{print $5 $6}'
+    label = " %output%"
+	format-foreground = ${colors.foreground}
 
 [module/jgmenu]
     type = custom/text

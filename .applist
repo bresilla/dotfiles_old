@@ -1,1389 +1,431 @@
-2018-11-01 18:01:14 filesystem
-2018-11-01 18:01:14 iana-etc
-2018-11-01 18:01:14 linux-api-headers
-2018-11-01 18:01:15 acpi
-2018-11-01 18:01:15 b43-fwcutter
-2018-11-01 18:01:15 bashrc-manjaro
-2018-11-01 18:01:15 glibc
-2018-11-01 18:01:18 acl
-2018-11-01 18:01:18 attr
-2018-11-01 18:01:18 bash
-2018-11-01 18:01:18 bzip2
-2018-11-01 18:01:18 db
-2018-11-01 18:01:18 e2fsprogs
-2018-11-01 18:01:18 lz4
-2018-11-01 18:01:18 ncurses
-2018-11-01 18:01:18 readline
-2018-11-01 18:01:18 xz
-2018-11-01 18:01:18 zlib
-2018-11-01 18:01:20 openssl
-2018-11-01 18:01:20 perl
-2018-11-01 18:01:21 argon2
-2018-11-01 18:01:21 coreutils
-2018-11-01 18:01:21 dbus
-2018-11-01 18:01:21 expat
-2018-11-01 18:01:21 hwids
-2018-11-01 18:01:21 iptables
-2018-11-01 18:01:21 json-c
-2018-11-01 18:01:21 keyutils
-2018-11-01 18:01:21 kmod
-2018-11-01 18:01:21 krb5
-2018-11-01 18:01:21 libelf
-2018-11-01 18:01:21 libgpg-error
-2018-11-01 18:01:21 libidn2
-2018-11-01 18:01:21 libldap
-2018-11-01 18:01:21 libnftnl
-2018-11-01 18:01:21 libnl
-2018-11-01 18:01:21 libpcap
-2018-11-01 18:01:21 libsasl
-2018-11-01 18:01:21 libseccomp
-2018-11-01 18:01:21 libtirpc
-2018-11-01 18:01:21 libunistring
-2018-11-01 18:01:21 libusb
-2018-11-01 18:01:21 pam
-2018-11-01 18:01:21 pambase
-2018-11-01 18:01:21 popt
-2018-11-01 18:01:21 wireless-regdb
-2018-11-01 18:01:22 audit
-2018-11-01 18:01:22 libcap-ng
-2018-11-01 18:01:22 pcre2
-2018-11-01 18:01:22 shadow
-2018-11-01 18:01:23 crda
-2018-11-01 18:01:23 dhclient
-2018-11-01 18:01:23 dmraid
-2018-11-01 18:01:23 dnsmasq
-2018-11-01 18:01:23 iproute2
-2018-11-01 18:01:23 iw
-2018-11-01 18:01:23 libnetfilter_conntrack
-2018-11-01 18:01:23 libnfnetlink
-2018-11-01 18:01:23 nettle
-2018-11-01 18:01:23 nspr
-2018-11-01 18:01:24 ecryptfs-utils
-2018-11-01 18:01:24 efibootmgr
-2018-11-01 18:01:24 efivar
-2018-11-01 18:01:24 exfat-utils
-2018-11-01 18:01:24 f2fs-tools
-2018-11-01 18:01:24 file
-2018-11-01 18:01:24 fuse2
-2018-11-01 18:01:24 fuse-common
-2018-11-01 18:01:24 gawk
-2018-11-01 18:01:24 libtasn1
-2018-11-01 18:01:24 mpfr
-2018-11-01 18:01:24 p11-kit
-2018-11-01 18:01:24 pciutils
-2018-11-01 18:01:24 pcre
-2018-11-01 18:01:27 intel-ucode
-2018-11-01 18:01:27 iputils
-2018-11-01 18:01:27 ipw2100-fw
-2018-11-01 18:01:27 ipw2200-fw
-2018-11-01 18:01:27 jfsutils
-2018-11-01 18:01:27 less
-2018-11-01 18:01:33 libarchive
-2018-11-01 18:01:33 linux-firmware
-2018-11-01 18:01:33 mkinitcpio
-2018-11-01 18:01:33 mkinitcpio-busybox
-2018-11-01 18:01:39 libpipeline
-2018-11-01 18:01:39 logrotate
-2018-11-01 18:01:39 lsb-release
-2018-11-01 18:01:39 man-db
-2018-11-01 18:01:40 ca-certificates
-2018-11-01 18:01:40 ca-certificates-utils
-2018-11-01 18:01:40 gnutls
-2018-11-01 18:01:40 gpgme
-2018-11-01 18:01:40 libassuan
-2018-11-01 18:01:40 libksba
-2018-11-01 18:01:40 libnghttp2
-2018-11-01 18:01:40 libpsl
-2018-11-01 18:01:40 libsecret
-2018-11-01 18:01:40 libssh2
-2018-11-01 18:01:40 manjaro-firmware
-2018-11-01 18:01:40 manjaro-release
-2018-11-01 18:01:40 npth
-2018-11-01 18:01:40 pinentry
-2018-11-01 18:01:41 libnsl
-2018-11-01 18:01:41 manjaro-keyring
-2018-11-01 18:01:44 manjaro-system
-2018-11-01 18:01:44 pacman
-2018-11-01 18:01:44 python
-2018-11-01 18:01:44 python-npyscreen
-2018-11-01 18:01:44 sed
-2018-11-01 18:01:45 hwinfo
-2018-11-01 18:01:45 libdrm
-2018-11-01 18:01:45 libpciaccess
-2018-11-01 18:01:45 libx86emu
-2018-11-01 18:01:45 man-pages
-2018-11-01 18:01:45 memtest86+
-2018-11-01 18:01:46 libedit
-2018-11-01 18:01:46 libomxil-bellagio
-2018-11-01 18:01:46 libunwind
-2018-11-01 18:01:46 libx11
-2018-11-01 18:01:46 libxau
-2018-11-01 18:01:46 libxcb
-2018-11-01 18:01:46 libxdamage
-2018-11-01 18:01:46 libxdmcp
-2018-11-01 18:01:46 libxext
-2018-11-01 18:01:46 libxfixes
-2018-11-01 18:01:46 libxshmfence
-2018-11-01 18:01:46 libxxf86vm
-2018-11-01 18:01:46 wayland
-2018-11-01 18:01:46 xcb-proto
-2018-11-01 18:01:46 xorgproto
-2018-11-01 18:01:48 libglvnd
-2018-11-01 18:01:48 llvm-libs
-2018-11-01 18:01:48 lm_sensors
-2018-11-01 18:01:49 mhwd-amdgpu
-2018-11-01 18:01:49 mhwd-ati
-2018-11-01 18:01:49 mhwd-catalyst
-2018-11-01 18:01:49 mhwd-nvidia
-2018-11-01 18:01:49 mhwd-nvidia-340xx
-2018-11-01 18:01:49 mhwd-nvidia-390xx
-2018-11-01 18:01:50 acpid
-2018-11-01 18:01:50 cpupower
-2018-11-01 18:01:50 cronie
-2018-11-01 18:01:50 ding-libs
-2018-11-01 18:01:50 gssproxy
-2018-11-01 18:01:50 haveged
-2018-11-01 18:01:50 hdparm
-2018-11-01 18:01:50 mdadm
-2018-11-01 18:01:50 mhwd
-2018-11-01 18:01:50 mhwd-db
-2018-11-01 18:01:50 mkinitcpio-openswap
-2018-11-01 18:01:50 nano
-2018-11-01 18:01:50 nfsidmap
-2018-11-01 18:01:50 nfs-utils
-2018-11-01 18:01:50 ntfs-3g
-2018-11-01 18:01:50 openssl-1.0
-2018-11-01 18:01:50 os-prober
-2018-11-01 18:01:50 procps-ng
-2018-11-01 18:01:50 psmisc
-2018-11-01 18:01:50 rsync
-2018-11-01 18:01:50 run-parts
-2018-11-01 18:01:50 s-nail
-2018-11-01 18:01:50 spectre-meltdown-checker
-2018-11-01 18:01:50 sudo
-2018-11-01 18:01:50 sysfsutils
-2018-11-01 18:01:50 systemd-fsck-silent
-2018-11-01 18:01:50 thin-provisioning-tools
-2018-11-01 18:01:50 tlp
-2018-11-01 18:01:50 usbutils
-2018-11-01 18:01:50 v86d
-2018-11-01 18:01:51 libidn
-2018-11-01 18:01:51 texinfo
-2018-11-01 18:01:51 vi
-2018-11-01 18:01:51 wget
-2018-11-01 18:01:51 wpa_supplicant
-2018-11-01 18:01:51 xfsprogs
-2018-11-01 18:01:52 zsh
-2018-11-01 18:05:04 libdaemon
-2018-11-01 18:05:06 avahi
-2018-11-01 18:05:06 dbus-glib
-2018-11-01 18:05:06 gcc-libs
-2018-11-01 18:05:06 jansson
-2018-11-01 18:05:07 js52
-2018-11-01 18:05:08 bluez-libs
-2018-11-01 18:05:08 gpm
-2018-11-01 18:05:08 libmm-glib
-2018-11-01 18:05:08 libndp
-2018-11-01 18:05:08 libnewt
-2018-11-01 18:05:08 libpgm
-2018-11-01 18:05:08 libproxy
-2018-11-01 18:05:08 libsodium
-2018-11-01 18:05:08 libteam
-2018-11-01 18:05:08 networkmanager-openconnect
-2018-11-01 18:05:08 networkmanager-openvpn
-2018-11-01 18:05:08 networkmanager-pptp
-2018-11-01 18:05:08 networkmanager-vpnc
-2018-11-01 18:05:08 nss-mdns
-2018-11-01 18:05:08 openconnect
-2018-11-01 18:05:08 openvpn
-2018-11-01 18:05:08 pcsclite
-2018-11-01 18:05:08 pkcs11-helper
-2018-11-01 18:05:08 polkit
-2018-11-01 18:05:08 pptpclient
-2018-11-01 18:05:08 slang
-2018-11-01 18:05:08 vpnc
-2018-11-01 18:05:08 zeromq
-2018-11-01 18:05:09 dnssec-anchors
-2018-11-01 18:05:09 gamin
-2018-11-01 18:05:09 ldb
-2018-11-01 18:05:09 ldns
-2018-11-01 18:05:09 libbsd
-2018-11-01 18:05:09 libgudev
-2018-11-01 18:05:09 libjpeg-turbo
-2018-11-01 18:05:09 libmbim
-2018-11-01 18:05:09 libpng
-2018-11-01 18:05:09 libqmi
-2018-11-01 18:05:09 libtiff
-2018-11-01 18:05:09 lmdb
-2018-11-01 18:05:09 mobile-broadband-provider-info
-2018-11-01 18:05:09 modemmanager
-2018-11-01 18:05:09 ntp
-2018-11-01 18:05:09 openresolv
-2018-11-01 18:05:09 openssh
-2018-11-01 18:05:09 talloc
-2018-11-01 18:05:09 tdb
-2018-11-01 18:05:09 tevent
-2018-11-01 18:05:11 cifs-utils
-2018-11-01 18:05:11 iniparser
-2018-11-01 18:05:11 libwbclient
-2018-11-01 18:05:11 python2
-2018-11-01 18:05:12 samba
-2018-11-01 18:05:12 smbclient
-2018-11-01 18:05:12 tcl
-2018-11-01 18:05:13 alsa-firmware
-2018-11-01 18:05:13 alsa-lib
-2018-11-01 18:05:13 alsa-utils
-2018-11-01 18:05:13 aom
-2018-11-01 18:05:13 fftw
-2018-11-01 18:05:13 flac
-2018-11-01 18:05:13 graphite
-2018-11-01 18:05:13 libogg
-2018-11-01 18:05:13 libsamplerate
-2018-11-01 18:05:13 libsndfile
-2018-11-01 18:05:13 libvorbis
-2018-11-01 18:05:13 usb_modeswitch
-2018-11-01 18:05:14 fontconfig
-2018-11-01 18:05:14 freetype2
-2018-11-01 18:05:14 fribidi
-2018-11-01 18:05:14 giflib
-2018-11-01 18:05:14 gsm
-2018-11-01 18:05:14 jack
-2018-11-01 18:05:14 lame
-2018-11-01 18:05:14 lcms2
-2018-11-01 18:05:14 libasyncns
-2018-11-01 18:05:14 libavc1394
-2018-11-01 18:05:14 libice
-2018-11-01 18:05:14 libiec61883
-2018-11-01 18:05:14 libmodplug
-2018-11-01 18:05:14 libpulse
-2018-11-01 18:05:14 libraw1394
-2018-11-01 18:05:14 libsm
-2018-11-01 18:05:14 libsoxr
-2018-11-01 18:05:14 libtheora
-2018-11-01 18:05:14 libvdpau
-2018-11-01 18:05:14 libwebp
-2018-11-01 18:05:14 libxcursor
-2018-11-01 18:05:14 libxi
-2018-11-01 18:05:14 libxrender
-2018-11-01 18:05:14 libxtst
-2018-11-01 18:05:14 libxv
-2018-11-01 18:05:14 opencore-amr
-2018-11-01 18:05:14 openjpeg2
-2018-11-01 18:05:14 opus
-2018-11-01 18:05:14 zita-alsa-pcmi
-2018-11-01 18:05:14 zita-resampler
-2018-11-01 18:05:15 hicolor-icon-theme
-2018-11-01 18:05:15 libass
-2018-11-01 18:05:15 libbluray
-2018-11-01 18:05:15 libibus
-2018-11-01 18:05:15 libva
-2018-11-01 18:05:15 libvpx
-2018-11-01 18:05:15 l-smash
-2018-11-01 18:05:15 speex
-2018-11-01 18:05:15 speexdsp
-2018-11-01 18:05:15 vid.stab
-2018-11-01 18:05:15 x264
-2018-11-01 18:05:16 x265
-2018-11-01 18:05:16 xvidcore
-2018-11-01 18:05:17 gst-plugins-base-libs
-2018-11-01 18:05:17 gstreamer
-2018-11-01 18:05:17 iso-codes
-2018-11-01 18:05:17 orc
-2018-11-01 18:05:18 celt
-2018-11-01 18:05:18 chromaprint
-2018-11-01 18:05:18 faac
-2018-11-01 18:05:18 faad2
-2018-11-01 18:05:18 gst-libav
-2018-11-01 18:05:18 ladspa
-2018-11-01 18:05:18 libdca
-2018-11-01 18:05:18 libdv
-2018-11-01 18:05:18 libdvdnav
-2018-11-01 18:05:18 libdvdread
-2018-11-01 18:05:18 libexif
-2018-11-01 18:05:18 libfdk-aac
-2018-11-01 18:05:18 libgme
-2018-11-01 18:05:18 libmms
-2018-11-01 18:05:18 libmp4v2
-2018-11-01 18:05:18 libmpeg2
-2018-11-01 18:05:18 libofa
-2018-11-01 18:05:18 libsrtp
-2018-11-01 18:05:18 mjpegtools
-2018-11-01 18:05:18 neon
-2018-11-01 18:05:18 openal
-2018-11-01 18:05:18 rtmpdump
-2018-11-01 18:05:18 sbc
-2018-11-01 18:05:18 sdl
-2018-11-01 18:05:18 soundtouch
-2018-11-01 18:05:18 spandsp
-2018-11-01 18:05:18 vulkan-icd-loader
-2018-11-01 18:05:18 webrtc-audio-processing
-2018-11-01 18:05:18 wildmidi
-2018-11-01 18:05:19 cdparanoia
-2018-11-01 18:05:19 glu
-2018-11-01 18:05:19 gst-plugins-bad
-2018-11-01 18:05:19 ilmbase
-2018-11-01 18:05:19 libbs2b
-2018-11-01 18:05:19 libdatrie
-2018-11-01 18:05:19 libdc1394
-2018-11-01 18:05:19 libmpcdec
-2018-11-01 18:05:19 libnice
-2018-11-01 18:05:19 libthai
-2018-11-01 18:05:19 libvisual
-2018-11-01 18:05:19 libxft
-2018-11-01 18:05:19 openexr
-2018-11-01 18:05:19 pixman
-2018-11-01 18:05:19 srt
-2018-11-01 18:05:19 zvbi
-2018-11-01 18:05:20 aalib
-2018-11-01 18:05:20 dconf
-2018-11-01 18:05:20 gdk-pixbuf2
-2018-11-01 18:05:20 glib-networking
-2018-11-01 18:05:20 graphene
-2018-11-01 18:05:20 gsettings-desktop-schemas
-2018-11-01 18:05:20 gst-plugins-base
-2018-11-01 18:05:20 gst-plugins-good
-2018-11-01 18:05:20 gst-plugins-ugly
-2018-11-01 18:05:20 imlib2
-2018-11-01 18:05:20 jasper
-2018-11-01 18:05:20 libcaca
-2018-11-01 18:05:20 libcddb
-2018-11-01 18:05:20 libcdio
-2018-11-01 18:05:20 libdvdcss
-2018-11-01 18:05:20 libid3tag
-2018-11-01 18:05:20 libsidplay
-2018-11-01 18:05:20 libsoup
-2018-11-01 18:05:20 libtool
-2018-11-01 18:05:20 mpg123
-2018-11-01 18:05:20 pango
-2018-11-01 18:05:20 shared-mime-info
-2018-11-01 18:05:20 taglib
-2018-11-01 18:05:20 twolame
-2018-11-01 18:05:20 wavpack
-2018-11-01 18:05:21 alsa-plugins
-2018-11-01 18:05:21 lib32-alsa-lib
-2018-11-01 18:05:21 lib32-alsa-plugins
-2018-11-01 18:05:21 lib32-glibc
-2018-11-01 18:05:21 lib32-libcanberra
-2018-11-01 18:05:21 lib32-libltdl
-2018-11-01 18:05:21 lib32-libogg
-2018-11-01 18:05:21 lib32-libvorbis
-2018-11-01 18:05:21 lib32-tdb
-2018-11-01 18:05:21 libcanberra
-2018-11-01 18:05:21 manjaro-alsa
-2018-11-01 18:05:21 pulseaudio
-2018-11-01 18:05:21 pulseaudio-alsa
-2018-11-01 18:05:21 rtkit
-2018-11-01 18:05:21 sound-theme-freedesktop
-2018-11-01 18:05:23 android-tools
-2018-11-01 18:05:23 bluez
-2018-11-01 18:05:23 gptfdisk
-2018-11-01 18:05:23 lib32-attr
-2018-11-01 18:05:23 lib32-dbus
-2018-11-01 18:05:23 lib32-flac
-2018-11-01 18:05:23 lib32-gcc-libs
-2018-11-01 18:05:23 lib32-glib2
-2018-11-01 18:05:23 lib32-libasyncns
-2018-11-01 18:05:23 lib32-libcanberra-pulse
-2018-11-01 18:05:23 lib32-libcap
-2018-11-01 18:05:23 lib32-libffi
-2018-11-01 18:05:23 lib32-libgpg-error
-2018-11-01 18:05:23 lib32-libice
-2018-11-01 18:05:23 lib32-libpulse
-2018-11-01 18:05:23 lib32-libsm
-2018-11-01 18:05:23 lib32-libsndfile
-2018-11-01 18:05:23 lib32-libx11
-2018-11-01 18:05:23 lib32-libxau
-2018-11-01 18:05:23 lib32-libxcb
-2018-11-01 18:05:23 lib32-libxdmcp
-2018-11-01 18:05:23 lib32-libxext
-2018-11-01 18:05:23 lib32-libxfixes
-2018-11-01 18:05:23 lib32-libxi
-2018-11-01 18:05:23 lib32-libxtst
-2018-11-01 18:05:23 lib32-pcre
-2018-11-01 18:05:23 lib32-xz
-2018-11-01 18:05:23 lib32-zlib
-2018-11-01 18:05:23 libatasmart
-2018-11-01 18:05:23 libblockdev
-2018-11-01 18:05:23 libbytesize
-2018-11-01 18:05:23 libcdio-paranoia
-2018-11-01 18:05:23 libmtp
-2018-11-01 18:05:23 libyaml
-2018-11-01 18:05:23 manjaro-pulse
-2018-11-01 18:05:23 ndctl
-2018-11-01 18:05:23 parted
-2018-11-01 18:05:23 pulseaudio-bluetooth
-2018-11-01 18:05:23 pulseaudio-ctl
-2018-11-01 18:05:23 pulseaudio-zeroconf
-2018-11-01 18:05:23 volume_key
-2018-11-01 18:05:24 gtk-update-icon-cache
-2018-11-01 18:05:24 libcroco
-2018-11-01 18:05:24 librsvg
-2018-11-01 18:05:24 udisks2
-2018-11-01 18:05:25 adwaita-icon-theme
-2018-11-01 18:05:25 atk
-2018-11-01 18:05:25 at-spi2-atk
-2018-11-01 18:05:25 at-spi2-core
-2018-11-01 18:05:25 cantarell-fonts
-2018-11-01 18:05:25 colord
-2018-11-01 18:05:25 desktop-file-utils
-2018-11-01 18:05:25 json-glib
-2018-11-01 18:05:25 libepoxy
-2018-11-01 18:05:25 libgusb
-2018-11-01 18:05:25 libxcomposite
-2018-11-01 18:05:25 libxinerama
-2018-11-01 18:05:25 libxkbcommon
-2018-11-01 18:05:25 libxrandr
-2018-11-01 18:05:25 rest
-2018-11-01 18:05:25 wayland-protocols
-2018-11-01 18:05:25 xkeyboard-config
-2018-11-01 18:05:26 gcr
-2018-11-01 18:05:26 gd
-2018-11-01 18:05:26 gtk3-classic
-2018-11-01 18:05:26 gvfs
-2018-11-01 18:05:26 gvfs-afc
-2018-11-01 18:05:26 libimobiledevice
-2018-11-01 18:05:26 libplist
-2018-11-01 18:05:26 libusbmuxd
-2018-11-01 18:05:26 libxpm
-2018-11-01 18:05:26 libxt
-2018-11-01 18:05:27 gvfs-gphoto2
-2018-11-01 18:05:27 gvfs-mtp
-2018-11-01 18:05:27 gvfs-nfs
-2018-11-01 18:05:27 gvfs-smb
-2018-11-01 18:05:27 libgphoto2
-2018-11-01 18:05:27 libmad
-2018-11-01 18:05:27 libnfs
-2018-11-01 18:05:27 mtpfs
-2018-11-01 18:05:28 automake
-2018-11-01 18:05:28 binutils
-2018-11-01 18:05:28 fakeroot
-2018-11-01 18:05:28 libnotify
-2018-11-01 18:05:28 python-docopt
-2018-11-01 18:05:28 python-keyutils
-2018-11-01 18:05:28 python-yaml
-2018-11-01 18:05:28 udiskie
-2018-11-01 18:05:29 libmpc
-2018-11-01 18:05:32 gc
-2018-11-01 18:05:32 gcc
-2018-11-01 18:05:32 libatomic_ops
-2018-11-01 18:05:34 appstream-glib
-2018-11-01 18:05:34 gcab
-2018-11-01 18:05:34 guile
-2018-11-01 18:05:34 lib32-flex
-2018-11-01 18:05:34 libfontenc
-2018-11-01 18:05:34 terminus-font
-2018-11-01 18:05:34 ttf-bitstream-vera
-2018-11-01 18:05:34 vte3
-2018-11-01 18:05:34 vte-common
-2018-11-01 18:05:34 xorg-bdftopcf
-2018-11-01 18:05:34 xorg-fonts-encodings
-2018-11-01 18:05:34 xorg-font-util
-2018-11-01 18:05:34 xorg-font-utils
-2018-11-01 18:05:34 xorg-mkfontdir
-2018-11-01 18:05:34 xorg-mkfontscale
-2018-11-01 18:05:36 archlinux-appstream-data
-2018-11-01 18:05:36 perl-mailtools
-2018-11-01 18:05:36 perl-timedate
-2018-11-01 18:05:37 bubblewrap
-2018-11-01 18:05:37 git
-2018-11-01 18:05:37 xdg-dbus-proxy
-2018-11-01 18:05:37 xdg-desktop-portal
-2018-11-01 18:05:37 xdg-desktop-portal-gtk
-2018-11-01 18:05:38 accountsservice
-2018-11-01 18:05:38 lib32-atk
-2018-11-01 18:05:38 lib32-at-spi2-atk
-2018-11-01 18:05:38 lib32-at-spi2-core
-2018-11-01 18:05:38 lib32-dconf
-2018-11-01 18:05:38 lib32-libgudev
-2018-11-01 18:05:38 lib32-ncurses
-2018-11-01 18:05:38 lib32-readline
-2018-11-01 18:05:38 libxkbfile
-2018-11-01 18:05:38 libxklavier
-2018-11-01 18:05:38 lightdm
-2018-11-01 18:05:38 lightdm-gtk-greeter
-2018-11-01 18:05:38 lightdm-gtk-greeter-settings
-2018-11-01 18:05:39 lib32-libgusb
-2018-11-01 18:05:39 lib32-libusb
-2018-11-01 18:05:40 lib32-colord
-2018-11-01 18:05:40 lib32-cracklib
-2018-11-01 18:05:40 lib32-e2fsprogs
-2018-11-01 18:05:40 lib32-expat
-2018-11-01 18:05:40 lib32-gdk-pixbuf2
-2018-11-01 18:05:40 lib32-gmp
-2018-11-01 18:05:40 lib32-json-glib
-2018-11-01 18:05:40 lib32-keyutils
-2018-11-01 18:05:40 lib32-krb5
-2018-11-01 18:05:40 lib32-lcms2
-2018-11-01 18:05:40 lib32-libjpeg-turbo
-2018-11-01 18:05:40 lib32-libldap
-2018-11-01 18:05:40 lib32-libnsl
-2018-11-01 18:05:40 lib32-libpng
-2018-11-01 18:05:40 lib32-libtasn1
-2018-11-01 18:05:40 lib32-libtiff
-2018-11-01 18:05:40 lib32-libtirpc
-2018-11-01 18:05:40 lib32-nettle
-2018-11-01 18:05:40 lib32-openssl
-2018-11-01 18:05:40 lib32-pam
-2018-11-01 18:05:40 lib32-polkit
-2018-11-01 18:05:40 lib32-sqlite
-2018-11-01 18:05:41 lib32-bzip2
-2018-11-01 18:05:41 lib32-fontconfig
-2018-11-01 18:05:41 lib32-freetype2
-2018-11-01 18:05:41 lib32-gnutls
-2018-11-01 18:05:41 lib32-libdatrie
-2018-11-01 18:05:41 lib32-libepoxy
-2018-11-01 18:05:41 lib32-libidn
-2018-11-01 18:05:41 lib32-libthai
-2018-11-01 18:05:41 lib32-libxrender
-2018-11-01 18:05:41 lib32-p11-kit
-2018-11-01 18:05:43 lib32-cairo
-2018-11-01 18:05:43 lib32-fribidi
-2018-11-01 18:05:43 lib32-libcroco
-2018-11-01 18:05:43 lib32-libdrm
-2018-11-01 18:05:43 lib32-libelf
-2018-11-01 18:05:43 lib32-libpciaccess
-2018-11-01 18:05:43 lib32-librsvg
-2018-11-01 18:05:43 lib32-libxcomposite
-2018-11-01 18:05:43 lib32-libxcursor
-2018-11-01 18:05:43 lib32-libxdamage
-2018-11-01 18:05:43 lib32-libxft
-2018-11-01 18:05:43 lib32-libxinerama
-2018-11-01 18:05:43 lib32-libxkbcommon
-2018-11-01 18:05:43 lib32-libxrandr
-2018-11-01 18:05:43 lib32-libxshmfence
-2018-11-01 18:05:43 lib32-libxxf86vm
-2018-11-01 18:05:43 lib32-lm_sensors
-2018-11-01 18:05:43 lib32-pango
-2018-11-01 18:05:43 lib32-pixman
-2018-11-01 18:05:45 lib32-libglvnd
-2018-11-01 18:05:45 lib32-llvm-libs
-2018-11-01 18:05:45 lib32-wayland
-2018-11-01 18:05:47 lib32-glib-networking
-2018-11-01 18:05:47 lib32-libproxy
-2018-11-01 18:05:48 gtk2
-2018-11-01 18:05:48 lib32-gtk3-classic
-2018-11-01 18:05:48 lib32-libidn2
-2018-11-01 18:05:48 lib32-libpsl
-2018-11-01 18:05:48 lib32-libsoup
-2018-11-01 18:05:48 lib32-libunistring
-2018-11-01 18:05:48 lib32-rest
-2018-11-01 18:05:48 libxfce4util-gtk3
-2018-11-01 18:05:48 startup-notification
-2018-11-01 18:05:48 xcb-util
-2018-11-01 18:05:49 exo-gtk3
-2018-11-01 18:05:49 garcon-gtk3
-2018-11-01 18:05:49 libwnck3
-2018-11-01 18:05:49 libxfce4ui-gtk3
-2018-11-01 18:05:49 libxres
-2018-11-01 18:05:49 perl-uri
-2018-11-01 18:05:49 tumbler
-2018-11-01 18:05:49 xfce4-appfinder-gtk3
-2018-11-01 18:05:50 docbook-xml
-2018-11-01 18:05:50 docbook-xsl
-2018-11-01 18:05:50 libxslt
-2018-11-01 18:05:51 gtk-doc
-2018-11-01 18:05:51 libxmu
-2018-11-01 18:05:51 python-anytree
-2018-11-01 18:05:51 python-appdirs
-2018-11-01 18:05:51 python-lxml
-2018-11-01 18:05:51 python-packaging
-2018-11-01 18:05:51 python-pygments
-2018-11-01 18:05:51 python-setuptools
-2018-11-01 18:05:51 python-six
-2018-11-01 18:05:51 source-highlight
-2018-11-01 18:05:52 ijs
-2018-11-01 18:05:52 jbig2dec
-2018-11-01 18:05:52 libpaper
-2018-11-01 18:05:52 libxaw
-2018-11-01 18:05:54 ghostscript
-2018-11-01 18:05:54 gts
-2018-11-01 18:05:55 gsfonts
-2018-11-01 18:05:56 graphviz
-2018-11-01 18:05:57 noto-fonts
-2018-11-01 18:05:58 gnome-icon-theme-symbolic
-2018-11-01 18:05:58 polkit-gnome
-2018-11-01 18:05:58 xfce4-power-manager-gtk3
-2018-11-01 18:05:58 xfce4-session-gtk3
-2018-11-01 18:05:58 xorg-iceauth
-2018-11-01 18:05:58 xorg-xauth
-2018-11-01 18:05:58 xorg-xinit
-2018-11-01 18:05:58 xorg-xmodmap
-2018-11-01 18:05:58 xorg-xrdb
-2018-11-01 18:05:59 gnome-icon-theme
-2018-11-01 18:06:00 gnome-themes-extra
-2018-11-01 18:06:00 libxpresent
-2018-11-01 18:06:00 python-cairo
-2018-11-01 18:06:00 xfwm4-gtk3
-2018-11-01 18:06:01 ffmpegthumbnailer
-2018-11-01 18:06:01 gksu-polkit
-2018-11-01 18:06:01 gnome-keyring
-2018-11-01 18:06:01 gnome-menus
-2018-11-01 18:06:01 gtksourceview3
-2018-11-01 18:06:01 libgee06
-2018-11-01 18:06:01 libgsf
-2018-11-01 18:06:01 libnma
-2018-11-01 18:06:01 libnm-gtk
-2018-11-01 18:06:01 libopenraw
-2018-11-01 18:06:01 libxss
-2018-11-01 18:06:01 libxxf86misc
-2018-11-01 18:06:01 light-locker
-2018-11-01 18:06:01 network-manager-applet
-2018-11-01 18:06:01 nm-connection-editor
-2018-11-01 18:06:01 python-dbus
-2018-11-01 18:06:01 python-dbus-common
-2018-11-01 18:06:02 menulibre
-2018-11-01 18:06:02 python-psutil
-2018-11-01 18:06:02 python-xdg
-2018-11-01 18:06:03 cairomm
-2018-11-01 18:06:03 glibmm
-2018-11-01 18:06:03 libcanberra-pulse
-2018-11-01 18:06:03 libkeybinder3
-2018-11-01 18:06:03 qrencode
-2018-11-01 18:06:03 xfce4-battery-plugin
-2018-11-01 18:06:03 xfce4-notifyd-gtk3
-2018-11-01 18:06:03 xfce4-pulseaudio-plugin
-2018-11-01 18:06:03 xfce4-whiskermenu-plugin-gtk3
-2018-11-01 18:06:03 xfce4-xkb-plugin
-2018-11-01 18:06:03 zip
-2018-11-01 18:06:04 grub-theme-manjaro
-2018-11-01 18:06:04 gtk-engine-murrine
-2018-11-01 18:06:04 gtk-engines
-2018-11-01 18:06:04 pavucontrol
-2018-11-01 18:06:05 brotli
-2018-11-01 18:06:05 dmidecode
-2018-11-01 18:06:05 enchant
-2018-11-01 18:06:05 geoclue2
-2018-11-01 18:06:05 hspell
-2018-11-01 18:06:05 hunspell
-2018-11-01 18:06:05 hyphen
-2018-11-01 18:06:05 libvoikko
-2018-11-01 18:06:05 ufw
-2018-11-01 18:06:05 woff2
-2018-11-01 18:06:05 xcursor-simpleandsoft
-2018-11-01 18:06:05 xcursor-vanilla-dmz-aa
-2018-11-01 18:06:09 double-conversion
-2018-11-01 18:06:09 gufw
-2018-11-01 18:06:09 htop
-2018-11-01 18:06:09 libwacom
-2018-11-01 18:06:09 libxkbcommon-x11
-2018-11-01 18:06:09 mtdev
-2018-11-01 18:06:09 tslib
-2018-11-01 18:06:09 xcb-util-image
-2018-11-01 18:06:09 xcb-util-keysyms
-2018-11-01 18:06:09 xcb-util-renderutil
-2018-11-01 18:06:09 xcb-util-wm
-2018-11-01 18:06:09 xdg-utils
-2018-11-01 18:06:09 xorg-xset
-2018-11-01 18:06:11 inxi
-2018-11-01 18:06:11 manjaro-hello
-2018-11-01 18:06:11 manjaro-icons
-2018-11-01 18:06:11 ms-office-online
-2018-11-01 18:06:11 python-jade-application-kit
-2018-11-01 18:06:11 qt5-svg
-2018-11-01 18:06:12 c-ares
-2018-11-01 18:06:12 ckbcomp
-2018-11-01 18:06:12 polkit-qt5
-2018-11-01 18:06:13 intltool
-2018-11-01 18:06:13 libdmx
-2018-11-01 18:06:13 libxxf86dga
-2018-11-01 18:06:13 mugshot
-2018-11-01 18:06:13 perl-xml-parser
-2018-11-01 18:06:13 python-distutils-extra
-2018-11-01 18:06:13 python-pexpect
-2018-11-01 18:06:13 python-ptyprocess
-2018-11-01 18:06:13 xorg-xdpyinfo
-2018-11-01 18:06:13 xorg-xprop
-2018-11-01 18:06:14 gtkspell
-2018-11-01 18:06:14 manjaro-documentation-en
-2018-11-01 18:06:14 p7zip
-2018-11-01 18:06:14 screenfetch
-2018-11-01 18:06:14 unace
-2018-11-01 18:06:14 unrar
-2018-11-01 18:06:24 lib32-libva
-2018-11-01 18:06:24 lib32-libva-intel-driver
-2018-11-01 18:06:24 qt5-x11extras
-2018-11-01 18:06:24 xf86-input-elographics
-2018-11-01 18:06:24 xf86-input-evdev
-2018-11-01 18:06:24 xf86-input-keyboard
-2018-11-01 18:06:24 xf86-input-libinput
-2018-11-01 18:06:24 xf86-input-mouse
-2018-11-01 18:06:24 xf86-input-void
-2018-11-01 18:06:25 freeglut
-2018-11-01 18:06:25 glew
-2018-11-01 18:06:25 lib32-glew
-2018-11-01 18:06:25 lib32-glu
-2018-11-01 18:06:25 lib32-libxmu
-2018-11-01 18:06:25 lib32-libxt
-2018-11-01 18:06:25 lib32-mesa-demos
-2018-11-01 18:06:25 libva-intel-driver
-2018-11-01 18:06:25 mesa-demos
-2018-11-01 18:06:25 numlockx
-2018-11-01 18:06:25 xdg-user-dirs
-2018-11-01 18:06:26 libxfont2
-2018-11-01 18:06:26 manjaro-hotfixes
-2018-11-01 18:06:26 perl-file-basedir
-2018-11-01 18:06:26 perl-file-desktopentry
-2018-11-01 18:06:26 perl-file-mimeinfo
-2018-11-01 18:06:26 perl-ipc-system-simple
-2018-11-01 18:06:26 xdg-su
-2018-11-01 18:06:26 xorg-server
-2018-11-01 18:06:26 xorg-server-common
-2018-11-01 18:06:26 xorg-setxkbmap
-2018-11-01 18:06:26 xorg-twm
-2018-11-01 18:06:26 xorg-xkbcomp
-2018-11-01 18:06:26 xorg-xkill
-2018-11-03 20:47:44 cryptsetup
-2018-11-03 20:47:44 libgcrypt
-2018-11-03 20:47:44 tzdata
-2018-11-03 20:47:45 boost-libs
-2018-11-03 20:47:45 icu
-2018-11-03 20:47:46 lib32-icu
-2018-11-03 20:47:46 lib32-libxml2
-2018-11-03 20:47:46 libxml2
-2018-11-03 20:47:48 libevdev
-2018-11-03 20:47:48 libical
-2018-11-03 20:47:48 libsigc++
-2018-11-03 20:47:48 libssh
-2018-11-03 20:47:55 manjaro-settings-manager
-2018-11-03 20:47:55 manjaro-settings-manager-notifier
-2018-11-03 20:47:55 pacman-mirrors
-2018-11-03 20:47:55 perl-error
-2018-11-03 20:47:55 xfconf-gtk3
-2018-11-03 20:47:56 v4l-utils
-2018-11-03 20:47:58 exiv2
-2018-11-03 20:47:58 gnome-autoar
-2018-11-03 20:47:58 gnome-desktop
-2018-11-03 20:47:58 libgexiv2
-2018-11-03 20:47:58 nautilus-sendto
-2018-11-03 20:47:58 xfce4-clipman-plugin
-2018-11-03 20:53:01 alacritty
-2018-11-03 20:53:01 xclip
-2018-11-03 20:53:15 rxvt-unicode-terminfo
-2018-11-03 20:53:16 rxvt-unicode
-2018-11-03 20:53:16 urxvt-perls
-2018-11-03 20:53:16 xsel
-2018-11-03 20:56:18 bspwm
-2018-11-03 20:56:18 giblib
-2018-11-03 20:56:18 libconfig
-2018-11-03 20:56:18 libev
-2018-11-03 20:56:18 sxhkd
-2018-11-03 20:56:18 xcb-util-cursor
-2018-11-03 20:56:18 xcb-util-xrm
-2018-11-03 20:56:18 yajl
-2018-11-03 20:56:19 hunspell-en_US
-2018-11-03 20:56:19 mailcap
-2018-11-03 20:56:19 mozilla-common
-2018-11-03 20:56:21 firefox
-2018-11-03 20:56:21 libxdg-basedir
-2018-11-03 20:56:21 rofi
-2018-11-03 20:56:21 wmctrl
-2018-11-03 20:56:21 wmutils
-2018-11-03 21:07:17 libutempter
-2018-11-03 21:07:17 python-click
-2018-11-03 21:07:17 python-colorama
-2018-11-03 21:07:17 python-kaptan
-2018-11-03 21:07:17 python-libtmux
-2018-11-03 21:07:17 tmux
-2018-11-03 21:08:44 downgrade
-2018-11-03 21:08:44 package-query
-2018-11-03 21:08:44 pacli
-2018-11-03 21:08:44 yaourt
-2018-11-04 00:15:34 libxvmc
-2018-11-04 00:25:37 suru-plus-git
-2018-11-04 00:29:04 arandr
-2018-11-04 00:29:04 libglade
-2018-11-04 00:29:04 pygobject2-devel
-2018-11-04 00:29:04 pygtk
-2018-11-04 00:29:04 python2-cairo
-2018-11-04 00:29:04 python2-gobject2
-2018-11-04 00:29:04 xorg-xrandr
-2018-11-04 00:36:01 llvm
-2018-11-04 00:36:01 tcc
-2018-11-04 00:50:17 audiofile
-2018-11-04 00:50:17 libao
-2018-11-04 00:50:17 libmpdclient
-2018-11-04 00:50:17 libupnp
-2018-11-04 00:50:17 zziplib
-2018-11-04 00:53:40 jsoncpp
-2018-11-04 00:55:49 conky
-2018-11-04 00:55:49 dunst
-2018-11-04 00:55:49 dunstify
-2018-11-04 00:55:49 lua
-2018-11-04 00:55:49 wireless_tools
-2018-11-04 01:11:46 lua52
-2018-11-04 01:11:46 rubberband
-2018-11-04 01:11:46 uchardet
-2018-11-04 01:11:46 vamp-plugin-sdk
-2018-11-04 01:11:47 gnome-mpv
-2018-11-04 01:11:47 mpc
-2018-11-04 01:13:58 xdo
-2018-11-04 01:13:58 xdotool
-2018-11-04 01:13:58 xorg-xwininfo
-2018-11-04 12:10:00 jemalloc
-2018-11-04 12:10:00 libtermkey
-2018-11-04 12:10:00 libuv
-2018-11-04 12:10:00 libvterm
-2018-11-04 12:10:00 luajit
-2018-11-04 12:10:00 msgpack-c
-2018-11-04 12:10:00 unibilium
-2018-11-04 12:10:01 neovim
-2018-11-04 12:39:01 lxappearance
-2018-11-04 12:46:44 ranger
-2018-11-04 13:41:07 xfce4-dev-tools
-2018-11-04 18:14:42 redshift
-2018-11-05 07:57:44 sakura
-2018-11-05 08:17:07 pulsemixer
-2018-11-05 10:30:40 gst-python2
-2018-11-05 10:30:40 python2-appdirs
-2018-11-05 10:30:40 python2-backports-abc
-2018-11-05 10:30:40 python2-chardet
-2018-11-05 10:30:40 python2-futures
-2018-11-05 10:30:40 python2-idna
-2018-11-05 10:30:40 python2-packaging
-2018-11-05 10:30:40 python2-pykka
-2018-11-05 10:30:40 python2-setuptools
-2018-11-05 10:30:40 python2-singledispatch
-2018-11-05 10:30:40 python2-six
-2018-11-05 10:30:41 python2-tornado
-2018-11-05 10:32:18 mousepad
-2018-11-05 11:38:24 gnome-disk-utility
-2018-11-05 11:38:24 libpwquality
-2018-11-05 11:53:12 http-parser
-2018-11-05 11:53:12 minizip
-2018-11-05 11:53:12 re2
-2018-11-05 11:53:12 snappy
-2018-11-05 11:53:14 electron
-2018-11-05 11:53:15 code
-2018-11-05 11:58:43 cppcheck
-2018-11-05 13:30:12 python2-urwid
-2018-11-05 13:30:22 speedometer
-2018-11-05 13:35:42 inotify-tools
-2018-11-05 13:45:40 python-cachecontrol
-2018-11-05 13:45:40 python-chardet
-2018-11-05 13:45:40 python-idna
-2018-11-05 13:45:40 python-msgpack
-2018-11-05 13:45:41 python-distlib
-2018-11-05 13:45:41 python-distro
-2018-11-05 13:45:41 python-html5lib
-2018-11-05 13:45:41 python-lockfile
-2018-11-05 13:45:41 python-pip
-2018-11-05 13:45:41 python-progress
-2018-11-05 13:45:41 python-retrying
-2018-11-05 13:45:41 python-webencodings
-2018-11-05 13:45:50 python2-cachecontrol
-2018-11-05 13:45:50 python2-colorama
-2018-11-05 13:45:50 python2-distlib
-2018-11-05 13:45:50 python2-distro
-2018-11-05 13:45:50 python2-msgpack
-2018-11-05 13:45:51 python2-html5lib
-2018-11-05 13:45:51 python2-ipaddress
-2018-11-05 13:45:51 python2-lockfile
-2018-11-05 13:45:51 python2-pip
-2018-11-05 13:45:51 python2-progress
-2018-11-05 13:45:51 python2-retrying
-2018-11-05 13:45:51 python2-webencodings
-2018-11-05 13:53:29 mopidy
-2018-11-05 14:02:03 python2-cffi
-2018-11-05 14:02:03 python2-ply
-2018-11-05 14:02:03 python2-pycparser
-2018-11-05 14:02:40 libspotify
-2018-11-05 14:02:50 python2-pyspotify
-2018-11-05 14:02:57 mopidy-spotify
-2018-11-05 14:23:58 fzf
-2018-11-05 14:23:58 fzy
-2018-11-05 15:00:06 fish
-2018-11-05 15:00:06 fisherman
-2018-11-05 16:07:24 python-decorator
-2018-11-05 16:07:24 python-pyte
-2018-11-05 16:07:24 python-wcwidth
-2018-11-05 16:07:24 thefuck
-2018-11-05 16:33:15 mtools
-2018-11-05 23:48:16 playerctl
-2018-11-06 00:39:49 glances
-2018-11-06 15:04:32 xorg-xinput
-2018-11-07 09:58:34 kitty
-2018-11-07 11:57:09 powerline-common
-2018-11-07 11:57:09 powerline-fonts
-2018-11-07 13:43:35 awesome-terminal-fonts
-2018-11-07 14:16:22 exa
-2018-11-07 15:51:26 compiler-rt
-2018-11-07 15:55:03 clang
-2018-11-07 16:11:58 ninja
-2018-11-07 21:10:55 xorg-xev
-2018-11-08 01:45:51 fd
-2018-11-08 01:46:18 ack
-2018-11-08 01:46:18 perl-file-next
-2018-11-08 01:47:42 tig
-2018-11-08 01:49:01 neofetch
-2018-11-08 01:51:03 archlinux-keyring
-2018-11-09 07:11:03 preload
-2018-11-09 07:11:35 rhash
-2018-11-09 07:11:36 cmake
-2018-11-09 07:12:17 parallel
-2018-11-09 07:14:10 xorg-xbacklight
-2018-11-09 07:16:57 rkt
-2018-11-09 07:18:50 augeas
-2018-11-09 07:18:50 glusterfs
-2018-11-09 07:18:50 gperftools
-2018-11-09 07:18:50 leveldb
-2018-11-09 07:18:50 liburcu
-2018-11-09 07:18:50 netcf
-2018-11-09 07:18:50 numactl
-2018-11-09 07:18:50 oath-toolkit
-2018-11-09 07:18:50 xmlsec
-2018-11-09 07:18:51 ceph-libs
-2018-11-09 07:18:51 libiscsi
-2018-11-09 07:18:51 libvirt
-2018-11-09 07:19:24 celt0.5.1
-2018-11-09 07:19:24 libcacard
-2018-11-09 07:19:24 ovmf
-2018-11-09 07:19:24 spice
-2018-11-09 07:19:24 usbredir
-2018-11-09 07:19:24 vde2
-2018-11-09 07:19:24 virglrenderer
-2018-11-09 07:19:25 qemu
-2018-11-09 07:20:56 python-bcrypt
-2018-11-09 07:20:56 python-cffi
-2018-11-09 07:20:56 python-ply
-2018-11-09 07:20:56 python-pycparser
-2018-11-09 07:20:57 python-asn1crypto
-2018-11-09 07:20:57 python-jinja
-2018-11-09 07:20:57 python-paramiko
-2018-11-09 07:20:57 python-pyasn1
-2018-11-09 07:20:57 python-pynacl
-2018-11-09 07:20:58 ansible
-2018-11-09 07:21:56 lynis
-2018-11-09 07:22:58 ngrep
-2018-11-09 07:23:14 perl-encode-locale
-2018-11-09 07:23:14 perl-file-listing
-2018-11-09 07:23:14 perl-html-parser
-2018-11-09 07:23:14 perl-html-tagset
-2018-11-09 07:23:14 perl-http-cookies
-2018-11-09 07:23:14 perl-http-daemon
-2018-11-09 07:23:14 perl-http-date
-2018-11-09 07:23:14 perl-http-message
-2018-11-09 07:23:14 perl-http-negotiate
-2018-11-09 07:23:14 perl-io-html
-2018-11-09 07:23:14 perl-libwww
-2018-11-09 07:23:14 perl-lwp-mediatypes
-2018-11-09 07:23:14 perl-net-http
-2018-11-09 07:23:14 perl-try-tiny
-2018-11-09 07:23:14 perl-www-robotrules
-2018-11-09 07:23:15 arp-scan
-2018-11-09 07:24:26 capstone
-2018-11-09 07:24:26 libzip
-2018-11-09 07:24:27 radare2
-2018-11-09 07:25:14 girara
-2018-11-09 07:25:29 gtk-vnc
-2018-11-09 07:25:29 libosinfo
-2018-11-09 07:25:29 libvirt-glib
-2018-11-09 07:25:29 libvirt-python
-2018-11-09 07:25:29 osinfo-db
-2018-11-09 07:25:29 phodav
-2018-11-09 07:25:29 spice-gtk
-2018-11-09 07:25:29 virt-install
-2018-11-09 07:25:29 virt-manager
-2018-11-09 07:25:44 surfraw
-2018-11-09 07:26:17 obs-studio
-2018-11-09 07:28:56 android-udev
-2018-11-09 07:28:56 aspell
-2018-11-09 07:28:56 atkmm
-2018-11-09 07:28:56 ca-certificates-mozilla
-2018-11-09 07:28:56 curl
-2018-11-09 07:28:56 device-mapper
-2018-11-09 07:28:58 sdl2
-2018-11-09 07:28:59 glib2-docs
-2018-11-09 07:28:59 gobject-introspection-runtime
-2018-11-09 07:28:59 i3-gaps
-2018-11-09 07:28:59 lib32-libgcrypt
-2018-11-09 07:29:01 libnautilus-extension
-2018-11-09 07:29:01 libnm
-2018-11-09 07:29:01 libnm-glib
-2018-11-09 07:29:01 libsynctex
-2018-11-09 07:29:01 nss
-2018-11-09 07:29:22 lvm2
-2018-11-09 07:29:22 manjaro-browser-settings
-2018-11-09 07:29:23 fluidsynth
-2018-11-09 07:29:23 libmikmod
-2018-11-09 07:29:23 nautilus
-2018-11-09 07:29:23 portaudio
-2018-11-09 07:29:23 tracker
-2018-11-09 07:29:24 networkmanager
-2018-11-09 07:29:24 pangomm
-2018-11-09 07:29:24 pipewire
-2018-11-09 07:29:24 pkgconf
-2018-11-09 07:29:25 poppler
-2018-11-09 07:29:25 poppler-glib
-2018-11-09 07:29:26 python2-pytoml
-2018-11-09 07:29:26 python-pytoml
-2018-11-09 07:29:26 qt5-base
-2018-11-09 07:29:26 rpcbind
-2018-11-09 07:29:29 webkit2gtk
-2018-11-09 07:29:29 xapian-core
-2018-11-09 10:14:28 bmon
-2018-11-09 10:14:28 ccze
-2018-11-09 10:14:28 cmatrix
-2018-11-09 10:14:28 confuse
-2018-11-09 10:14:28 enca
-2018-11-09 10:14:28 jp2a
-2018-11-09 10:14:28 libftdi
-2018-11-09 10:14:28 libmng
-2018-11-09 10:14:28 libusb-compat
-2018-11-09 10:14:28 lirc
-2018-11-09 10:14:28 mlocate
-2018-11-09 10:14:28 moreutils
-2018-11-09 10:14:28 mplayer
-2018-11-09 10:14:28 perl-io-tty
-2018-11-09 10:14:28 perl-ipc-run
-2018-11-09 10:14:28 perl-time-duration
-2018-11-09 10:14:28 recode
-2018-11-09 10:14:28 tree
-2018-11-09 10:14:49 apg
-2018-11-09 10:15:15 byobu
-2018-11-09 10:15:25 hollywood
-2018-11-09 11:13:19 asciinema
-2018-11-09 19:24:39 ruby
-2018-11-09 19:24:39 rubygems
-2018-11-09 23:14:06 lua-lgi
-2018-11-09 23:14:06 xorg-xmessage
-2018-11-09 23:14:07 awesome
-2018-11-09 23:38:55 yay
-2018-11-09 23:44:50 pyalpm
-2018-11-09 23:44:58 pikaur
-2018-11-10 00:03:13 go
-2018-11-10 00:04:32 cblas
-2018-11-10 00:04:32 intel-tbb
-2018-11-10 00:04:32 lapack
-2018-11-10 00:04:32 libgit2
-2018-11-10 00:04:32 libutf8proc
-2018-11-10 00:04:32 metis
-2018-11-10 00:04:32 openblas
-2018-11-10 00:04:32 suitesparse
-2018-11-10 12:08:06 blueman
-2018-11-10 12:56:40 docker-compose
-2018-11-10 12:56:40 python-cached-property
-2018-11-10 12:56:40 python-docker
-2018-11-10 12:56:40 python-dockerpty
-2018-11-10 12:56:40 python-docker-pycreds
-2018-11-10 12:56:40 python-jsonschema
-2018-11-10 12:56:40 python-websocket-client
-2018-11-10 14:47:11 farstream
-2018-11-10 14:47:11 libgadu
-2018-11-10 14:47:11 libpurple
-2018-11-10 14:47:11 protobuf
-2018-11-10 14:47:11 protobuf-c
-2018-11-10 14:47:11 purple-skypeweb
-2018-11-10 14:47:25 pidgin
-2018-11-10 18:13:24 bluez-tools
-2018-11-11 00:22:19 mc
-2018-11-11 00:38:12 noto-fonts-extra
-2018-11-11 12:21:00 hostapd
-2018-11-11 14:11:51 libnvidia-container
-2018-11-11 14:11:53 libnvidia-container-tools
-2018-11-11 14:11:58 nvidia-container-runtime
-2018-11-11 14:12:01 nvidia-container-runtime-hook
-2018-11-11 14:12:02 nvidia-docker
-2018-11-12 21:21:45 eglexternalplatform
-2018-11-12 21:21:45 egl-wayland
-2018-11-12 21:21:45 primus
-2018-11-12 21:21:48 bumblebee
-2018-11-12 21:21:48 nvidia-utils
-2018-11-12 21:21:48 xf86-video-intel
-2018-11-12 21:21:50 lib32-nvidia-utils
-2018-11-12 21:21:50 lib32-primus
-2018-11-12 21:56:26 a52dec
-2018-11-12 21:56:26 autoconf
-2018-11-12 21:56:26 bc
-2018-11-12 21:56:26 bison
-2018-11-12 21:56:26 bridge-utils
-2018-11-12 21:56:26 btrfs-progs
-2018-11-12 21:56:26 diffutils
-2018-11-12 21:56:26 findutils
-2018-11-12 21:56:26 gdbm
-2018-11-12 21:56:26 glib2
-2018-11-12 21:56:26 gmp
-2018-11-12 21:56:26 libcap
-2018-11-12 21:56:26 libffi
-2018-11-12 21:56:26 libsystemd
-2018-11-12 21:56:26 libutil-linux
-2018-11-12 21:56:26 lzo
-2018-11-12 21:56:26 m4
-2018-11-12 21:56:26 sqlite
-2018-11-12 21:56:26 zstd
-2018-11-12 21:56:27 cracklib
-2018-11-12 21:56:27 harfbuzz
-2018-11-12 21:56:27 kbd
-2018-11-12 21:56:27 libmnl
-2018-11-12 21:56:27 systemd
-2018-11-12 21:56:27 util-linux
-2018-11-12 21:56:31 dhcpcd
-2018-11-12 21:56:31 runc
-2018-11-12 21:56:33 containerd
-2018-11-12 21:56:33 tar
-2018-11-12 21:56:36 docker
-2018-11-12 21:56:36 docker-machine
-2018-11-12 21:56:36 dosfstools
-2018-11-12 21:56:37 ffmpeg
-2018-11-12 21:56:37 flex
-2018-11-12 21:56:37 gettext
-2018-11-12 21:56:37 grep
-2018-11-12 21:56:37 groff
-2018-11-12 21:56:38 grub
-2018-11-12 21:56:38 gtkmm3
-2018-11-12 21:56:38 gzip
-2018-11-12 21:56:38 harfbuzz-icu
-2018-11-12 21:56:38 inetutils
-2018-11-12 21:56:40 julia
-2018-11-12 21:56:40 lib32-harfbuzz
-2018-11-12 21:56:40 lib32-systemd
-2018-11-12 21:56:40 lib32-util-linux
-2018-11-12 21:56:40 libaio
-2018-11-12 21:56:40 libevent
-2018-11-12 21:56:40 libmpd
-2018-11-12 21:56:40 libstemmer
-2018-11-12 21:56:40 licenses
-2018-11-12 21:56:40 make
-2018-11-12 21:56:41 mpv
-2018-11-12 21:56:41 ostree
-2018-11-12 21:56:41 perl-parse-yapp
-2018-11-12 21:56:41 powertop
-2018-11-12 21:56:41 ppp
-2018-11-12 21:56:44 python2-pyparsing
-2018-11-12 21:56:44 python2-requests
-2018-11-12 21:56:44 python2-urllib3
-2018-11-12 21:56:44 python-markupsafe
-2018-11-12 21:56:44 python-pyparsing
-2018-11-12 21:56:44 python-requests
-2018-11-12 21:56:44 python-texttable
-2018-11-12 21:56:44 python-urllib3
-2018-11-12 21:56:44 reiserfsprogs
-2018-11-12 21:56:48 rust
-2018-11-12 21:56:48 seabios
-2018-11-12 21:56:48 swig
-2018-11-12 21:56:48 systemd-sysvcompat
-2018-11-12 21:56:48 upower
-2018-11-12 21:56:48 usbmuxd
-2018-11-12 21:56:48 youtube-dl
-2018-11-12 23:09:22 grub-customizer
-2018-11-13 00:39:08 gconf
-2018-11-13 00:39:08 liblqr
-2018-11-13 00:39:08 libmagick6
-2018-11-13 00:39:08 libotf
-2018-11-13 00:39:08 libraqm
-2018-11-13 00:39:08 m17n-db
-2018-11-13 00:39:08 m17n-lib
-2018-11-13 00:39:12 emacs
-2018-11-13 22:57:55 bat
-2018-11-13 22:57:55 blackarch-keyring
-2018-11-13 22:57:56 compton
-2018-11-13 22:57:56 extra-cmake-modules
-2018-11-13 22:57:56 gnupg
-2018-11-13 22:57:56 libinput
-2018-11-13 22:57:57 feh
-2018-11-13 22:57:57 flatpak
-2018-11-13 22:57:57 kauth
-2018-11-13 22:57:57 kcoreaddons
-2018-11-13 22:57:57 kitemmodels
-2018-11-13 22:57:57 lib32-libcups
-2018-11-13 22:57:57 libcups
-2018-11-13 22:57:57 libshout
-2018-11-13 22:58:13 mpd
-2018-11-13 22:58:13 patch
-2018-11-13 22:58:13 polybar
-2018-11-13 22:58:13 pygobject-devel
-2018-11-13 22:58:13 python2-gobject
-2018-11-13 22:58:13 python-cryptography
-2018-11-13 22:58:13 python-gobject
-2018-11-13 22:58:13 vala
-2018-11-13 22:58:14 vim
-2018-11-13 22:58:14 vim-runtime
-2018-11-13 22:58:14 which
-2018-11-13 23:11:28 ncdu
-2018-11-14 00:24:30 sysstat
-2018-11-14 12:20:21 calcurse
-2018-11-14 22:00:57 nim
-2018-11-15 10:02:54 stow
-2018-11-15 10:06:28 archstrike-keyring
-2018-11-15 10:07:28 archstrike-mirrorlist
-2018-11-15 10:17:03 libnetfilter_queue
-2018-11-15 10:17:04 bettercap
-2018-11-15 11:05:26 stress
-2018-11-15 23:22:54 scons
-2018-11-16 11:51:43 flameshot
-2018-11-16 14:31:51 tmuxp
-2018-11-17 12:38:45 jgmenu
-2018-11-17 12:38:45 libfm-extra
-2018-11-17 12:38:45 menu-cache
-2018-11-17 13:04:21 python-marshmallow
-2018-11-17 13:04:21 python-xcffib
-2018-11-17 13:04:21 python-xpybutil
-2018-11-17 13:04:31 flashfocus-git
-2018-11-19 10:01:31 light
-2018-11-20 00:43:51 easystroke
-2018-11-20 00:47:47 slop
-2018-11-20 13:10:47 ncmpcpp
-2018-11-20 22:55:21 xorg-xsetroot
-2018-11-21 19:32:35 task
-2018-11-21 19:33:57 perl-curses
-2018-11-21 19:34:00 vit
-2018-11-21 19:49:20 yank
-2018-11-21 19:50:21 python-beautifulsoup4
-2018-11-21 19:50:21 python-certifi
-2018-11-21 19:50:26 buku
-2018-11-21 20:03:20 pass
-2018-11-21 20:11:25 dmenu
-2018-11-21 20:23:46 calc
-2018-11-21 23:00:40 hyperfine
-2018-11-21 23:03:40 lib32-libva-mesa-driver
-2018-11-21 23:03:41 mesa
-2018-11-21 23:03:42 lib32-mesa
-2018-11-21 23:03:48 linux418
-2018-11-21 23:03:48 linux418-bbswitch
-2018-11-21 23:03:54 linux418-nvidia
-2018-11-21 23:04:06 linux419
-2018-11-21 23:04:06 linux419-bbswitch
-2018-11-21 23:04:12 linux419-nvidia
-2018-11-21 23:04:19 manjaro-application-utility
-2018-11-21 23:04:19 matcha-gtk-theme
-2018-11-21 23:04:19 xfce4-panel-gtk3
-2018-11-21 23:04:19 xfce4-settings-gtk3
-2018-11-21 23:07:24 gotop-bin
-2018-11-21 23:08:04 fuse3
-2018-11-21 23:08:04 sshfs
-2018-11-21 23:09:37 nnn
-2018-11-22 07:07:26 vifm
-2018-11-22 07:16:03 progress
-2018-11-22 07:16:39 pv
-2018-11-22 07:34:20 gmime
-2018-11-22 07:34:20 kyotocabinet
-2018-11-22 07:34:20 neomutt
-2018-11-22 07:34:20 notmuch-runtime
-2018-11-22 07:51:14 w3m
-2018-11-22 07:59:50 lshw
-2018-11-22 10:16:49 python-termcolor
-2018-11-22 10:16:49 tldr
-2018-11-22 10:24:07 borg
-2018-11-22 10:32:23 units
-2018-11-22 11:05:59 dialog
-2018-11-22 11:05:59 gsasl
-2018-11-22 11:05:59 msmtp
-2018-11-22 11:05:59 offlineimap
-2018-11-22 15:07:06 zathura
-2018-11-22 15:10:41 cairo
-2018-11-22 15:14:03 zathura-pdf-mupdf
-2018-11-22 20:44:38 pamac
-2018-11-22 22:01:16 patat-bin
-2018-11-22 22:03:25 cmark-gfm
-2018-11-22 22:03:25 ghc-libs
-2018-11-22 22:03:25 haskell-aeson
-2018-11-22 22:03:25 haskell-aeson-pretty
-2018-11-22 22:03:25 haskell-attoparsec
-2018-11-22 22:03:25 haskell-base64-bytestring
-2018-11-22 22:03:25 haskell-base-compat
-2018-11-22 22:03:25 haskell-blaze-builder
-2018-11-22 22:03:25 haskell-blaze-html
-2018-11-22 22:03:25 haskell-blaze-markup
-2018-11-22 22:03:25 haskell-case-insensitive
-2018-11-22 22:03:25 haskell-cmark-gfm
-2018-11-22 22:03:25 haskell-cmdargs
-2018-11-22 22:03:25 haskell-data-default
-2018-11-22 22:03:25 haskell-data-default-class
-2018-11-22 22:03:25 haskell-data-default-instances-containers
-2018-11-22 22:03:25 haskell-data-default-instances-dlist
-2018-11-22 22:03:25 haskell-data-default-instances-old-locale
-2018-11-22 22:03:25 haskell-dlist
-2018-11-22 22:03:25 haskell-doctemplates
-2018-11-22 22:03:25 haskell-exceptions
-2018-11-22 22:03:25 haskell-glob
-2018-11-22 22:03:25 haskell-hashable
-2018-11-22 22:03:25 haskell-http
-2018-11-22 22:03:25 haskell-integer-logarithms
-2018-11-22 22:03:25 haskell-juicypixels
-2018-11-22 22:03:25 haskell-network
-2018-11-22 22:03:25 haskell-network-uri
-2018-11-22 22:03:25 haskell-old-locale
-2018-11-22 22:03:25 haskell-primitive
-2018-11-22 22:03:25 haskell-random
-2018-11-22 22:03:25 haskell-scientific
-2018-11-22 22:03:25 haskell-sha
-2018-11-22 22:03:25 haskell-tagged
-2018-11-22 22:03:25 haskell-th-abstraction
-2018-11-22 22:03:25 haskell-time-locale-compat
-2018-11-22 22:03:25 haskell-transformers-compat
-2018-11-22 22:03:25 haskell-unordered-containers
-2018-11-22 22:03:25 haskell-uuid-types
-2018-11-22 22:03:25 haskell-vector
-2018-11-22 22:03:25 haskell-zlib
-2018-11-22 22:03:26 haskell-ansi-terminal
-2018-11-22 22:03:26 haskell-asn1-encoding
-2018-11-22 22:03:26 haskell-asn1-parse
-2018-11-22 22:03:26 haskell-asn1-types
-2018-11-22 22:03:26 haskell-async
-2018-11-22 22:03:26 haskell-basement
-2018-11-22 22:03:26 haskell-byteable
-2018-11-22 22:03:26 haskell-cereal
-2018-11-22 22:03:26 haskell-colour
-2018-11-22 22:03:26 haskell-connection
-2018-11-22 22:03:26 haskell-cookie
-2018-11-22 22:03:26 haskell-cryptonite
-2018-11-22 22:03:26 haskell-haddock-library
-2018-11-22 22:03:26 haskell-hourglass
-2018-11-22 22:03:26 haskell-hslua
-2018-11-22 22:03:26 haskell-hslua-module-text
-2018-11-22 22:03:26 haskell-hsyaml
-2018-11-22 22:03:26 haskell-http-client
-2018-11-22 22:03:26 haskell-http-client-tls
-2018-11-22 22:03:26 haskell-http-types
-2018-11-22 22:03:26 haskell-hxt
-2018-11-22 22:03:26 haskell-hxt-charproperties
-2018-11-22 22:03:26 haskell-hxt-regex-xmlschema
-2018-11-22 22:03:26 haskell-hxt-unicode
-2018-11-22 22:03:26 haskell-lexer
-2018-11-22 22:03:26 haskell-memory
-2018-11-22 22:03:26 haskell-mime-types
-2018-11-22 22:03:26 haskell-pem
-2018-11-22 22:03:26 haskell-pretty-show
-2018-11-22 22:03:26 haskell-regex-base
-2018-11-22 22:03:26 haskell-regex-pcre
-2018-11-22 22:03:26 haskell-safe
-2018-11-22 22:03:26 haskell-skylighting
-2018-11-22 22:03:26 haskell-skylighting-core
-2018-11-22 22:03:26 haskell-socks
-2018-11-22 22:03:26 haskell-split
-2018-11-22 22:03:26 haskell-streaming-commons
-2018-11-22 22:03:26 haskell-syb
-2018-11-22 22:03:26 haskell-tls
-2018-11-22 22:03:26 haskell-utf8-string
-2018-11-22 22:03:26 haskell-x509
-2018-11-22 22:03:26 haskell-x509-store
-2018-11-22 22:03:26 haskell-x509-system
-2018-11-22 22:03:26 haskell-x509-validation
-2018-11-22 22:03:27 haskell-bitarray
-2018-11-22 22:03:27 haskell-digest
-2018-11-22 22:03:27 haskell-old-time
-2018-11-22 22:03:27 haskell-pandoc-types
-2018-11-22 22:03:27 haskell-quickcheck
-2018-11-22 22:03:27 haskell-tagsoup
-2018-11-22 22:03:27 haskell-temporary
-2018-11-22 22:03:27 haskell-texmath
-2018-11-22 22:03:27 haskell-tf-random
-2018-11-22 22:03:27 haskell-unicode-transforms
-2018-11-22 22:03:27 haskell-xml
-2018-11-22 22:03:27 haskell-zip-archive
-2018-11-22 22:03:27 pandoc
-2018-11-22 22:30:43 tor
-2018-11-22 22:30:43 torsocks
-2018-11-23 07:56:51 bleachbit-cli
-2018-11-23 10:17:39 fltk
-2018-11-23 11:15:31 java-runtime-common
-2018-11-23 11:15:33 jre8-openjdk
-2018-11-23 11:15:33 jre8-openjdk-headless
-2018-11-23 11:23:15 expac
-2018-11-23 15:20:25 tigervnc
-2018-11-24 00:33:15 aria2
-2018-11-25 14:48:37 evtest
-2018-11-25 14:54:55 python2-distutils-extra
-2018-11-25 14:55:06 screenkey
-2018-11-25 15:26:02 imagemagick
-2018-11-25 15:26:02 libmagick
-2018-11-25 15:26:02 python-pywal
+accountsservice 0.6.54+2+g204a4ab-1
+ack 2.24-2
+acpi 1.7-2
+acpid 2.0.30-1
+advcp 8.24-2
+alacritty 0.2.1-1
+alsa-firmware 1.0.29-2
+alsa-utils 1.1.7-1
+android-tools 9.0.0_r3-1
+android-udev 20181031-1
+ansible 2.7.1-1
+arandr 0.1.9-2
+archstrike-keyring 20170321-1
+archstrike-mirrorlist 20180426-1
+aria2 1.34.0-1
+arp-scan 1.9-3
+asciinema 2.0.1-2
+autoconf 2.69-5
+automake 1.16.1-1
+avahi 0.7+16+g1cc2b8e-2
+awesome 4.2-1
+awesome-terminal-fonts 1.1.0-1
+b43-fwcutter 019-2
+bash 4.4.023-2
+bat 0.9.0-1
+bettercap 2.10-1
+binutils 2.31.1-3
+bison 3.2-1
+blackarch-keyring 20180925-2
+bleachbit-cli 2.0-2
+blueman 2.0.6-1
+bluez-tools 0.2.0-1
+borg 1.1.7-2
+bspwm 0.9.5-1
+btrfs-progs 4.19-1
+buku 4.0-1
+bumblebee 3.2.1-22
+bzip2 1.0.6-8
+calc 2.12.6.8-1
+calcurse 4.3.0-1
+cantarell-fonts 1:0.111-1
+clang 7.0.0-1
+cmake 3.12.4-1
+code 1.27.2-1
+compton 3.0-5
+conky 1.10.8-2
+coreutils 8.30-1
+cppcheck 1.85-1
+cpupower 4.19-1
+crda 4.14-1
+cronie 1.5.2-1
+cryptsetup 2.0.5-1
+dash 0.5.10.2-1
+device-mapper 2.02.182-1
+dhclient 4.4.1-4
+dhcpcd 7.0.8-1
+dialog 1:1.3_20181022-1
+diffutils 3.6-2
+dmenu 4.8-1
+dmidecode 3.2-1
+dmraid 1.0.0.rc16.3-11
+dnsmasq 2.80-1
+docker 1:18.09.0-2
+docker-compose 1.23.1-1
+docker-machine 0.16.0-1
+dosfstools 4.1-2
+dunst 1.3.2-1
+dunstify 1.3.2-1
+e2fsprogs 1.44.4-1
+easystroke 0.6.0-19
+ecryptfs-utils 111-2
+efibootmgr 16-1
+emacs 26.1-2
+evtest 1.33-3
+exa 0.8.0-2
+exfat-utils 1.3.0-1
+exo-gtk3 0.12.3-1
+expac 9-1
+extra-cmake-modules 5.52.0-1
+f2fs-tools 1.11.0-2
+fakeroot 1.23-1
+fd 7.2.0-1
+feh 3.0-1
+ffmpeg 1:4.1-1
+ffmpegthumbnailer 2.2.0-2
+figlet 2.2.5-3
+file 5.35-1
+filesystem 2018.9-1
+findutils 4.6.0-4
+firefox 63.0.3-0
+fish 2.7.1-1
+fisherman 2.8.0-2
+flameshot 0.6.0-1
+flashfocus-git v1.1.1.r0.ge628645-1
+flatpak 1.0.5-1
+flex 2.6.4-2
+freetype2 2.9.1-1
+fzf 0.17.5-1
+fzy 1.0-1
+garcon-gtk3 0.6.1-4
+gawk 4.2.1-1
+gcc 8.2.1+20180831-1
+gcc-libs 8.2.1+20180831-1
+gettext 0.19.8.1-3
+giblib 1.2.4-7
+gimp 2.10.8-1
+gksu-polkit 0.0.3-1
+glances 3.0.2-1
+glibc 2.28-5
+gnome-disk-utility 3.30.2-1
+gnome-icon-theme 3.12.0-4
+gnome-keyring 1:3.28.2-1
+gnome-mpv 0.15-1
+gnome-themes-extra 3.28-1
+go 2:1.11.2-1
+gotop-bin 1.5.1-2
+grep 3.1-2
+grub 2.03.2-1
+grub-customizer 5.1.0-1
+grub-theme-manjaro 18.0-1
+gst-libav 1.14.4-1
+gst-plugins-bad 1.14.4-3
+gst-plugins-base 1.14.4-1
+gst-plugins-good 1.14.4-1
+gst-plugins-ugly 1.14.4-1
+gtest 1.8.1-3
+gtk3-classic 3.24.1+33+g615fa7cfb6-1
+gufw 18.10.0-1
+gvfs 1.38.1-1
+gvfs-afc 1.38.1-1
+gvfs-gphoto2 1.38.1-1
+gvfs-mtp 1.38.1-1
+gvfs-nfs 1.38.1-1
+gvfs-smb 1.38.1-1
+gzip 1.9-2
+haveged 1.9.4-3
+hollywood 1.14-2
+hostapd 2.6-7
+hq 3.0-1
+htop 2.2.0-2
+hyperfine 1.4.0-1
+i3-gaps 4.16-1
+inetutils 1.9.4-6
+inkscape 0.92.3-6
+inotify-tools 3.20.1-1
+intel-ucode 20180807.a-1
+inxi 3.0.27-1
+iproute2 4.19.0-1
+iptables 1:1.8.0-1
+iputils 20180629.f6aac8d-2
+ipw2100-fw 1.3-8
+ipw2200-fw 3.1-6
+jfsutils 1.1.15-6
+jgmenu 1.4.1-1
+jq 1.6-1
+jsoncpp 1.8.4-2
+julia 2:1.0.2-1
+kitty 0.12.3-1
+less 530-1
+lib32-flex 2.6.4-1
+lib32-gtk3-classic 3.24.1+33+g615fa7cfb6-1
+lib32-libva-intel-driver 2.2.0-1
+lib32-libva-mesa-driver 18.2.5-0
+lib32-mesa-demos 8.4.0-1
+lib32-nvidia-utils 1:410.78-1
+lib32-primus 20151110-4
+libdvdcss 1.4.2-1
+libgsf 1.14.44-1
+libmpd 11.8.17-4
+libmpdclient 2.16-1
+libopenraw 0.1.3-1
+libreoffice-fresh 6.1.3-1
+libtool 2.4.6+42+gb88cebd5-2
+libva-intel-driver 2.2.0-1
+libvirt 4.8.0-2
+licenses 20181104-1
+light 1.0-2
+light-locker 1.8.0-1
+lightdm 1:1.28.0-1
+lightdm-gtk-greeter 1:2.0.6-1
+lightdm-gtk-greeter-settings 1.2.2-3
+linux-firmware 20181026.1cb4e51-0.1
+linux418 4.18.20-1
+linux418-bbswitch 0.8-15
+linux418-nvidia 1:410.78-2
+linux419 4.19.4-1
+linux419-bbswitch 0.8-4
+linux419-nvidia 1:410.78-3
+lldb 7.0.0-1
+llvm 7.0.0-1
+logrotate 3.14.0-1
+lsb-release 1.4-12
+lshw B.02.18-2
+lvm2 2.02.182-1
+lxappearance 0.6.3-1
+lynis 2.7.0-1
+m4 1.4.18-2
+make 4.2.1-3
+man-db 2.8.4-1
+man-pages 4.16-2
+manjaro-alsa 2012.11-1
+manjaro-application-utility 1.1-3
+manjaro-browser-settings 20181104-1
+manjaro-documentation-en 20181009-1
+manjaro-firmware 20160419-1
+manjaro-hello 0.6.1-1
+manjaro-hotfixes 2018.08-6
+manjaro-pulse 2012.11-1
+manjaro-release 18.0.0-1.1
+manjaro-settings-manager 0.5.5-2
+manjaro-settings-manager-notifier 0.5.5-2
+manjaro-system 20180828-2
+matcha-gtk-theme 20181113-1
+mc 4.8.21-1
+mdadm 4.0-1
+memtest86+ 5.01-2
+menulibre 2.2.0-2
+mesa-demos 8.4.0-1
+mhwd 0.6.3-1
+mhwd-db 0.6.3-6
+mkinitcpio-openswap 0.1.0-2
+mobile-broadband-provider-info 20170310-1
+modemmanager 1.8.2-1
+mopidy 2.2.1-1
+mopidy-soundcloud 2.1.0-1
+mopidy-spotify 3.1.0-1
+mousepad 0.4.1-1
+mpc 0.31-1
+mpd 0.21.2-1
+mpv 1:0.29.1-3
+ms-office-online 18.04.4-2
+msmtp 1.8.0-2
+mtools 4.0.19-1
+mtpfs 1.1-3
+mugshot 0.4.1-1
+nano 3.1-1
+nautilus 3.30.3-1
+ncdu 1.13-1
+ncmpcpp 0.8.2-5
+neofetch 5.0.0-1
+neomutt 20180716-4
+neovim 0.3.1-1
+network-manager-applet 1.8.19dev+21+geebf7f95-1
+networkmanager 1.14.5dev+17+gba83251bb-1
+networkmanager-openconnect 1.2.4-3
+networkmanager-openvpn 1.8.8-1
+networkmanager-pptp 1.2.8-1
+networkmanager-vpnc 1.2.6-1
+nfs-utils 2.3.3-1
+ngrep 1.47-1
+nim 0.18.0-1
+ninja 1.8.2-1
+nnn 2.0-2
+nodejs 11.1.0-1
+noto-fonts-extra 20181024-1
+nss-mdns 0.14.1-1
+ntfs-3g 2017.3.23-3
+ntp 4.2.8.p12-2
+numlockx 1.2-4
+nvidia-docker 2.0.3-4
+nvidia-utils 1:410.78-1
+obs-studio 22.0.2-1
+offlineimap 7.2.1-1
+openresolv 3.9.0-1
+openssh 7.9p1-1
+os-prober 1.76-2
+ovmf 1:r24601.6861765935-1
+p7zip 16.02-5
+pacli 0.10-3
+pacman 5.1.1-3
+pamac 7.3.1-2
+pandoc 2.4-1
+parallel 20180822-1
+pass 1.7.3-1
+patat-bin 0.8.1.1-2
+patch 2.7.6-6
+pavucontrol 1:3.0+23+g335c26c-1
+pciutils 3.6.1-1
+perl 5.28.0-1
+perl-file-mimeinfo 0.29-1
+pidgin 2.13.0-5
+pikaur 1.3.1-1
+pkgconf 1.5.4-1
+playerctl 0.6.1-1
+polybar 3.2.1-2.2
+poppler-glib 0.71.0-1
+powerline-fonts 2.7-2
+powertop 2.9-2
+preload 0.6.4-1
+procps-ng 3.3.15-1.2
+progress 0.14-1
+psmisc 23.2-1
+pulseaudio-bluetooth 12.2-2
+pulseaudio-ctl 1.66-1
+pulseaudio-zeroconf 12.2-2
+pulsemixer 1.4.0-3
+purple-skypeweb 1.5-1
+pv 1.6.6-1
+python-pip 18.0-1
+python2-pip 18.0-1
+qemu 3.0.0-3
+radare2 3.0.1-1
+ranger 1.9.2-0
+redshift 1.12-2
+reiserfsprogs 3.6.27-2
+rkt 1.30.0-1
+rofi 1.5.1-1
+rsync 3.1.3-1
+ruby 2.5.3-1
+rust 1:1.30.1-1
+rxvt-unicode 9.22-7
+rxvt-unicode-terminfo 9.22-7
+s-nail 14.9.11-1
+sakura 3.6.0-2
+samba 4.8.5-1
+scons 3.0.1-1
+screenfetch 3.8.0.r107.g522c9c0-1
+screenkey 0.9-1
+sed 4.5-1
+shadow 4.6-1
+slop 7.4-3
+spectre-meltdown-checker 0.37-1
+speedometer 2.8-3
+sshfs 3.5.0-1
+stow 2.2.2-5
+stress 1.0.4-5
+sudo 1.8.25.p1-1
+surf 2.0-1
+surfraw 2.3.0-2
+suru-plus-git 20.3.2.r0.g2c002528-1
+swig 3.0.12-2
+sxhkd 0.5.9-1
+sysfsutils 2.1.0-10
+sysstat 11.7.3-1
+systemd-fsck-silent 239-1
+systemd-sysvcompat 239.6-1
+tar 1.30-2
+task 2.5.1-1
+tcc 0.9.27-3
+terminus-font 4.46-1.1
+texinfo 6.5-2
+texlive-bibtexextra 2018.48548-1
+texlive-core 2018.48566-1
+texlive-fontsextra 2018.48561-1
+texlive-formatsextra 2018.47496-1
+texlive-games 2018.48514-1
+texlive-humanities 2018.48491-1
+texlive-latexextra 2018.48568-1
+texlive-music 2018.48353-1
+texlive-pictures 2018.48511-1
+texlive-pstricks 2018.48533-1
+texlive-publishers 2018.48567-1
+texlive-science 2018.48515-1
+the_silver_searcher 2.2.0-1
+thefuck 3.27-2
+tig 2.4.1-1
+tigervnc 1.9.0-1
+tldr 0.4.4-3
+tlp 1.1-1.0
+tmux 2.8-1
+tmuxp 1.5.0a-2
+torsocks 2.2.0-1
+ttf-bitstream-vera 1.10-11
+tumbler 0.2.3-1
+udiskie 1.7.5-2
+udisks2 2.8.1-1
+unace 2.5-10
+units 2.18-1
+unrar 1:5.6.8-1
+urxvt-perls 2.2-2
+usb_modeswitch 2.5.2-1
+usbutils 010-1
+util-linux 2.33-2
+vi 1:070224-3
+vifm 0.10-1
+vim 8.1.0519-1
+virt-manager 2.0.0-1
+vis 0.5-1
+vit 1.2-2
+w3m 0.5.3.git20180125-1
+wget 1.19.5-1
+which 2.21-3
+wificurse 0.3.9-5
+wmctrl 1.07-5
+wmutils 1.2.r2.g9372688-1
+wpa_supplicant 1:2.6-12
+xcursor-simpleandsoft 0.2-8
+xcursor-vanilla-dmz-aa 0.4.5-1
+xdg-su 1.2.3-1
+xdg-user-dirs 0.17-1
+xdg-utils 1.1.3-3
+xdo 0.5.7-1
+xdotool 3.20160805.1-1
+xf86-input-elographics 1.4.1-7
+xf86-input-evdev 2.10.6-1
+xf86-input-keyboard 1.9.0-2
+xf86-input-libinput 0.28.1-1
+xf86-input-mouse 1.9.3-1
+xf86-input-void 1.4.1-3
+xf86-video-intel 1:2.99.917+853+g0932a6b3-1
+xfce4-appfinder-gtk3 4.13.0-2
+xfce4-battery-plugin 1.1.1-1
+xfce4-clipman-plugin 1.4.3-1
+xfce4-dev-tools 4.12.0-2
+xfce4-notifyd-gtk3 0.4.2-1
+xfce4-panel-gtk3 4.13.3-11
+xfce4-power-manager-gtk3 1.6.0.79.g23fc649-2
+xfce4-pulseaudio-plugin 0.4.1-1.2
+xfce4-session-gtk3 4.13.1-4
+xfce4-settings-gtk3 4.13.5-6
+xfce4-whiskermenu-plugin-gtk3 2.3.0-1
+xfce4-xkb-plugin 0.8.1-1
+xfconf-gtk3 4.13.6-1
+xfsprogs 4.18.0-1
+xfwm4-gtk3 4.13.1-3
+xorg-server 1.20.3-1
+xorg-twm 1.0.10-1
+xorg-xbacklight 1.2.2-1
+xorg-xev 1.2.2-2
+xorg-xinit 1.4.0-3
+xorg-xinput 1.6.2-2
+xorg-xkill 1.0.5-1
+xorg-xrdb 1.1.1-1
+xorg-xsetroot 1.1.2-1
+xorg-xwininfo 1.1.4-1
+yank 1.1.0-1
+yay 8.1173.0-2
+youtube-dl 2018.11.07-1
+zathura 0.4.1-1
+zathura-pdf-mupdf 0.3.4-1
+zsh 5.6.2-1

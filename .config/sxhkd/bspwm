@@ -14,27 +14,29 @@ super + {Print,Insert,Delete}
 {dead_acute,dead_circumflex}
     termop {NOTE,MAIN} 2500 1050
 
+mode_switch + {Return,BackSpace}
+    /home/bresilla/.config/bspwm/scripts/{select,slice}
+
+mode_switch + {Left,Right,space}
+    {echo "seek -10" > /home/bresilla/.config/mpv/control, exec echo "seek 10" > /home/bresilla/.config/mpv/control, echo "cycle pause" > /home/bresilla/.config/mpv/control}
+
 XF86Audio{Prev,Next,Play}
 	mpc -q {prev,next,toggle} & playerctl {previous,next,play-pause}
-
 XF86Audio{Raise,Lower}Volume
     pulsemixer --change-volume {+,-}5
 XF86AudioMute
     pulsemixer --toggle-mute
-
 XF86MonBrightness{Up,Down}
 	light -{A,U} 5
 
-F12
-    /home/bresilla/.config/bspwm/scripts/floatruner
-
-super + P
-    xdotool type $(cat $PASS)
-
-super + F{1-9,10}
-    bspc desktop -f 00{1-9,10}
-alt + F{1-9,10}
-    bspc node -d 00{1-9,10} --follow
+{_,super+alt} + F12
+    slop -r {boxzoom,crosshair} 
+F11
+    xcolor | xclip -sel clip 
+Insert
+    xdotool sleep 0.2 type $(cat $PASS) && xdotool key KP_Enter
+{_,super+alt} + Print
+    maim -s {_,| tee ~/Pictures/Screenshots/$(date +%s).png} | xclip -sel clip -t image/png -i 
 
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local
@@ -42,13 +44,22 @@ super + alt + {Down,Up}
     bspc monitor -f {prev,next}
 
 {super,alt} + {Left,Down,Up,Right}
-    /home/bresilla/.config/bspwm/scripts/{focusmover,swapormove} {west,south,north,east}
+    /home/bresilla/.config/bspwm/scripts/{focus,move} {west,south,north,east}
+
+{super+alt} + ctrl + {Left,Down,Up,Right}
+    /home/bresilla/.config/bspwm/scripts/resize {Left,Down,Up,Right}
+
+{super+alt} + shift + {Left,Right}
+    bspc node -d {prev,next} --follow 
+{super+alt} + shift + {Down,Up}
+    bspc node -m {prev,next} --follow 
 
 {super,alt,alt+super} + Return
     bspc node -t ~{fullscreen,floating,tiled}
 {super,alt,alt+super} + BackSpace
     bspc node -g {locked,private,sticky}
 
-mode_switch + {Left,Right,space}
-    {echo "seek -10" > /home/bresilla/.config/mpv/control, exec echo "seek 10" > /home/bresilla/.config/mpv/control, echo "cycle pause" > /home/bresilla/.config/mpv/control}
-
+@button{10,11}
+    bspc desktop -f {prev,next}
+@button3 + {alt,super}
+    /home/bresilla/.config/bspwm/scripts/{deskmenu,windmenu}

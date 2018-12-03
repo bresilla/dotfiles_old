@@ -2,23 +2,15 @@
 FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
 ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 
-another=$(echo "docs
-code
-home
-dots" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
+another=$(echo "data
+home" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
 
 
-if [ "$another" == "docs" ] ; then
+if [ "$another" == "home" ] ; then
 	find /home/bresilla | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
 
-elif [ "$another" == "code" ] ; then
-	find ~/Documents/CODE | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
-
-elif [ "$another" == "home" ] ; then
-	find /home/bresilla | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
-
-elif [ "$another" == "dots" ] ; then
-	find /home/bresilla/Dots -type d -iname ".*" | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
+elif [ "$another" == "data" ] ; then
+	find /run/media/bresilla/datasd | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
 
 else
     echo $another

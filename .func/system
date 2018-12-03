@@ -1,7 +1,9 @@
 #PACKET
+alias :q='exit'
 alias pack='yay'
-alias list="expac --timefmt='%F %T' '%l %n' | sort -n"
 alias sudo='sudo '
+alias cp='acp -gr'
+alias mv='acp -gr'
 
 man() {
     LESS_TERMCAP_mb=$'\e'"[1;31m" \
@@ -72,8 +74,11 @@ run(){
 opn(){
     nohup xdg-open $1 > /dev/null 2>&1 &! }
 
-notes(){
+vinote(){
 	nvim ~/Sets/.notes/index.wiki }
+
+note(){
+    nvim ~/.local/share/notes-cli/$(notes ls -o | column -t -s $'\t\t\t' | awk '{print $0}' | awk -F'\t' '{print $1 $2}' | fzf | awk '{print $1}') }
 
 phone(){
 	sshfs -p 1234 bresilla@$1:/storage/emulated/0 /home/bresilla/OnePlus }
@@ -83,4 +88,8 @@ pow(){
 
 rofit(){
     rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>'    
+}
+
+mf() {
+    for f in "$@"; do mkdir -p -- "$(dirname -- "$f")"; touch -- "$f"; done
 }
