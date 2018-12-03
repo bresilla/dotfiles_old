@@ -5,3 +5,7 @@ img2svg() {
 playdown(){
 	youtube-dl -f 22 --restrict-filenames -o '%(playlist_index)s_%(title)s.%(ext)s' --no-part --skip-unavailable-fragments --no-overwrites $1 --playlist-start ${1:-$2}
 }
+
+dotshot(){
+	scr=~/Pictures/$(date +%s).png && scrot -d ${1:-1} $scr && convert $scr -gravity North -chop 0x1080 $scr
+}

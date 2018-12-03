@@ -30,7 +30,7 @@ if [ "$another" == "$file" ] ; then
 	exec ~/.config/rofi/menu/locate
 
 elif [ "$another" == "$srch" ] ; then
-	surfraw -browser=firefox $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi "${ROFI_OPTIONS[@]}" -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'websearch: ')
+	surfraw -browser=firefox $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi "${ROFI_OPTIONS[@]}" -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'bangs: ')
 
 elif [ "$another" == "$tube" ] ; then
 	exec ~/.config/rofi/menu/uplay

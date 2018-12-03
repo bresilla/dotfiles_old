@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500)
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 
 # rofi-pass
 # (c) 2015 Rasmus Steinke <rasi@xssn.at>

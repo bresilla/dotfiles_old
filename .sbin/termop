@@ -10,7 +10,7 @@ window_heigh=$(expr $screen_1_heigh / 2)
 xoffset=$(expr $screen_1_width / 2 - ${2:-$window_width} / 2)
 [[ -z "$screen_2_heigh" ]] && screen_2_heigh=0
 yoffset=$(expr $screen_1_heigh / 2 - ${3:-$window_heigh} / 2 + $screen_2_heigh + 30)
-yoffset=$(expr $screen_1_heigh / 2 - ${3:-$window_heigh} / 2)
+#yoffset=$(expr $screen_1_heigh / 2 - ${3:-$window_heigh} / 2)
 
 tmass -l /home/bresilla/.config/tmux load $1
 exec tdrop -w ${2:-$window_width} -h ${3:-$window_heigh} -x ${4:-$xoffset} -y ${5:-$yoffset} -n $1 -f "-e tmux attach -t $1" kitty
