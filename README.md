@@ -57,3 +57,18 @@ my dotfiles :)
 
 ![demo-1](.assets/1543864461.png)
 
+
+![demo-1](.assets/1543865940.png)
+
+
+![demo-1](.assets/1543865974.png)
+
+
+![demo-1](.assets/1543866060.png)
+
+
+![demo-1](.assets/1543866221.png)
+
+
+![demo-1](.assets/1543866449.png)
+
