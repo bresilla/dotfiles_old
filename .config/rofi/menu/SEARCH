@@ -18,7 +18,6 @@ tube=youtube
 another=$(echo "$apps
 $srch
 $sodo
-$exce
 $file
 $clip
 $pass

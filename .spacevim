@@ -1,7 +1,8 @@
-set nocompatible
-filetype plugin on
-syntax on
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
 let mapleader = "\<Space>"
+set nocompatible
 set encoding=utf8
 set guifont=Monoisome\ 12
 set t_Co=256
@@ -10,6 +11,8 @@ set viminfo=""
 set noswapfile
 set autoread
 
+filetype plugin on
+syntax on
 filetype on
 filetype indent on
 filetype plugin on
@@ -51,6 +54,8 @@ set listchars+=precedes:← " Show arrow if line continues leftwards
 
 set scrolloff=5       " Leave 5 lines of buffer when scrolling
 set sidescrolloff=10 " Leave 10 characters of horizontal buffer when scrolling
+set cursorline
+set cursorcolumn
 
 function! UserInit()
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -70,20 +75,16 @@ function! UserInit()
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
   Plug 'easymotion/vim-easymotion'
-  Plug 'kien/ctrlp.vim'
+  Plug 'haya14busa/incsearch.vim'
   Plug 'raimondi/delimitmate'
   Plug 'sheerun/vim-polyglot'
   Plug 'francoiscabrol/ranger.vim'
   Plug 'rbgrouleff/bclose.vim'
 
   Plug 'othree/xml.vim'
-  Plug 'godlygeek/tabular'
-  Plug 'plasticboy/vim-markdown'
+  Plug 'junegunn/goyo.vim'
   Plug 'powerman/vim-plugin-viewdoc'
   Plug 'rhysd/vim-grammarous'
-  Plug 'vimwiki/vimwiki'
-  Plug 'vim-pandoc/vim-pandoc'
-  Plug 'vim-pandoc/vim-pandoc-syntax'
   Plug 'reedes/vim-pencil'
   Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
@@ -93,24 +94,13 @@ function! UserInit()
 endfunction
 
 let spacevim_plug_home = '~/.vim/plugged'
-let g:spacevim_layers = [
-      \ 'fzf', 'unite', 'better-defaults',
-      \ 'which-key', 'airline',
-      \ ]
+let g:spacevim_layers = ['fzf', 'unite', 'better-defaults', 'which-key', 'airline']
 if g:spacevim_gui
   Layer 'airline'
 endif
 
-
-augroup markdown
-  autocmd!
-  autocmd FileType markdown,tex,wiki AutoSaveToggle
-  autocmd FileType markdown,tex,wiki Pencil
-  autocmd FileType markdown,tex,wiki set spelllang=en_gb spell
-augroup END
-
 function! UserConfig()
-  colorscheme wal
+  "colorscheme wal
   hi CursorLine ctermfg=15 ctermbg=235 cterm=bold
   hi CursorColumn ctermfg=15 ctermbg=235 cterm=bold
   let g:airline_powerline_fonts=1
@@ -119,47 +109,45 @@ function! UserConfig()
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   endif
+  hi Normal ctermbg=0
+  hi LineNr ctermbg=0
 endfunction
 
-set cursorline
-autocmd InsertEnter * highlight CursorLine ctermfg=15 ctermbg=235 cterm=bold
-autocmd InsertLeave * highlight CursorLine ctermfg=15 ctermbg=235 cterm=bold
-set cursorcolumn
-autocmd InsertEnter * highlight CursorColumn ctermfg=15 ctermbg=235 cterm=bold
-autocmd InsertLeave * highlight CursorColumn ctermfg=15 ctermbg=235 cterm=bold
-
-set relativenumber number
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber nonumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber number
-augroup END
-
-map <C-n> :NERDTreeToggle<CR>
-map <C-f> :FZF<CR>
-noremap <C-End>   :bn<CR>
-noremap <C-Home>   :bp<CR>
-
-let g:vimwiki_list = [{'path': '~/Dots/.assets/.notes/', 'syntax': 'markdown', 'ext': '.wiki'}]
-
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set norelativenumber
+  set nonumber
+  :SoftPencil
+  hi Normal ctermbg=0 ctermfg=15
+  hi LineNr ctermbg=0
+endfunction
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showmode
+  set showcmd
+  set number
+  set relativenumber
+  :NoPencil
+  hi Normal ctermbg=0 ctermfg=15
+  hi LineNr ctermbg=0
+endfunction
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+let g:incsearch#auto_nohlsearch = 1
+let g:goyo_width = 90
 
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-let g:syntastic_cpp_check_header = 1
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+map <leader>g :Goyo<CR>
+map <leader>n :NERDTreeToggle<CR>
+map s  <Plug>(easymotion-overwin-w)
+map / <Plug>(incsearch-forward)
+map <C-f> :FZF<CR>
+noremap <C-End>   :bn<CR>
+noremap <C-Home>   :bp<CR>

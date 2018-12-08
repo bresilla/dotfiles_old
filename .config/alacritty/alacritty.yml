@@ -5,8 +5,8 @@ window:
     columns: 0
     lines: 0
   padding:
-    x: 50
-    y: 50
+    x: 20
+    y: 20
   decorations: full
 
 scrolling:
@@ -22,7 +22,7 @@ font:
     family: Monoisome
   italic:
     family: Monoisome
-  size: 14.0
+  size: 5.0
   offset:
     x: 0
     y: 0

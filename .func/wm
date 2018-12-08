@@ -1,0 +1,6 @@
+wmclass(){
+    xprop |awk '/WM_CLASS/{print $4}'}
+
+wmname(){
+    wmctrl -m | awk 'NR==1{print $2}'}
+

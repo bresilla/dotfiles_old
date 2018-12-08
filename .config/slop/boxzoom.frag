@@ -15,7 +15,7 @@ void main()
     vec2 boxOffset = vec2(-(width/2),-(heigh/2));
     vec2 boxSize = vec2(width,heigh);
     float magstrength = 4;
-    vec2 borderSize = vec2(1,1);
+    vec2 borderSize = vec2(6,6);
     vec4 borderColor = vec4(0,0,0,1);
     bool crosshair = false;
     //------------------------------

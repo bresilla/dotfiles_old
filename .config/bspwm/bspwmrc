@@ -13,6 +13,7 @@ bspc config focus_follows_pointer   true
 bspc config pointer_follows_focus   true
 bspc config pointer_follows_monitor true
 bspc config auto_alternate true
+bspc config pointer_action1 resize_corner
 
 
 #########################################################################################################################################
@@ -39,3 +40,4 @@ bspc rule -a matplotlib state=floating
 bspc rule -a URxvt state=floating
 bspc rule -a Soffice state=tiled
 bspc rule -a Zathura state=tiled
+bspc rule -a URxvt:launcher state=floating center sticky

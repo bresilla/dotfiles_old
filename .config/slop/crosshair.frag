@@ -12,7 +12,7 @@ void main()
 {
     // adjustable parameters
     float circleSize = sz;
-    float borderSize = 2;
+    float borderSize = 6;
     // The smaller this value is, the more intense the magnification!
     float magnifyNerf = 1.1;
     vec4 borderColor = vec4(0,0,0,1);

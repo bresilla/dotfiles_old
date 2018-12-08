@@ -1,15 +1,17 @@
-{alt,super} + space
+alt + space
 	bash ~/.config/rofi/menu/SEARCH
+super + space
+    urxvt -geometry 50x6 -name "launcher" -e zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
 super + alt + {Escape,Delete}
     bash ~/.config/rofi/menu/{SYSTEM,CONFIG}
 
 super + alt + space; {n,f,s,c}
     {nautilus,firefox,sakura,code}
-super + {Print,Insert,Delete}
-    {flameshot gui,kmag,wal -Re}
 
 {super,alt} + Escape
 	bspc node -{c,k}
+super + Delete
+    wal -Re
 
 {dead_acute,dead_circumflex}
     termop {NOTE,MAIN} 2500 1050
@@ -20,6 +22,8 @@ mode_switch + {Return,BackSpace}
 mode_switch + {Left,Right,space}
     {echo "seek -10" > /home/bresilla/.config/mpv/control, exec echo "seek 10" > /home/bresilla/.config/mpv/control, echo "cycle pause" > /home/bresilla/.config/mpv/control}
 
+supesuper   bspc config pointer_action1 {move, resize_corner}
+
 XF86Audio{Prev,Next,Play}
 	mpc -q {prev,next,toggle} & playerctl {previous,next,play-pause}
 XF86Audio{Raise,Lower}Volume
@@ -29,14 +33,18 @@ XF86AudioMute
 XF86MonBrightness{Up,Down}
 	light -{A,U} 5
 
-{_,super+alt} + F12
-    slop -r {boxzoom,crosshair} 
+F9 + {_,super+alt}
+    slop -r {boxzoom,crosshair}
+F10
+    xcolor | xclip -sel clip
 F11
-    xcolor | xclip -sel clip 
+    pkill -f /dev/video0 || mpv --geometry=-0-0 --autofit=20% /dev/video0
+F12 + {super+alt}
+    killall ffmpeg || recffm
+Print + {_,super+alt}
+    maim -s {_,| tee ~/Pictures/Screenshots/$(date +%s).png} | xclip -sel clip -t image/png -i
 Insert
     xdotool sleep 0.2 type $(cat $PASS) && xdotool key KP_Enter
-{_,super+alt} + Print
-    maim -s {_,| tee ~/Pictures/Screenshots/$(date +%s).png} | xclip -sel clip -t image/png -i 
 
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local
@@ -50,9 +58,9 @@ super + alt + {Down,Up}
     /home/bresilla/.config/bspwm/scripts/resize {Left,Down,Up,Right}
 
 {super+alt} + shift + {Left,Right}
-    bspc node -d {prev,next} --follow 
+    bspc node -d {prev,next} --follow
 {super+alt} + shift + {Down,Up}
-    bspc node -m {prev,next} --follow 
+    bspc node -m {prev,next} --follow
 
 {super,alt,alt+super} + Return
     bspc node -t ~{fullscreen,floating,tiled}

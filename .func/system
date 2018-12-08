@@ -90,6 +90,6 @@ rofit(){
     rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>'    
 }
 
-mf() {
-    for f in "$@"; do mkdir -p -- "$(dirname -- "$f")"; touch -- "$f"; done
+file() {
+    for f in "$@"; do mkdir -p -- "$(dirname -- "$f")"; nvim -- "$f"; done
 }
