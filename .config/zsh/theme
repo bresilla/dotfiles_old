@@ -29,7 +29,7 @@ function __sudo_warning {
   [[ $(trap "" XFSZ; limit filesize 0; LC_ALL=C sudo -n true 2>&1) != *"password is required" ]] && printf ' SUDO'}
 
 function __vi_mode_select {
-    printf "${${KEYMAP/vicmd/vicmd}/(main|viins)/viins}" }
+    printf "${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}" }
 
 function __load_average {
   eval loadav01=$(uptime | awk ' {print substr($0,length($0)-15)}' | awk '{print $1}' | sed 's/,//g')

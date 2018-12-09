@@ -22,8 +22,6 @@ mode_switch + {Return,BackSpace}
 mode_switch + {Left,Right,space}
     {echo "seek -10" > /home/bresilla/.config/mpv/control, exec echo "seek 10" > /home/bresilla/.config/mpv/control, echo "cycle pause" > /home/bresilla/.config/mpv/control}
 
-supesuper   bspc config pointer_action1 {move, resize_corner}
-
 XF86Audio{Prev,Next,Play}
 	mpc -q {prev,next,toggle} & playerctl {previous,next,play-pause}
 XF86Audio{Raise,Lower}Volume
@@ -46,6 +44,8 @@ Print + {_,super+alt}
 Insert
     xdotool sleep 0.2 type $(cat $PASS) && xdotool key KP_Enter
 
+F7
+    bspc desktop -f last
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local
 super + alt + {Down,Up}

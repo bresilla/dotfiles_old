@@ -9,3 +9,5 @@ playdown(){
 dotshot(){
 	scr=~/Pictures/$(date +%s).png && scrot -d ${1:-1} $scr && convert $scr -gravity North -chop 0x1080 $scr
 }
+
+alias asci=asciinema

@@ -29,7 +29,7 @@ alias ls='exa --color-scale'
 alias ll='exa -liHS --color-scale'
 alias lt='exa -liHST --color-scale'
 alias la='exa -laiHS --color-scale'
-alias rm='rm -ir'
+alias rm='rm -r'
 alias df='df -h'
 
 alias du='du -sh'
@@ -90,6 +90,6 @@ rofit(){
     rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>'    
 }
 
-file() {
+fileit() {
     for f in "$@"; do mkdir -p -- "$(dirname -- "$f")"; nvim -- "$f"; done
 }
