@@ -1,13 +1,11 @@
 alt + space
 	bash ~/.config/rofi/menu/SEARCH
-super + space
+super + alt + space
     urxvt -geometry 50x6 -name "launcher" -e zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
 super + alt + {Escape,Delete}
     bash ~/.config/rofi/menu/{SYSTEM,CONFIG}
-
-super + alt + space; {n,f,s,c}
+F7; {n,f,s,c}
     {nautilus,firefox,sakura,code}
-
 {super,alt} + Escape
 	bspc node -{c,k}
 super + Delete
@@ -35,16 +33,14 @@ F9 + {_,super+alt}
     slop -r {boxzoom,crosshair}
 F10
     xcolor | xclip -sel clip
-F11
-    pkill -f /dev/video0 || mpv --geometry=-0-0 --autofit=20% /dev/video0
-F12 + {super+alt}
-    killall ffmpeg || recffm
+{F11, F12} + super+alt
+    {recffm -w, killall ffmpeg || recffm -g}
 Print + {_,super+alt}
     maim -s {_,| tee ~/Pictures/Screenshots/$(date +%s).png} | xclip -sel clip -t image/png -i
 Insert
     xdotool sleep 0.2 type $(cat $PASS) && xdotool key KP_Enter
 
-F7
+super + space
     bspc desktop -f last
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local
@@ -67,6 +63,8 @@ super + alt + {Down,Up}
 {super,alt,alt+super} + BackSpace
     bspc node -g {locked,private,sticky}
 
+super + {m,r}
+    bspc config pointer_action1 {move, resize_corner}
 @button{10,11}
     bspc desktop -f {prev,next}
 @button3 + {alt,super}

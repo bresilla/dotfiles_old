@@ -18,6 +18,10 @@ if [ -d "$HOME/.local/sbin" ] ; then
     PATH="$HOME/.local/sbin:$PATH"
 fi
 
+if [ -d "$HOME/.go/bin" ] ; then
+    PATH="$HOME/.go/bin:$PATH"
+fi
+
 export EDITOR=nvim
 export WINEPREFIX=~/.wine
 

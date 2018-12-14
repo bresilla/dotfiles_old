@@ -78,7 +78,8 @@ vinote(){
 	nvim ~/Sets/.notes/index.wiki }
 
 note(){
-    nvim ~/.local/share/notes-cli/$(notes ls -o | column -t -s $'\t\t\t' | awk '{print $0}' | awk -F'\t' '{print $1 $2}' | fzf | awk '{print $1}') }
+    nvim $(notes list | fzp)
+}
 
 phone(){
 	sshfs -p 1234 bresilla@$1:/storage/emulated/0 /home/bresilla/OnePlus }

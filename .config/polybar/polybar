@@ -65,9 +65,9 @@
     font-4 = MaterialIcons:size=16;5
 	tray-position = right
 	tray-padding = 4
-	modules-left = wlan filesystem
+	modules-left = cast wlan
     modules-center = mpd
-	modules-right = down up battery volume light date
+	modules-right = filesystem battery volume light date
 
 
 [bar/workspaces]
@@ -227,8 +227,7 @@
 	interface = wlp2s0
 	interval = 3.0
 	format-connected = <label-connected>
-	format-connected-prefix = " "
-	label-connected = %local_ip%
+	label-connected =  %essid%     %signal%     %upspeed%     %downspeed%
 	label-disconnected = "%{A1:connman-gtk &:}%{A}"
 	label-disconnected-foreground = #5b
 	ramp-signal-0 = 
@@ -238,7 +237,6 @@
 	ramp-signal-4 = 
 	ramp-signal-foreground = ${colors.foreground}
 	format-connected-foreground = ${colors.foreground}
-	click-left = bash -/home/bresilla/.i3/rofii/menu/wifi
 
 
 [module/date]
@@ -324,35 +322,8 @@
     animation-discharging-4 = 
     animation-discharging-framerate = 1000
 	animation-discharging-foreground = ${colors.foreground}
+	click-left = bash ~/.startup -r
 
-
-[module/spotify]
-	type = custom/script
-	exec = /home/bresilla/.config/polybar/scripts/spotify
-	interval = 1
-
-[module/bandwidth]
-	type = custom/script
-	interval = 5
-	exec = /home/bresilla/.config/polybar/scripts/netwidth
-    label = "%output%"
-	format-foreground = ${colors.foreground}
-
-[module/down]
-	type = custom/script
-	interval = 1
-	exec = /home/bresilla/.bin/bandwidth -c 1 | awk '{print $2 $3}' 
-	;exec = /home/bresilla/.config/polybar/scripts/netwidth | awk '{print $2;}' 
-    label = " %output%"
-	format-foreground = ${colors.foreground}
-
-[module/up]
-	type = custom/script
-	interval = 1
-	;exec = /home/bresilla/.config/polybar/scripts/netwidth | awk '{print $4;}'
-	exec = /home/bresilla/.bin/bandwidth -c 1 | awk '{print $5 $6}'
-    label = " %output%"
-	format-foreground = ${colors.foreground}
 
 [module/jgmenu]
     type = custom/text
@@ -363,13 +334,21 @@
 [module/filesystem]
     type = internal/fs
     mount-0 = /
-    ;mount-1 = /run/media/bresilla/datasd
     interval = 10
     fixed-values = true
     spacing = 4
     format-mounted = <label-mounted>
     format-unmounted = <label-unmounted>
-    label-mounted = %mountpoint%: %used% of %total%
+    label-mounted =   %percentage_used%%
     label-mounted-foreground = ${colors.foreground}
     label-unmounted = %mountpoint%: not mounted
     label-unmounted-foreground = ${colors.foreground}
+
+
+[module/cast]
+	type = custom/script
+	interval = 1
+	exec = cat /home/bresilla/.config/bspwm/pipes/rec
+	label = "%output%"
+	click-left = killall ffmpeg
+	format-foreground = ${colors.foreground}

@@ -68,6 +68,9 @@ runonce() {
   #CLIPBOARD
   greenclip daemon &
 
+  #SSH-AGENT
+  eval "$(ssh-agent)"
+
   echo "Script loaded"
 }
 
