@@ -61,6 +61,17 @@ alias docker=supdock
 alias fzp='fzf --preview="head -$LINES {}"'
 alias ari=aria2c
 
+
+##HISTORY
+history(){
+    tac /home/bresilla/.config/zsh_history | fzy
+}
+delete(){
+    name=$(tac /home/bresilla/.config/zsh_history | fzy)
+    [[ -n $name ]] && LC_ALL=C sed -i "/$name/d" $HISTFILE
+}
+
+
 #OTHER
 run(){
     nohup $1 > /dev/null 2>&1 &! }
