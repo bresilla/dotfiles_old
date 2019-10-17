@@ -1,6 +1,6 @@
 #!/bin/bash
 FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}")
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 
 apps=runapps
 sodo=sudorun
@@ -11,34 +11,23 @@ srch=search
 locl=local
 pass=password
 note=notes
-task=taskwarrior
+task=tasks
 mark=bookmarks
 tube=youtube
 
 another=$(echo "$apps
-$srch
 $sodo
 $file
 $clip
 $pass
 $note
-$task
-$mark" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
+$task" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
 
 if [ "$another" == "$file" ] ; then
 	exec ~/.config/rofi/menu/locate
 
-elif [ "$another" == "$srch" ] ; then
-	surfraw -browser=firefox $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi "${ROFI_OPTIONS[@]}" -kb-row-select 'Tab' -kb-row-tab 'Control+space' -dmenu -i -p 'bangs: ')
-
-elif [ "$another" == "$tube" ] ; then
-	exec ~/.config/rofi/menu/uplay
-
 elif [ "$another" == "$exce" ] ; then
 	exec urxvt -hold -e sh -c $(rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -fuzzy  -lines 0 -show run -theme-str "*{accent: $FOREGROUND;}")
-
-elif [ "$another" == "$mark" ] ; then
-  exec ~/.config/rofi/menu/buku
 
 elif [ "$another" == "$task" ] ; then
   exec ~/.config/rofi/menu/task
@@ -50,7 +39,7 @@ elif [ "$another" == "$locl" ] ; then
 	exec ~/.config/rofi/menu/marks $HOME/Sets/.notes/localhost.wiki
 
 elif [ "$another" == "$apps" ] ; then
-	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -show-icons
+	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun #-show-icons
 
 elif [ "$another" == "$pass" ] ; then
   exec ~/.config/rofi/menu/pass

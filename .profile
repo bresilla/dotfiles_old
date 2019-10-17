@@ -22,6 +22,17 @@ if [ -d "$HOME/.go/bin" ] ; then
     PATH="$HOME/.go/bin:$PATH"
 fi
 
+if [ -d "$HOME/.cargo/bin" ] ; then
+    PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+if [ -d "$HOME/.nimble/bin" ] ; then
+    PATH="$HOME/.nimble/bin:$PATH"
+fi
+
+TZ='Europe/Berlin'
+
+export BROWSER=qutebrowser
 export EDITOR=nvim
 export WINEPREFIX=~/.wine
 
@@ -32,7 +43,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/
 export DOT=/home/bresilla/Dots/
 export SET=/home/bresilla/Sets/
 export WALL=/usr/share/backgrounds
-export PASS=/home/bresilla/Sets/pass
 
 export FOREGROUND=$(xrdb -query | grep 'foreground:'| awk 'NR==1{print $NF}')
 export BACKGROUND=$(xrdb -query | grep 'background:'| awk 'NR==1{print $NF}')
@@ -44,5 +54,3 @@ export BLUE=$(xrdb -query | grep 'color4:'| awk 'NR==1{print $NF}')
 export MAGENTA=$(xrdb -query | grep 'color5:'| awk 'NR==1{print $NF}')
 export CYAN=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
 export WHITE=$(xrdb -query | grep 'color7:'| awk 'NR==1{print $NF}')
-
-#export BAT_THEME="TwoDark"

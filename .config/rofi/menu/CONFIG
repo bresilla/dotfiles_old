@@ -1,7 +1,7 @@
 #!/bin/bash
 FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -font "Monoisome 16" -m 0 -fullscreen 0 -theme-str "*{accent: $FOREGROUND;}")
-edit_with=alacritty
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -theme-str "*{accent: ${FOREGROUND:-#000000};}")
+edit_with=kitty
 
 another=$(echo "CONFIGS
 SCRIPTS
@@ -32,14 +32,15 @@ if [ "$another" == "PROFILE" ] ; then
 $HOME/Dots/.bashrc
 $HOME/Dots/.profile
 $HOME/Dots/.startup
-$HOME/Dots/.tmux.conf
-$HOME/Dots/.spacevim
-$HOME/Dots/.xinitrc" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "shell: ")
+$HOME/Dots/.tmux.conf" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "shell: ")
 [[ -z $selected ]] && exit
 	$edit_with -e nvim $selected
 
 elif [ "$another" == "CONFIGS" ] ; then
 	browse /home/bresilla/Dots/.config;
+
+elif [ "$another" == "SYSTEMS" ] ; then
+	bash /home/bresilla/Dots/.config/rofi/menu/system;
 
 elif [ "$another" == "SCRIPTS" ] ; then
 	browse /home/bresilla/Dots/.sbin;

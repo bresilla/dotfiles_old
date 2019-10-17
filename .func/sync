@@ -1,6 +1,0 @@
-passync(){
-    cp -r .password-store /home/bresilla/Sets
-    echo "PASS COPIED"
-    cp -r .gnupg /home/bresilla/Sets
-    echo "KEYS COPIED"
-}

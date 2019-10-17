@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 
 #--------------------------------------------------------------------------------------------------------------------
+###WAL COLORS
+(cat ~/.cache/wal/sequences &)
+source ~/.cache/wal/colors.sh
+#--------------------------------------------------------------------------------------------------------------------
 ###SCRIPTS PATH
 export FPATH=~/.config/zsh:$FPATH
 ###FUNCTIONS
@@ -71,11 +75,19 @@ fzf_killps() {
 bindkey -M vicmd '^X' fzf_killps
 
 fzf-find() {
-	zle -I; nvim "$(find $PWD -name "*" | tux -e)"}
+	zle -I; nvim "$(find $PWD -name "*" -type f | tux -e)"}
 	zle -N   fzf-find
 #bindkey '^F' fzf-file
 bindkey -M vicmd '^F' fzf-find
 bindkey -M viins '^F' fzf-find
+
+#--------------------------------------------------------------------------------------------------------------------
+###SNIPPET MANAGER
+function snip() {
+  PREV=$(fc -lrn | head -n 1)
+  sh -c "pet new `printf %q "$PREV"`"
+}
+
 
 #--------------------------------------------------------------------------------------------------------------------
 ###VI MODE
@@ -131,9 +143,18 @@ sudo-command-line() {
     fi
 }
 zle -N sudo-command-line
-bindkey -M vicmd '^S' sudo-command-line
-bindkey -M viins '^S' sudo-command-line
+bindkey -s '\es' sudo-command-line
 
+#--------------------------------------------------------------------------------------------------------------------
+#minibrowser
+shkoc () {
+    if [ ${#${(z)BUFFER}} -eq 0 ]; then
+        s
+    fi
+    zle accept-line
+}
+zle -N shkoc
+#bindkey '^M' shkoc
 
 #--------------------------------------------------------------------------------------------------------------------
 ###MODULES
@@ -151,10 +172,10 @@ zle -N deer
 bindkey '\eu' deer
 
 
+[ -d ~/.config/zsh/insult ] && source ~/.config/zsh/insult
 [ -f ~/.config/zsh/theme ] && source ~/.config/zsh/theme
 #TMOUT=1
 TRAPALRM() zle reset-prompt
-(cat ~/.cache/wal/sequences &)
 (( $+commands[thefuck] )) && eval $(thefuck --alias)
 [ -f ~/.config/zsh/async ] && autoload -U async
 [ -d ~/.config/zsh/cmdtime ] && source ~/.config/zsh/cmdtime/zsh-command-time.zsh

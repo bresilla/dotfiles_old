@@ -1,148 +1,150 @@
 #!/usr/bin/env zsh
 
-function __promptline_wrapper {
-  [[ -n "$1" ]] || return 1
-  printf "%s" "${2}${1}${3}" }
+last_exit_code="${PROMPTLINE_LAST_EXIT_CODE:-$?}"
+esc=$'['
+end_esc=m
+local noprint='%{'
+local end_noprint='%}'
+local IN="$noprint$esc"
+local EN="$end_esc$end_noprint"
+local space=" "
+local arrFL=""
+local arrFR=""
+local arrEL=""
+local arrER=""
+local defaultFG="${IN}0${EN}"
+local defaultBG="${IN}49${EN}"
+local foreground="${IN}38;5;15${EN}"
+local background="${IN}48;5;0${EN}"
+local blackTX="${IN}38;5;0${EN}"
+local accentBG="${IN}48;5;1${EN}"
+local accentTX="${IN}38;5;1${EN}"
+local primeTX="${IN}38;5;1${EN}"
+local secondTX="${IN}38;5;2${EN}"
+local greyBG="${IN}48;5;8${EN}"
+local greyTX="${IN}38;5;8${EN}"
+local darkTX="${IN}38;5;59${EN}"
+local redTX="${IN}38;5;124${EN}"
+local redBG="${IN}48;5;124${EN}"
+local blueTX="${IN}38;5;27${EN}"
+local blueBG="${IN}48;5;27${EN}"
+local greenTX="${IN}38;5;40${EN}"
+local greenBG="${IN}48;5;40${EN}"
+local NLD="\e[0m"
+local BLD="\e[32;1m"
+
 
 function preexec() {
-  timer=${timer:-$SECONDS}
+    timer=${timer:-$SECONDS}
 }
 
 function precmd() {
-  if [ $timer ]; then
-    export timer_show=$(($SECONDS - $timer))
-    unset timer
-  fi
+    if [ $timer ]; then
+        export timer_show=$(($SECONDS - $timer))
+        unset timer
+    fi
 }
 
 function __promptline_host {
-  local only_if_ssh="0"
-  if [ $only_if_ssh -eq 0 -o -n "${SSH_CLIENT}" ]; then
-    if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
-  fi }
+    local only_if_ssh="0"
+    if [ $only_if_ssh -eq 0 -o -n "${SSH_CLIENT}" ]; then
+        if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
+    fi
+}
 
 function __promptline_last_exit_code {
-  [[ $last_exit_code -gt 0 ]] || return 1;
-  printf "%s" "$last_exit_code" }
+    [[ $last_exit_code -gt 0 ]] || return 1;
+    printf "%s" "$last_exit_code" 
+}
 
 function __sudo_warning {
-  [[ $(trap "" XFSZ; limit filesize 0; LC_ALL=C sudo -n true 2>&1) != *"password is required" ]] && printf ' SUDO'}
+    [[ $(trap "" XFSZ; limit filesize 0; LC_ALL=C sudo -n true 2>&1) != *"password is required" ]] && printf 'SUDO'
+}
 
 function __vi_mode_select {
-    printf "${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}" }
+    printf "${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}" 
+}
 
 function __load_average {
-  eval loadav01=$(uptime | awk ' {print substr($0,length($0)-15)}' | awk '{print $1}' | sed 's/,//g')
-  printf "$loadav01" }
+    eval loadav01=$(uptime | awk ' {print substr($0,length($0)-15)}' | awk '{print $1}' | sed 's/,//g')
+    printf "$loadav01" 
+}
 
 function __promptline_vcs_branch {
-  local branch
-  local branch_symbol=" "
-  if hash git 2>/dev/null; then
-    if branch=$( { git symbolic-ref --quiet HEAD || git rev-parse --short HEAD; } 2>/dev/null ); then
-      branch=${branch##*/}
-      printf "%s" "${branch_symbol}${branch:-unknown}"
-      return
+    local branch
+    local branch_symbol=" "
+    if hash git 2>/dev/null; then
+        if branch=$( { git symbolic-ref --quiet HEAD || git rev-parse --short HEAD; } 2>/dev/null ); then
+        branch=${branch##*/}
+        printf "%s" "${branch_symbol}${branch:-unknown}"
+        return
+        fi
     fi
-  fi
-  return 1 }
+    return 1 
+}
+
+function __is_in_docker {
+    [[ -n $(awk -F/ '$2 == "docker"' /proc/self/cgroup) ]] && printf '■'
+}
 
 function __promptline_cwd {
-  local dir_limit="1"
-  local truncation="⋯"
-  local first_char
-  local part_count=0
-  local formatted_cwd=""
-  local dir_sep="  "
-  local tilde="~"
-  local cwd="${PWD/#$HOME/$tilde}"
-  [[ -n ${ZSH_VERSION-} ]] && first_char=$cwd[1,1] || first_char=${cwd::1}
-  cwd="${cwd#\~}"
-  while [[ "$cwd" == */* && "$cwd" != "/" ]]; do
-    local part="${cwd##*/}"
-    cwd="${cwd%/*}"
-    formatted_cwd="$dir_sep$part$formatted_cwd"
-    part_count=$((part_count+1))
-    [[ $part_count -eq $dir_limit ]] && first_char="$truncation" && break
-  done
-  printf "%s" "$first_char$formatted_cwd" }
+    local dir_limit="1"
+    local truncation="⋯"
+    local first_char
+    local part_count=0
+    local formatted_cwd=""
+    local dir_sep="  "
+    local tilde="~"
+    local cwd="${PWD/#$HOME/$tilde}"
+    [[ -n ${ZSH_VERSION-} ]] && first_char=$cwd[1,1] || first_char=${cwd::1}
+    cwd="${cwd#\~}"
+    while [[ "$cwd" == */* && "$cwd" != "/" ]]; do
+        local part="${cwd##*/}"
+        cwd="${cwd%/*}"
+        formatted_cwd="$dir_sep$part$formatted_cwd"
+        part_count=$((part_count+1))
+        [[ $part_count -eq $dir_limit ]] && first_char="$truncation" && break
+    done
+    printf "%s" "$first_char$formatted_cwd" 
+}
 
-
-
+function __get_username {
+    id -u -n
+}
 
 function __promptline_left_prompt {
-  local slice_prefix slice_empty_prefix slice_joiner slice_suffix is_prompt_empty=1
-#HOST
-  slice_prefix="${accentBG}${arrFL}${foreground}${accentBG}${space}%B" slice_suffix="$space${accentTX}" slice_joiner="${foreground}${accentBG}${arrEL}${space}" slice_empty_prefix="${foreground}${accentBG}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  __promptline_wrapper '$(__promptline_host)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-#USER
-  slice_prefix="${greyBG}${arrFL}${blackTX}${greyBG}${space}" slice_suffix="${greyTX}" slice_joiner="${blackTX}${greyBG}${arrEL}${space}" slice_empty_prefix="${blackTX}${greyBG}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  __promptline_wrapper ' $USER' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-#SUDO WARN
-  slice_prefix="${greyBG}${arrFL}${redTX}${greyBG}" slice_suffix="$space${greyTX}" slice_joiner="${blackTX}${greyBG}${arrEL}${space}" slice_empty_prefix="${blackTX}${greyBG}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  __promptline_wrapper '$(__sudo_warning)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-#PATH
-  slice_prefix="${defaultBG}${arrFL}${darkTX}${space}" slice_suffix="$space${blackTX}" slice_joiner="${darkTX}${arrEL}${space}" slice_empty_prefix="${darkTX}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  __promptline_wrapper '$(__promptline_cwd)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-  printf "%s" "$defaultFG${darkTX} $defaultFG" }
-
-
-
+    #HOST
+    slice_prefix="${accentBG}${space}" slice_suffix="${space}${background}${accentTX}${arrFL}${blackTX}${accentBG}"; printf "%s" "$slice_prefix" '$(__promptline_host)' "$slice_suffix"
+    #USER
+    slice_prefix="${greyBG}${arrFL}${blackTX}${greyBG}${space}" slice_suffix="${space}${greyTX}"; printf "%s" "$slice_prefix" '$(__get_username)' "$slice_suffix"
+    #SUDO WARN
+    slice_prefix="${redBG}${arrFL}${foreground}${redBG}${space}" slice_suffix="${space}${redTX}"; [[ -n $(__sudo_warning) ]] && printf "%s" "$slice_prefix" '$(__sudo_warning)' "$slice_suffix"
+    #DOCKER
+    slice_prefix="${accentBG}${arrFL}${foreground}${accentBG}${space}" slice_suffix="${space}${accentTX}"; [[ -n $(__is_in_docker) ]] && printf "%s" "$slice_prefix" '$(__is_in_docker)' "$slice_suffix"
+    #PATH
+    slice_prefix="${defaultBG}${arrFL}${darkTX}${space}" slice_suffix="$space${blackTX}"; [[ -n $(__promptline_cwd) ]] && printf "%s" "$slice_prefix" '$(__promptline_cwd)' "$slice_suffix"
+    ### END
+    printf "%s" "$defaultFG${darkTX} $defaultFG"
+}
 
 function __promptline_right_prompt {
-  local slice_prefix slice_empty_prefix slice_joiner slice_suffix
-  printf "%s" "$defaultFG${darkTX} $defaultFG"
-#GIT
-  slice_prefix="${darkTX}" slice_suffix="$space${darkTX}${arrER}" slice_joiner="${darkTX}${arrER}${space}" slice_empty_prefix=""
-  __promptline_wrapper "$(__promptline_vcs_branch)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
-#WARN
-  slice_prefix="${space}${redTX}" slice_suffix="$space${darkTX}${arrER}" slice_joiner="${darkTX}${arrER}${space}" slice_empty_prefix=""
-  __promptline_wrapper "$(__promptline_last_exit_code)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
-#CMD TIME
-  slice_prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" slice_suffix="$space${blackTX}${arrER}" slice_joiner="${blackTX}${greyBG}${arrER}${space}" slice_empty_prefix=""
-  __promptline_wrapper "$timer_show" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
-#LOAD AVERAGE
-  slice_prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" slice_suffix="$space${greyTX}" slice_joiner="${blackTX}${greyBG}${arrER}${space}" slice_empty_prefix=""
-  __promptline_wrapper '$(__load_average)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
-#VIM MODE
-  slice_prefix="${accentTX}${arrFR}${foreground}${accentBG}${space}" slice_suffix="$space${accentTX}" slice_joiner="${foreground}${accentBG}${arrER}${space}" slice_empty_prefix=""
-  __promptline_wrapper '$(__vi_mode_select)' "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; } }
-
-
-
+    ### START
+    printf "%s" "$defaultFG${darkTX} $defaultFG"
+    #GIT
+    slice_prefix="${darkTX}" slice_suffix="${space}${darkTX}${arrER}"; [[ -n $(__promptline_vcs_branch) ]] && printf "%s" "$slice_prefix" '$(__promptline_vcs_branch)' "$slice_suffix"
+    #WARN
+    slice_prefix="${space}${redTX}" slice_suffix="${space}${darkTX}${arrER}"; [[ -n $(__promptline_last_exit_code) ]] && printf "%s" "$slice_prefix" '$(__promptline_last_exit_code)' "$slice_suffix"
+    #CMD TIME
+    slice_prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" slice_suffix="${space}${blackTX}${arrER}"; [[ -n $timer_show ]] && printf "%s" "$slice_prefix" "$timer_show" "$slice_suffix"
+    #LOAD AVERAGE
+    slice_prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" slice_suffix="${space}${greyTX}"; printf "%s" "$slice_prefix" '$(__load_average)' "$slice_suffix"
+    #VIM MODE
+    slice_prefix="${accentTX}${arrFR}${foreground}${accentBG}${space}" slice_suffix="${space}${accentTX}"; printf "%s" "$slice_prefix" '$(__vi_mode_select)' "$slice_suffix"
+}
 
 function __promptline {
-  last_exit_code="${PROMPTLINE_LAST_EXIT_CODE:-$?}"
-  esc=$'[' end_esc=m
-  local noprint='%{' end_noprint='%}'
-	local IN="$noprint$esc" 
-  local EN="$end_esc$end_noprint"
-	local space=" "
-	local arrFL=""
-	local arrFR=""
-	local arrEL=""
-	local arrER=""
-	local defaultFG="${IN}0${EN}"
-	local defaultBG="${IN}49${EN}"
-	local foreground="${IN}38;5;15${EN}"
-  local background="${IN}48;5;0${EN}"
-  local blackTX="${IN}38;5;0${EN}"
-  local accentBG="${IN}48;5;1${EN}"
-  local accentTX="${IN}38;5;1${EN}"
-  local primeTX="${IN}38;5;1${EN}"
-  local secondTX="${IN}38;5;2${EN}"
-	local greyBG="${IN}48;5;8${EN}"
-	local greyTX="${IN}38;5;8${EN}"
-  local darkTX="${IN}38;5;59${EN}"
-  local redTX="${IN}38;5;124${EN}"
-  local redBG="${IN}48;5124${EN}"
-  local NLD="\e[0m"
-  local BLD="\e[32;1m"
   PROMPT="$(__promptline_left_prompt)$defaultFG"
-  RPROMPT="$(__promptline_right_prompt)$defaultFG" }
+  RPROMPT="$(__promptline_right_prompt)$defaultFG"
+}
 
 precmd_functions+=(__promptline)

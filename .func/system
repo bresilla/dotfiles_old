@@ -1,9 +1,17 @@
 #PACKET
+alias copy='xclip -sel clip'
 alias :q='exit'
 alias pack='yay'
-alias sudo='sudo '
+alias sudo='sudo -E '
 alias cp='acp -gr'
 alias mv='acp -gr'
+alias s='shko -c --short 19 && cd "$(cat ~/.config/shko/settings/chdir)"'
+mirror(){sudo pacman-mirrors --fasttrack 5 && sudo pacman -Syyu}
+branch(){sudo pacman-mirrors --api --set-branch $@ && mirror}
+
+alias suspend='up suspend'
+alias refresh='pkill -USR1 -x sxhkd && bash ~/.startup -r'
+alias configs='vim $(find /home/bresilla/Dots/ -type f | fzf)'
 
 man() {
     LESS_TERMCAP_mb=$'\e'"[1;31m" \
@@ -15,30 +23,22 @@ man() {
     LESS_TERMCAP_us=$'\e'"[1;32m" \
     command man "$@" }
 
-#LOGING
-alias syslog2='grc cat /var/log/syslog | less -R'
-alias syslog='ccze -A < /var/log/syslog | less -R'
-alias kerlog2='grc cat /var/log/kern.log | less -R'
-alias kerlog='ccze -A < /var/log/kern.log | less -R'
-
 setx(){
-	eval "$(echo "sudo systemctl set-default graphical.target\nsudo systemctl set-default multi-user.target" | fzf)" }
+    eval "$(echo "sudo systemctl set-default graphical.target\nsudo systemctl set-default multi-user.target" | fzf)" }
 
 #SYSTEM
-alias ls='exa --color-scale'
-alias ll='exa -liHS --color-scale'
-alias lt='exa -liHST --color-scale'
-alias la='exa -laiHS --color-scale'
+alias ls='lsd -F'
+alias ll='lsd -lF'
+alias la='lsd -laF'
 alias rm='rm -r'
 alias df='df -h'
 
-alias du='du -sh'
 alias z='ncdu --color=dark'
 alias mutt='neomutt'
 alias vim='nvim'
 alias v='nvim'
-alias s='sudo -E nvim'
 alias e='emacs -nw'
+alias mac='emacs -nw'
 alias c='bat'
 alias less='slit'
 alias l='slit'
@@ -48,49 +48,45 @@ alias g='rg -i'
 up() {
     cat $PASS | sudo -S systemctl $@ }
 
+blue(){
+        cat $PASS | sudo -S sudo hciconfig hci0 up}
+
 ##FILES
 alias own='suda chown -R $USER'
 alias exe='chmod +x'
 alias dxe='chmod -x'
 
-#DIRECTORY
-alias ..='cd ..'
-alias .='cd $(ls | fzy)'
-alias .a='cd $(ls -a | fzy)'
-
 ##PROGRAMS
 alias docker=supdock
 alias fzp='fzf --preview="head -$LINES {}"'
-alias wisdom='fortune | cowsay -f tux | lolcat'
 alias ari=aria2c
 
 #OTHER
-valid(){
-	if $1; then echo true; else echo false; fi }
-
 run(){
     nohup $1 > /dev/null 2>&1 &! }
 
-opn(){
-    nohup xdg-open $1 > /dev/null 2>&1 &! }
-
-vinote(){
-	nvim ~/Sets/.notes/index.wiki }
+open(){
+    nohup mimeo $1 > /dev/null 2>&1 &! }
 
 note(){
     nvim $(notes list | fzp)
 }
 
 phone(){
-	sshfs -p 1234 bresilla@$1:/storage/emulated/0 /home/bresilla/OnePlus }
-
-pow(){
-    echo $(($(($(cat /sys/class/power_supply/BAT0/current_now) * $(cat /sys/class/power_supply/BAT0/voltage_now)))/1000000000000)) }
+    sshfs -p 1234 bresilla@$1:/storage/emulated/0 /home/bresilla/OnePlus }
 
 rofit(){
-    rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>'    
+    rofi -theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>'
 }
 
-fileit() {
-    for f in "$@"; do mkdir -p -- "$(dirname -- "$f")"; nvim -- "$f"; done
+batt(){
+    upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full|percentage|time"
+}
+
+search(){
+    rg $@
+}
+
+replace(){
+    rg -l $1 | xargs sed -i "s/$1/$2/g" *
 }

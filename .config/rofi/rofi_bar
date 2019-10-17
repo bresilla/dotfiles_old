@@ -8,19 +8,17 @@
 
 * {
 	accent: #FFFFFF;
-	bckgrd: #121212;
-	select: #161A1B;
-
-
+	bckgrd: rgba(0, 0, 0, 1);
+	select: @accent;
 
 	foreground:         @accent;
 	foreground-alt:    	#ebebeb;
 	background:			@bckgrd;
-	background-alt: 	@select;
+	background-alt: 	rgba(255, 255, 255, 0.08);
 	transparent:		rgba(0, 0, 0, 0);
 	urgentcolor:      	#e53714;
 
-
+    fromtop: 20%;
    font: 				"Monoid 14";
    border-color:        @background;
    separatorcolor:      @foreground;
@@ -31,23 +29,12 @@
    background-color: 	@background;
    anchor: 				north;
    location: 			north;
-   y-offset: 			700;
+   y-offset: 			@fromtop;
+    border-radius:      8px;
 }
 
 #mainbox {
    background-color: 	@background;
-   spacing:				0px;
-   children: 			[inputbar, message, sidebar, listview];
-}
-
-#message {
-   background-color:	@background;
-   padding: 			10 1% 10;
-}
-
-#textbox {
-   text-color:			@background;
-   background-color:	@foreground;
 }
 
 #listview {
@@ -55,12 +42,13 @@
    dynamic: 			true;
    scrollbar: 			false;
    padding: 			10px;
+   border:              5px;
    background: 			@background;
 }
 
 #element {
-    border:  			0;
-    padding: 			10px;
+    padding: 			10px 25px 10px 25px;
+    border-radius:      4px;
 }
 
 #element.normal.normal {
@@ -117,22 +105,19 @@
 #button.selected {
     text-color:      	@foreground;
 }
-
 #inputbar {
-   background-color: 	@foreground;
-   spacing:				0px;
+   padding: 			0 -1% 0 0;
 }
 
 #prompt {
-   padding:				6px 9px;
    background-color:	@foreground;
-   text-color:			@background-alt;
-   padding: 			10 1% 10;
+   text-color:			@background;
+   padding: 			10 1% 10 1%;
 }
 
 #entry {
-   padding:				6px 10px;
-   background-color:	@background-alt;
+   background-color: 	@background-alt;
    text-color:			@foreground;
-   padding: 			10px;
+   border-radius:       4px;
+   padding: 			10 0 10 10;
 }

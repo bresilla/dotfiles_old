@@ -2,76 +2,65 @@
 monitor1=eDP1
 monitor2=DP1
 
-wm=$(wmctrl -m | awk 'NR==1{print $2}')
+xmodmap -e "remove control = Control_R" && xmodmap -e "add mod3 = Control_R" &
 
 refresh() {
-  #SHORTCUTS
-  killall -q sxhkd &
-  sxhkd -c /home/bresilla/.config/sxhkd/$wm &
+    xmodmap -e "remove control = Control_R" && xmodmap -e "add mod3 = Control_R" &
 
-  #MONITORS
-  xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x1080 --output $monitor2 --mode 1920x1080 --pos 920x0 &
+    #SHORTCUTS
+    killall -q sxhkd
+    while pgrep -x sxhkd >/dev/null; do sleep 1; done
+    sxhkd -c /home/bresilla/.config/sxhkd/sxhkdrc &
 
-  #TASKBAR
-  killall -q polybar
-  while pgrep -x polybar >/dev/null; do sleep 1; done
-  MONITOR=$monitor1 polybar -rq -c ~/.config/polybar/polybar main &
-  MONITOR=$monitor1 polybar -rq -c ~/.config/polybar/polybar workspaces &
-  MONITOR=$monitor2 polybar -rq -c ~/.config/polybar/polybar workspaces &
+    #MONITORS
+    xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x1080 --output $monitor2 --mode 1920x1080 --pos 920x0 &
 
-  #COMPTOSITOR
-  killall -q compton
-  while pgrep -x compton >/dev/null; do sleep 1; done
-  compton --glx-no-stencil --glx-no-rebind-pixmap --glx-swap-method exchange --config ~/.config/compton/compton &
+    #TASKBAR
+    killall -q polybar &
+    while pgrep -x polybar >/dev/null; do sleep 1; done
+    # MONITOR=$monitor1 polybar -r -c ~/.config/polybar/polybar main &
+    MONITOR=$monitor1 polybar -r -c ~/.config/polybar/polybar workspaces &
+    MONITOR=$monitor2 polybar -r -c ~/.config/polybar/polybar workspaces &
 
-  #WALLPAPER
-  pkill -f loopwall
-  /home/bresilla/.sbin/./loopwall /home/bresilla/Sets/.wallpaper 300 &
+    #COMPTOSITOR
+    killall -q compton
+    while pgrep -x compton >/dev/null; do sleep 1; done
+    compton --experimental-backends --config ~/.config/compton/compton &
 
-  #NOTIFICATION
-  killall -q dunst
-  while pgrep -x dunst >/dev/null; do sleep 1; done
-  dunst -config /home/bresilla/.config/dunst/dunst &
+    #WALLPAPER
+    pkill -f loopwall
+    /home/bresilla/.sbin/./loopwall /home/bresilla/Sets/.wallpaper 300 &
 
-  #WIDGETS
-  #killall -q conky
-  #while pgrep -x conky >/dev/null; do sleep 1; done
-  #conky -c /home/bresilla/.config/conky/conky &
+    #NOTIFICATION
+    killall -q dunst
+    while pgrep -x dunst >/dev/null; do sleep 1; done
+    dunst -config /home/bresilla/.config/dunst/dunst &
+
+    #WIDGETS
+    killall -q conky
+    while pgrep -x conky >/dev/null; do sleep 1; done
+    conky -c /home/bresilla/.config/conky/conky &
 }
 
 runonce() {
-  #POLYKIT
-  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+    #KEYBOARD
+    xmodmap -e "remove control = Control_R" && xmodmap -e "add mod3 = Control_R" &
+    xset -dpms s off &
+    xset -r 118 & #Insert
+    xset -r 107 & #Print
+    setxkbmap de &
 
-  #KEYBOARD
-  xset -dpms s off &
-  xset -r 118 & #Insert
-  xset -r 107 & #Print
-  setxkbmap de &
+    #POLYKIT
+    /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-  #POINTER
-  xsetroot -cursor_name left_ptr &
+    #SCREEN
+    redshift -l 44.4949:11.3426 -b 1.0:0.8 &
 
-  #SCREEN
-  redshift -l 44.4949:11.3426 -b 1.0:0.8 &
+    #CLIPBOARD
+    greenclip daemon &
 
-  #MOUNTING
-  #udisksctl mount -b /dev/mmcblk0p1 &
-
-  #WM
-  flashfocus &>/dev/null & 
-  /home/bresilla/.config/bspwm/scripts/./btops &
-
-  #SYNCING
-  #watchdot &
-
-  #CLIPBOARD
-  greenclip daemon &
-
-  #SSH-AGENT
-  eval "$(ssh-agent)"
-
-  echo "Script loaded"
+    #SSH-AGENT
+    eval "$(ssh-agent)"
 }
 
 if [ "$1" == "-r" ] ;then

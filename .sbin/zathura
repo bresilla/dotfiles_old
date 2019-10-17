@@ -1,0 +1,5 @@
+#!/bin/bash
+FILEPATH=$(readlink -f "$1")
+bash $HOME/Dots/.config/zathura/genzathrc > $HOME/.config/zathura/zathurarc
+#bash $HOME/Dots/.config/zathura/genzathrc > $HOME/Dots/.config/zathura/zathurarc
+/usr/bin/zathura "$FILEPATH" &

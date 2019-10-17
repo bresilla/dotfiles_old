@@ -1,15 +1,22 @@
 name: NOTE
 windows:
-- name: glances
-  layout: 20f6,215x40,0,0[215x35,0,0,37,215x4,0,36,38]
+- name: music
+  layout: 855f,204x47,0,0[204x32,0,0,2,204x14,0,33,3]
   panes:
   - commands:
-    - gotop
-    root: /home/bresilla
+    - ncmpcpp
   - commands:
-    - pulsemixer
+    - ncpamixer
+    focus: true
+    root: /home/bresilla
+- name: glance
+  layout: d777,219x56,0,0[219x47,0,0,28,219x8,0,48,32]
+  panes:
+  - commands:
+    - gotop -b
     focus: true
     root: /home/bresilla
   - commands:
-    - exit
+    - tty-clock -bcs
+    # - peaclock
     root: /home/bresilla

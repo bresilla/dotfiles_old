@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+CONT=apps
+if [ "$1" == "start" ]; then
+    echo "... RUNNING $CONT ..."
+    optirun docker run \
+        --gpus=all \
+        --security-opt seccomp=unconfined \
+        --net=host \
+        --name=$CONT\
+        --device=/dev/dri \
+        --device /dev/snd \
+        --expose=5900 \
+        --expose=6080 \
+        --volume="/tmp/.X11-unix:/tmp/.X11-unix" \
+        --volume="/home/bresilla/.config/xfce4:/home/bresilla/.config/xfce4:rw" \
+        --volume="/home/bresilla/.config/xfce4:/root/.config/xfce4:rw" \
+        --cap-add=SYS_PTRACE \
+        -e DISPLAY=$DISPLAY \
+        ${@:2} \
+        --rm -it bresilla/$CONT start
+elif [ "$1" == "vnc" ]; then
+    xhost +local:`docker inspect --format='{{ .Config.Hostname }}' bresilla/$CONT` &&
+    vncviewer localhost:1
+elif [ "$1" == "run" ]; then
+    docker exec -it $CONT ${2:-bash}
+else
+    docker exec -it $CONT zsh
+fi

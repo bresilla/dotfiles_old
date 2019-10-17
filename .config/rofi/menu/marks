@@ -1,6 +1,6 @@
 #!/bin/bash
 FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: $FOREGROUND;}")
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 bookmarks=$1
 
 if [ -z "$3" ];

@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
-watt=$(echo - | awk "{printf \"%.1f\", $(($(cat /sys/class/power_supply/BAT0/current_now) * \
-  $(cat /sys/class/power_supply/BAT0/voltage_now))) / 1000000000000 }")
+watt=$(echo - | awk "{printf \"%.1f\", $(($(cat /sys/class/power_supply/BAT0/current_now) * $(cat /sys/class/power_supply/BAT0/voltage_now))) / 1000000000000 }")
 
 if [ $(cat /proc/acpi/bbswitch | awk 'NF>1{print $NF}') == ON ]; then
   echo "#[fg=colour9,bold]$watt W#[fg=colour59,nobold]"

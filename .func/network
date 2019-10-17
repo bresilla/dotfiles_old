@@ -8,3 +8,15 @@ hotspot(){
     sudo /home/bresilla/.sbin/hotspot wlp2s0 wlp2s0 algorithm dyhere024 }
 
 alias speed=speedtest-net
+
+portgraph(){
+    sudo lsof -n -F | ./lsofgraph | dot -Tjpg > /tmp/a.jpg
+}
+
+portmon(){
+    sudo lsof -Pnl -i4
+}
+
+openports(){
+    sudo netstat -tulpn
+}

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+id=$(xdotool search --class $1)
+
+if [ "$id" != "" ]
+ then
+  bspc node "$id" --flag hidden -f
+fi

@@ -1,10 +1,13 @@
 #!/usr/bin/env sh
 
 cpu=$(/home/bresilla/.config/tmux/modules/cpu-stat)
+netspeed=$(/home/bresilla/.config/tmux/modules/netwidth)
 mem=$(free | grep Mem | awk '{print (100 - ($4/($3+$4) * 100.0));}')
 bat=$(acpi | awk '{print $4}' | tr -d '%,')
 chrg=$(acpi | awk '{print $3}' | tr -d '%,')
-tmu=$(uptime | awk '{print $1}')
+tmu=$(uptime | awk '{print $1}' | cut -d: -f1,2)
+upt=$(uptime | awk -F, '{sub(".*up ",x,$1);print $1}')
+task=$(task ids)
 wat=$(echo - | awk "{printf \"%.1f\", $(($(cat /sys/class/power_supply/BAT0/current_now) * \
   $(cat /sys/class/power_supply/BAT0/voltage_now))) / 1000000000000 }")
 
@@ -54,9 +57,17 @@ fi
 
 RIGHT_STATUS="$power$battery$memo$spacer$proc"
 
-main="$blueBG$foreground #S $blueTX$grayBG"
-name="$blackTX #W $grayTX$defaBG"
-utim="$sealTX $tmu "
+main="$blueBG$foreground $BLD$tmu$NLD $blueTX$grayBG"
+name="$blackTX $netspeed $grayTX$defaBG"
+
+
+if [[ -n "${task/[ ]*\n/}" ]]
+then
+    utim="$sealTX #S/#W $blackTX$redBG $BLD$blackTX$task$redTX $NLD$blackBG"
+else
+    utim="$sealTX #S/#W "
+fi
+
 
 LEFT_STATUS="$main$name$utim"
 

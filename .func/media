@@ -2,12 +2,21 @@ img2svg() {
 	convert -channel RGB -compress None $1 ppm:- | potrace -s --flat - -o $1.svg && suda rm -r $1
 }
 
-playdown(){
-	youtube-dl -f 22 --restrict-filenames -o '%(playlist_index)s_%(title)s.%(ext)s' --no-part --skip-unavailable-fragments --no-overwrites $1 --playlist-start ${1:-$2}
+img24k() {
+    convert $1 -resize 4096x2160 -define filter:support=2 -unsharp 3x1.7+1.9+0.065 $1_4k_SH.jpg
+}
+
+tubedl(){
+    clipp=$(xsel --clipboard)
+    youtube-dl -i -f best --yes-playlist --restrict-filenames -o "%(autonumber)s-%(title)s.%(ext)s" --no-part --skip-unavailable-fragments --no-overwrites ${1:-$clipp}
 }
 
 dotshot(){
 	scr=~/Pictures/$(date +%s).png && scrot -d ${1:-1} $scr && convert $scr -gravity North -chop 0x1080 $scr
+}
+
+flix(){
+    peerflix $@ --mpv
 }
 
 alias asci=asciinema

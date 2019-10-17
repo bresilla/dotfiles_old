@@ -1,0 +1,18 @@
+name: VOLT
+windows:
+- name: asm
+  layout: 74fd,261x67,0,0[261x30,0,0{98x30,0,0,43,162x30,99,0,60},261x11,0,31,53,261x24,0,43,50]
+  panes:
+  - commands:
+    - voltron view reg
+    root: /home/bresilla
+  - commands:
+    - voltron view disasm
+    root: /home/bresilla
+  - commands:
+    - echo "Default CMD"
+    focus: true
+    root: /home/bresilla
+  - commands:
+    - voltron view stack
+    root: /home/bresilla

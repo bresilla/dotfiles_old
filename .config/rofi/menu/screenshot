@@ -1,0 +1,48 @@
+#!/bin/bash
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+PADDINGS="40% 0 0 40%"
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_icon -theme-str "*{accent: ${FOREGROUND:-#000000}; spacing: $PADDINGS;}")
+
+zoom=""
+color=""
+record=""
+screenshot=""
+
+options="$zoom\n$color\n$record\n$screenshot"
+chosen="$(echo -e "$options" | rofi "${ROFI_OPTIONS[@]}" -dmenu -selected-row 2)"
+
+PADDINGS="40% 0 0 46%"
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_icon -theme-str "*{accent: ${FOREGROUND:-#000000}; spacing: $PADDINGS;}")
+
+case $chosen in
+    $zoom)
+        disp=$(echo -e "\n" | rofi "${ROFI_OPTIONS[@]}" -dmenu -selected-row 2)
+        sleep .2
+        if [ "$disp" == "" ] ; then
+            slop -r boxzoom
+        elif [ "$disp" == "" ] ; then
+            slop -r crosshair
+        fi
+        ;;
+    $color)
+        xcolor | xclip -sel clip
+        ;;
+    $record)
+        disp=$(echo -e "\n" | rofi "${ROFI_OPTIONS[@]}" -dmenu -selected-row 2)
+        if [ "$disp" == "" ] ; then
+            exec /home/bresilla/DATA/DOTFILES/Dots/.sbin/recffm -w
+        elif [ "$disp" == "" ] ; then
+            killall ffmpeg
+            exec /home/bresilla/DATA/DOTFILES/Dots/.sbin/recffm -g
+        fi
+        ;;
+    $screenshot)
+        disp=$(echo -e "\n" | rofi "${ROFI_OPTIONS[@]}" -dmenu -selected-row 2)
+        if [ "$disp" == "" ] ; then
+            filename=/home/bresilla/DATA/IMAGES/SHOOTS/$(date +%s).png
+        elif [ "$disp" == "" ] ; then
+            filename=/tmp/$(date +%s).png
+        fi
+        maim -s | tee $filename | xclip -sel clip -t image/png -i && sxiv $filename
+        ;;
+esac

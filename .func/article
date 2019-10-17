@@ -1,4 +1,4 @@
-bibit(){
+bib_add(){
     if [ -f $BIB ]; then
         curl -s http://api.crossref.org/works/$1/transform/application/x-bibtex | bat
         echo "\nDo you wish to add reference to "$BIB"?\n"
@@ -13,6 +13,10 @@ bibit(){
     fi
 }
 
+bib_safe(){
+    biber --tool --output_encoding=ascii --output_safechars $BIB
+}
+
 get_doi(){
     pdftotext $1 - | grep -i "doi"
 }
@@ -21,6 +25,6 @@ tex2pdf(){
 	ls $1 | entr latexmk -quiet -bibtex -f -pdf $1; latexmk -bibtex -c
 }
 
-img2papr(){
+img4ppr(){
 	convert -units PixelsPerInch $1 -quality 100 -density 300 $1.jpg
 }

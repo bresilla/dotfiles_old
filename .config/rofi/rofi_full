@@ -9,7 +9,7 @@
 * {
 	accent: #FFFFFF;
     foreground:         		@accent;
-    background:         		rgba(0, 0, 0, 0.70);
+    background:         		rgba(0, 0, 0, 0.80);
     transparent:				rgba(0, 0, 0, 0);
 
     normal-background: 			@transparent;
@@ -33,6 +33,7 @@
     alternate-urgent-background: @transparent;
     alternate-urgent-foreground: @urgent-foreground;
 
+    font: 				         "Monoid 14";
     border-color:                @background;
     separatorcolor:              @foreground;
     background-color:            @transparent;
@@ -43,6 +44,7 @@
     background-color: 		@background;
     border:   				0;
     padding: 				0;
+    fullscreen:             true;
 }
 #mainbox {
     border:   				0;
@@ -67,6 +69,7 @@
 #element {
     border:  				0;
     padding: 				10 10 10;
+    border-radius: 4px;
 }
 #element.normal.normal {
     background-color: 		@normal-background;

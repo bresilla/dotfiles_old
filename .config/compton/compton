@@ -1,5 +1,6 @@
-#backend = "glx"
+# backend = "glx";
 backend = "xrender";
+corner-radius = 10;
 
 
 ############################################################################################################
@@ -8,11 +9,10 @@ backend = "xrender";
 
 #GLX backend
 # glx-no-stencil = true;
-#glx-copy-from-front = false;
+# glx-copy-from-front = false;
 # glx-use-copysubbuffermesa = true;
-# glx-no-rebind-pixmap = true;
-#glx-swap-method = "undefined";
-# glx-use-gpushader4 = true;
+# glx-no-rebind-pixmap = false;
+# glx-swap-method = 1;
 
 ############################################################################################################
 #											Shadow
@@ -54,7 +54,7 @@ inactive-dim = 0.2; 					# Dim inactive windows. (0.0 - 1.0)
 #inactive-dim-fixed = true;				# Do not let dimness adjust based on window opacity.
 
 blur-background = false;
-blur-kern = "7x7box";
+#blur-kern = "7x7box";
 blur-background-exclude = [
 				"window_type = 'tooltip'",
 				"window_type = 'dock'",

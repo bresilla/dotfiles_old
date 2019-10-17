@@ -1,0 +1,73 @@
+/**
+ * ROFI Color theme
+ * User: bresilla
+ copy those lines to: ~/.conf/rofi/ or ~/.Xdefaults
+	rofi.fullscreen:true
+	rofi.theme: ~/.i3/rofi.rasi
+ */
+
+* {
+	accent: #FFFFFF;
+    spacing: 40% 0 0 32%;
+
+    foreground:         		@accent;
+    background:         		rgba(0, 0, 0, 0.80);
+    transparent:				rgba(0, 0, 0, 0);
+    background-light:      		rgba(255, 255, 255, 0.20);
+
+    normal-background: 			@transparent;
+    normal-foreground: 			@foreground;
+    urgent-background: 			@transparent;
+    urgent-foreground:			@foreground;
+    active-background: 			@transparent;
+    active-foreground:			@foreground;
+
+    selected-normal-background:  @foreground;
+    selected-normal-foreground:  @background;
+    selected-urgent-background:  @foreground;
+    selected-urgent-foreground:  @background;
+    selected-active-background:  @foreground;
+    selected-active-foreground:  @background;
+
+    alternate-normal-background: @transparent;
+    alternate-normal-foreground: @foreground;
+    alternate-active-background: @transparent;
+    alternate-active-foreground: @active-foreground;
+    alternate-urgent-background: @transparent;
+    alternate-urgent-foreground: @urgent-foreground;
+
+    border-color:                @background;
+    separatorcolor:              @foreground;
+    background-color:            @transparent;
+    font:  "Hurmit Nerd Font Mono 30";
+}
+
+
+#window {
+    background-color: @background;
+    width: 100%;
+    height: 100%;
+    children: [ horibox ];
+    padding: @spacing;
+}
+
+#horibox {
+    children: [ listview ];
+}
+
+#listview {
+    layout: horizontal;
+    spacing: 1%;
+}
+
+#element {
+    padding: 2%;
+    background-color: @background-light;
+    text-color: @foreground;
+    border-radius: 6px;
+}
+
+#element.selected {
+    background-color: @accent;
+    text-color: @background;
+}

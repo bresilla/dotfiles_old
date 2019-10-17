@@ -1,6 +1,6 @@
 #!/bin/bash
 FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};}")
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 
 another=$(echo "data
 home" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
@@ -10,7 +10,7 @@ if [ "$another" == "home" ] ; then
 	find /home/bresilla | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
 
 elif [ "$another" == "data" ] ; then
-	find /run/media/bresilla/datasd | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
+	find /home/bresilla/DATA | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
 
 else
     echo $another

@@ -2,5 +2,5 @@
 
 pkill mpv
 clipp=$(xsel --clipboard)
-mpv --ytdl-format='bestvideo[height<=?1080]+bestaudio/best' --input-file /home/bresilla/.config/mpv/control  --no-terminal ${1:-$clipp}
+mpv --no-sub-auto --ytdl-format='bestvideo[height<=?1080]+bestaudio/best' --input-file /home/bresilla/.config/mpv/control --load-unsafe-playlists --record-file=/tmp/mkv_rec.mkv --no-terminal "${1:-$clipp}"
 #--panscan=1.0 --speed=1.0 --no-keepaspect

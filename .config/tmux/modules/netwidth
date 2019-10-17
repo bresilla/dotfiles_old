@@ -1,0 +1,33 @@
+[[ -z $INLABEL ]] && INLABEL="▼"
+[[ -z $OUTLABEL ]] && OUTLABEL="▲"
+
+iface=$(ip route | awk '/^default/ { print $5 ; exit }')
+RXB=$(</sys/class/net/"$iface"/statistics/rx_bytes)
+TXB=$(</sys/class/net/"$iface"/statistics/tx_bytes)
+sleep 1
+RXBN=$(</sys/class/net/"$iface"/statistics/rx_bytes)
+TXBN=$(</sys/class/net/"$iface"/statistics/tx_bytes)
+
+rx_rate=$(echo $((RXBN - RXB)) )
+tx_rate=$(echo $((TXBN - TXB)) )
+
+# incoming
+echo -n "$INLABEL"
+rx_kib=$(( $rx_rate >> 10 ))
+if [[ "$rx_rate" -gt 1048576 ]]; then
+  printf '%sM' "`echo "scale=1; $rx_kib / 1024" | bc`"
+else
+  echo -n "${rx_kib}K"
+fi
+
+echo -n " "
+
+# outgoing
+echo -n "$OUTLABEL"
+tx_kib=$(( $tx_rate >> 10 ))
+if [[ "$tx_rate" -gt 1048576 ]]; then
+  printf '%sM' "`echo "scale=1; $tx_kib / 1024" | bc`"
+else
+  echo -n "${tx_kib}K"
+fi
+
