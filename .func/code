@@ -24,7 +24,7 @@ readme(){
 }
 
 compile(){
-    rm -rf build/* && cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=FastDebug && cp build/compile_commands.json .
+    rm -rf build/* && cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} 2>&1 | bat && cp build/compile_commands.json .
 }
 
 build(){

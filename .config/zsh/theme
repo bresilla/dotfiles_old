@@ -12,6 +12,7 @@ local arrFL=""
 local arrFR=""
 local arrEL=""
 local arrER=""
+local endARR=""
 local defaultFG="${IN}0${EN}"
 local defaultBG="${IN}49${EN}"
 local foreground="${IN}38;5;15${EN}"
@@ -83,8 +84,9 @@ function __promptline_vcs_branch {
     return 1 
 }
 
-function __is_in_docker {
+function __is_in_container {
     [[ -n $(awk -F/ '$2 == "docker"' /proc/self/cgroup) ]] && printf '■'
+    [[ -n $(echo $IN_NIX_SHELL) ]] && printf '×'
 }
 
 function __promptline_cwd {
@@ -105,7 +107,7 @@ function __promptline_cwd {
         part_count=$((part_count+1))
         [[ $part_count -eq $dir_limit ]] && first_char="$truncation" && break
     done
-    printf "%s" "$first_char$formatted_cwd" 
+    printf "%s" "$first_char$formatted_cwd"
 }
 
 function __get_username {
@@ -119,12 +121,13 @@ function __promptline_left_prompt {
     slice_prefix="${greyBG}${arrFL}${blackTX}${greyBG}${space}" slice_suffix="${space}${greyTX}"; printf "%s" "$slice_prefix" '$(__get_username)' "$slice_suffix"
     #SUDO WARN
     slice_prefix="${redBG}${arrFL}${foreground}${redBG}${space}" slice_suffix="${space}${redTX}"; [[ -n $(__sudo_warning) ]] && printf "%s" "$slice_prefix" '$(__sudo_warning)' "$slice_suffix"
-    #DOCKER
-    slice_prefix="${accentBG}${arrFL}${foreground}${accentBG}${space}" slice_suffix="${space}${accentTX}"; [[ -n $(__is_in_docker) ]] && printf "%s" "$slice_prefix" '$(__is_in_docker)' "$slice_suffix"
+    #CONTAINER
+    slice_prefix="${background}${arrFL}${blackTX}${accentBG}${arrFL}${foreground}${accentBG}${space}" slice_suffix="${space}${accentTX}"; [[ -n $(__is_in_container) ]] && printf "%s" "$slice_prefix" '$(__is_in_container)' "$slice_suffix"
+    [[ -n $(__is_in_container) ]] && endARR="$arrEL$redBG$blackTX$arrFL$redBG$redTX$background$arrFL$greyTX"
     #PATH
     slice_prefix="${defaultBG}${arrFL}${darkTX}${space}" slice_suffix="$space${blackTX}"; [[ -n $(__promptline_cwd) ]] && printf "%s" "$slice_prefix" '$(__promptline_cwd)' "$slice_suffix"
     ### END
-    printf "%s" "$defaultFG${darkTX} $defaultFG"
+    printf "%s" "$defaultFG${darkTX}${arrEL}${space}$defaultFG"
 }
 
 function __promptline_right_prompt {

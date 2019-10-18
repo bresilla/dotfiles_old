@@ -7,13 +7,11 @@ sodo=sudorun
 exce=command
 file=documents
 clip=clipboard
-srch=search
 locl=local
 pass=password
 note=notes
 task=tasks
-mark=bookmarks
-tube=youtube
+conf=configs
 
 another=$(echo "$apps
 $sodo
@@ -21,7 +19,8 @@ $file
 $clip
 $pass
 $note
-$task" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
+$task
+$conf" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
 
 if [ "$another" == "$file" ] ; then
 	exec ~/.config/rofi/menu/locate
@@ -42,7 +41,10 @@ elif [ "$another" == "$apps" ] ; then
 	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun #-show-icons
 
 elif [ "$another" == "$pass" ] ; then
-  exec ~/.config/rofi/menu/pass
+    exec ~/.config/rofi/menu/pass
+
+elif [ "$another" == "$conf" ] ; then
+    $TERMINAL $(find /home/bresilla/Dots/ -type f | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:')
 
 elif [ "$another" == "$clip" ] ; then
 	rofi "${ROFI_OPTIONS[@]}" -modi "clipboard:greenclip print" -show clipboard

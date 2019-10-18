@@ -8,7 +8,6 @@ call plug#begin()
     Plug 'w0rp/ale'                       "syntax checker for vim
     Plug 'SirVer/ultisnips'               "snipets engine
     Plug 'honza/vim-snippets'             "snippets collection
-    Plug 'Chiel92/vim-autoformat'         "code formatter
     Plug 'ntpeters/vim-better-whitespace' "whitespace detection
     Plug 'rhysd/vim-grammarous'           "gramar checker
     Plug 'lfilho/cosco.vim'               "add semicolon or comma n the end
@@ -17,9 +16,8 @@ call plug#begin()
     Plug 'vim-ctrlspace/vim-ctrlspace'    "a better workspace manager
     Plug 'benmills/vimux'                 "run shell comands in a tmux pane
     Plug 'christoomey/vim-tmux-navigator'
-    Plug 'nikvdp/neomux'                  "a wanabe tmux terminal replacement
-    Plug 'skywind3000/asyncrun.vim' 	  "run commands
-    Plug 'ingolemo/vim-bufferclose'
+	Plug 'voldikss/vim-floaterm'		  "terminal
+	Plug 'ingolemo/vim-bufferclose'
     Plug '907th/vim-auto-save'            "vim autsave plugin
     Plug 'editorconfig/editorconfig-vim'  "EDITOR-CONFIG settings
     "THEME
@@ -31,15 +29,15 @@ call plug#begin()
     "NAVIGATION
     Plug 'easymotion/vim-easymotion'      "jump to any location
     Plug 'matze/vim-move'                 "move lines with alt-arrow
-    Plug 'farmergreg/vim-lastplace'       "remember last cursor position
     Plug 'yuttie/comfortable-motion.vim'  "comfortable scroll
     Plug 'tpope/vim-repeat'               " '.' for better repeat functioalities
     "VIEWS
-    Plug 'scrooloose/nerdtree'            "side-bar file manager
-    Plug 'ryanoasis/vim-devicons'         "icons for nerdtre
+	Plug 'scrooloose/nerdtree'            "side-bar file manager
+    Plug 'ryanoasis/vim-devicons'         "icons for nerdtree
     Plug 'mcchrish/nnn.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'ctrlpvim/ctrlp.vim'             "fuzzy searcher
+	Plug 'mox-mox/vim-localsearch'		  "vim localsearch
     Plug 'majutsushi/tagbar'              "methods viever
     Plug 'mbbill/undotree'                "show a tree of undos
     Plug 'gcavallanti/vim-noscrollbar'    "scrollbar-like for statusline
@@ -48,13 +46,12 @@ call plug#begin()
     Plug 'scrooloose/nerdcommenter'       "commenter
     Plug 'tpope/vim-abolish'              "better renamer substituter
     Plug 'svermeulen/vim-subversive'      "subsiitute motion
-    Plug 'yggdroot/indentline'            "indentation (characters)
+	Plug 'yggdroot/indentline'            "indentation (characters)
     Plug 'rrethy/vim-illuminate'          "highlightusert same words as cursor
     Plug 'wellle/targets.vim'             "more objects to operate functions
     Plug 'jiangmiao/auto-pairs'           "auto close brackets and parenthesis
     Plug 'luochen1990/rainbow'            "colored brackets
     Plug 'godlygeek/tabular'              "text aligner
-    Plug 'AndrewRadev/splitjoin.vim'      "singe-multi line function converter
     Plug 'haya14busa/incsearch.vim'
     Plug 'mattesgroeger/vim-bookmarks'    "bookmarks per line
     Plug 'kana/vim-fakeclip'              "better clipboard
@@ -62,17 +59,18 @@ call plug#begin()
     Plug 'airblade/vim-gitgutter'         "show differences (GIT)
     Plug 'tpope/vim-fugitive'             "git wrapper
     "BUILD
-    Plug 'vhdirk/vim-cmake'               "CMAKE integration
-    Plug 'sakhnik/nvim-gdb'               "GDB, LLVM wrapper
-    Plug 'metakirby5/codi.vim'            "interactive scratchpad (like jupyter of sort)
+	Plug 'sakhnik/nvim-gdb'               "GDB, LLVM wrapper
+	Plug 'puremourning/vimspector'		  "VIM DEBUGGER
+	" Plug 'strottos/vim-padre', { 'dir': '~/.config/nvim/plugged/vim-padre', 'do': 'make' }
     "OTHER
-    Plug 'duggiefresh/vim-easydir'        "create new files and folders easily
+	Plug 'wakatime/vim-wakatime'		  "coding time tracker plugin
+	Plug 'duggiefresh/vim-easydir'        "create new files and folders easily
     Plug 'wincent/terminus'               "integration with terminal functioalities
     Plug 'othree/xml.vim'
     Plug 'reedes/vim-pencil'
-    Plug 'plasticboy/vim-markdown'
-    Plug 'lervag/vimtex'
-    Plug 'junegunn/fzf.vim'
+	Plug 'tpope/vim-markdown'
+	Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+    Plug 'lervag/vimtex'				  " LATEX for vim
 call plug#end()
 
 syntax on
@@ -161,7 +159,6 @@ set signcolumn="yes"
 "go to last position you were editing
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
-"au BufWrite * :Autoformat
 
 
 
@@ -191,20 +188,12 @@ let g:goyo_width = 90
 let g:better_whitespace_enabled=1
 let g:incsearch#auto_nohlsearch = 1
 map / <Plug>(incsearch-forward)
-"viaual search
-function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  " Use this line instead of the above to match matches spanning across lines
-  "let @/ = '\V' . substitute(escape(@@, '\'), '\_s\+', '\\_s\\+', 'g')
-  call histadd('/', substitute(@/, '[?/]', '\="\\%d".char2nr(submatch(0))', 'g'))
-  let @@ = temp
-endfunction
-" nnoremap <silent> + :%s/\<<C-r><C-w>\>//g<Left><Left>
-map <silent> ' :<C-u>call <SID>VSetSearch()<CR>/<CR>
-"subversive + abolish
-nmap + <plug>(SubversiveSubvertWordRange)
+nmap <leader>/ <Plug>localsearch_toggle
+"substitute normal
+"nnoremap <silent> + :%s/\<<C-r><C-w>\>//g<Left><Left>
+"substitute with subversive + abolish
+nmap s <plug>(SubversiveSubstituteRangeConfirm)
+nmap + <plug>(SubversiveSubstituteWordRangeConfirm)
 
 
 
@@ -212,12 +201,29 @@ nmap + <plug>(SubversiveSubvertWordRange)
 "nerdtree
 noremap <C-t>  :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen=1                "automatically clone nerd tre after open
+let NERDTreeShowHidden=1
 let g:NERDTreeMinimalUI = 1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 au VimEnter * NERDTreeRefreshRoot
 "nnn
 let g:nnn#set_default_mappings = 0
+function! s:layout()
+  let buf = nvim_create_buf(v:false, v:true)
+  let width = float2nr(&columns/1.5)
+  let distwidth = float2nr((&columns/2)-(width/2))
+  let height = float2nr(&lines/1.5)
+  let distheight = float2nr((&lines/2)-(height/2))
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': distheight,
+        \ 'col': distwidth,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
 nnoremap <leader>s :NnnPicker '%:p:h'<CR>
 
 
@@ -234,11 +240,18 @@ autocmd FileType cpp silent! :call tagbar#autoopen(0)
 " === INDENTATION LINES === "
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_color_term = 236
+let g:indentLine_setConceal = 2
+" default ''.
+" n for Normal mode
+" v for Visual mode
+" i for Insert mode
+" c for Command line editing, for 'incsearch'
+let g:indentLine_concealcursor = ""
 
 
 
 " === EASY MOTION === "
-map <C-m> <Plug>(easymotion-overwin-w)
+nnoremap <buffer><CR> <Plug>(easymotion-overwin-w)
 hi EasyMotionTarget ctermfg=15 cterm=bold,underline
 hi link EasyMotionTarget2First EasyMotionTarget
 hi EasyMotionTarget2Second ctermfg=2 cterm=underline
@@ -248,7 +261,7 @@ hi EasyMotionTarget2Second ctermfg=2 cterm=underline
 " === WORKSPACE === "
 " ctrlspace
 set showtabline=0
-nnoremap <C-s> :CtrlSpaceSaveWorkspace<CR>
+nnoremap <f1> :CtrlSpaceSaveWorkspace<CR>
 let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
 " let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
@@ -276,19 +289,13 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 
 
-" ===RUN === "
-" asyncrun
-let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml'] 
-let g:asyncrun_open = 8
-"cmakerun
-map <F7> <ESC><Esc>:!cmake --build build/ --target && bin/./main<CR>
-imap <F7> <ESC><Esc>:!cmake --build build/ --target && bin/./main<CR>
-map <F8> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild<CR>
-imap <F8> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild<CR>
-map <F9> :call asyncrun#quickfix_toggle(6)<cr>
-" map <F7> <ESC><Esc>:make && bin/./main<CR>
-" nvimux
-nnoremap <leader><cr> :Neomux<cr>
+" === FLOAT-TERM === "
+noremap  <silent> <Insert>           :FloatermToggle<CR>i
+noremap! <silent> <Insert>           <Esc>:FloatermToggle<CR>i
+tnoremap <silent> <Insert>           <C-\><C-n>:FloatermToggle<CR>
+let g:floaterm_position = 'center'
+let g:floaterm_width = float2nr(&columns/1.5)
+let g:floaterm_height = float2nr(winheight(0)/1.5)
 
 
 
@@ -351,8 +358,6 @@ map <end> $
 "exit
 cmap Q quitall
 cmap W write
-"save
-cmap w!! %!sudo tee > /dev/null %
 
 
 
@@ -373,6 +378,19 @@ let g:comfortable_motion_interval = 1000.0 / 60
 
 
 
+" ===RUN === "
+" asyncrun
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml'] 
+let g:asyncrun_open = 8
+"cmakerun
+map <F7> <ESC><Esc>:!cmake --build build/ --target<CR>
+map <C-F7> <ESC><Esc>:call VimuxRunCommand("cmake --build build/ --target")<CR>
+"<CR>:!cp bin/* ~/.bin<CR>
+map <F8> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug<CR>:!cp build/compile_commands.json .<CR>
+map <F9> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=FastDebug<CR>:!cp build/compile_commands.json .<CR>
+
+
+
 " === ALE === "
 let g:ale_sign_error = '×'
 let g:ale_sign_warning = '!'
@@ -381,14 +399,30 @@ highlight ALEWarningSign ctermbg=220 ctermfg=231 cterm=bold
 highlight ALEError ctermbg=0 ctermfg=196 cterm=bold
 highlight ALEErrorSign ctermbg=196 ctermfg=231 cterm=bold
 let g:airline#extensions#ale#enabled = 1
+let g:ale_linters = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'go': ['~/.go/bin/gopls'],
+    \ 'nim': ['~/.nimble/bin/nimlsp'],
+	\ 'cpp': ['clangtidy'],
+    \ 'python': ['/usr/local/bin/pyls']
+	\ }
+let g:ale_fixers = {
+	\ 'cpp': ['clang-format'],
+	\ }
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 1
+" let g:ale_fix_on_save = 1
+nmap <F10> <Plug>(ale_fix)
 
 
 
 " === LANGUAGE SERVER === "
 let g:LanguageClient_autoStart = 1
+let g:LanguageClient_useFloatingHover = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'go': ['~/.go/bin/gopls'],
+    \ 'nim': ['~/.nimble/bin/nimlsp'],
     \ 'cpp': ['clangd'],
     \ 'python': ['/usr/local/bin/pyls'],
     \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
@@ -402,9 +436,12 @@ let g:LanguageClient_serverCommands = {
     \       server.runlinter = true;
     \       run(server);']
     \ }
-nnoremap <leader>ld :call LanguageClient_textDocument_definition()<cr>
-nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <leader>lr :call LanguageClient_textDocument_rename()<cr>
+nnoremap <S-tab> :call LanguageClient_textDocument_definition()<cr>
+nnoremap <tab> :call LanguageClient#textDocument_hover()<CR>
+nnoremap <F2> :call LanguageClient_textDocument_rename()<cr>
+nnoremap <bs> :call LanguageClient_textDocument_rename()<cr>
+" markdown
+let g:markdown_syntax_conceal = 0
 
 
 
@@ -421,6 +458,7 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 "floating window
 let g:float_preview#docked = 0
+g:float_preview#auto_close = 1
 function! DisableExtras()
   call nvim_win_set_option(g:float_preview#win, 'number', v:false)
   call nvim_win_set_option(g:float_preview#win, 'relativenumber', v:false)
@@ -444,6 +482,15 @@ map <silent> # <plug>NERDCommenterToggle
 
 
 
+" === VIMTEX === "
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+
+
 " === OTHER SHORTCUTS === "
 "undo and undotree
 nnoremap U :redo<CR>
@@ -454,13 +501,24 @@ let g:rainbow_active = 1
 let g:bookmark_auto_save_file = $HOME .'/.config/nvim/bookmarks'
 "semicolons
 autocmd FileType cpp nmap <silent> , <Plug>(cosco-commaOrSemiColon)
-"autosave settings
-autocmd FileType cpp silent! :AutoSaveToggle
-autocmd FileType hpp silent! :AutoSaveToggle
-autocmd FileType h silent! :AutoSaveToggle
-autocmd FileType cmake silent! :AutoSaveToggle
+
+
+
+" === AUTOSAVE === "
+autocmd FileType cpp let b:auto_save = 1
+autocmd FileType hpp let b:auto_save = 1
+autocmd FileType h let b:auto_save = 1
+autocmd FileType cmake let b:auto_save = 1
 let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost", "FocusGained"]
 let g:auto_save_write_all_buffers = 1
+" let g:auto_save_presave_hook = 'call AbortIfNotGitDirectory()'
+" function! AbortIfNotGitDirectory()
+  " if ...
+    " let g:auto_save_abort = 0
+  " else
+    " let g:auto_save_abort = 1
+  " endif
+" endfunction
 
 
 
@@ -533,7 +591,7 @@ function! s:beactive()
     highlight CursorLine ctermbg=16
     highlight CursorColumn ctermbg=16
     highlight CursorLineNR ctermbg=16
-    set number
+    " set number
     highlight LineNr ctermfg=1
     highlight CursorLineNR ctermfg=1
     highlight NonText ctermfg=236
@@ -543,7 +601,7 @@ function! s:bepassive()
     highlight CursorLine ctermbg=NONE
     highlight CursorColumn ctermbg=NONE
     highlight CursorLineNR ctermbg=NONE
-    set nonumber
+    " set nonumber
     highlight LineNr ctermfg=0
     highlight CursorLineNR ctermfg=0
     highlight NonText ctermfg=0
@@ -608,5 +666,7 @@ call s:highlightuser()
 
 
 " === REMOVE HABITS === "
+nnoremap d "_d
+vnoremap d "_d
 map <S-Up> <Nop>
 map <S-Down> <Nop>

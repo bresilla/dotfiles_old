@@ -9,6 +9,8 @@ alias s='shko -c --short 19 && cd "$(cat ~/.config/shko/settings/chdir)"'
 mirror(){sudo pacman-mirrors --fasttrack 5 && sudo pacman -Syyu}
 branch(){sudo pacman-mirrors --api --set-branch $@ && mirror}
 
+alias nix-shell="nix-shell --command zsh"
+
 alias suspend='up suspend'
 alias refresh='pkill -USR1 -x sxhkd && bash ~/.startup -r'
 alias configs='vim $(find /home/bresilla/Dots/ -type f | fzf)'

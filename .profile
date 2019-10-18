@@ -1,3 +1,11 @@
+if [ -d "$HOME/.nix-profile/bin" ] ; then
+    PATH="$HOME/.nix-profile/bin:$PATH"
+fi
+
+if [ -d "/nix/var/nix/profiles/default/bin" ] ; then
+    PATH="/nix/var/nix/profiles/default/bin:$PATH"
+fi
+
 if [ -d "$HOME/.bin" ] ; then
     PATH="$HOME/.bin:$PATH"
 fi
@@ -29,16 +37,17 @@ fi
 if [ -d "$HOME/.nimble/bin" ] ; then
     PATH="$HOME/.nimble/bin:$PATH"
 fi
-
 TZ='Europe/Berlin'
 
 export BROWSER=qutebrowser
 export EDITOR=nvim
-export WINEPREFIX=~/.wine
+export TERMINAL=kitty
 
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
+export WINEPREFIX=~/.wine
 
 export DOT=/home/bresilla/Dots/
 export SET=/home/bresilla/Sets/

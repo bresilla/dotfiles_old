@@ -39,6 +39,8 @@ bspc rule -a Oblogout state=fullscreen
 bspc rule -a Soffice state=tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a URxvt:launcher state=floating center sticky
+bspc rule -a LAUNCHER state=floating center sticky
+bspc rule -a boomer state=fullscreen sticky
 
 ###############################################################################################################################
 #|||	SCRIPTS

@@ -42,6 +42,8 @@ setopt multios
 setopt no_hup
 # parameter expansion, command substitution and arithmetic expansion are performed in prompts
 setopt prompt_subst
+# do not prompt when rm *
+setopt rmstarsilent
 
 #--------------------------------------------------------------------------------------------------------------------
 ###HISTORY STAFF

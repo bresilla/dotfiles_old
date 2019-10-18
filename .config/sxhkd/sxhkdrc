@@ -35,6 +35,7 @@ XF86AudioMute
 XF86MonBrightness{Up,Down}
     light -{A,U} 5
 
+#kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
 #mode_switch + Return
 #mod3 + Return
 
@@ -57,6 +58,6 @@ super + alt + {Down,Up}
     bspc node -m {prev,next} --follow
 
 {super,alt,alt+super} + Return
-    bspc node -t ~{fullscreen,floating,tiled}
+    bspc node -t {tiled,fullscreen,floating}
 {super,alt,alt+super} + BackSpace
     bspc node -g {locked,private,sticky}

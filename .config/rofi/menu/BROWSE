@@ -3,16 +3,7 @@ FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
 ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 BROWSER=firefox
 
-apps=runapps
-sodo=sudorun
-exce=command
-file=documents
-clip=clipboard
 srch=search
-locl=local
-pass=password
-note=notes
-task=taskwarrior
 mark=bookmarks
 tube=youtube
 
