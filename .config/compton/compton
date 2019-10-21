@@ -97,7 +97,6 @@ mark-ovredir-focused = true;			# Mark all non-WM but override-redirect windows a
 use-ewmh-active-win = false;			# Use EWMH _NET_WM_ACTIVE_WINDOW to determine which window is focused
 										# instead of using FocusIn/Out events. Usually more reliable but
 										# depends on a EWMH-compliant WM.
-detect-rounded-corners = true;			# Detect rounded corners and treat them as rectangular when --shadow-ignore- shaped is on.
 detect-client-opacity = true;			# Detect _NET_WM_OPACITY on client windows, useful for window
 										# managers not passing _NET_WM_OPACITY of client windows to frame
 										# windows.

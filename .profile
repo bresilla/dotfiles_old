@@ -6,6 +6,10 @@ if [ -d "/nix/var/nix/profiles/default/bin" ] ; then
     PATH="/nix/var/nix/profiles/default/bin:$PATH"
 fi
 
+if [ -d "$HOME/.config/guix/current/etc/profile" ] ; then
+    PATH="$HOME/.config/guix/current/etc/profile:$PATH"
+fi
+
 if [ -d "$HOME/.bin" ] ; then
     PATH="$HOME/.bin:$PATH"
 fi
@@ -39,7 +43,8 @@ if [ -d "$HOME/.nimble/bin" ] ; then
 fi
 TZ='Europe/Berlin'
 
-export BROWSER=qutebrowser
+# export BROWSER=qutebrowser
+export BROWSER=firefox
 export EDITOR=nvim
 export TERMINAL=kitty
 

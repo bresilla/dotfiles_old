@@ -17,12 +17,14 @@ mem=${mem%.*}
 foreground="#[fg=colour15]"
 blackTX="#[fg=colour0]"
 blackBG="#[bg=colour0]"
-blueTX="#[fg=colour1]"
-blueBG="#[bg=colour1]"
+accentTX="#[fg=colour1]"
+accentBG="#[bg=colour1]"
 orangeBG="#[bg=colour208]"
 orangeTX="#[fg=colour208]"
-redBG="#[bg=colour196]"
-redTX="#[fg=colour196]"
+redBG="#[bg=colour124]"
+redTX="#[fg=colour124]"
+greenBG="#[bg=colour40]"
+greenTX="#[fg=colour40]"
 grayBG="#[bg=colour8]"
 grayTX="#[fg=colour8]"
 sealTX="#[fg=colour59]"
@@ -31,6 +33,7 @@ defaTX="#[fg=default]"
 BLD="#[bold]"
 NLD="#[nobold]"
 
+[[ $bat -le 10 ]] && grayBG=$redBG grayTX=$redTX accentBG=$redBG accentTX=$redTX foreground=$blackTX
 
 if [ $(cat /proc/acpi/bbswitch | awk 'NF>1{print $NF}') == ON ]; then
     power="$sealTX $redTX$BLD$wat W $NLD"
@@ -38,26 +41,23 @@ else
     power="$sealTX $wat W "
 fi
 
-if [ "$chrg" != "Discharging" ] ;then
-    encap1="["
-    encap2="]"
-fi
+battery="$redTX$redBG $blackTX$bat%$redBG "
+[[ "$chrg" != "Discharging" ]] && battery="$accentTX$accentBG $foreground$bat%$accentBG "
 
-battery="$grayTX$grayBG $blackTX$encap1$bat%$encap2$grayBG "
-memo="$blueTX$blueBG $foreground$mem% "
+memo="$greyTX$greyBG $blackTX$mem% "
 spacer="$blackTX$blackBG"
 
 if (( cpu > 80 )); then
-    proc="$redTX$redBG $BLD$foreground$cpu% "
+    proc="$redTX $redBG $BLD$foreground$cpu% "
 elif (( cpu > 50 )); then
     proc="$orangeTX$orangeBG $BLD$foreground$cpu% "
 else
-    proc="$blueTX$blueBG $foreground$cpu% "
+    proc="$grayTX$grayBG $blackTX$cpu% "
 fi
 
-RIGHT_STATUS="$power$battery$memo$spacer$proc"
+RIGHT_STATUS="$power$proc$memo$spacer$battery"
 
-main="$blueBG$foreground $BLD$tmu$NLD $blueTX$grayBG"
+main="$accentBG$foreground $BLD$tmu$NLD $accentTX$grayBG"
 name="$blackTX $netspeed $grayTX$defaBG"
 
 

@@ -4,8 +4,8 @@ super + alt + {Escape,Delete,Insert}
     bash ~/.config/rofi/menu/{system,CONFIG,screenshot}
 super + space
     bash ~/.config/rofi/menu/BROWSE
-super + alt + space; {n,f,s,c,Return,q,v}
-    {nautilus,firefox,sakura,code,kitty,qutebrowser,virt-manager}
+super + alt + space; {c,Return}
+    {code,kitty --class=til tmux}
 
 {super,alt} + Escape
     bspc node -{c,k}
@@ -15,13 +15,9 @@ super + alt + space; {n,f,s,c,Return,q,v}
 {dead_acute,dead_circumflex}
     termop {NOTE 3500 1900,MAIN 2500 1050}
 
-mod3 + {Left,Right}
-    {echo "seek -10" > /home/bresilla/.config/mpv/control, echo "seek 10" > /home/bresilla/.config/mpv/control}
-mod3 + mode_switch + {Left,Right}
-    {echo "playlist_prev" > /home/bresilla/.config/mpv/control, echo "playlist_next" > /home/bresilla/.config/mpv/control}
 mode_switch + {Left,Right}
     {echo "seek -10" > /home/bresilla/.config/mpv/control, echo "seek 10" > /home/bresilla/.config/mpv/control}
-{mode_switch, mod3} + space
+mode_switch + space
     echo "cycle pause" > /home/bresilla/.config/mpv/control
 
 super + XF86Audio{Prev,Next}
@@ -36,8 +32,8 @@ XF86MonBrightness{Up,Down}
     light -{A,U} 5
 
 #kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
-#mode_switch + Return
-#mod3 + Return
+mode_switch + Return
+    boomer
 
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local

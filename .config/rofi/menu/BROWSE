@@ -1,6 +1,7 @@
 #!/bin/bash
 FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
-ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}")
+# BACKGROUND=$(xrdb -query | grep 'color0:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#FFFFFF}; bckgrd: ${BACKGROUND:-#000000};}")
 BROWSER=firefox
 
 srch=search

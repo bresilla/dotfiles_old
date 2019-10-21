@@ -62,38 +62,7 @@ setopt interactive_comments
 setopt no_beep
 
 #--------------------------------------------------------------------------------------------------------------------
-###FUZZYFINDER
-fzf_history() {
-	zle -I; eval $(history | tux +s | sed 's/ *[0-9]* *//') ; }
-	zle -N fzf_history
-#bindkey '^H' fzf_history
-bindkey -M vicmd '^H' fzf_history
-bindkey -M viins '^H' fzf_history
-
-fzf_killps() {
-	zle -I; ps -ef | sed 1d | tux -m | awk '{print $2}' | xargs suda kill -${1:-9} ; }
-	zle -N fzf_killps
-#bindkey '^X' fzf_killps
-bindkey -M vicmd '^X' fzf_killps
-
-fzf-find() {
-	zle -I; nvim "$(find $PWD -name "*" -type f | tux -e)"}
-	zle -N   fzf-find
-#bindkey '^F' fzf-file
-bindkey -M vicmd '^F' fzf-find
-bindkey -M viins '^F' fzf-find
-
-#--------------------------------------------------------------------------------------------------------------------
-###SNIPPET MANAGER
-function snip() {
-  PREV=$(fc -lrn | head -n 1)
-  sh -c "pet new `printf %q "$PREV"`"
-}
-
-
-#--------------------------------------------------------------------------------------------------------------------
 ###VI MODE
-
 bindkey -v
 DEFAULT_VI_MODE=viins
 KEYTIMEOUT=1
@@ -174,10 +143,15 @@ zle -N deer
 bindkey '\eu' deer
 
 
-[ -d ~/.config/zsh/insult ] && source ~/.config/zsh/insult
+TMOUT=1
+TRAPALRM() {
+    if [ "$WIDGET" != "complete-word" ]; then
+        zle reset-prompt
+    fi
+}
+
+[ -d ~/.config/zsh/insult ] && . ~/.config/zsh/insult
 [ -f ~/.config/zsh/theme ] && source ~/.config/zsh/theme
-#TMOUT=1
-TRAPALRM() zle reset-prompt
 (( $+commands[thefuck] )) && eval $(thefuck --alias)
 [ -f ~/.config/zsh/async ] && autoload -U async
 [ -d ~/.config/zsh/cmdtime ] && source ~/.config/zsh/cmdtime/zsh-command-time.zsh
@@ -190,3 +164,4 @@ TRAPALRM() zle reset-prompt
 [ -d ~/.config/zsh/autopair ] && source ~/.config//zsh/autopair/autopair.zh
 [ -d ~/.config/zsh/completions ] && source ~/.config/zsh/completions/zsh-completions.zsh
 [ -d ~/.config/zsh/goto ] && source ~/.config/zsh/goto/goto.sh
+[ -d ~/.config/gitstatus ] && source ~/.config/gitstatus/gitstatus.prompt.zsh

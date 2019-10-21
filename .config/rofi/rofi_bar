@@ -8,13 +8,13 @@
 
 * {
 	accent: #FFFFFF;
-	bckgrd: rgba(0, 0, 0, 1);
+	bckgrd: #000000;
 	select: @accent;
 
 	foreground:         @accent;
 	foreground-alt:    	#ebebeb;
 	background:			@bckgrd;
-	background-alt: 	rgba(255, 255, 255, 0.08);
+	background-alt: 	rgba(255, 255, 255, 0.1);
 	transparent:		rgba(0, 0, 0, 0);
 	urgentcolor:      	#e53714;
 

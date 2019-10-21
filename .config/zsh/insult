@@ -101,9 +101,6 @@ function_exists () {
 # stream of messages.
 #
 
-#
-# Zsh
-#
 if function_exists command_not_found_handler; then
     if ! function_exists orig_command_not_found_handler; then
         eval "orig_$(declare -f command_not_found_handler)"
@@ -120,20 +117,7 @@ command_not_found_handler () {
     orig_command_not_found_handler "$@"
 }
 
-
-#
-# Bash
-#
-if function_exists command_not_found_handle; then
-    if ! function_exists orig_command_not_found_handle; then
-        eval "orig_$(declare -f command_not_found_handle)"
-    fi
-else
-    orig_command_not_found_handle () {
-        echo "$0: $1: command not found"
-        return 127
-    }
-fi
+i
 
 command_not_found_handle () {
     print_message

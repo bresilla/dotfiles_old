@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-last_exit_code="${PROMPTLINE_LAST_EXIT_CODE:-$?}"
 esc=$'['
 end_esc=m
 local noprint='%{'
@@ -31,6 +30,7 @@ local blueTX="${IN}38;5;27${EN}"
 local blueBG="${IN}48;5;27${EN}"
 local greenTX="${IN}38;5;40${EN}"
 local greenBG="${IN}48;5;40${EN}"
+local conTX=$darkTX
 local NLD="\e[0m"
 local BLD="\e[32;1m"
 
@@ -52,32 +52,25 @@ function __promptline_host {
         if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
     fi
 }
-
-function __promptline_last_exit_code {
-    [[ $last_exit_code -gt 0 ]] || return 1;
-    printf "%s" "$last_exit_code" 
-}
-
 function __sudo_warning {
     [[ $(trap "" XFSZ; limit filesize 0; LC_ALL=C sudo -n true 2>&1) != *"password is required" ]] && printf 'SUDO'
 }
 
 function __vi_mode_select {
-    printf "${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}" 
+    printf "${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
 }
 
 function __load_average {
     eval loadav01=$(uptime | awk ' {print substr($0,length($0)-15)}' | awk '{print $1}' | sed 's/,//g')
-    printf "$loadav01" 
+    printf "$loadav01"
 }
 
 function __promptline_vcs_branch {
     local branch
-    local branch_symbol=" "
     if hash git 2>/dev/null; then
         if branch=$( { git symbolic-ref --quiet HEAD || git rev-parse --short HEAD; } 2>/dev/null ); then
         branch=${branch##*/}
-        printf "%s" "${branch_symbol}${branch:-unknown}"
+        printf "%s" "${branch:-unknown}"
         return
         fi
     fi
@@ -90,7 +83,7 @@ function __is_in_container {
 }
 
 function __promptline_cwd {
-    local dir_limit="1"
+    local dir_limit="4"
     local truncation="⋯"
     local first_char
     local part_count=0
@@ -111,43 +104,47 @@ function __promptline_cwd {
 }
 
 function __get_username {
-    id -u -n
+    whoami
 }
 
 function __promptline_left_prompt {
     #HOST
-    slice_prefix="${accentBG}${space}" slice_suffix="${space}${background}${accentTX}${arrFL}${blackTX}${accentBG}"; printf "%s" "$slice_prefix" '$(__promptline_host)' "$slice_suffix"
+    prefix="${accentBG}${space}" suffix="${space}${background}${accentTX}${arrFL}${blackTX}${accentBG}"; printf "%s" "$prefix" '$(__promptline_host)' "$suffix"
     #USER
-    slice_prefix="${greyBG}${arrFL}${blackTX}${greyBG}${space}" slice_suffix="${space}${greyTX}"; printf "%s" "$slice_prefix" '$(__get_username)' "$slice_suffix"
+    prefix="${greyBG}${arrFL}${blackTX}${greyBG}${space}" suffix="${space}${greyTX}"; printf "%s" "$prefix" '$(__get_username)' "$suffix"
     #SUDO WARN
-    slice_prefix="${redBG}${arrFL}${foreground}${redBG}${space}" slice_suffix="${space}${redTX}"; [[ -n $(__sudo_warning) ]] && printf "%s" "$slice_prefix" '$(__sudo_warning)' "$slice_suffix"
+    prefix="${redBG}${arrFL}${foreground}${redBG}${space}" suffix="${space}${redTX}"; [[ -n $(__sudo_warning) ]] && printf "%s" "$prefix" '$(__sudo_warning)' "$suffix"
     #CONTAINER
-    slice_prefix="${background}${arrFL}${blackTX}${accentBG}${arrFL}${foreground}${accentBG}${space}" slice_suffix="${space}${accentTX}"; [[ -n $(__is_in_container) ]] && printf "%s" "$slice_prefix" '$(__is_in_container)' "$slice_suffix"
+    prefix="${background}${arrFL}${blackTX}${accentBG}${arrFL}${foreground}${accentBG}${space}" suffix="${space}${accentTX}"; [[ -n $(__is_in_container) ]] && printf "%s" "$prefix" '$(__is_in_container)' "$suffix"
     [[ -n $(__is_in_container) ]] && endARR="$arrEL$redBG$blackTX$arrFL$redBG$redTX$background$arrFL$greyTX"
     #PATH
-    slice_prefix="${defaultBG}${arrFL}${darkTX}${space}" slice_suffix="$space${blackTX}"; [[ -n $(__promptline_cwd) ]] && printf "%s" "$slice_prefix" '$(__promptline_cwd)' "$slice_suffix"
+    prefix="${defaultBG}${arrFL}${darkTX}${space}" suffix="$space${blackTX}"; [[ -n $(__promptline_cwd) ]] && printf "%s" "$prefix" '$(__promptline_cwd)' "$suffix"
     ### END
     printf "%s" "$defaultFG${darkTX}${arrEL}${space}$defaultFG"
 }
 
 function __promptline_right_prompt {
-    ### START
-    printf "%s" "$defaultFG${darkTX} $defaultFG"
-    #GIT
-    slice_prefix="${darkTX}" slice_suffix="${space}${darkTX}${arrER}"; [[ -n $(__promptline_vcs_branch) ]] && printf "%s" "$slice_prefix" '$(__promptline_vcs_branch)' "$slice_suffix"
     #WARN
-    slice_prefix="${space}${redTX}" slice_suffix="${space}${darkTX}${arrER}"; [[ -n $(__promptline_last_exit_code) ]] && printf "%s" "$slice_prefix" '$(__promptline_last_exit_code)' "$slice_suffix"
+    prefix="${space}${redTX}${arrFR}${redBG}${blackTX}" suffix="${space}${blackTX}${arrFR}${darkTX}${background}"; [[ $last_exit_code -gt 0 ]] && printf "%s" "$prefix " $last_exit_code "$suffix"
+    #GIT
+    [[ $(__promptline_vcs_branch) = "master" ]] && conTX=$greenTX
+    prefix="${greyTX}${arrER}${space}${conTX}" suffix="${space}${darkTX}"; [[ -n $(__promptline_vcs_branch) ]] && printf "%s" "$prefix" '$GITSTATUS_PROMPT' "$suffix"
     #CMD TIME
-    slice_prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" slice_suffix="${space}${blackTX}${arrER}"; [[ -n $timer_show ]] && printf "%s" "$slice_prefix" "$timer_show" "$slice_suffix"
+    prefix="${greyTX}${arrER}${arrFR}${blackTX}${greyBG}${space}" suffix="${space}${blackTX}${arrER}"; [[ -n $timer_show ]] && printf "%s" "$prefix" "$timer_show" "$suffix"
     #LOAD AVERAGE
-    slice_prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" slice_suffix="${space}${greyTX}"; printf "%s" "$slice_prefix" '$(__load_average)' "$slice_suffix"
+    prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" suffix="${space}${greyTX}"; printf "%s" "$prefix" '$(__load_average)' "$suffix"
     #VIM MODE
-    slice_prefix="${accentTX}${arrFR}${foreground}${accentBG}${space}" slice_suffix="${space}${accentTX}"; printf "%s" "$slice_prefix" '$(__vi_mode_select)' "$slice_suffix"
+    prefix="${accentTX}${arrFR}${foreground}${accentBG}${space}" suffix="${space}${accentTX}"; printf "%s" "$prefix" '$(__vi_mode_select)' "$suffix"
+}
+
+function __promptline_runner_prompt {
+    runn=">"
 }
 
 function __promptline {
-  PROMPT="$(__promptline_left_prompt)$defaultFG"
-  RPROMPT="$(__promptline_right_prompt)$defaultFG"
+    last_exit_code="${PROMPTLINE_LAST_EXIT_CODE:-$?}"
+    PROMPT="$(__promptline_left_prompt)$defaultFG$(__promptline_runner_prompt)"
+    RPROMPT="$(__promptline_right_prompt)$defaultFG"
 }
 
 precmd_functions+=(__promptline)
