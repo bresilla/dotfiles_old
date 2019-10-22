@@ -24,7 +24,8 @@ readme(){
 }
 
 compile(){
-    rm -rf build/* && cmake -H. -Bbuild -DHUNTER_STATUS_DEBUG=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} 2>&1 | bat && cp build/compile_commands.json .
+    [[ $(ls -A build/) ]] && rm -rf build/*
+    cmake -H. -Bbuild -DHUNTER_STATUS_DEBUG=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} 2>&1 | bat && cp build/compile_commands.json .
 }
 
 build(){

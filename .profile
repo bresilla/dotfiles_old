@@ -1,47 +1,25 @@
-if [ -d "$HOME/.nix-profile/bin" ] ; then
-    PATH="$HOME/.nix-profile/bin:$PATH"
-fi
+#USER_BIN
+[[ -d "$HOME/.bin" ]] && PATH="$HOME/.bin:$PATH"
+[[ -d "$HOME/.sbin" ]] && PATH="$HOME/.sbin:$PATH"
+[[ -d "$HOME/.hack" ]] && PATH="$HOME/.hack:$PATH"
+[[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
+[[ -d "$HOME/.local/sbin" ]] && PATH="$HOME/.local/sbin:$PATH"
 
-if [ -d "/nix/var/nix/profiles/default/bin" ] ; then
-    PATH="/nix/var/nix/profiles/default/bin:$PATH"
-fi
+#NIX
+[[ -d "$HOME/.nix-profile/bin" ]] && PATH="$HOME/.nix-profile/bin:$PATH"
+[[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH"
+#GUIX
+[[ -d "$HOME/.config/guix/current/etc/profile" ]] && PATH="$HOME/.config/guix/current/etc/profile:$PATH"
+#CONDA
+[[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH"
 
-if [ -d "$HOME/.config/guix/current/etc/profile" ] ; then
-    PATH="$HOME/.config/guix/current/etc/profile:$PATH"
-fi
+#GO
+[[ -d "$HOME/.go/bin" ]] && PATH="$HOME/.go/bin:$PATH"
+#RUST
+[[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
+#NIM
+[[ -d "$HOME/.nimble/bin" ]] && PATH="$HOME/.nimble/bin:$PATH"
 
-if [ -d "$HOME/.bin" ] ; then
-    PATH="$HOME/.bin:$PATH"
-fi
-
-if [ -d "$HOME/.sbin" ] ; then
-    PATH="$HOME/.sbin:$PATH"
-fi
-
-if [ -d "$HOME/.hack" ] ; then
-    PATH="$HOME/.hack:$PATH"
-fi
-
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/sbin" ] ; then
-    PATH="$HOME/.local/sbin:$PATH"
-fi
-
-if [ -d "$HOME/.go/bin" ] ; then
-    PATH="$HOME/.go/bin:$PATH"
-fi
-
-if [ -d "$HOME/.cargo/bin" ] ; then
-    PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-if [ -d "$HOME/.nimble/bin" ] ; then
-    PATH="$HOME/.nimble/bin:$PATH"
-fi
-TZ='Europe/Berlin'
 
 # export BROWSER=qutebrowser
 export BROWSER=firefox
@@ -53,6 +31,7 @@ export GOBIN="$GOPATH/bin"
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 export WINEPREFIX=~/.wine
+export TZ='Europe/Berlin'
 
 export DOT=/home/bresilla/Dots/
 export SET=/home/bresilla/Sets/

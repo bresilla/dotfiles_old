@@ -33,7 +33,7 @@ XF86MonBrightness{Up,Down}
 
 #kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
 mode_switch + Return
-    boomer
+    pkill boomer; boomer
 
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local

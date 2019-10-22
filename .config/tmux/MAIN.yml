@@ -4,6 +4,6 @@ windows:
   layout: ad64,215x40,0,0,7
   panes:
   - commands:
-    - s
+    - clear
     focus: true
     root: /home/bresilla

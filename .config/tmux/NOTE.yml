@@ -1,22 +1,29 @@
 name: NOTE
 windows:
 - name: music
-  layout: 855f,204x47,0,0[204x32,0,0,2,204x14,0,33,3]
+  layout: 8cf9,280x57,0,0[280x42,0,0,2,280x14,0,43,36]
   panes:
   - commands:
     - ncmpcpp
+    root: /home/bresilla
   - commands:
     - ncpamixer
     focus: true
     root: /home/bresilla
-- name: glance
-  layout: d777,219x56,0,0[219x47,0,0,28,219x8,0,48,32]
+- name: spotifyd
+  layout: fb82,280x57,0,0{210x57,0,0,38,69x57,211,0,41}
   panes:
   - commands:
-    - gotop -b
-    focus: true
+    - spt
     root: /home/bresilla
   - commands:
-    - tty-clock -bcs
-    # - peaclock
+    - ll
+    focus: true
+    root: /home/bresilla
+- name: gotop
+  layout: 6589,280x57,0,0,39
+  panes:
+  - commands:
+    - gotop
+    focus: true
     root: /home/bresilla

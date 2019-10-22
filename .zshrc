@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-
 #--------------------------------------------------------------------------------------------------------------------
 ###WAL COLORS
 (cat ~/.cache/wal/sequences &)
@@ -8,9 +7,7 @@ source ~/.cache/wal/colors.sh
 ###SCRIPTS PATH
 export FPATH=~/.config/zsh:$FPATH
 ###FUNCTIONS
-[ -d ~/.func ] && for file in ~/.func/*; do
-    source "$file"
-done
+[ -d ~/.func ] && for file in ~/.func/*; do source "$file" ; done
 ###PROFILE
 [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
 
@@ -47,6 +44,7 @@ setopt rmstarsilent
 
 #--------------------------------------------------------------------------------------------------------------------
 ###HISTORY STAFF
+export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 HISTFILE=~/.config/zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
@@ -55,7 +53,6 @@ setopt sharehistory
 setopt incappendhistory
 setopt inc_append_history
 setopt hist_ignore_all_dups
-export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 setopt hist_reduce_blanks
 setopt hist_ignore_space
 setopt interactive_comments
@@ -117,31 +114,38 @@ zle -N sudo-command-line
 bindkey -s '\es' sudo-command-line
 
 #--------------------------------------------------------------------------------------------------------------------
-#minibrowser
-shkoc () {
-    if [ ${#${(z)BUFFER}} -eq 0 ]; then
-        s
-    fi
-    zle accept-line
-}
-zle -N shkoc
-#bindkey '^M' shkoc
+###FUZZYFINDER
+function run_history() { hister; zle reset-prompt; zle redisplay }
+zle -N run_history
+bindkey -M vicmd '^t' run_history
+bindkey -M viins '^t' run_history
+bindkey '^t' run_history
+
+function run_killer() { killer; zle reset-prompt; zle redisplay }
+zle -N run_killer
+bindkey -M vicmd '^k' run_killer
+bindkey -M viins '^k' run_killer
+bindkey '^k' run_killer
+
+function run_find() { finder; zle reset-prompt; zle redisplay }
+zle -N run_find
+bindkey -M vicmd '^f' run_find
+bindkey -M viins '^f' run_find
+bindkey '^f' run_find
+
+function run_compile() { compile FastDebug && build; zle reset-prompt; zle redisplay }
+zle -N run_compile
+bindkey -M viins '^o' run_compile
+bindkey -M vicmd '^o' run_compile
+bindkey '^o' run_compile
+
+
+
 
 #--------------------------------------------------------------------------------------------------------------------
 ###MODULES
 autoload -U colors && colors
 autoload compinit && compinit
-
-[ -f ~/.config/zsh/alger ] && autoload -U alger
-bindkey -s '\ez' "alger\n"
-
-[ -f ~/.config/zsh/texas ] && autoload -U texas
-bindkey -s '\et' "texas\n"
-
-[ -f ~/.config/zsh/deer ] && autoload -U deer
-zle -N deer
-bindkey '\eu' deer
-
 
 TMOUT=1
 TRAPALRM() {

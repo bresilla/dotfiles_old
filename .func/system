@@ -1,6 +1,6 @@
 alias sudo='sudo -E '
 alias :q='exit'
-alias up="cat $PASS | sudo -S systemctl $@"
+alias up="sudo -S systemctl"
 alias copy='xclip -sel clip'
 alias s='shko -c --short 19 && cd "$(cat ~/.config/shko/settings/chdir)"'
 #PACKAGE_MANAGER
@@ -37,8 +37,8 @@ alias fzp='fzf --preview="head -$LINES {}"'
 alias ari='aria2c'
 tree() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 ##HISTORY
-history(){ tac /home/bresilla/.config/zsh_history | tux -e | copy }
-delete_history(){ name=$(tac $HISTFILE | fzy); [[ -n $name ]] && LC_ALL=C sed -i "/$name/d" $HISTFILE }
+hister(){ fc -lrn 0 | tux -e | copy }
+delete_hister(){ name=$(tac $HISTFILE | fzy); [[ -n $name ]] && LC_ALL=C sed -i "/$name/d" $HISTFILE }
 ##FILES
 alias own='suda chown -R $USER'
 alias exe='chmod +x'
@@ -54,3 +54,4 @@ phone(){ sshfs -p 1234 bresilla@$1:/storage/emulated/0 /home/bresilla/OnePlus }
 rofit(){ rofi -theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>' }
 snip() { PREV=$(fc -lrn | head -n 1); sh -c "pet new `printf %q "$PREV"`" }
 killer (){ n=$(ps -ef | sed 1d | tux -m | awk '{print $2}'); [[ -n $n ]] && sudo kill $n }
+anaconda() { [[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH" }
