@@ -1,0 +1,12 @@
+#!/bin/bash
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+# BACKGROUND=$(xrdb -query | grep 'color0:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#FFFFFF}; bckgrd: ${BACKGROUND:-#000000};}")
+
+ name=$(CLIntacts  --database=/home/bresilla/Sets/contacts list -i $(CLIntacts --database=/home/bresilla/Sets/contacts list | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "contacts: " | cut -d. -f1))
+
+if [ -z "$name" ] ; then
+    echo "nothing selected"
+else
+    printf "$name" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "contacts: " | cut -d. -f2 | xargs | xclip -sel clip
+fi

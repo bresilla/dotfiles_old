@@ -1,0 +1,1 @@
+alias contacts='n=$(clintacts list | fzy | cut -d. -f1) && clintacts list -i $n'

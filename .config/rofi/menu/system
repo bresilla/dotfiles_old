@@ -1,16 +1,15 @@
 #!/bin/bash
 FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
-PADDINGS="40% 0 0 35%"
+PADDINGS="40% 0 0 37%"
 ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_icon -theme-str "*{accent: ${FOREGROUND:-#000000}; spacing: $PADDINGS;}")
 
-display=""
 power_off=""
 reboot=""
 lock=""
 suspend="鈴"
 log_out=""
 
-options="$display\n$power_off\n$reboot\n$lock\n$suspend\n$log_out"
+options="$power_off\n$reboot\n$lock\n$suspend\n$log_out"
 chosen="$(echo -e "$options" | rofi "${ROFI_OPTIONS[@]}" -dmenu -selected-row 2)"
 
 PADDINGS="40% 0 0 46%"
@@ -18,14 +17,6 @@ ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_icon -theme-str "*{accent: ${FOREGR
 YESNO="\n"
 
 case $chosen in
-    $display)
-        disp=$(echo -e "1\n2" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Select layout:")
-        if [ "$disp" == "1" ] ; then
-            exec xrandr --output "eDP-1" --primary --mode 3840x2160 --pos 0x0 --output "DP1" --off
-        elif [ "$disp" == "2" ] ; then
-            exec xrandr --output "eDP-1" --primary --mode 3840x2160 --pos 0x1080 --output "DP1" --mode 1920x1080 --pos 920x0
-        fi
-        ;;
     $power_off)
         [ $(echo -e $YESNO | rofi "${ROFI_OPTIONS[@]}" -theme-str "*{accent: #e53714;}" -dmenu -i -p "Are you shure you want to proceed?") ==  ] && systemctl poweroff
         ;;

@@ -118,17 +118,16 @@ function __promptline_left_prompt {
     prefix="${background}${arrFL}${blackTX}${accentBG}${arrFL}${foreground}${accentBG}${space}" suffix="${space}${accentTX}"; [[ -n $(__is_in_container) ]] && printf "%s" "$prefix" '$(__is_in_container)' "$suffix"
     [[ -n $(__is_in_container) ]] && endARR="$arrEL$redBG$blackTX$arrFL$redBG$redTX$background$arrFL$greyTX"
     #PATH
-    prefix="${defaultBG}${arrFL}${darkTX}${space}" suffix="$space${blackTX}"; [[ -n $(__promptline_cwd) ]] && printf "%s" "$prefix" '$(__promptline_cwd)' "$suffix"
-    ### END
-    printf "%s" "$defaultFG${darkTX}${arrEL}${space}$defaultFG"
+    [[ $(__promptline_vcs_branch) = "master" ]] && conTX=$accentTX
+    prefix="${defaultBG}${arrFL}${conTX}${space}" suffix="${space}${conTX}${arrEL}${darkTX}"; [[ -n $(__promptline_cwd) ]] && printf "%s" "$prefix" '$(__promptline_cwd)' "$suffix"
 }
 
 function __promptline_right_prompt {
     #WARN
     prefix="${space}${redTX}${arrFR}${redBG}${blackTX}" suffix="${space}${blackTX}${arrFR}${darkTX}${background}"; [[ $last_exit_code -gt 0 ]] && printf "%s" "$prefix " $last_exit_code "$suffix"
     #GIT
-    [[ $(__promptline_vcs_branch) = "master" ]] && conTX=$greenTX
-    prefix="${greyTX}${arrER}${space}${conTX}" suffix="${space}${darkTX}"; [[ -n $(__promptline_vcs_branch) ]] && printf "%s" "$prefix" '$GITSTATUS_PROMPT' "$suffix"
+    [[ $(__promptline_vcs_branch) = "master" ]] && conTX=$accentTX
+    prefix="${conTX}${arrER}${space}${conTX}" suffix="${space}${darkTX}"; [[ -n $(__promptline_vcs_branch) ]] && printf "%s" "$prefix" '$GITSTATUS_PROMPT' "$suffix"
     #CMD TIME
     prefix="${greyTX}${arrER}${arrFR}${blackTX}${greyBG}${space}" suffix="${space}${blackTX}${arrER}"; [[ -n $timer_show ]] && printf "%s" "$prefix" "$timer_show" "$suffix"
     #LOAD AVERAGE
@@ -137,14 +136,10 @@ function __promptline_right_prompt {
     prefix="${accentTX}${arrFR}${foreground}${accentBG}${space}" suffix="${space}${accentTX}"; printf "%s" "$prefix" '$(__vi_mode_select)' "$suffix"
 }
 
-function __promptline_runner_prompt {
-    runn=">"
-}
-
 function __promptline {
     last_exit_code="${PROMPTLINE_LAST_EXIT_CODE:-$?}"
-    PROMPT="$(__promptline_left_prompt)$defaultFG$(__promptline_runner_prompt)"
-    RPROMPT="$(__promptline_right_prompt)$defaultFG"
+    PROMPT="$(__promptline_left_prompt)$defaultFG "
+    RPROMPT=" $(__promptline_right_prompt)$defaultFG"
 }
 
 precmd_functions+=(__promptline)

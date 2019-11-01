@@ -25,11 +25,35 @@ readme(){
 
 compile(){
     [[ $(ls -A build/) ]] && rm -rf build/*
-    cmake -H. -Bbuild -DHUNTER_STATUS_DEBUG=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} 2>&1 | bat && cp build/compile_commands.json .
+    cmake -H. -Bbuild -DHUNTER_STATUS_DEBUG=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} 2>&1 | bat
 }
 
 build(){
-    cmake --build build/ --target
+    cmake --build build/ --target | bat
 }
 
-
+nixify(){
+    echo 'with import <nixpkgs> {}; rec {
+  cplateEnv = stdenv.mkDerivation {
+    name = "cmake";
+    buildInputs = [ stdenv
+                    cmake
+                    pkgconfig
+                    gcc
+                    gdb
+                    clang
+                    clang-tools
+                    llvm
+                    lldb
+                    ctags
+                    cppcheck
+                    kcov
+                    valgrind
+                    xorg.libX11
+                  ];
+    LD_LIBRARY_PATH="/usr/include";
+    TOOLSET="clang++-7.1";
+    LLVM_CONFIG_BINARY="/nix/store/jkjzhbfmf2miplcz0svy5c8yd01qsg1l-llvm-7.1.0/bin/llvm-config";
+  };
+}' > shell.nix
+}

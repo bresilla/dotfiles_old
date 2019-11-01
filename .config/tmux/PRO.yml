@@ -1,0 +1,16 @@
+name: "PRO"
+windows:
+- name: nvim
+  layout: e092,304x64,0,0,23
+  panes:
+  - commands:
+    - nvim
+    focus: true
+    root: /home/bresilla/DATA/CODE/PROJECTS/warp/clintacts
+- name: grv
+  layout: e094,304x64,0,0,25
+  panes:
+  - commands:
+    - grv
+    focus: true
+    root: /home/bresilla/DATA/CODE/PROJECTS/warp/clintacts

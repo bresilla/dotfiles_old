@@ -10,6 +10,8 @@ export FPATH=~/.config/zsh:$FPATH
 [ -d ~/.func ] && for file in ~/.func/*; do source "$file" ; done
 ###PROFILE
 [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
+###DIRENV
+eval "$(direnv hook zsh)"
 
 ###LAUNCHER
 if [[ -n ${LAUNCHER} ]]; then
@@ -147,7 +149,7 @@ bindkey '^o' run_compile
 autoload -U colors && colors
 autoload compinit && compinit
 
-TMOUT=1
+# TMOUT=1
 TRAPALRM() {
     if [ "$WIDGET" != "complete-word" ]; then
         zle reset-prompt

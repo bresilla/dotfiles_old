@@ -30,13 +30,9 @@ shadow-offset-y = 0;					# The top offset for shadows. (default -15)
 
 shadow-exclude = [
 			"name = 'Notification'",
-			"class_g ?= 'Notify-osd'",
 			"class_g = 'albert'",
 			"class_g = 'Conky'",
-			"_GTK_FRAME_EXTENTS@:c",
-		    	"_NET_WM_NAME@:s = 'rofi'",
-			"class_g = 'rofi'",
-			"window_type *= 'normal' && ! name ~= ''"
+			"class_g = 'rofi'"
 ];
 
 shadow-ignore-shaped = true;
@@ -78,9 +74,9 @@ blur-background-exclude = [
 #												Fading
 ############################################################################################################
 fading = true;							# Fade windows during opacity changes.
-fade-delta = 20;						# The time between steps in a fade in milliseconds. (default 10).
-fade-in-step = 0.05;					# Opacity change between steps while fading in. (default 0.028).
-fade-out-step = 0.05;					# Opacity change between steps while fading out. (default 0.03).
+fade-delta = 50;						# The time between steps in a fade in milliseconds. (default 10).
+fade-in-step = 0.1; 					# Opacity change between steps while fading in. (default 0.028).
+fade-out-step = 0.1;					# Opacity change between steps while fading out. (default 0.03).
 # no-fading-openclose = true;			# Avoid fade windows in/out when opening/closing.
 # no-fading-destroyed-argb = true;
 focus-exclude = [
@@ -123,8 +119,6 @@ invert-color-include = [ ];				# Conditions for windows to be painted with inver
 ############################################################################################################
 #											Window type settings
 ############################################################################################################
-
-
 
 wintypes:
 {

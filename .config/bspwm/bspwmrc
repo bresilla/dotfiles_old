@@ -35,7 +35,8 @@ bspc config remove_disabled_monitors true
 ###############################################################################################################################
 #|||	ASSIGNMENTS
 ###############################################################################################################################
-bspc rule -a kitty state=floating border_width=1
+bspc rule -a kitty state=floating sticky
+bspc rule -a til state=tiled
 bspc rule -a feh state=floating
 bspc rule -a sxiv state=floating
 bspc rule -a mpv state=floating
@@ -43,7 +44,6 @@ bspc rule -a MPlayer state=floating
 bspc rule -a matplotlib state=floating
 bspc rule -a URxvt state=floating
 bspc rule -a Oblogout state=fullscreen
-bspc rule -a Soffice state=tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a URxvt:launcher state=floating center sticky
 bspc rule -a LAUNCHER state=floating center sticky

@@ -14,39 +14,26 @@ super + alt + space; {c,Return}
 
 {dead_acute,dead_circumflex}
     termop {NOTE 3500 1900,MAIN 2500 1050}
-
-mode_switch + {Left,Right}
-    {echo "seek -10" > /home/bresilla/.config/mpv/control, echo "seek 10" > /home/bresilla/.config/mpv/control}
-mode_switch + space
-    echo "cycle pause" > /home/bresilla/.config/mpv/control
-
-super + XF86Audio{Prev,Next}
-    mpc seekthrough {-10,+10}
-XF86Audio{Prev,Next,Play}
-    mpc -q {prev,next,toggle} & playerctl {previous,next,play-pause}
-XF86Audio{Raise,Lower}Volume
-    pulsemixer --change-volume {+,-}5
-XF86AudioMute
-    pulsemixer --toggle-mute
-XF86MonBrightness{Up,Down}
-    light -{A,U} 5
-
-#kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
-mode_switch + Return
+XF86Search
     pkill boomer; boomer
+{super,alt} + XF86Search
+    monitors
+mode_switch + space
+    bspc desktop -f last
+mode_switch + Return
+   kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
 
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local
 super + alt + {Down,Up}
     bspc monitor -f {prev,next}
-{super,alt} + @button{6,5,4,7}
-    /home/bresilla/.config/bspwm/scripts/{focus,move} {west,south,north,east}
 {super,alt} + {Left,Down,Up,Right}
     /home/bresilla/.config/bspwm/scripts/{focus,move} {west,south,north,east}
-{super+alt} + ctrl + @button{6,5,4,7}
-    /home/bresilla/.config/bspwm/scripts/resize {Left,Down,Up,Right}
-{super+alt} + ctrl + {Left,Down,Up,Right}
-    /home/bresilla/.config/bspwm/scripts/resize {Left,Down,Up,Right}
+
+{super,alt} + @button{6,5,4,7}
+    /home/bresilla/.config/bspwm/scripts/{focus,move} {west,south,north,east}
+{_, ctrl} + {super+alt} + @button{6,5,4,7}
+    /home/bresilla/.config/bspwm/scripts/resize {b,s} {Left,Down,Up,Right}
 
 {super+alt} + shift + {Left,Right}
     bspc node -d {prev,next} --follow
@@ -57,3 +44,21 @@ super + alt + {Down,Up}
     bspc node -t {tiled,fullscreen,floating}
 {super,alt,alt+super} + BackSpace
     bspc node -g {locked,private,sticky}
+
+mod3 + {Left,Right}
+    {echo "seek -10" > /home/bresilla/.config/mpv/control, echo "seek 10" > /home/bresilla/.config/mpv/control}
+mod3 + space
+    echo "cycle pause" > /home/bresilla/.config/mpv/control
+
+mod3 + XF86Audio{Prev,Next}
+    mpc seekthrough {-10,+10}
+XF86Audio{Prev,Next,Play}
+    mpc -q {prev,next,toggle} & playerctl {previous,next,play-pause}
+XF86Audio{Raise,Lower}Volume
+    pulsemixer --change-volume {+,-}5
+XF86AudioMute
+    pulsemixer --toggle-mute
+XF86MonBrightness{Up,Down}
+    light -{A,U} 5
+
+

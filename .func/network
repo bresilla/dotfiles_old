@@ -7,7 +7,7 @@ findip(){
 hotspot(){
     sudo /home/bresilla/.sbin/hotspot wlp2s0 wlp2s0 algorithm dyhere024 }
 
-alias speed=speedtest-net
+alias speed="wget --output-document=/dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip"
 
 portgraph(){
     sudo lsof -n -F | ./lsofgraph | dot -Tjpg > /tmp/a.jpg

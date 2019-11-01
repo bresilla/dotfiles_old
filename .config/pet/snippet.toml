@@ -1,0 +1,14 @@
+[[snippets]]
+  description = "run personal container"
+  command = "con start --user=bresilla --volume=\"/home/bresilla:/home/bresilla\""
+  output = ""
+
+[[snippets]]
+  description = "one drive sync locally"
+  command = "rclone --vfs-cache-mode writes mount one: ~/DATA/ONEDRIVE"
+  output = ""
+
+[[snippets]]
+  description = "git password cache"
+  command = "git config --global credential.helper 'cache --timeout=10000'"
+  output = ""

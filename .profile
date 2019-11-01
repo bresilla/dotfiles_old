@@ -5,30 +5,25 @@
 [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 [[ -d "$HOME/.local/sbin" ]] && PATH="$HOME/.local/sbin:$PATH"
 
-#NIX
-[[ -d "$HOME/.nix-profile/bin" ]] && PATH="$HOME/.nix-profile/bin:$PATH"
-[[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH"
-#GUIX
-[[ -d "$HOME/.config/guix/current/etc/profile" ]] && PATH="$HOME/.config/guix/current/etc/profile:$PATH"
-#CONDA
-[[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH"
-
 #GO
 [[ -d "$HOME/.go/bin" ]] && PATH="$HOME/.go/bin:$PATH"
 #RUST
 [[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
 #NIM
 [[ -d "$HOME/.nimble/bin" ]] && PATH="$HOME/.nimble/bin:$PATH"
+#CONDA
+[[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH"
 
+#NIX
+[[ -d "$HOME/.nix-profile/bin" ]] && PATH="$HOME/.nix-profile/bin:$PATH"
+[[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH"
 
-# export BROWSER=qutebrowser
 export BROWSER=firefox
 export EDITOR=nvim
 export TERMINAL=kitty
 
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 export WINEPREFIX=~/.wine
 export TZ='Europe/Berlin'
@@ -36,6 +31,8 @@ export TZ='Europe/Berlin'
 export DOT=/home/bresilla/Dots/
 export SET=/home/bresilla/Sets/
 export WALL=/usr/share/backgrounds
+export CODE=/home/bresilla/DATA/CODE/
+export PRO=/home/bresilla/DATA/CODE/PROJECTS
 
 export FOREGROUND=$(xrdb -query | grep 'foreground:'| awk 'NR==1{print $NF}')
 export BACKGROUND=$(xrdb -query | grep 'background:'| awk 'NR==1{print $NF}')

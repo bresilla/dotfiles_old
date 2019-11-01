@@ -1,0 +1,12 @@
+#!/bin/bash
+
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+PADDINGS="40% 0 0 35%"
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_icon -theme-str "*{accent: ${FOREGROUND:-#000000}; spacing: $PADDINGS;}")
+
+ disp=$(echo -e "1\n2" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "Select layout:")
+        if [ "$disp" == "1" ] ; then
+            exec xrandr --output "eDP-1" --primary --mode 3840x2160 --pos 0x0 --output "DP1" --off
+        elif [ "$disp" == "2" ] ; then
+            exec xrandr --output "eDP-1" --primary --mode 3840x2160 --pos 0x1080 --output "DP1" --mode 1920x1080 --pos 920x0
+        fi

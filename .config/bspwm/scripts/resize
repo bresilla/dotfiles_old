@@ -1,16 +1,29 @@
 #!/bin/sh
-#super +  {a,s,w,d}
-#   focusmover {west,south,north,east}
-dir=$@;
-
-if [ $dir == Left ]; then
-  bspc node -z left -20 0 || bspc node -z right -20 0;
-elif [ $dir == Right ]; then
-  bspc node -z right 20 0 || bspc node -z left 20 0;
-elif [ $dir == Up ]; then
-  bspc node -z top 0 -20 || bspc node -z bottom 0 -20;
-elif [ $dir == Down ]; then
-  bspc node -z bottom 0 20 || bspc node -z top 0 20;
+dir=$2;
+if [ $1 == b ]; then
+    if [ $dir == Left ]; then
+        bspc node -z left -20 0 || bspc node -z right -20 0;
+    elif [ $dir == Right ]; then
+        bspc node -z right 20 0 || bspc node -z left 20 0;
+    elif [ $dir == Up ]; then
+        bspc node -z top 0 -20 || bspc node -z bottom 0 -20;
+    elif [ $dir == Down ]; then
+        bspc node -z bottom 0 20 || bspc node -z top 0 20;
+    else
+        exit 1
+    fi;
+elif [ $1 == s ]; then
+    if [ $dir == Left ]; then
+        bspc node -z right -20 0;
+    elif [ $dir == Right ]; then
+        bspc node -z left 20 0;
+    elif [ $dir == Up ]; then
+        bspc node -z bottom 0 -20;
+    elif [ $dir == Down ]; then
+        bspc node -z top 0 20;
+    else
+        exit 1
+    fi;
 else
-  exit 1
+    exit 1
 fi;
