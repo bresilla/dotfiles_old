@@ -8,7 +8,7 @@ elif [ "$1" == "rm" ]; then
     selected=$(cat $PROJ | fzy)
     [[ $selected ]] && egrep -v "($selected)" $PROJ > $PROJ
 elif [ "$1" == "list" ]; then
-    cat $PROJ
+    cat $PROJ | grep "\S"
 else
     selected=$(cat $PROJ | fzy)
     [[ $selected ]] && cd $selected && nvim
