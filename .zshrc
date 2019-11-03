@@ -171,3 +171,6 @@ TRAPALRM() {
 [ -d ~/.config/zsh/completions ] && source ~/.config/zsh/completions/zsh-completions.zsh
 [ -d ~/.config/zsh/goto ] && source ~/.config/zsh/goto/goto.sh
 [ -d ~/.config/gitstatus ] && source ~/.config/gitstatus/gitstatus.prompt.zsh
+
+# Hook for desk activation
+[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true

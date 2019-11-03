@@ -4,9 +4,8 @@ PROJ="/home/bresilla/.config/projects"
 if [ "$1" == "add" ]; then
     selected=$(git rev-parse --show-toplevel)
     [[ $selected ]] && printf "\n$selected" >> $PROJ && echo "project $name added"
-elif [ "$1" == "rm" ]; then
-    selected=$(cat $PROJ | fzy)
-    [[ $selected ]] && egrep -v "($selected)" $PROJ > $PROJ
+elif [ "$1" == "edit" ]; then
+    $EDITOR $PROJ
 elif [ "$1" == "list" ]; then
     cat $PROJ | grep "\S"
 else

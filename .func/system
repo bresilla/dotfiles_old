@@ -10,28 +10,27 @@ alias branch="sudo pacman-mirrors --api --set-branch $@ && mirror"
 #WM
 alias refresh='pkill -USR1 -x sxhkd && bash ~/.startup -r'
 configs() { name=$(find /home/bresilla/Dots/ -type f | fzp); [[ -n $name ]] && nvim $name }
+alias dotfile='/usr/bin/git --git-dir=$HOME/Dots --work-tree=$HOME'
 #SYSTEM
 alias cp='acp -gr'
 alias mv='acp -gr'
 alias ls='lsd -F'
 alias ll='lsd -lF'
 alias la='lsd -laF'
-alias rm='rm -r'
+alias rm='rm -rf'
 alias df='df -h'
 alias z='ncdu --color=dark'
 alias mutt='neomutt'
 alias vim='nvim'
 alias v='nvim'
-alias e='emacs -nw'
-alias mac='emacs -nw'
 alias c='bat'
-alias less='slit'
 alias l='slit'
 alias m='man'
 alias g='rg -i'
 ##PROGRAMS
 alias six="nix-shell --command zsh"
 alias git='hub'
+alias doc='docker'
 alias docker='supdock'
 alias fzp='fzf --preview="head -$LINES {}"'
 alias ari='aria2c'

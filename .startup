@@ -21,7 +21,7 @@ refresh() {
     #COMPTOSITOR
     killall -q compton
     while pgrep -x compton >/dev/null; do sleep 1; done
-    compton --experimental-backends --config ~/.config/compton/compton &
+    compton --config ~/.config/compton/compton &
 
     #WALLPAPER
     pkill -f loopwall

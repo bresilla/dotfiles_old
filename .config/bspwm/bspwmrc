@@ -8,7 +8,7 @@ sxhkd -c /home/bresilla/.config/sxhkd/sxhkdrc &
 ###############################################################################################################################
 #|||	SETTINGS
 ###############################################################################################################################
-bspc config border_width         4
+bspc config border_width         0
 bspc config normal_border_color "#000000"
 bspc config focused_border_color "#000000"
 bspc config presel_feedback_color "#000000"

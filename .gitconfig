@@ -1,3 +1,43 @@
 [user]
 	email = trim.bresilla@gmail.com
 	name = Trim Bresilla
+
+[core]
+	pager = delta --dark
+
+[credential]
+	helper = cache --timeout=10000
+
+[color]
+    ui = true
+[color "branch"]
+    current = yellow reverse
+    local = yello
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = red
+
+[merge]
+    log = true
+    ff = false
+
+[push]
+    default = simple
+
+[alias]
+    root = !pwd
+    view = !grv
+    uncommit = reset --soft HEAD^
+    master = checkout master
+    develop = checkout develop
+    module = submodule
+    get = clone --recursive
+    unfuck = "!f(){ git reset --hard origin/`git rev-parse --abbrev-ref HEAD`; rm -fv `git st | grep ^? | cut -d' '  -f2-`; }; f"
+    alias = "!f(){ git config -l | grep alias; };f"

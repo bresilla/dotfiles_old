@@ -28,10 +28,10 @@ export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 export WINEPREFIX=~/.wine
 export TZ='Europe/Berlin'
 
-export DOT=/home/bresilla/Dots/
-export SET=/home/bresilla/Sets/
+export DOT=/home/bresilla/Dots
+export SET=/home/bresilla/Sets
 export WALL=/usr/share/backgrounds
-export CODE=/home/bresilla/DATA/CODE/
+export CODE=/home/bresilla/DATA/CODE
 export PRO=/home/bresilla/DATA/CODE/PROJECTS
 
 export FOREGROUND=$(xrdb -query | grep 'foreground:'| awk 'NR==1{print $NF}')
