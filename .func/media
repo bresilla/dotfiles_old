@@ -12,7 +12,8 @@ tubedl(){
 }
 
 dotshot(){
-	scr=~/Pictures/$(date +%s).png && scrot -d ${1:-1} $scr && convert $scr -gravity North -chop 0x1080 $scr
+	sleep ${1:-5} && scr=~/TMP/$(date +%s).png && scrot -d 1 $scr 
+    #&& convert $scr -gravity North -chop 0x1080 $scr
 }
 
 flix(){

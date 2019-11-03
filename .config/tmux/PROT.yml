@@ -1,4 +1,4 @@
-name: "cmake"
+name: "mso"
 windows:
 - name: grv
   layout: e092,304x64,0,0,23
@@ -6,11 +6,11 @@ windows:
   - commands:
     - grv
     focus: true
-    root: /home/bresilla/DATA/CODE/PROJECTS/OTHER/cmake
+    root: /home/bresilla/DATA/CODE/PROJECTS/OTHER/mso
 - name: nvim
   layout: e094,304x64,0,0,25
   panes:
   - commands:
     - nix-shell --command "zsh -c "nvim""
     focus: true
-    root: /home/bresilla/DATA/CODE/PROJECTS/OTHER/cmake
+    root: /home/bresilla/DATA/CODE/PROJECTS/OTHER/mso

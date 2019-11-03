@@ -1,75 +1,38 @@
 my dotfiles :)
 
 
-![demo-1](.assets/1543851401.png)
+![demo-1](.assets/1572819071.png)
 
 
-![demo-1](.assets/1543851551.png)
+![demo-1](.assets/1572819108.png)
 
 
-![demo-1](.assets/1543851632.png)
+![demo-1](.assets/1572819230.png)
 
 
-![demo-1](.assets/1543851778.png)
+![demo-1](.assets/1572819346.png)
 
 
-![demo-1](.assets/1543851500.png)
+![demo-1](.assets/1572819598.png)
 
 
 
-![demo-1](.assets/1543851955.png)
+![demo-1](.assets/1572819692.png)
 
 
-![demo-1](.assets/1543852017.png)
+![demo-1](.assets/1572819830.png)
 
 
-![demo-1](.assets/1543852098.png)
+![demo-1](.assets/1572820349.png)
 
 
-![demo-1](.assets/1543852286.png)
+![demo-1](.assets/1572820981.png)
 
 
-![demo-1](.assets/1543862561.png)
+![demo-1](.assets/1572821027.png)
 
 
-![demo-1](.assets/1543862738.png)
+![demo-1](.assets/1572821163.png)
 
 
-![demo-1](.assets/1543862881.png)
-
-
-![demo-1](.assets/1543863239.png)
-
-
-![demo-1](.assets/1543863357.png)
-
-
-![demo-1](.assets/1543863406.png)
-
-
-![demo-1](.assets/1543863469.png)
-
-
-![demo-1](.assets/1543863579.png)
-
-
-![demo-1](.assets/1543864294.png)
-
-
-![demo-1](.assets/1543864461.png)
-
-
-![demo-1](.assets/1543865940.png)
-
-
-![demo-1](.assets/1543865974.png)
-
-
-![demo-1](.assets/1543866060.png)
-
-
-![demo-1](.assets/1543866221.png)
-
-
-![demo-1](.assets/1543866449.png)
-
+![demo-1](.assets/1572821316.png)
