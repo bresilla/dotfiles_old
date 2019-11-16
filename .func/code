@@ -12,11 +12,8 @@ get(){
 
 readme(){
     file="README.md"
-    if [ ! -e "$file" ] ; then
-        touch "$file"
-    fi
-    if [ $# -eq 0 ]
-    then
+    [[ ! -e "$file" ]] && touch "$file"
+    if [ $# -eq 0 ] ; then
         echo "No arguments supplied"
     else
         echo $@ >> README.md
@@ -25,11 +22,19 @@ readme(){
 
 compile(){
     [[ $(ls -A build/) ]] && rm -rf build/*
-    cmake -H. -Bbuild -DHUNTER_STATUS_DEBUG=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} 2>&1 | bat
+    cmake -H. -Bbuild -DHUNTER_STATUS_DEBUG=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} ${2:-""} 2>&1 | bat
 }
 
 build(){
-    cmake --build build/ --target | bat
+    cmake --build build/ --target
+}
+
+kungfu(){
+    compile ${1:-FastDebug} && cmake --build build/ --target
+}
+
+karate(){
+    compile ${1:-FastDebug} -GNinja && ninja -C build
 }
 
 nixify(){
@@ -37,23 +42,25 @@ nixify(){
   cplateEnv = stdenv.mkDerivation {
     name = "cmake";
     buildInputs = [ stdenv
-                    cmake
                     pkgconfig
                     gcc
                     gdb
                     clang
                     clang-tools
                     llvm
+                    llvmPackages.libclang
                     lldb
+                    ccache
+                    cquery
+                    cmake
                     ctags
                     cppcheck
-                    kcov
                     valgrind
+                    kcov
                     xorg.libX11
+                    ncurses
                   ];
     LD_LIBRARY_PATH="/usr/include";
-    TOOLSET="clang++-7.1";
-    LLVM_CONFIG_BINARY="/nix/store/jkjzhbfmf2miplcz0svy5c8yd01qsg1l-llvm-7.1.0/bin/llvm-config";
   };
 }' > shell.nix
 }

@@ -143,6 +143,11 @@ bindkey '^o' run_compile
 
 
 
+#--------------------------------------------------------------------------------------------------------------------
+###THEME
+[ -f ~/.config/promptline ] && source ~/.config/promptline
+
+
 
 #--------------------------------------------------------------------------------------------------------------------
 ###MODULES
@@ -157,7 +162,6 @@ TRAPALRM() {
 }
 
 [ -d ~/.config/zsh/insult ] && . ~/.config/zsh/insult
-[ -f ~/.config/zsh/theme ] && source ~/.config/zsh/theme
 (( $+commands[thefuck] )) && eval $(thefuck --alias)
 [ -f ~/.config/zsh/async ] && autoload -U async
 [ -d ~/.config/zsh/cmdtime ] && source ~/.config/zsh/cmdtime/zsh-command-time.zsh

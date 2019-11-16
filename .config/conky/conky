@@ -1,0 +1,178 @@
+conky.config = {
+    alignment = 'top_left',
+    background = false,
+    border_width = 0,
+	color0 = 'white',
+	color1 = 'black',
+	color5 = '#F69CDA',
+    --cpu_avg_samples = 2,
+	--default_color = 'white',
+	--default_bar_height = 6,
+	--default_bar_width = 0,
+	--default_gauge_height = 25,
+	--default_gauge_width = 40,
+	--default_graph_height = 25,
+	--default_graph_width = ,
+    --default_outline_color = 'white',
+    --default_shade_color = 'white',
+	--disable_auto_reload = true,
+	diskio_avg_samples = 3,
+	--display = ,
+	--xinerama_head = ,
+	double_buffer = true,
+    --draw_borders = false,
+    --draw_graph_borders = true,
+    --draw_outline = false,
+    --draw_shades = false,
+    --extra_newline = false,
+    font = 'Iosevka Term SS01:size=12',
+    gap_x = 3285,
+    gap_y = 80,
+	--http_refresh = false,
+	if_up_strictness = 'link',
+	--max_text_width = 0,
+	--max_user_text = 16384,
+	--maximum_width = ,
+    --minimum_height = 5,
+	--minimum_width = 5,
+    net_avg_samples = 4,
+    --no_buffers = true,
+	--nvidia_display = ,
+    --out_to_console = false,
+	--out_to_http = false,
+	--out_to_ncurses = false,
+    --out_to_stderr = false,
+	--out_to_x = true,
+	--override_utf8_locale = true,
+    own_window = true,
+    --own_window_class = 'Conky',
+	--own_window_title = 'conky0 (<hostname>)'
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+	--own_window_transparent = yes,
+    own_window_type = 'override',
+	--short_units = true,
+    --show_graph_scale = false,
+    --show_graph_range = false,
+    --stippled_borders = 0,
+	--text_buffer_size = 256,
+	--top_cpu_separate = true,
+	--top_name_verbose = true,
+	--top_name_width = 15,
+	--total_run_times = 0,
+    update_interval = 0.5,
+	update_interval_on_battery = 1,
+    use_spacer = 'none',
+    use_xft = true
+}
+
+
+
+conky.text = [[
+$color5${hr 2}
+
+${alignc}${color0}${font ChessType:pixelsize=80}${time %I:%M}$font
+
+${alignc}${time %d}$color ${time %B} ${time %Y}
+
+${alignc}${color5}${font ChessType:pixelsize=80}BRESILLA$font
+${color0}
+Hostname: $alignr$nodename
+Processor: ${alignr}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 1-27}
+#Graphics: ${alignr}${exec nvidia-smi --query-gpu=name --format=csv,noheader}
+Kernel: $alignr$kernel
+Battery: ${battery_percent BAT0}% ${battery_bar 12 BAT0}
+Volume: ${exec amixer -c 0 get Master | grep Mono: | cut -d " " -f6} ${goto 200}\
+Brightness: ${exec cat /sys/class/backlight/intel*/brightness} ${alignr}Uptime: $alignr$uptime
+
+$color5${hr 2}
+
+${color0}${goto 50}$cpu% ${goto 90}${freq}mHz ${goto 180}${color0}${acpitemp}℃\
+${alignr 40}${color0}$memperc% = $mem / $memmax
+${color0}${cpugraph 120,250 00ffff 00ff00} \
+${color0}${memgraph 120,250 00ffff 00ff00}
+${color0}CPU 1 : $color0${cpu cpu1}% ${goto 100}${cpubar cpu1 12,150}  \
+${color0}CPU 5 : ${alignr 5}$color0${cpu cpu5}% ${cpubar cpu5 12,150}
+${color0}CPU 2 : $color0${cpu cpu2}% ${goto 100}${cpubar cpu2 12,150}  \
+${color0}CPU 6 : ${alignr 5}$color0${cpu cpu6}% ${cpubar cpu6 12,150}
+${color0}CPU 3 : $color0${cpu cpu3}% ${goto 100}${cpubar cpu3 12,150}  \
+${color0}CPU 7 : ${alignr 5}$color0${cpu cpu7}% ${cpubar cpu7 12,150}
+${color0}CPU 4 : $color0${cpu cpu4}% ${goto 100}${cpubar cpu4 12,150}  \
+${color0}CPU 8 : ${alignr 5}$color0${cpu cpu8}% ${cpubar cpu8 12,150}
+#GPU:${alignr}${exec nvidia-smi --query-gpu=memory.used --format=csv,noheader} / ${exec nvidia-smi --query-gpu=memory.total --format=csv,noheader}
+${color0}Swap memory: $swapperc% = $swap/$swapmax \
+${color0} ${swapbar 12 00ff00 ff0000}
+
+$color5${hr 2}
+
+${color0}Highest CPU         PID   CPU% | \
+${color0}Highest MEM         PID   MEM%
+${color0} ${top     name 1} ${top     pid 1} ${top     cpu 1} | \
+${color0} ${top_mem name 1} ${top_mem pid 1} ${top_mem mem 1}
+${color0} ${top     name 2} ${top     pid 2} ${top     cpu 2} | \
+${color0} ${top_mem name 2} ${top_mem pid 2} ${top_mem mem 2}
+${color0} ${top     name 3} ${top     pid 3} ${top     cpu 3} | \
+${color0} ${top_mem name 3} ${top_mem pid 3} ${top_mem mem 3}
+${color0} ${top     name 4} ${top     pid 4} ${top     cpu 4} | \
+${color0} ${top_mem name 4} ${top_mem pid 4} ${top_mem mem 4}
+${color0} ${top     name 5} ${top     pid 5} ${top     cpu 5} | \
+${color0} ${top_mem name 5} ${top_mem pid 5} ${top_mem mem 5}
+${color0} ${top     name 6} ${top     pid 6} ${top     cpu 6} | \
+${color0} ${top_mem name 6} ${top_mem pid 6} ${top_mem mem 6}
+${color0} ${top     name 7} ${top     pid 7} ${top     cpu 7} | \
+${color0} ${top_mem name 7} ${top_mem pid 7} ${top_mem mem 7}
+${color0} ${top     name 8} ${top     pid 8} ${top     cpu 8} | \
+${color0} ${top_mem name 8} ${top_mem pid 8} ${top_mem mem 8}
+
+$color5${hr 2}
+
+ ${color0}/dev/sda1\
+ ${goto 160}${color0}${diskio_read sda1}\
+ ${goto 242}${color0}R|${color0}|W\
+ ${goto 320}${color0}${diskio_write sda1}
+${color0}${diskiograph_read 60,250 00ffff 00ff00} \
+${color0}${diskiograph_write 60,250 00ffff 00ff00}
+ ${color0}${fs_used /} /\
+ ${color0}${fs_size /} \
+ ${color0}${fs_bar 12 /}
+
+ ${color0}/dev/nvme0n1\
+ ${goto 160}${color0}${diskio_read nvme0n1}\
+ ${goto 242}${color0}R|${color0}|W\
+ ${goto 320}${color0}${diskio_write nvme0n1}
+${color0}${diskiograph_read 60,250 00ffff 00ff00} \
+${color0}${diskiograph_write 60,250 00ffff 00ff00}
+ ${color0}${fs_used /home/bresilla/DATA} /\
+ ${color0}${fs_size /home/bresilla/DATA} \
+ ${color0}${fs_bar 12 /home/bresilla/DATA}
+
+$color5${hr 2}
+
+${if_up wlp2s0}\
+ ${goto 80}${color0}T:${totaldown wlp2s0} \
+ ${goto 180}${color0}${downspeed wlp2s0}\
+ ${goto 245}↓${color0}↑ ${upspeed wlp2s0}\
+ ${goto 350}${color0}T:${totalup wlp2s0}
+${color0}${downspeedgraph wlp2s0 90,250 00ffff 00ff00} \
+${color0}${upspeedgraph wlp2s0 90,250 00ffff 00ff00}
+${color0}ID: ${color0}wlp2s0    \
+${goto 150}${color0}MAC: ${color0}${wireless_ap wlp2s0} \
+${alignr}${color0}IP: ${addr wlp2s0}
+${color0}CHN: ${color0}${wireless_channel wlp2s0} \
+${goto 150}${color0} FRQ: ${color0}${wireless_freq wlp2s0}  \
+${alignr}${color0}ESSID: ${color0}${wireless_essid wlp2s0}
+${endif}\
+
+$color5${hr 2}
+
+${color0}Outbound Connection ${alignr} Remote Service/Port${color}
+${tcp_portmon 32768 61000 rhost 0} ${alignr} ${tcp_portmon 32768 61000 rservice 0}
+${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1}
+${tcp_portmon 32768 61000 rhost 2} ${alignr} ${tcp_portmon 32768 61000 rservice 2}
+${tcp_portmon 32768 61000 rhost 3} ${alignr} ${tcp_portmon 32768 61000 rservice 3}
+${color0}Inbound Connection ${alignr} Local Service/Port${color}
+${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
+${tcp_portmon 1 32767 rhost 1} ${alignr} ${tcp_portmon 1 32767 lservice 1}
+$color5${hr 2}
+]]
+

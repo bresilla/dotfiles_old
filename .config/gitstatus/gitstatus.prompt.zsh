@@ -56,6 +56,7 @@ function gitstatus_prompt_update() {
   local branch=" "
 
   local p
+  p+=$branch
 
   local where  # branch name, tag or commit
   if [[ -n $VCS_STATUS_LOCAL_BRANCH ]]; then
@@ -67,8 +68,6 @@ function gitstatus_prompt_update() {
     p+='%f@'
     where=${VCS_STATUS_COMMIT[1,8]}
   fi
-
-  where=$branch${where}
 
 
   (( $#where > 32 )) && where[13,-13]="…"  # truncate long branch names and tags

@@ -15,8 +15,8 @@
 [[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH"
 
 #NIX
-[[ -d "$HOME/.nix-profile/bin" ]] && PATH="$HOME/.nix-profile/bin:$PATH"
-[[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH"
+[[ -d "$HOME/.nix-profile/bin" ]] && PATH=$HOME/.nix-profile/bin:$PATH
+# [[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH"
 
 export BROWSER=firefox
 export EDITOR=nvim

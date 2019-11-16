@@ -51,13 +51,15 @@ elif [ "$another" == "$cont" ] ; then
 elif [ "$another" == "$proj" ] ; then
     pather=$(exec ~/.sbin/pro list | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'projects:') 
     nameer=$(basename $pather)
-    [[ $pather ]] && sed -e "s|.*root.*|    root: $pather|" -e "1cname: \"$nameer\"" /home/bresilla/.config/tmux/PRO.yml > /home/bresilla/.config/tmux/PROT.yml && tmass -l /home/bresilla/.config/tmux load PROT && kitty --class=til tmux attach -t $nameer
+    [[ $pather ]] && sed -e "s|.*root.*|    root: $pather|" -e "1cname: \"$nameer\"" /home/bresilla/.config/tmux/PRO.yml > /home/bresilla/.config/tmux/PROT.yml && \
+        tmass -l /home/bresilla/.config/tmux load PROT && kitty --class=til tmux attach -t $nameer
 
 elif [ "$another" == "$pass" ] ; then
     exec ~/.config/rofi/menu/pass
 
 elif [ "$another" == "$conf" ] ; then
-    kitty --class=til nvim $(find /home/bresilla/Dots/ -type f | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:')
+    confile=$(find /home/bresilla/Dots/ -type f | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:')
+    [[ $confile != "" ]] && kitty --class=til nvim $confile
 
 elif [ "$another" == "$clip" ] ; then
 	rofi "${ROFI_OPTIONS[@]}" -modi "clipboard:greenclip print" -show clipboard

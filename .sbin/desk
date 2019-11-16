@@ -332,6 +332,7 @@ case "$1" in
     help|--help) shift;        cmd_usage "$@" ;;
     version|--version) shift;  cmd_version "$@" ;;
     ls|list) shift;            cmd_list "$@" ;;
+    add) shift;                cmd_list "$@" ;;
     go|.) shift;               cmd_go "$@" ;;
     run) shift;                cmd_run "$@" ;;
     edit) shift;               cmd_edit "$@" ;;

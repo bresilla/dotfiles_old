@@ -14,9 +14,11 @@ refresh() {
     #TASKBAR
     killall -q polybar &
     while pgrep -x polybar >/dev/null; do sleep 1; done
-    # MONITOR=$monitor1 polybar -r -c ~/.config/polybar/polybar main &
-    MONITOR=$monitor1 polybar -r -c ~/.config/polybar/polybar workspaces &
-    MONITOR=$monitor2 polybar -r -c ~/.config/polybar/polybar workspaces &
+    # MONITOR=$monitor1 polybar -r -c ~/.config/polybar/center main & sleep 0.5 &&
+    # MONITOR=$monitor1 polybar -r -c ~/.config/polybar/side left &
+    # MONITOR=$monitor1 polybar -r -c ~/.config/polybar/side right &
+    MONITOR=$monitor1 polybar -r -c ~/.config/polybar/center workspaces &
+    MONITOR=$monitor2 polybar -r -c ~/.config/polybar/center workspaces &
 
     #COMPTOSITOR
     killall -q compton
@@ -33,9 +35,9 @@ refresh() {
     dunst -config /home/bresilla/.config/dunst/dunst &
 
     #WIDGETS
-    killall -q conky
-    while pgrep -x conky >/dev/null; do sleep 1; done
-    conky -c /home/bresilla/.config/conky/conky &
+    # killall -q conky
+    # while pgrep -x conky >/dev/null; do sleep 1; done
+    # conky -c /home/bresilla/.config/conky/conky &
 }
 
 runonce() {

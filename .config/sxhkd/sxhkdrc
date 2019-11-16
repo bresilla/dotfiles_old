@@ -12,8 +12,9 @@ super + alt + space; {c,Return}
 {super,alt} + Delete
     pkill -USR1 -x sxhkd && ~/.startup -r
 
-{dead_acute,dead_circumflex}
-    termop {NOTE 3500 1900,MAIN 2500 1050}
+{_, super} + {dead_acute,dead_circumflex}
+    termop {cool-retro-term,kitty} {NOTE 3500 1900,MAIN 2500 1050}
+
 XF86Search
     pkill boomer; boomer
 {super,alt} + XF86Search
@@ -21,7 +22,7 @@ XF86Search
 mode_switch + space
     bspc desktop -f last
 mode_switch + Return
-   kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
+    kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
 
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local

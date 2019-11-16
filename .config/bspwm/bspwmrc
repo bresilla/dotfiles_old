@@ -36,6 +36,7 @@ bspc config remove_disabled_monitors true
 #|||	ASSIGNMENTS
 ###############################################################################################################################
 bspc rule -a kitty state=floating sticky
+bspc rule -a cool-retro-term state=floating sticky
 bspc rule -a til state=tiled
 bspc rule -a feh state=floating
 bspc rule -a sxiv state=floating
@@ -54,5 +55,5 @@ bspc rule -a Screenkey manage=off
 ###############################################################################################################################
 #|||	SCRIPTS
 ###############################################################################################################################
-bash ~/.startup -r &
 bash ~/.startup &
+bash ~/.startup -r &

@@ -4,6 +4,8 @@
 
 [core]
 	pager = delta --dark
+[core]
+    pager = delta --dark --plus-color="#012800" --minus-color="#340001" --theme="OneHalfDark"
 
 [credential]
 	helper = cache --timeout=10000
@@ -12,7 +14,7 @@
     ui = true
 [color "branch"]
     current = yellow reverse
-    local = yello
+    local = yellow
     remote = green
 [color "diff"]
     meta = yellow bold
@@ -41,3 +43,4 @@
     get = clone --recursive
     unfuck = "!f(){ git reset --hard origin/`git rev-parse --abbrev-ref HEAD`; rm -fv `git st | grep ^? | cut -d' '  -f2-`; }; f"
     alias = "!f(){ git config -l | grep alias; };f"
+    tree = log --graph --all --format=format:'%w(80,0,0)%C(bold magenta)%h%C(reset) %C(white)%ad%C(reset) %C(dim white)(%ar)%C(reset) %C(bold dim white)%aN%C(auto)%+D%C(reset)%n%C(bold white)%s%C(reset)%+b%n'
