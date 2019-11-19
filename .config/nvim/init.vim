@@ -471,9 +471,9 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'go': ['~/.go/bin/gopls'],
     \ 'nim': ['~/.nimble/bin/nimlsp'],
+    \ 'python': ['/usr/local/bin/pyls'],
     \ 'c': ['clangd', '-compile-commands-dir=' . getcwd() . '/build'],
     \ 'cpp': ['clangd', '-compile-commands-dir=' . getcwd() . '/build'],
-    \ 'python': ['/usr/local/bin/pyls'],
     \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \       using LanguageServer;
     \       using Pkg;
@@ -485,8 +485,8 @@ let g:LanguageClient_serverCommands = {
     \       server.runlinter = true;
     \       run(server);']
     \ }
-" \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
-" \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
+    " \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
+    " \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
 nnoremap <S-tab> :call LanguageClient_textDocument_definition()<cr>
 nnoremap <tab> :call LanguageClient#textDocument_hover()<CR>
 nnoremap <F2> :call LanguageClient_textDocument_rename()<cr>

@@ -42,7 +42,7 @@ else
 fi
 
 battery="$redTX$redBG $blackTX$bat%$redBG "
-[[ "$chrg" != "Discharging" ]] && battery="$accentTX$accentBG $foreground$bat%$accentBG "
+[[ "$chrg" != "Discharging" ]] && battery="$accentTX$accentBG $foreground$bat% $accentBG "
 
 memo="$greyTX$greyBG $blackTX$mem% "
 spacer="$blackTX$blackBG"

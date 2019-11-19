@@ -18,10 +18,6 @@ function __sudo_warning {
     [[ $(trap "" XFSZ; LC_ALL=C sudo -n true 2>&1) != *"password is required" ]] && printf 'SUDO'
 }
 
-function __zsh_vi_mode {
-    printf "${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
-}
-
 function __load_average {
     eval loadav01=$(uptime | awk ' {print substr($0,length($0)-15)}' | awk '{print $1}' | sed 's/,//g')
     printf "$loadav01"
@@ -85,20 +81,26 @@ function __promptline_right_prompt {
     prefix="${space}${redTX}${arrFR}${redBG}${blackTX}" suffix="${space}${blackTX}${arrFR}${darkTX}${background}"; [[ $last_exit_code -gt 0 ]] && printf "%s" "$prefix " $last_exit_code "$suffix"
     #GIT
     [[ $(__promptline_vcs_branch) = "master" ]] && conTX=$accentTX
-    prefix="${conTX}${arrER}${space}${conTX}" suffix="${space}${darkTX}"; [[ -n $(__promptline_vcs_branch) ]] && printf "%s" "$prefix" '$GITSTATUS_PROMPT' "$suffix"
+    prefix="${conTX}${arrER}${space}" suffix="${space}${darkTX}";
+    if [[ -n $(__promptline_vcs_branch) ]]; then
+        if [[ -n ${ZSH_VERSION-} ]]; then
+            printf "%s" "$prefix${conTX}" '$GITSTATUS_PROMPT' "$suffix"
+        elif [[ -n ${FISH_VERSION-} ]]; then
+            printf "%s" "$prefix${defaultFG}" "$(echo $3)" "$suffix"
+        fi
+    fi
     #CMD TIME
     prefix="${greyTX}${arrER}${arrFR}${blackTX}${greyBG}${space}" suffix="${space}${blackTX}${arrER}"; [[ -n $timer_show ]] && printf "%s" "$prefix" "$timer_show" "$suffix"
     #LOAD AVERAGE
     prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" suffix="${space}${greyTX}"; printf "%s" "$prefix" "$(__load_average)" "$suffix"
     #VIM MODE
     prefix="${accentTX}${arrFR}${foreground}${accentBG}${space}" suffix="${space}${defaultBG}${defaultFG}";
-    if [[ -n ${ZSH_VERSION-} ]]; then 
-        printf "%s" "$prefix" '$(__zsh_vi_mode)' "$suffix"
-
-    elif [[ -n ${FISH_VERSION-} ]]; then 
-        printf "%s" "$prefix" "$(echo $2)" "$suffix"
-    else
-        printf "%s" "$prefix" '$(__zsh_vi_mode)' "$suffix"
+    if [[ -n ${ZSH_VERSION-} ]]; then
+        vimode='${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}'
+        printf "%s" "$prefix" $vimode "$suffix"
+    elif [[ -n ${FISH_VERSION-} ]]; then
+        [[ $2 = "default" ]] && vimode="NORMAL" || vimode="INSERT"
+        printf "%s" "$prefix" "$vimode" "$suffix"
     fi
 }
 
@@ -130,6 +132,12 @@ function __promptline {
     local blackTX="${IN}38;5;0${EN}"
     local accentBG="${IN}48;5;1${EN}"
     local accentTX="${IN}38;5;1${EN}"
+    local accent2BG="${IN}48;5;2${EN}"
+    local accent2TX="${IN}38;5;2${EN}"
+    local accent3BG="${IN}48;5;3${EN}"
+    local accent3TX="${IN}38;5;3${EN}"
+    local accent4BG="${IN}48;5;4${EN}"
+    local accent4TX="${IN}38;5;4${EN}"
     local primeTX="${IN}38;5;1${EN}"
     local secondTX="${IN}38;5;2${EN}"
     local greyBG="${IN}48;5;7${EN}"

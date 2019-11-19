@@ -21,6 +21,7 @@
 export BROWSER=firefox
 export EDITOR=nvim
 export TERMINAL=kitty
+# export MANPATH=$(manpath)
 
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"

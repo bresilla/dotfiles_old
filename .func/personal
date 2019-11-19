@@ -1,1 +1,2 @@
 alias contacts='n=$(clintacts list | fzy | cut -d. -f1) && clintacts list -i $n'
+configs() { name=$(find /home/bresilla/Dots/ -type f -not -path "/home/bresilla/Dots/.config/nvim/plugged/*" | fzp); [[ -n $name ]] && nvim $name }

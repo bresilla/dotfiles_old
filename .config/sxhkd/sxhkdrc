@@ -12,8 +12,8 @@ super + alt + space; {c,Return}
 {super,alt} + Delete
     pkill -USR1 -x sxhkd && ~/.startup -r
 
-{_, super} + {dead_acute,dead_circumflex}
-    termop {cool-retro-term,kitty} {NOTE 3500 1900,MAIN 2500 1050}
+{dead_acute,dead_circumflex}
+    termop {kitty NOTE 3500 1900,cool-retro-term MAIN 2500 1050}
 
 XF86Search
     pkill boomer; boomer

@@ -1,1 +1,1 @@
-fisher --complete
+fisher complete

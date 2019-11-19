@@ -17,7 +17,8 @@
 
 # Source gitstatus.plugin.sh from $GITSTATUS_DIR or from the same directory
 # in which the current script resides if the variable isn't set.
-source "${GITSTATUS_DIR:-${BASH_SOURCE[0]%/*}}/gitstatus.plugin.sh" || return
+GITSTATUS_DIR="/home/$USER/.config/gitstatus"
+source "${GITSTATUS_DIR:-${BASH_SOURCE[0]%/*}}/gitstatus.plugin.sh" || exit 
 
 # Sets GITSTATUS_PROMPT to reflect the state of the current git repository.
 # The value is empty if not in a git repository. Forwards all arguments to
@@ -94,14 +95,3 @@ PROMPT_COMMAND=gitstatus_prompt_update
 # Enable promptvars so that ${GITSTATUS_PROMPT} in PS1 is expanded.
 shopt -s promptvars
 
-# Customize prompt. Put $GITSTATUS_PROMPT in it reflect git status.
-#
-# Example:
-#
-#   user@host ~/projects/skynet master+!
-#   $ █
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\] '           # green user@host
-PS1+='\[\033[01;34m\]\w\[\033[00m\]'              # blue current working directory
-PS1+='${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}'    # git status (requires promptvars option)
-PS1+='\n\[\033[01;$((31+!$?))m\]\$\[\033[00m\] '  # green/red (success/error) $/# (normal/root)
-PS1+='\[\e]0;\u@\h: \w\a\]'                       # terminal title: user@host: dir

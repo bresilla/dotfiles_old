@@ -58,7 +58,7 @@ elif [ "$another" == "$pass" ] ; then
     exec ~/.config/rofi/menu/pass
 
 elif [ "$another" == "$conf" ] ; then
-    confile=$(find /home/bresilla/Dots/ -type f | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:')
+    confile=$(find /home/bresilla/Dots/ -type f -not -path "/home/bresilla/Dots/.config/nvim/plugged/*" | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:')
     [[ $confile != "" ]] && kitty --class=til nvim $confile
 
 elif [ "$another" == "$clip" ] ; then

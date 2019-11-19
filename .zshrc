@@ -144,12 +144,6 @@ bindkey '^o' run_compile
 
 
 #--------------------------------------------------------------------------------------------------------------------
-###THEME
-[ -f ~/.config/promptline ] && source ~/.config/promptline
-
-
-
-#--------------------------------------------------------------------------------------------------------------------
 ###MODULES
 autoload -U colors && colors
 autoload compinit && compinit
@@ -176,5 +170,29 @@ TRAPALRM() {
 [ -d ~/.config/zsh/goto ] && source ~/.config/zsh/goto/goto.sh
 [ -d ~/.config/gitstatus ] && source ~/.config/gitstatus/gitstatus.prompt.zsh
 
+
+
+#--------------------------------------------------------------------------------------------------------------------
+###THEME
+[ -f ~/.config/promptline ] && source ~/.config/promptline
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
 # Hook for desk activation
 [ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
+### Added by Zplugin's installer
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin installer's chunk
+
+# Two regular plugins loaded without tracking.
+zplugin light zsh-users/zsh-autosuggestions
+zplugin light zdharma/fast-syntax-highlighting
+# Plugin history-search-multi-word loaded with tracking.
+zplugin load zdharma/history-search-multi-word
