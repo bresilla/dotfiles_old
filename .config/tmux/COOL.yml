@@ -1,0 +1,9 @@
+name: "COOL"
+windows:
+- name: cool
+  layout: 62d2,305x65,0,0,13
+  panes:
+  - commands:
+    - clear
+    focus: true
+    root: /home/bresilla

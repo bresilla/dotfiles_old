@@ -1,5 +1,5 @@
 # Rounded corners
-corner-radius:          12;
+corner-radius:          20;
 
 # Shadows
 shadow                  = true;
@@ -8,6 +8,8 @@ shadow-radius           = 15;
 shadow-offset-x         = -5;
 shadow-offset-y         = -5;
 shadow-opacity          = 0.45;
+shadow-ignore-shaped    = true;
+no-dock-shadow          = true;
 
 # Blur
 blur-background         = false;
@@ -34,3 +36,55 @@ detect-rounded-corners  = true;
 detect-client-opacity   = true;
 refresh-rate            = 60;
 
+
+#Window type settings
+wintypes: {
+    unknown = {
+    };
+    desktop = {
+        fade = true;
+    };
+    dock = {
+        shadow = false;
+        fade = true;
+    };
+    toolbar = {
+        shadow = true;
+    };
+    menu = {
+        shadow = true;
+    };
+    utility = {
+    };
+    splash = {
+        fade = true;
+        shadow = true;
+    };
+    dialog = {
+        fade = true;
+        shadow = true;
+    };
+    dropdown_menu = {
+        shadow = true;
+    };
+    popup_menu = {
+        shadow = true;
+    };
+    tooltip = {
+        fade = true;
+        focus = true;
+    };
+    notification = {
+    };
+    combo = {
+        shadow = true;
+    };
+    dnd = {
+        fade = true;
+        shadow = true;
+    };
+    normal = {
+        fade = true;
+        shadow = true;
+    };
+};

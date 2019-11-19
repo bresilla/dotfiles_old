@@ -5,7 +5,7 @@ netspeed=$(/home/bresilla/.config/tmux/modules/netwidth)
 mem=$(free | grep Mem | awk '{print (100 - ($4/($3+$4) * 100.0));}')
 bat=$(acpi | awk '{print $4}' | tr -d '%,')
 chrg=$(acpi | awk '{print $3}' | tr -d '%,')
-tmu=$(uptime | awk '{print $1}' | cut -d: -f1,2)
+tmu=$(date | awk '{print $5}' | cut -d: -f1,2)
 upt=$(uptime | awk -F, '{sub(".*up ",x,$1);print $1}')
 task=$(task ids)
 wat=$(echo - | awk "{printf \"%.1f\", $(($(cat /sys/class/power_supply/BAT0/current_now) * \
@@ -25,8 +25,8 @@ redBG="#[bg=colour124]"
 redTX="#[fg=colour124]"
 greenBG="#[bg=colour40]"
 greenTX="#[fg=colour40]"
-grayBG="#[bg=colour8]"
-grayTX="#[fg=colour8]"
+grayBG="#[bg=colour7]"
+grayTX="#[fg=colour7]"
 sealTX="#[fg=colour59]"
 defaBG="#[bg=default]"
 defaTX="#[fg=default]"
@@ -42,7 +42,7 @@ else
 fi
 
 battery="$redTX$redBG $blackTX$bat%$redBG "
-[[ "$chrg" != "Discharging" ]] && battery="$accentTX$accentBG $foreground$bat%$accentBG "
+[[ "$chrg" != "Discharging" ]] && battery="$accentTX$accentBG $foreground$bat% $accentBG "
 
 memo="$greyTX$greyBG $blackTX$mem% "
 spacer="$blackTX$blackBG"

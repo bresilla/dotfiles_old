@@ -1,0 +1,181 @@
+#!/usr/bin/env sh
+
+function preexec() {
+    timer=${timer:-$SECONDS}
+}
+
+function precmd() {
+    if [ $timer ]; then
+        export timer_show=$(($SECONDS - $timer))
+        unset timer
+    fi
+}
+
+function __promptline_host {
+    printf $(uname -a | cut -d" "  -f2)
+}
+function __sudo_warning {
+    [[ $(trap "" XFSZ; LC_ALL=C sudo -n true 2>&1) != *"password is required" ]] && printf 'SUDO'
+}
+
+function __load_average {
+    eval loadav01=$(uptime | awk ' {print substr($0,length($0)-15)}' | awk '{print $1}' | sed 's/,//g')
+    printf "$loadav01"
+}
+
+function __promptline_vcs_branch {
+    local branch
+    if hash git 2>/dev/null; then
+        if branch=$( { git symbolic-ref --quiet HEAD || git rev-parse --short HEAD; } 2>/dev/null ); then
+        branch=${branch##*/}
+        printf "%s" "${branch:-unknown}"
+        return
+        fi
+    fi
+    return 1 
+}
+
+function __is_in_container {
+    [[ -n $(awk -F/ '$2 == "docker"' /proc/self/cgroup) ]] && printf '■'
+    [[ -n $(echo $IN_NIX_SHELL) ]] && printf '×'
+}
+
+function __promptline_cwd {
+    local dir_limit="4"
+    local truncation="⋯"
+    local first_char
+    local part_count=0
+    local formatted_cwd=""
+    local dir_sep="  "
+    local tilde="~"
+    local cwd="${PWD/#$HOME/$tilde}"
+    [[ -n ${ZSH_VERSION-} ]] && first_char=$cwd[1,1] || first_char=${cwd::1}
+    cwd="${cwd#\~}"
+    while [[ "$cwd" == */* && "$cwd" != "/" ]]; do
+        local part="${cwd##*/}"
+        cwd="${cwd%/*}"
+        formatted_cwd="$dir_sep$part$formatted_cwd"
+        part_count=$((part_count+1))
+        [[ $part_count -eq $dir_limit ]] && first_char="$truncation" && break
+    done
+    printf "%s" "$first_char$formatted_cwd"
+}
+
+function __promptline_left_prompt {
+    #HOST
+    prefix="${accentBG}${space}" suffix="${space}${background}${accentTX}${arrFL}${blackTX}${accentBG}"; printf "%s" "$prefix" "$(__promptline_host)" "$suffix"
+    #USER
+    prefix="${greyBG}${arrFL}${blackTX}${greyBG}${space}" suffix="${space}${greyTX}"; printf "%s" "$prefix" "$USER" "$suffix"
+    #SUDO WARN
+    prefix="${redBG}${arrFL}${foreground}${redBG}${space}" suffix="${space}${redTX}"; [[ -n $(__sudo_warning) ]] && printf "%s" "$prefix" "$(__sudo_warning)" "$suffix"
+    #CONTAINER
+    prefix="${background}${arrFL}${blackTX}${accentBG}${arrFL}${foreground}${accentBG}${space}" suffix="${space}${accentTX}"; [[ -n $(__is_in_container) ]] && printf "%s" "$prefix" "$(__is_in_container)" "$suffix"
+    [[ -n $(__is_in_container) ]] && endARR="$arrEL$redBG$blackTX$arrFL$redBG$redTX$background$arrFL$greyTX"
+    #PATH
+    [[ $(__promptline_vcs_branch) = "master" ]] && conTX=$accentTX
+    prefix="${defaultBG}${arrFL}${conTX}${space}" suffix="${space}${conTX}${arrEL}${darkTX}${space}"; [[ -n $(__promptline_cwd) ]] && printf "%s" "$prefix" "$(__promptline_cwd)" "$suffix"
+}
+
+function __promptline_right_prompt {
+    #WARN
+    prefix="${space}${redTX}${arrFR}${redBG}${blackTX}" suffix="${space}${blackTX}${arrFR}${darkTX}${background}"; [[ $last_exit_code -gt 0 ]] && printf "%s" "$prefix " $last_exit_code "$suffix"
+    #GIT
+    [[ $(__promptline_vcs_branch) = "master" ]] && conTX=$accentTX
+    prefix="${conTX}${arrER}${space}" suffix="${space}${darkTX}";
+    if [[ -n $(__promptline_vcs_branch) ]]; then
+        if [[ -n ${ZSH_VERSION-} ]]; then
+            printf "%s" "$prefix${conTX}" '$GITSTATUS_PROMPT' "$suffix"
+        elif [[ -n ${FISH_VERSION-} ]]; then
+            printf "%s" "$prefix${defaultFG}" "$(echo $3)" "$suffix"
+        fi
+    fi
+    #CMD TIME
+    prefix="${greyTX}${arrER}${arrFR}${blackTX}${greyBG}${space}" suffix="${space}${blackTX}${arrER}"; [[ -n $timer_show ]] && printf "%s" "$prefix" "$timer_show" "$suffix"
+    #LOAD AVERAGE
+    prefix="${greyTX}${arrFR}${blackTX}${greyBG}${space}" suffix="${space}${greyTX}"; printf "%s" "$prefix" "$(__load_average)" "$suffix"
+    #VIM MODE
+    prefix="${accentTX}${arrFR}${foreground}${accentBG}${space}" suffix="${space}${defaultBG}${defaultFG}";
+    if [[ -n ${ZSH_VERSION-} ]]; then
+        vimode='${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}'
+        printf "%s" "$prefix" $vimode "$suffix"
+    elif [[ -n ${FISH_VERSION-} ]]; then
+        [[ $2 = "default" ]] && vimode="NORMAL" || vimode="INSERT"
+        printf "%s" "$prefix" "$vimode" "$suffix"
+    fi
+}
+
+function __promptline {
+    last_exit_code="${PROMPTLINE_LAST_EXIT_CODE:-$?}"
+    esc=$'['
+    end_esc=m
+
+    if [[ -n ${ZSH_VERSION-} ]]; then
+        local noprint='%{' end_noprint='%}'
+    elif [[ -n ${FISH_VERSION-} ]]; then
+        local noprint='' end_noprint=''
+    else
+        local noprint='\[' end_noprint='\]'
+    fi
+
+    local IN="$noprint$esc"
+    local EN="$end_esc$end_noprint"
+    local space=" "
+    local arrFL=""
+    local arrFR=""
+    local arrEL=""
+    local arrER=""
+    local endARR=""
+    local defaultFG="${IN}0${EN}"
+    local defaultBG="${IN}49${EN}"
+    local foreground="${IN}38;5;15${EN}"
+    local background="${IN}48;5;0${EN}"
+    local blackTX="${IN}38;5;0${EN}"
+    local accentBG="${IN}48;5;1${EN}"
+    local accentTX="${IN}38;5;1${EN}"
+    local accent2BG="${IN}48;5;2${EN}"
+    local accent2TX="${IN}38;5;2${EN}"
+    local accent3BG="${IN}48;5;3${EN}"
+    local accent3TX="${IN}38;5;3${EN}"
+    local accent4BG="${IN}48;5;4${EN}"
+    local accent4TX="${IN}38;5;4${EN}"
+    local primeTX="${IN}38;5;1${EN}"
+    local secondTX="${IN}38;5;2${EN}"
+    local greyBG="${IN}48;5;7${EN}"
+    local greyTX="${IN}38;5;7${EN}"
+    local darkTX="${IN}38;5;59${EN}"
+    local redTX="${IN}38;5;124${EN}"
+    local redBG="${IN}48;5;124${EN}"
+    local blueTX="${IN}38;5;27${EN}"
+    local blueBG="${IN}48;5;27${EN}"
+    local greenTX="${IN}38;5;40${EN}"
+    local greenBG="${IN}48;5;40${EN}"
+    local conTX=$darkTX
+    local NLD="\e[0m"
+    local BLD="\e[32;1m"
+
+
+    if [[ -n ${ZSH_VERSION-} ]]; then
+    PROMPT="$(__promptline_left_prompt)"
+    RPROMPT=" $(__promptline_right_prompt)"
+    elif [[ -n ${FISH_VERSION-} ]]; then
+        if [[ -n "$1" ]]; then
+            [[ "$1" = "left" ]] && __promptline_left_prompt || __promptline_right_prompt $@
+        else
+            __promptline_left_prompt
+        fi
+    else
+        PS1="$(__promptline_left_prompt)"
+    fi
+}
+
+if [[ -n ${ZSH_VERSION-} ]]; then
+  if [[ ! ${precmd_functions[(r)__promptline]} == __promptline ]]; then
+    precmd_functions+=(__promptline)
+  fi
+elif [[ -n ${FISH_VERSION-} ]]; then
+  __promptline "$@"
+else
+  if [[ ! "$PROMPT_COMMAND" == *__promptline* ]]; then
+    PROMPT_COMMAND='__promptline;'$'\n'"$PROMPT_COMMAND"
+  fi
+fi

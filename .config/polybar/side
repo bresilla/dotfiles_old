@@ -27,19 +27,19 @@
     screenchange-reload = true
     bargapp= 10
     barwidth = 100%
-    barheigh = 48
+    barheigh = 42
 
 
-[bar/main]
+[bar/left]
     monitor = ${env:MONITOR}
     monitor-strict = true
     fixed-center = true
     dpi = 96
     bottom = false
-    width = ${settings.barwidth}
+    width = 800
     height = ${settings.barheigh}
-    offset-x = 0
-    offset-y = 0
+    offset-x = 3
+    offset-y = 3
     background = ${colors.background}
     foreground = ${colors.foreground}
     overline-size = 0
@@ -58,125 +58,58 @@
     padding-right = 2
     module-margin-left = 2
     module-margin-right = 2
-    font-0 = Monoid:size=12;4
+    font-0 = Iosevka Term SS01:size=15;4
+    font-1 = unifont:size=12;1
+    font-2 = FontAwesome:size=12;3
+    font-3 = NotoSans-Regular:size=12;-1
+    font-4 = MaterialIcons:size=16;5
+    tray-position = left
+    tray-padding = 4
+    modules-center = time volume wlan signal speed
+
+
+[bar/right]
+    monitor = ${env:MONITOR}
+    monitor-strict = true
+    fixed-center = true
+    dpi = 96
+    bottom = false
+    width = 800
+    height = ${settings.barheigh}
+    offset-x = 3037
+    offset-y = 3
+    background = ${colors.background}
+    foreground = ${colors.foreground}
+    overline-size = 0
+    overline-color = #f00
+    underline-size = 2
+    underline-color = #00f
+    border-top-size = ${settings.bargapp}
+    border-left-size = ${settings.bargapp}
+    border-right-size = ${settings.bargapp}
+    border-bottom-size = 0
+    border-color = ${colors.transparent}
+    radius-top = 10
+    radius-bottom = 10
+    spacing = 2
+    padding-left = 2
+    padding-right = 2
+    module-margin-left = 2
+    module-margin-right = 2
+    font-0 = Iosevka Term SS01:size=15;4
     font-1 = unifont:size=12;1
     font-2 = FontAwesome:size=12;3
     font-3 = NotoSans-Regular:size=12;-1
     font-4 = MaterialIcons:size=16;5
     tray-position = right
     tray-padding = 4
-    modules-left = wlan light volume
-    modules-center = mpd
-    modules-right = cpu memory filesystem battery date cast
+    modules-center = cpu memory filesystem docdisk light battery date
 
-
-[bar/workspaces]
-    monitor = ${env:MONITOR}
-    monitor-strict = true
-    dpi = 96
-    bottom = true
-    width = ${settings.barwidth}
-    height = 4
-    background = ${colors.transparent}
-    foreground = ${colors.foreground}
-    border-top-size = 0
-    border-bottom-size = 0
-    border-color = ${colors.transparent}
-    font-0 = Monoisome:size=10;4
-    font-1 = FontAwesome:pixelsize=10;3
-    font-5 = unifont:size=14;1
-    modules-center = BSP
-
-
-[module/i3]
-    type = internal/i3
-    format = <label-state> <label-mode>
-    pin-workspaces = true
-    label-focused = %name%
-    label-focused-foreground= ${colors.background}
-    label-focused-background = ${colors.foreground}
-    label-focused-underline = ${colors.foreground}
-    label-focused-padding = 3
-    label-unfocused = %name%
-    label-unfocused-padding = 2
-    label-unfocused-background = ${colors.background}
-    label-urgent = %name%
-    label-urgent-foreground= ${colors.alert}
-    label-urgent-background = ${colors.background-alt}
-    label-urgent-padding = 2
-    label-empty = %name%
-    label-empty-background = ${colors.background-alt}
-    label-empty-padding = ${self.label-focused-padding}
-
-
-[module/BSP]
-    type = internal/bspwm
-    pin-workspaces = true
-    format = <label-state> <label-mode>
-    label-mode-background = ${colors.foreground}
-    label-focused = "_"
-    label-focused-background = ${colors.foreground}
-    label-focused-padding = 3
-    label-occupied = "_"
-    label-occupied-background = #808080
-    label-occupied-padding = 3
-    label-empty = "_"
-    label-empty-background = #404040
-    label-empty-padding = 3
-    label-separator = "_"
-    label-separator-background = ${colors.transparent}
-
-
-
-[module/mouseloc]
-    type = custom/script
-    exec = echo "X:" $(xdotool getmouselocation | awk '{print substr($2,3,4)}') "  Y:" $(xdotool getmouselocation | awk '{print substr($1,3,4)}')
-    interval = 0.1
-    label = %output%
-    format = <label>
-    format-foreground = ${colors.foreground}
-
-[module/mpd]
-    type = internal/mpd
-    host = 127.0.0.1
-    port = 6600
-    interval = 1
-    format-online = <icon-prev> <icon-stop> <toggle> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
-    icon-play = 
-    icon-pause = 
-    icon-stop = 
-    icon-prev = 
-    icon-next = 
-    icon-random = 
-    icon-repeat = 
-    toggle-on-foreground =
-    toggle-off-foreground = #55
-    bar-progress-width = 30
-    bar-progress-format = %{A4:mpdseek+2: A5:mpdseek-2:}%fill%%indicator%%empty%%{A A}
-    bar-progress-indicator = |
-    bar-progress-indicator-foreground = #ff
-    bar-progress-indicator-font = 3
-    bar-progress-fill = —
-    bar-progress-fill-foreground = #bb
-    bar-progress-fill-font = 3
-    bar-progress-empty = —
-    bar-progress-empty-font = 3
-    bar-progress-empty-foreground = #44
 
 [module/title]
     type = internal/xwindow
     format = <label>
     ;format-foreground = ${colors.foreground}
-
-
-[module/search]
-    type = custom/script
-    exec = echo "   search:    "
-    interval = 60
-    label = %output%
-    format = <label>
-    format-foreground = ${colors.background}
-    format-background = ${colors.foreground}
 
 
 [module/cpu]
@@ -198,36 +131,18 @@
 [module/temperature]
     type = internal/temperature
     warn-temperature = 65
-
-    format = <label> 
+    format = <label>
     format-warn = <label-warn>
-
     label = %temperature%
     label-warn = %temperature%!!!
-
-
-[module/cputemp]
-    type = custom/script
-    exec = sensors | grep --max-count=1 "CPU Temperature:" | awk '{print substr($0,22,2)}'
-    interval = 10
-    label = " %output%°C"
-    format-foreground = ${colors.foreground}
-
-
-[module/gputemp]
-    type = custom/script
-    exec = nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits
-    interval = 10
-    label = "GPU %output%°C"
-    format-foreground = ${colors.foreground}
 
 
 [module/wlan]
     type = internal/network
     interface = wlp2s0
-    interval = 3.0
+    interval = 5.0
+    label-connected =  %essid%
     format-connected = <label-connected>
-    label-connected =  %essid%     %signal%     %upspeed%     %downspeed%
     label-disconnected = "%{A1:connman-gtk &:}%{A}"
     label-disconnected-foreground = #5b
     ramp-signal-0 = 
@@ -238,15 +153,40 @@
     ramp-signal-foreground = ${colors.foreground}
     format-connected-foreground = ${colors.foreground}
 
+[module/signal]
+    type = internal/network
+    interface = wlp2s0
+    interval = 5.0
+    label-connected =  %signal%
+    format-connected = <label-connected>
+    ramp-signal-foreground = ${colors.foreground}
+    format-connected-foreground = ${colors.foreground}
+
+
+[module/speed]
+    type = internal/network
+    interface = wlp2s0
+    interval = 5.0
+    format-connected = <label-connected>
+    label-connected = %upspeed%     %downspeed%
+    ramp-signal-foreground = ${colors.foreground}
+    format-connected-foreground = ${colors.foreground}
+
 
 [module/date]
     type = internal/date
     interval = 1.0
-    date = %a %b %d, 
+    date = %d/%m/%Y
     time = %H:%M
-    date-alt = %A, %d %B %Y
-    time-alt = %H:%M:%S
-    label = %date% %time%
+    label = %date%
+    format = <label>
+    format-foreground = ${colors.foreground}
+
+[module/time]
+    type = internal/date
+    interval = 1.0
+    time = %H:%M
+    label = %time%
     format = <label>
     format-foreground = ${colors.foreground}
 
@@ -273,15 +213,6 @@
     format-foreground = ${colors.foreground}
 
 
-[module/bresilla]
-    type = custom/script
-    interval = 1
-    exec = echo "BRESILLA"
-    label = "%output%"
-    click-left = firefox --new-tab "www.bresilla.com"
-    format-foreground = ${colors.foreground}
-
-
 [module/light]
     type = internal/backlight
     card = intel_backlight
@@ -299,8 +230,8 @@
     time-format = %H:%M
     label-charging = %percentage%%
     label-discharging = %percentage%%
-    format-charging = <animation-charging> <label-charging>
-    format-discharging = <animation-discharging> <label-discharging>
+    format-charging = <animation-charging><label-charging>
+    format-discharging = <animation-discharging><label-discharging>
     format-charging-foreground = ${colors.foreground}
     label-charging-foreground = ${colors.foreground}
     format-discharging-foreground = ${colors.foreground}
@@ -344,10 +275,16 @@
     label-unmounted = %mountpoint%: not mounted
     label-unmounted-foreground = ${colors.foreground}
 
-[module/cast]
-    type = custom/script
-    interval = 1
-    exec = cat /home/bresilla/.config/bspwm/pipes/rec
-    label = "%output%"
-    click-left = killall ffmpeg
-    format-foreground = ${colors.foreground}
+
+[module/docdisk]
+    type = internal/fs
+    mount-0 = /home/bresilla/DATA
+    interval = 10
+    fixed-values = true
+    spacing = 4
+    format-mounted = <label-mounted>
+    format-unmounted = <label-unmounted>
+    label-mounted =  %percentage_used%%
+    label-mounted-foreground = ${colors.foreground}
+    label-unmounted = %mountpoint%: not mounted
+    label-unmounted-foreground = ${colors.foreground}

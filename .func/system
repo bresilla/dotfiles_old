@@ -1,15 +1,16 @@
 alias sudo='sudo -E '
 alias :q='exit'
+alias q='exit'
 alias up="sudo -S systemctl"
 alias copy='xclip -sel clip'
 alias s='shko -c --short 19 && cd "$(cat ~/.config/shko/settings/chdir)"'
+alias suspend='systemctl suspend'
 #PACKAGE_MANAGER
 alias pack='yay'
 alias mirror="sudo pacman-mirrors --fasttrack 5 && sudo pacman -Syyu"
-alias branch="sudo pacman-mirrors --api --set-branch $@ && mirror"
+branch(){sudo pacman-mirrors --api -S $@ && mirror}
 #WM
 alias refresh='pkill -USR1 -x sxhkd && bash ~/.startup -r'
-configs() { name=$(find /home/bresilla/Dots/ -type f | fzp); [[ -n $name ]] && nvim $name }
 alias dotfile='/usr/bin/git --git-dir=$HOME/Dots --work-tree=$HOME'
 #SYSTEM
 alias cp='acp -gr'

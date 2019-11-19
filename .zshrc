@@ -143,7 +143,6 @@ bindkey '^o' run_compile
 
 
 
-
 #--------------------------------------------------------------------------------------------------------------------
 ###MODULES
 autoload -U colors && colors
@@ -157,7 +156,6 @@ TRAPALRM() {
 }
 
 [ -d ~/.config/zsh/insult ] && . ~/.config/zsh/insult
-[ -f ~/.config/zsh/theme ] && source ~/.config/zsh/theme
 (( $+commands[thefuck] )) && eval $(thefuck --alias)
 [ -f ~/.config/zsh/async ] && autoload -U async
 [ -d ~/.config/zsh/cmdtime ] && source ~/.config/zsh/cmdtime/zsh-command-time.zsh
@@ -172,5 +170,29 @@ TRAPALRM() {
 [ -d ~/.config/zsh/goto ] && source ~/.config/zsh/goto/goto.sh
 [ -d ~/.config/gitstatus ] && source ~/.config/gitstatus/gitstatus.prompt.zsh
 
+
+
+#--------------------------------------------------------------------------------------------------------------------
+###THEME
+[ -f ~/.config/promptline ] && source ~/.config/promptline
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
 # Hook for desk activation
 [ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
+### Added by Zplugin's installer
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin installer's chunk
+
+# Two regular plugins loaded without tracking.
+zplugin light zsh-users/zsh-autosuggestions
+zplugin light zdharma/fast-syntax-highlighting
+# Plugin history-search-multi-word loaded with tracking.
+zplugin load zdharma/history-search-multi-word

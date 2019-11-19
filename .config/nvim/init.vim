@@ -4,74 +4,80 @@ call plug#begin()
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
     Plug 'ncm2/float-preview.nvim'
     Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-    Plug 'sheerun/vim-polyglot'           "A collection of language packs for Vim
-    Plug 'w0rp/ale'                       "syntax checker for vim
-    Plug 'SirVer/ultisnips'               "snipets engine
-    Plug 'honza/vim-snippets'             "snippets collection
-    Plug 'ntpeters/vim-better-whitespace' "whitespace detection
-    Plug 'rhysd/vim-grammarous'           "gramar checker
-    Plug 'lfilho/cosco.vim'               "add semicolon or comma n the end
-    Plug 'lilydjwg/colorizer'             "show hex colors
+    Plug 'sheerun/vim-polyglot'           	"A collection of language packs for Vim
+	Plug 'w0rp/ale'                       	"syntax checker for vim
+    Plug 'SirVer/ultisnips'               	"snipets engine
+    Plug 'honza/vim-snippets'             	"snippets collection
+    Plug 'ntpeters/vim-better-whitespace' 	"whitespace detection
+    Plug 'rhysd/vim-grammarous'           	"gramar checker
+    Plug 'lfilho/cosco.vim'               	"add semicolon or comma n the end
+    Plug 'lilydjwg/colorizer'             	"show hex colors
     "WORKSPACE
-    Plug 'vim-ctrlspace/vim-ctrlspace'    "a better workspace manager
-    Plug 'benmills/vimux'                 "run shell comands in a tmux pane
+    Plug 'vim-ctrlspace/vim-ctrlspace'    	"a better workspace manager
+    Plug 'benmills/vimux'                 	"run shell comands in a tmux pane
     Plug 'christoomey/vim-tmux-navigator'
-	Plug 'voldikss/vim-floaterm'		  "terminal
+	Plug 'voldikss/vim-floaterm'		  	"terminal
 	Plug 'ingolemo/vim-bufferclose'
-    Plug '907th/vim-auto-save'            "vim autsave plugin
-    Plug 'editorconfig/editorconfig-vim'  "EDITOR-CONFIG settings
+    Plug '907th/vim-auto-save'            	"vim autsave plugin
+    Plug 'editorconfig/editorconfig-vim'  	"EDITOR-CONFIG settings
     "THEME
     Plug 'vim-airline/vim-airline-themes'
     Plug 'vim-airline/vim-airline'
     Plug 'edkolev/promptline.vim'
-    Plug 'powerline/fonts'                "patched powerline-fonts
-    Plug 'rakr/vim-one'                   "Atom ONE theme
+    Plug 'powerline/fonts'                	"patched powerline-fonts
+    Plug 'rakr/vim-one'                   	"Atom ONE theme
     "NAVIGATION
-    Plug 'easymotion/vim-easymotion'      "jump to any location
-    Plug 'matze/vim-move'                 "move lines with alt-arrow
-    Plug 'yuttie/comfortable-motion.vim'  "comfortable scroll
-    Plug 'tpope/vim-repeat'               " '.' for better repeat functioalities
+    Plug 'easymotion/vim-easymotion'      	"jump to any location
+    Plug 'matze/vim-move'                 	"move lines with alt-arrow
+    Plug 'yuttie/comfortable-motion.vim'  	"comfortable scroll
+    Plug 'tpope/vim-repeat'               	" '.' for better repeat functioalities
     "VIEWS
-	Plug 'scrooloose/nerdtree'            "side-bar file manager
-    Plug 'ryanoasis/vim-devicons'         "icons for nerdtree
+	Plug 'scrooloose/nerdtree'            	"side-bar file manager
+    Plug 'ryanoasis/vim-devicons'         	"icons for nerdtree
+    Plug 'zgpio/tree.nvim'                  "better file browser
     Plug 'mcchrish/nnn.vim'
     Plug 'junegunn/goyo.vim'
-    Plug 'ctrlpvim/ctrlp.vim'             "fuzzy searcher
-	Plug 'mox-mox/vim-localsearch'		  "vim localsearch
-    Plug 'majutsushi/tagbar'              "methods viever
-    Plug 'mbbill/undotree'                "show a tree of undos
-    Plug 'gcavallanti/vim-noscrollbar'    "scrollbar-like for statusline
+	Plug 'mox-mox/vim-localsearch'		  	"vim localsearch
+	Plug 'ctrlpvim/ctrlp.vim'             	"fuzzy searcher
+	Plug 'liuchengxu/vim-clap'			  	"interactive floating finder and dispatcher
+	Plug 'dyng/ctrlsf.vim'				  	"grep search withind directory
+    Plug 'majutsushi/tagbar'              	"methods viever
+    Plug 'mbbill/undotree'                	"show a tree of undos
+    Plug 'gcavallanti/vim-noscrollbar'    	"scrollbar-like for statusline
     "TOOLS
-    Plug 'terryma/vim-multiple-cursors'   "some multiple cursor things
-    Plug 'scrooloose/nerdcommenter'       "commenter
-    Plug 'tpope/vim-abolish'              "better renamer substituter
-    Plug 'svermeulen/vim-subversive'      "subsiitute motion
-	Plug 'yggdroot/indentline'            "indentation (characters)
-    Plug 'rrethy/vim-illuminate'          "highlightusert same words as cursor
-    Plug 'wellle/targets.vim'             "more objects to operate functions
-    Plug 'jiangmiao/auto-pairs'           "auto close brackets and parenthesis
-    Plug 'luochen1990/rainbow'            "colored brackets
-    Plug 'godlygeek/tabular'              "text aligner
+    Plug 'terryma/vim-multiple-cursors'   	"some multiple cursor things
+    Plug 'scrooloose/nerdcommenter'       	"commenter
+    Plug 'tpope/vim-abolish'              	"better renamer substituter
+    Plug 'svermeulen/vim-subversive'      	"subsiitute motion
+	Plug 'yggdroot/indentline'            	"indentation (characters)
+    Plug 'rrethy/vim-illuminate'          	"highlightusert same words as cursor
+    Plug 'wellle/targets.vim'             	"more objects to operate functions
+    Plug 'jiangmiao/auto-pairs'           	"auto close brackets and parenthesis
+    Plug 'luochen1990/rainbow'            	"colored brackets
+    Plug 'godlygeek/tabular'              	"text aligner
     Plug 'haya14busa/incsearch.vim'
-    Plug 'mattesgroeger/vim-bookmarks'    "bookmarks per line
-    Plug 'kana/vim-fakeclip'              "better clipboard
+    Plug 'mattesgroeger/vim-bookmarks'    	"bookmarks per line
+    Plug 'kana/vim-fakeclip'              	"better clipboard
     "GIT
-    Plug 'airblade/vim-gitgutter'         "show differences (GIT)
-    Plug 'tpope/vim-fugitive'             "git wrapper
+    Plug 'airblade/vim-gitgutter'         	"show differences (GIT)
+    Plug 'tpope/vim-fugitive'             	"git wrapper
     "BUILD
-	Plug 'sakhnik/nvim-gdb'               "GDB, LLVM wrapper
-	Plug 'puremourning/vimspector'		  "VIM DEBUGGER
+	Plug 'sakhnik/nvim-gdb'               	"GDB, LLVM wrapper
+	Plug 'puremourning/vimspector'		  	"VIM DEBUGGER
 	" Plug 'strottos/vim-padre', { 'dir': '~/.config/nvim/plugged/vim-padre', 'do': 'make' }
     "OTHER
-	Plug 'wakatime/vim-wakatime'		  "coding time tracker plugin
-	Plug 'duggiefresh/vim-easydir'        "create new files and folders easily
-    Plug 'wincent/terminus'               "integration with terminal functioalities
+	Plug 'wakatime/vim-wakatime'		  	"coding time tracker plugin
+	Plug 'duggiefresh/vim-easydir'        	"create new files and folders easily
+    Plug 'wincent/terminus'               	"integration with terminal functioalities
     Plug 'othree/xml.vim'
     Plug 'reedes/vim-pencil'
 	Plug 'tpope/vim-markdown'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
     Plug 'lervag/vimtex'				  " LATEX for vim
 call plug#end()
+
+let g:python_host_prog='/usr/bin/python'
+let g:python3_host_prog='/usr/bin/python3'
 
 syntax on
 filetype on
@@ -225,6 +231,38 @@ function! s:layout()
 endfunction
 let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
 nnoremap <leader>s :NnnPicker '%:p:h'<CR>
+"tree
+nnoremap <silent><C-f> :<C-u>Tree -columns=mark:git:indent:icon:filename:size
+      \ -split=vertical
+      \ -direction=topleft
+      \ -winwidth=40
+      \ -listed
+      \ `expand('%:p:h')`<CR>
+call tree#custom#option('_', {
+      \ 'root_marker': '',
+      \ })
+autocmd FileType tree call s:set_tree()
+func! s:set_tree() abort
+    nnoremap <silent><buffer><expr> > tree#action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> * tree#action('toggle_select_all')
+    nnoremap <silent><buffer><expr> s tree#action('drop', 'split')
+    nnoremap <silent><buffer><expr> <CR> tree#action('drop')
+    nnoremap <silent><buffer><expr> <Tab> tree#action('toggle_select') . 'j'
+    nnoremap <silent><buffer><expr> <C-l> tree#action('redraw')
+    nnoremap <silent><buffer><expr> <C-g> tree#action('print')
+    nnoremap <silent><buffer><expr> E tree#action('open', 'vsplit')
+    nnoremap <silent><buffer><expr> o tree#action('open_or_close_tree')
+    nnoremap <silent><buffer><expr> R tree#action('open_tree_recursive')
+    nnoremap <silent><buffer><expr> r tree#action('rename')
+    nnoremap <silent><buffer><expr> x tree#action('execute_system')
+    nnoremap <silent><buffer><expr> N tree#action('new_file')
+    nnoremap <silent><buffer><expr> h tree#action('cd', ['..'])
+    nnoremap <silent><buffer><expr> cd tree#action('cd', '.')
+    nnoremap <silent><buffer><expr> \ tree#action('cd', getcwd())
+    nnoremap <silent><buffer><expr> ~ tree#action('cd')
+    nnoremap <silent><buffer><expr> l tree#action('open')
+    nnoremap <silent><buffer><expr> yy tree#action('yank_path')
+endf
 
 
 
@@ -286,6 +324,11 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+
+
+" === CTRLF === "
+nmap     <leader>f <Plug>CtrlSFPrompt
 
 
 
@@ -380,14 +423,16 @@ let g:comfortable_motion_interval = 1000.0 / 60
 
 " ===RUN === "
 " asyncrun
-let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml'] 
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 let g:asyncrun_open = 8
 "cmakerun
-map <F7> <ESC><Esc>:!cmake --build build/ --target<CR>
-map <C-F7> <ESC><Esc>:call VimuxRunCommand("cmake --build build/ --target")<CR>
-"<CR>:!cp bin/* ~/.bin<CR>
-map <F8> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug<CR>:!cp build/compile_commands.json .<CR>
-map <F9> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=FastDebug<CR>:!cp build/compile_commands.json .<CR>
+map <C-F7> <ESC><Esc>:!cmake --build build/ --target<CR>
+map <C-F8> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug<CR>
+map <C-F9> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=FastDebug<CR>
+map <F7> <ESC><Esc>:!ninja -C build<CR>
+map <F8> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug -GNinja<CR>
+map <F9> <ESC><Esc>:!rm -rf build/*<CR>:!cmake -H. -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=FastDebug -GNinja<CR>
+
 
 
 
@@ -413,18 +458,22 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
 " let g:ale_fix_on_save = 1
 nmap <F10> <Plug>(ale_fix)
+au TabLeave * silent! <Plug>(ale_fix)
+au BufLeave * silent! <Plug>(ale_fix)
 
 
 
 " === LANGUAGE SERVER === "
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_useFloatingHover = 1
+let g:LanguageClient_hoverPreview = "Never"
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'go': ['~/.go/bin/gopls'],
     \ 'nim': ['~/.nimble/bin/nimlsp'],
-    \ 'cpp': ['clangd'],
     \ 'python': ['/usr/local/bin/pyls'],
+    \ 'c': ['clangd', '-compile-commands-dir=' . getcwd() . '/build'],
+    \ 'cpp': ['clangd', '-compile-commands-dir=' . getcwd() . '/build'],
     \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \       using LanguageServer;
     \       using Pkg;
@@ -436,6 +485,8 @@ let g:LanguageClient_serverCommands = {
     \       server.runlinter = true;
     \       run(server);']
     \ }
+    " \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
+    " \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
 nnoremap <S-tab> :call LanguageClient_textDocument_definition()<cr>
 nnoremap <tab> :call LanguageClient#textDocument_hover()<CR>
 nnoremap <F2> :call LanguageClient_textDocument_rename()<cr>
@@ -451,6 +502,7 @@ let g:deoplete#enable_smart_case = 1
 " let g:deoplete#sources._ = ['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
 call deoplete#custom#source('LanguageClient', 'min_pattern_length', 2)
 call deoplete#custom#var('tabnine',{'line_limit': 500,'max_num_results': 5})
+call deoplete#custom#option('auto_complete_delay', 200)
 "autocomplete popup - nvigation keys and enter to select
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
@@ -458,7 +510,7 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 "floating window
 let g:float_preview#docked = 0
-g:float_preview#auto_close = 1
+let g:float_preview#auto_close = 1
 function! DisableExtras()
   call nvim_win_set_option(g:float_preview#win, 'number', v:false)
   call nvim_win_set_option(g:float_preview#win, 'relativenumber', v:false)
@@ -480,6 +532,12 @@ let g:NERDCompactSexyComs = 1
 let g:NERDSpaceDelims = 1
 map <silent> # <plug>NERDCommenterToggle
 
+
+
+" === GIT GUTTER & FUGITIVE === "
+highlight GitGutterAdd    ctermfg=2 ctermbg=1
+highlight GitGutterChange ctermfg=3 ctermbg=2
+highlight GitGutterDelete ctermfg=1 ctermbg=3
 
 
 " === VIMTEX === "
@@ -562,7 +620,7 @@ function! s:highlightuser()
     highlight Search ctermfg=231 ctermbg=9
     highlight CursorLine ctermbg=16 cterm=bold
     highlight CursorColumn ctermbg=16 cterm=bold
-    highlight Cursor ctermfg=8 ctermbg=231
+    highlight Cursor ctermfg=7 ctermbg=7
     "similar words
     highlight illuminatedWord ctermbg=16 cterm=bold,underline
     "squicky lines "~" hide

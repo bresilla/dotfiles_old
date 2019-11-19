@@ -12,3 +12,8 @@
   description = "git password cache"
   command = "git config --global credential.helper 'cache --timeout=10000'"
   output = ""
+
+[[snippets]]
+  description = "battery status"
+  command = "upower -i /org/freedesktop/UPower/devices/battery_BAT0"
+  output = ""
