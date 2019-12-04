@@ -1,7 +1,6 @@
 #USER_BIN
 [[ -d "$HOME/.bin" ]] && PATH="$HOME/.bin:$PATH"
 [[ -d "$HOME/.sbin" ]] && PATH="$HOME/.sbin:$PATH"
-[[ -d "$HOME/.hack" ]] && PATH="$HOME/.hack:$PATH"
 [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 [[ -d "$HOME/.local/sbin" ]] && PATH="$HOME/.local/sbin:$PATH"
 
@@ -12,11 +11,11 @@
 #NIM
 [[ -d "$HOME/.nimble/bin" ]] && PATH="$HOME/.nimble/bin:$PATH"
 #CONDA
-[[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH"
+# [[ -d "/opt/conda/bin" ]] && PATH="$PATH:/opt/conda/bin"
 
 #NIX
 [[ -d "$HOME/.nix-profile/bin" ]] && PATH=$HOME/.nix-profile/bin:$PATH
-# [[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH"
+[[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH"
 
 export BROWSER=firefox
 export EDITOR=nvim
@@ -25,9 +24,12 @@ export TERMINAL=kitty
 
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
-export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
-export WINEPREFIX=~/.wine
 export TZ='Europe/Berlin'
+
+export WINEPREFIX=/opt/wine
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
+export XDG_CONFIG_HOME=/home/$USER/.config
+export XDG_CONFIG_PATH=/home/$USER/.config
 
 export DOT=/home/bresilla/Dots
 export SET=/home/bresilla/Sets

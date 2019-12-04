@@ -9,14 +9,13 @@ refresh() {
     sxhkd -c /home/bresilla/.config/sxhkd/sxhkdrc &
 
     #MONITORS
-    xrandr --output $monitor1 --primary --mode 3840x2160 --pos 0x1080 --output $monitor2 --mode 1920x1080 --pos 920x0 &
+    xrandr --output eDP1 --primary --mode 3840x2160 --pos 0x2160 --rotate normal --output DP1 --mode 3840x2160 --pos 0x0 --rotate normal --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off &
 
     #TASKBAR
     killall -q polybar &
     while pgrep -x polybar >/dev/null; do sleep 1; done
-    # MONITOR=$monitor1 polybar -r -c ~/.config/polybar/center main & sleep 0.5 &&
-    # MONITOR=$monitor1 polybar -r -c ~/.config/polybar/side left &
-    # MONITOR=$monitor1 polybar -r -c ~/.config/polybar/side right &
+    MONITOR=$monitor1 polybar -r -c ~/.config/polybar/main main &
+    MONITOR=$monitor2 polybar -r -c ~/.config/polybar/main main &
     MONITOR=$monitor1 polybar -r -c ~/.config/polybar/center workspaces &
     MONITOR=$monitor2 polybar -r -c ~/.config/polybar/center workspaces &
 
@@ -27,7 +26,7 @@ refresh() {
 
     #WALLPAPER
     pkill -f loopwall
-    /home/bresilla/.sbin/./loopwall /home/bresilla/Sets/.wallpaper 300 &
+    /home/bresilla/.sbin/./loopwall /home/bresilla/.wallpaper 300 &
 
     #NOTIFICATION
     killall -q dunst

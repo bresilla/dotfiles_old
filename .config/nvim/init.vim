@@ -60,6 +60,7 @@ call plug#begin()
     Plug 'kana/vim-fakeclip'              	"better clipboard
     "GIT
     Plug 'airblade/vim-gitgutter'         	"show differences (GIT)
+    Plug 'whiteinge/diffconflicts'
     Plug 'tpope/vim-fugitive'             	"git wrapper
     "BUILD
 	Plug 'sakhnik/nvim-gdb'               	"GDB, LLVM wrapper
@@ -195,6 +196,7 @@ let g:better_whitespace_enabled=1
 let g:incsearch#auto_nohlsearch = 1
 map / <Plug>(incsearch-forward)
 nmap <leader>/ <Plug>localsearch_toggle
+nnoremap * *``
 "substitute normal
 "nnoremap <silent> + :%s/\<<C-r><C-w>\>//g<Left><Left>
 "substitute with subversive + abolish
@@ -271,7 +273,7 @@ endf
 noremap <leader>t :TagbarToggle<CR>
 let g:tagbar_compact = 1
 let g:tagbar_sort = 0
-autocmd FileType cpp silent! :call tagbar#autoopen(0)
+" autocmd FileType cpp silent! :call tagbar#autoopen(0)
 
 
 
@@ -486,7 +488,6 @@ let g:LanguageClient_serverCommands = {
     \       run(server);']
     \ }
     " \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
-    " \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
 nnoremap <S-tab> :call LanguageClient_textDocument_definition()<cr>
 nnoremap <tab> :call LanguageClient#textDocument_hover()<CR>
 nnoremap <F2> :call LanguageClient_textDocument_rename()<cr>

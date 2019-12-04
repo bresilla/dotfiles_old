@@ -20,3 +20,11 @@ portmon(){
 openports(){
     sudo netstat -tulpn
 }
+
+wifis(){
+    nmcli -t -f ssid dev wifi
+}
+
+myip(){
+    dig +short myip.opendns.com @resolver1.opendns.com
+}

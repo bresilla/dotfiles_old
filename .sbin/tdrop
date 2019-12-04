@@ -64,10 +64,10 @@ See man page for more details.
 
 # * Default Options and Option Parsing
 # xdotool can take percentages; cannot take decimal percentages though
-width="100%"
+width="99%"
 height="45%"
-xoff=0
-yoff=2
+xoff=20
+yoff=14
 session_name=
 num=
 pre_create=

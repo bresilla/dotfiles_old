@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pkill mpv
+# pkill mpv
 clipp=$(xsel --clipboard)
-mpv --no-sub-auto --ytdl-format='bestvideo[height<=?1080]+bestaudio/best' --input-file /home/bresilla/.config/mpv/control --load-unsafe-playlists --record-file=/tmp/mkv_rec.mkv --no-terminal "${1:-$clipp}"
-#--panscan=1.0 --speed=1.0 --no-keepaspect
+mpv --no-sub-auto --panscan=1.0 --no-keepaspect --speed=1.0 --ytdl-format='bestvideo[height<=?1080]+bestaudio/best' --input-file /home/bresilla/.config/mpv/control --load-unsafe-playlists --record-file=/tmp/mkv_rec.mkv --no-terminal "${1:-$clipp}"
+#--panscan=1.0 --no-keepaspect

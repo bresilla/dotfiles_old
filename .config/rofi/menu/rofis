@@ -3,7 +3,7 @@ FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
 ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_full -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 
 browse(){
-	selected=$(ls "$1/" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "$1: ")
+	selected=$(ls "$1/" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "$1: ")
 	[[ -z $selected ]] && exit
 	if [[ -f $1/$selected ]]; then
 		gedit $1/$selected

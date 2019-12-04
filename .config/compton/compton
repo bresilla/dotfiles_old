@@ -1,5 +1,5 @@
 # Rounded corners
-corner-radius:          20;
+corner-radius:          14;
 
 # Shadows
 shadow                  = true;
@@ -10,7 +10,10 @@ shadow-offset-y         = -5;
 shadow-opacity          = 0.45;
 shadow-ignore-shaped    = true;
 no-dock-shadow          = true;
-
+shadow-exclude = [
+    "! name~=''",
+    "class_g = 'Conky'"
+    ]
 # Blur
 blur-background         = false;
 

@@ -10,10 +10,10 @@ windows:
     - ncpamixer
     focus: true
     root: /home/bresilla
-- name: gotop -b
+- name: gotop
   layout: 6585,280x57,0,0,92
   panes:
   - commands:
-    - gotop
+    - gotop -b
     focus: true
     root: /home/bresilla
