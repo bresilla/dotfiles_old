@@ -1,14 +1,16 @@
-hexview(){
-	xxd $@ | less -R
-}
+anaconda() { [[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH" }
+lab() { [[ :$PATH: == *:"/opt/conda/bin":* ]] && jupyter-lab || anaconda && jupyter-lab }
+dallo() { colordiff $@ | bat }
 
-get(){
-	dir=$PWD
-    cd ~/Downloads
-    clipp=$(xsel --clipboard)
-	git clone --recurse-submodules $clipp
-    cd $dir
-}
+alias six="nix-shell --command zsh support/shell.nix"
+alias git='hub'
+alias doc='docker'
+alias docker='supdock'
+
+finder(){ file=$(find ${1:-$PWD} -name "*" -type f | fzp); [[ -n $file ]] && nvim $file }
+search(){ rg $@ }
+replace(){ rg -l $1 | xargs sed -i "s/$1/$2/g" *}
+
 
 readme(){
     file="README.md"
@@ -63,4 +65,8 @@ nixify(){
     LD_LIBRARY_PATH="/usr/include";
   };
 }' > shell.nix
+}
+
+envify(){
+    echo '[[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH"' > .envrc
 }

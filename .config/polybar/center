@@ -26,7 +26,9 @@
     throttle-output-for = 10
     throttle-input-for = 30
     screenchange-reload = true
+    font = Iosevka Term SS01:size=12;4
     bargapp= 10
+    radius = 14
     barwidth = 100%
     barheigh = 48
 
@@ -52,14 +54,14 @@
     border-right-size = ${settings.bargapp}
     border-bottom-size = 0
     border-color = ${colors.transparent}
-    radius-top = 10
-    radius-bottom = 10
+    radius-top = ${settings.radius}
+    radius-bottom = ${settings.radius}
     spacing = 2
     padding-left = 2
     padding-right = 2
     module-margin-left = 2
     module-margin-right = 2
-    font-0 = Iosevka Term SS01:size=15;4
+    font-0 = ${settings.font}
     font-1 = unifont:size=12;1
     font-2 = FontAwesome:size=12;3
     font-3 = NotoSans-Regular:size=12;-1

@@ -3,13 +3,14 @@
     bckgrd = #121212
     select = #161A1B
 
-    background =            ${xrdb:color0:self.bckgrd}
+    background =            ${self.bckgrd}
     background-alt =        ${self.select}
     foreground =            ${xrdb:color6:#A5ffffff}
     foreground-alt =        ${xrdb:color7:#222}
     primary =               ${xrdb:color1:self.accent}
     secondary =             ${xrdb:color2:#222}
     alert =                 ${xrdb:color3:#bd2c40}
+    light =                 ${xrdb:color15:#ffffff}
     white =                 #FFFFFF
     grey =                  #AAAAAA
     transparent =           #00000000
@@ -25,25 +26,25 @@
     throttle-output-for = 10
     throttle-input-for = 30
     screenchange-reload = true
-    radius = 10
     font = Iosevka Term SS01:size=12;4
     bargapp= 10
+    radius = 14
     barwidth = 100%
-    barheigh = 40
+    barheigh = 48
 
 
-[bar/left]
+[bar/main]
     monitor = ${env:MONITOR}
     monitor-strict = true
     fixed-center = true
     dpi = 96
     bottom = false
-    width = 800
+    width = ${settings.barwidth}
     height = ${settings.barheigh}
-    offset-x = 4
-    offset-y = 4
+    offset-x = 0
+    offset-y = 0
     background = ${colors.background}
-    foreground = ${colors.foreground}
+    foreground = ${colors.light}
     overline-size = 0
     overline-color = #f00
     underline-size = 2
@@ -56,18 +57,84 @@
     radius-top = ${settings.radius}
     radius-bottom = ${settings.radius}
     spacing = 2
-    padding-left = 2
-    padding-right = 2
+    padding-left = 5
+    padding-right = 5
     module-margin-left = 2
     module-margin-right = 2
     font-0 = ${settings.font}
-    font-1 = unifont:size=12;1
-    font-2 = FontAwesome:size=12;3
-    font-3 = NotoSans-Regular:size=12;-1
+    font-1 = unifont:size=10;1
+    font-2 = FontAwesome:size=10;3
+    font-3 = Iosevka Nerd Font:style=Medium:size=16;3
     font-4 = MaterialIcons:size=16;5
-    tray-position = left
+    tray-position = right
     tray-padding = 4
-    modules-center = time volume wlan signal speed
+    modules-left = time volume wlan signal speed
+    modules-center = mpd
+    modules-right = cpu memory filesystem docdisk light battery date
+
+
+[bar/workspaces]
+    monitor = ${env:MONITOR}
+    monitor-strict = true
+    dpi = 96
+    bottom = true
+    width = ${settings.barwidth}
+    height = 4
+    background = ${colors.transparent}
+    foreground = ${colors.foreground}
+    border-top-size = 0
+    border-bottom-size = 0
+    border-color = ${colors.transparent}
+    font-0 = Monoisome:size=10;4
+    font-1 = FontAwesome:pixelsize=10;3
+    font-5 = unifont:size=14;1
+    modules-center = BSP
+
+
+[module/BSP]
+    type = internal/bspwm
+    pin-workspaces = true
+    format = <label-state> <label-mode>
+    label-mode-background = ${colors.foreground}
+    label-focused = "_"
+    label-focused-background = ${colors.foreground}
+    label-focused-padding = 3
+    label-occupied = "_"
+    label-occupied-background = #808080
+    label-occupied-padding = 3
+    label-empty = "_"
+    label-empty-background = #404040
+    label-empty-padding = 3
+    label-separator = "_"
+    label-separator-background = ${colors.transparent}
+
+
+[module/mpd]
+    type = internal/mpd
+    host = 127.0.0.1
+    port = 6600
+    interval = 1
+    format-online = <icon-prev> <icon-stop> <toggle> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
+    icon-play = 
+    icon-pause = 
+    icon-stop = 
+    icon-prev = 
+    icon-next = 
+    icon-random = 
+    icon-repeat = 
+    toggle-on-foreground =
+    toggle-off-foreground = #55
+    bar-progress-width = 30
+    bar-progress-format = %{A4:mpdseek+2: A5:mpdseek-2:}%fill%%indicator%%empty%%{A A}
+    bar-progress-indicator = |
+    bar-progress-indicator-foreground = #ff
+    bar-progress-indicator-font = 3
+    bar-progress-fill = —
+    bar-progress-fill-foreground = #bb
+    bar-progress-fill-font = 3
+    bar-progress-empty = —
+    bar-progress-empty-font = 3
+    bar-progress-empty-foreground = #44
 
 
 [bar/right]
@@ -195,16 +262,12 @@
 
 [module/volume]
     type = internal/alsa
-    format-volume = <ramp-volume><label-volume>
+    format-volume =  <label-volume>
     format-muted = <label-muted>
     format-volume-foreground = ${colors.foreground}
     label-volume = %percentage%
     label-muted =   M
     label-muted-foreground = #aaa
-    ramp-volume-0 = 
-    ramp-volume-1 = 
-    ramp-volume-2 = 
-    ramp-headphones-0 = 
 
 
 [module/pomo]
@@ -229,40 +292,18 @@
     battery = BAT0
     adapter = AC
     full-at = 98
-    time-format = %H:%M
     label-charging = %percentage%%
     label-discharging = %percentage%%
-    format-charging = <animation-charging><label-charging>
-    format-discharging = <animation-discharging><label-discharging>
+    format-charging =  <label-charging>
+    format-discharging =  <label-discharging>
     format-charging-foreground = ${colors.foreground}
     label-charging-foreground = ${colors.foreground}
     format-discharging-foreground = ${colors.foreground}
     label-discharging-foreground = ${colors.foreground}
     format-full-prefix = " "
-    format-full-prefix-foreground = ${colors.foreground}
     label-full-foreground = ${colors.foreground}
-    animation-charging-0 = 
-    animation-charging-1 = 
-    animation-charging-2 = 
-    animation-charging-3 = 
-    animation-charging-4 = 
-    animation-charging-foreground = ${colors.foreground}
-    animation-charging-framerate = 500
-    animation-discharging-0 = 
-    animation-discharging-1 = 
-    animation-discharging-2 = 
-    animation-discharging-3 = 
-    animation-discharging-4 = 
-    animation-discharging-framerate = 1000
-    animation-discharging-foreground = ${colors.foreground}
-    click-left = bash ~/.startup -r
+    format-full-prefix-foreground = ${colors.foreground}
 
-
-[module/jgmenu]
-    type = custom/text
-    content-padding = 2
-    content = menu
-    click-left = "jgmenu_run >/dev/null 2>&1 &"
 
 [module/filesystem]
     type = internal/fs

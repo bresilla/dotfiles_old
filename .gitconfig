@@ -1,9 +1,6 @@
 [user]
 	email = trim.bresilla@gmail.com
 	name = Trim Bresilla
-
-[core]
-	pager = delta --dark
 [core]
     pager = delta --dark --plus-color="#012800" --minus-color="#340001" --theme="OneHalfDark"
 
@@ -26,21 +23,43 @@
     changed = green
     untracked = red
 
+[push]
+    default = simple
+[pull]
+    rebase = true
+[rebase]
+    autostash = true
+
 [merge]
     log = true
     ff = false
-
-[push]
-    default = simple
+	tool = diffconflicts
+[mergetool "diffconflicts"]
+    cmd = vim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+    trustExitCode = true
+[mergetool]
+    keepBackup = false
 
 [alias]
     root = !pwd
     view = !grv
+    ban = "!fd -E ".git" -H . | fzf | parallel 'git ignore {}; git rm -rf --cached {};'"
     uncommit = reset --soft HEAD^
     master = checkout master
     develop = checkout develop
     module = submodule
-    get = clone --recursive
+    clone = clone --recursive
+    get = "!f(){ INPUT=${1:-$(xsel --clipboard)}; NAMEEE=$(echo $INPUT | cut -d/ -f1-5); git clone --recursive $NAMEEE; }; f"
+    down = "!f(){ INPUT=${1:-$(xsel --clipboard)}; NAMEEE=$(echo $INPUT | cut -d/ -f1-5); git clone --recursive $NAMEEE -- /home/$USER/Downloads/$(echo $NAMEEE | cut -d/ -f5); }; f"
     unfuck = "!f(){ git reset --hard origin/`git rev-parse --abbrev-ref HEAD`; rm -fv `git st | grep ^? | cut -d' '  -f2-`; }; f"
-    alias = "!f(){ git config -l | grep alias; };f"
     tree = log --graph --all --format=format:'%w(80,0,0)%C(bold magenta)%h%C(reset) %C(white)%ad%C(reset) %C(dim white)(%ar)%C(reset) %C(bold dim white)%aN%C(auto)%+D%C(reset)%n%C(bold white)%s%C(reset)%+b%n'
+    publish = "!f(){ git push origin --follow-tags $1 && hub browse; }; f"
+    open = "!f(){ hub browse; }; f"
+    remotes = remote -v
+    branches = branch -a
+    conflicts = !git diff --name-only --diff-filter=U
+    fix = !git mergetool --tool=diffconflicts
+    sync = !git pull --rebase && git push
+    find = "!git ls-files | grep -i"
+    grep = !grep -Ii
+    ls = !lsg -lAF

@@ -196,3 +196,5 @@ zplugin light zsh-users/zsh-autosuggestions
 zplugin light zdharma/fast-syntax-highlighting
 # Plugin history-search-multi-word loaded with tracking.
 zplugin load zdharma/history-search-multi-word
+
+[[ -n "${$(task ids)/[ ]*\n/}" ]] && task | tail -n+4 | head -n-2

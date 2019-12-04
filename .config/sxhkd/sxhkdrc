@@ -4,6 +4,8 @@ super + alt + {Escape,Delete,Insert}
     bash ~/.config/rofi/menu/{system,CONFIG,screenshot}
 super + space
     bash ~/.config/rofi/menu/BROWSE
+mode_switch + space
+    bash ~/.config/rofi/menu/SEARCH2
 super + alt + space; {c,Return}
     {code,kitty --class=til tmux}
 
@@ -12,17 +14,24 @@ super + alt + space; {c,Return}
 {super,alt} + Delete
     pkill -USR1 -x sxhkd && ~/.startup -r
 
-{dead_acute,dead_circumflex}
-    termop {kitty NOTE 3500 1900,cool-retro-term MAIN 2500 1050}
+{_,super} + dead_circumflex
+    termop {kitty, cool-retro-term} MAIN 2500 1050
+#    tmass -l /home/bresilla/.config/tmux load MAIN; tdrop -m -w 66% -h 50% -x 17% -y 25% -n MAIN -f "-e tmux attach -t MAIN" {kitty, cool-retro-term}
+{_,super} + dead_acute
+    termop {kitty, cool-retro-term} NOTE 3500 1900
+#    tmass -l /home/bresilla/.config/tmux load NOTE; tdrop -m -w 80% -h 80% -x 10% -y 10% -n NOTE -f "-e tmux attach -t NOTE" {kitty, cool-retro-term}
+mode_switch + Return
+    kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
+
+ctrl + Escape
+    /home/bresilla/.cargo/bin/xcursorlocate
 
 XF86Search
     pkill boomer; boomer
 {super,alt} + XF86Search
     monitors
-mode_switch + space
+{super,alt} + Tab
     bspc desktop -f last
-mode_switch + Return
-    kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
 
 super + alt + {Left,Right}
     bspc desktop -f {prev,next}.local
@@ -48,7 +57,7 @@ super + alt + {Down,Up}
 
 mod3 + {Left,Right}
     {echo "seek -10" > /home/bresilla/.config/mpv/control, echo "seek 10" > /home/bresilla/.config/mpv/control}
-mod3 + space
+mod3 + {Up,Down,space}
     echo "cycle pause" > /home/bresilla/.config/mpv/control
 
 mod3 + XF86Audio{Prev,Next}

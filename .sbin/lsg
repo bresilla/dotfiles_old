@@ -1,0 +1,834 @@
+#!/usr/bin/env bash
+##
+# List files, including git information in the output.
+# We accept switches for ls and attempt to mimic the usual behaviour of the tool.
+#
+# In addition, switches dedicated to lsg are also supported::
+#
+#   --nest, --nest=<depth>
+#       Causes lsg to re-invoke itself on any directories encountered up to the
+#       depth specified or recursively if no specific depth was supplied.
+#       May also set the environment variable `LSG_NEST` to true or a number to
+#       force this behaviour.
+#
+#   --no-nest
+#       Disable recursive listing of directories.
+#
+# Unsupported ls options::
+#   --format=(commas|vertical|across|horizontal)
+#   -c | -x | -m
+#       These options don't leave space for lsg to annotate the output, so will be
+#       ignored if they are used. Only the 1-file-per-line format is supported.
+#   --dired | -D
+#       The --dired option does not make sense - it wouldn't be understood if the
+#       annotations were added to the output.
+#
+# Git annotations::
+#
+# Files within a git repository:
+#   * File changes are only shown in braces.
+#   * Untracked and ignored files are shown:
+#       {untracked}                 - File is not known to git
+#       {ignored}                   - File is listed as a pattern in .gitignore
+#   * Changed files in the working tree are shown:
+#       {modified locally, 3 lines} - Changed in working tree, 3 lines affected (added or deleted)
+#       {deleted locally}           - File has been deleted in working tree
+#   * Changed files in the cache are shown:
+#       {staged, 3 lines}           - Changes have been staged, 3 lines affected (added or deleted)
+#       {deleted}                   - File has been marked for deletion in cache
+#       {added}                     - File has been marked for addition in cache
+#       {renamed}                   - File has been renamed to this name in the cache
+#   * Merge status is show:
+#       {unmerged, both added}      - File was added by merge, and we added it as well.
+#
+# Directories within a git repository:
+#   * Only untracked or ignored state is shown (to make lists faster):
+#       {untracked}                 - Directory is not known to git
+#       {ignored}                   - Directory is listed as a pattern in .gitignore
+#
+# Repositories and submodules:
+#   * Branch details are in brackets:
+#       (master)            - directory is at the head of branch master
+#   * Relative location compared to upstream is shown with arrows after the name
+#       (master￪1)          - 1 commits locally ready to be pushed
+#       (master￬7)          - 8 commits available in fetched upstream
+#       (master⊗)           - no upstream is configured
+#       (master~2○)         - detached head
+#   * Submodule reference changes are described within the brackets:
+#       (master added)      - Submodule has been added
+#       (master 8 forward)  - Submodule has moved 8 changes forward in the same tree (in working tree)
+#       (master 2 back)     - Submodule has moved 2 changes forward in the same tree (in working tree)
+#       (master new ref)    - Submodule has changed to a ref unrelated to the old tree (in working tree)
+#       (master staged 1 forward)   - Submodule has moved 1 changes forward in the same tree (in the cache)
+#   * Summary of changes to the files within the submodule are shown in braces:
+#       {1 modified}        - 1 file has been changed in the working tree
+#       {2 staged}          - 2 files have been changed and staged in the working tree
+#   * All the above options can be combined.
+
+# Note: The above messages are help text.
+#
+# Required commands::
+#   * bash - version 3 or 4; although it'll be slower on 3 due to lack of associative arrays
+#   * git
+#   * ls
+#       - BSD version supplied with Mac OS or a GNU version
+#       - colour is supported (and explicitly forced)
+#   * perl - version 5 upward (although might be version 3 compatible)
+#   * grep - BSD version supplied with Mac OS or a GNU version
+#   * sed - BSD version supplied with Mac OS or a GNU version
+#
+
+# The command we'll actually run for listing.
+# Replacing this with 'gls' on MacOS with GNU coreutils will run the gnu version instead.
+ls='ls'
+
+# Note: Decide what to do about GNU options for escaping (-b, -N, -q)
+#       These won't appear often in filenames, but we're trying to be all
+#       inclusive.
+
+##
+# Generate warning messages.
+function warning() {
+    local msg="$1"
+    echo -e "\e[33mWarning: $msg\e[0m" >&2
+}
+
+# Our custom switches
+lsg_nest=${LSG_NEST:-}
+
+ls_switches=()
+special=
+warned=false
+# Track the switches we pass to ls in ls_switches
+while [[ "${1:0:1}" == '-' && "$1" != '--' ]] ; do
+    switch="$1"
+    # Certain switches are not supported and must be ignored.
+    if [[ "$switch" =~ ^-[^-] ]] ; then
+        # Single '-' switch
+        while [[ "$switch" =~ ^(.*)([DCxm])(.*)$ ]] ; do
+            # -C or -x: Multi column format.
+            # -m: comma separated format.
+            # -D: dired format
+            # That's not possible for us, so we trim it out.
+            switch="${BASH_REMATCH[1]}${BASH_REMATCH[3]}"
+            warning "Ignoring switch -${BASH_REMATCH[2]}"
+            warned=true
+        done
+    elif [[ "$switch" =~ ^--(help|version)$ ]] ; then
+        special="${BASH_REMATCH[1]}"
+        shift
+        continue
+    elif [[ "$switch" =~ ^--format=(commas|vertical|across|horizontal) || \
+            "$switch" =~ ^--dired ]] ; then
+        warning "Ignoring switch $switch"
+        warned=true
+        shift
+        continue
+    elif [[ "$switch" =~ ^--(no-)?nest(=[0-9]+)?$ ]] ; then
+        if [[ "$switch" =~ ^--nest=?([0-9]+)? ]] ; then
+            lsg_nest=true
+            if [[ "${BASH_REMATCH[1]:-}" ]] ; then
+                lsg_nest=${BASH_REMATCH[1]:-}
+            fi
+        else
+            lsg_nest=
+        fi
+        shift
+        continue
+    fi
+    if [[ "$switch" != '-' ]] ; then
+        ls_switches+=("$switch")
+    fi
+    shift
+done
+
+if $warned ; then
+    # A blank line to separate our warnings from the main output
+    echo >&2
+fi
+
+if [[ "$special" != '' ]] ; then
+    # Either 'help' or 'version' requested.
+    if [[ "$special" == 'help' ]] ; then
+        # BSD ls does not have a --help, so we just continue on even if it fails -
+        # the --help will print out a syntax message, which is useful to the user
+        # anyhow.
+        ls --help || true
+        # Use the help from the comments at the head of the file, as that way
+        # there is only one source of truth for this message.
+        echo
+        echo "lsg: ls-with-git-status"
+        echo
+        sed -E -e '1,2d' -e '/^$/q' -e 's/^# ?//' < "$0"
+    elif [[ "$special" == 'version' ]] ; then
+        # Again, BSD ls does not have --version, but the syntax message is fine,
+        # I think.
+        ls --version || true
+        echo "$(basename "$0") (ls-with-git-status) "'$Id$'
+    fi
+    exit 0
+fi
+
+# Include colouring
+if [[ "$(uname -s)" == 'Darwin' && "$ls" == 'ls' ]] ; then
+    export CLICOLOR_FORCE=1
+    ls_switches+=('-G')
+else
+    ls_switches+=('--color=always')
+fi
+
+
+
+# Certain formats need diffferent handling, so we need to detect them here.
+# If you don't trust or care for the handling of these special formats, don't use them.
+include_filetype=false
+# Note: For filetypes we treat all the forms (-F, -p, etc) as identical, so in addition
+#       to / we also process %, =, |, etc. If your filenames end with those characters
+#       they may not be recognised properly.
+is_quoted=false
+is_long=false
+dirs_as_files=false
+for switch in "${ls_switches[@]}" ; do
+    if [[ "$switch" =~ ^-[^-] ]] ; then
+        # Single '-' switch
+        if [[ "$switch" =~ [Fp] ]] ; then
+            include_filetype=true
+        fi
+        if [[ "$switch" =~ Q ]] ; then
+            is_quoted=true
+        fi
+        if [[ "$switch" =~ l ]] ; then
+            is_long=true
+        fi
+        if [[ "$switch" =~ d ]] ; then
+            dirs_as_files=true
+            # Disable our nested display if they explicitly requested dirs-as-files
+            lsg_nest=
+        fi
+        if [[ "$switch" =~ R ]] ; then
+            # Disable our nested display if they wanted recursion
+            lsg_nest=
+        fi
+
+    else
+        # Double '-' switch name
+        if [[ "$switch" == '--classify' ||
+              "$switch" == '--file-type' ||
+              "$switch" =~ --indicator-style=(slash|file-type|classify) ]] ; then
+            include_filetype=true
+        fi
+        if [[ "$switch" == '--quote-name' ]] ; then
+            is_quoted=true
+        fi
+        if [[ "$switch" == '--recursion' ]] ; then
+            # Disable our nested display if they wanted recursion
+            lsg_nest=
+        fi
+    fi
+done
+if ! $is_long ; then
+    # The -1 and the -l options are mutually exclusive, and on BSD
+    # the -1 wins, so we only include the -1 when the -l switch isn't
+    # included.
+    ls_switches+=('-1')
+fi
+
+if [[ "$1" == '--' ]] ; then
+    ls_switches+=('--')
+    shift
+fi
+
+ls_dirs=("$@")
+if [[ "${#ls_dirs[@]}" == 0 ]] ; then
+    ls_dirs=('.')
+fi
+
+
+# Pick colours from the git configuration to match user preference
+color_branch="$(git config --get-color color.status.branch 'cyan')"
+color_added="$(git config --get-color color.status.added 'green')"
+color_updated="$(git config --get-color color.status.updated 'green')"
+color_changed="$(git config --get-color color.status.changed 'yellow')"
+color_untracked="$(git config --get-color color.status.untracked 'red')"
+color_unmerged="$(git config --get-color color.status.unmerged 'red bold')"
+# I don't think ignored is a real status colour, and it actually comes out in red
+# when you use `git status --ignored`, however, white makes more sense to me,
+# as we don't care about those files.
+color_ignored="$(git config --get-color color.status.ignored 'dim')"
+color_reset="$(git config --get-color '' 'reset')"
+color_bold="$(git config --get-color '' 'bold')"
+
+
+# Configuration here matches my shell prompt
+prompt_git_delta=$'\033[1;34m'
+prompt_git_reset=$'\033[0m'
+
+# Symbols to use in the prompt, based on what looks reasonable in the terminal
+# (although we could be remote, it's less common, so we try to match local system type)
+if [[ "$(uname -s)" == 'Darwin' ]] ; then
+    prompt_git_ahead_symbol="↑"
+    prompt_git_behind_symbol="↓"
+else
+    prompt_git_ahead_symbol="￪"
+    prompt_git_behind_symbol="￬"
+fi
+# The circled x below is nice, but in OS X Terminal it is cradled in the following bracket
+#prompt_git_noupstream_symbol="⨂"
+# The cirlced x below is smaller, so doesn't look quite so odd
+prompt_git_noupstream_symbol="⊗"
+
+# When we're running with a detached HEAD (ie a sha, rather than a ref as head):
+prompt_git_detached_symbol="○"
+
+
+##
+# Print the relative location compared to the upstream.
+#
+# That is, we print an up arrow with a number if there are changes to push,
+# and a down arrow with a number for changes we can pull.
+function git_relative_state() {
+    local dir="$1"
+    local upstream
+    local upstreamrefname
+    local behind
+    local ahead
+    local state
+    local delta
+    local gitdir
+    local head
+
+    cd "$dir" || return
+
+    if [[ -f ".git" ]] ; then
+        gitdir="$(cat ".git")"
+        if [[ "${gitdir:0:8}" == 'gitdir: ' ]] ; then
+            gitdir="${gitdir:8}"
+        fi
+    elif [[ -d ".git" ]] ; then
+        gitdir=".git"
+    fi
+    if [[ "$gitdir" != '' ]] ; then
+        head="$(cat "$gitdir/HEAD")"
+        if [[ "${head:0:5}" != 'ref: ' ]] ; then
+            # This is not a ref; so we're in detached state
+            state="$prompt_git_detached_symbol"
+        elif [[ ! -e "$gitdir/${head:5}" ]] ; then
+            # The ref that is supplied doesn't exist - so this
+            # is an empty repository.
+            return
+        fi
+    fi
+
+    if [[ "$state" == "" ]] ; then
+        # Check if we have an upstream configured
+        upstream="$(git for-each-ref --format='%(upstream:short)' "$(git symbolic-ref -q HEAD)")"
+        upstreamrefname='upstream'
+        if [[ "$upstream" == '' ]] ; then
+            upstream="$(git for-each-ref --format='%(push:short)' "$(git symbolic-ref -q HEAD)")"
+            upstreamrefname='push'
+        fi
+        if [[ "$upstream" != '' ]] ; then
+            behind="$(git rev-list --count "@..@{${upstreamrefname}}" 2>/dev/null)"
+            ahead="$(git rev-list --count "@{${upstreamrefname}}..@" 2>/dev/null)"
+            if [[ "${ahead}${behind}" != '' ]] ; then
+                if [[ "${behind}" != '0' ]] ; then
+                    behind="$prompt_git_behind_symbol$behind"
+                else
+                    behind=''
+                fi
+                if [[ "${ahead}" != '0' ]] ; then
+                    ahead="$prompt_git_ahead_symbol$ahead"
+                else
+                    ahead=''
+                fi
+            fi
+        else
+            state="$prompt_git_noupstream_symbol"
+        fi
+    fi
+
+    if [[ "${state}${ahead}${behind}" != '' ]] ; then
+        delta="${prompt_git_delta}${state}${ahead}${behind}${prompt_git_reset}"
+    fi
+    echo "$delta"
+}
+
+
+##
+# Print a description of the line changes for a given file (in the cache or in the working tree).
+function git_line_changes() {
+    local dir="$1"
+    local name="$2"
+    local where="$3"
+    local arg=''
+    local result=''
+    local diff_line added_lines deleted_lines total_lines
+    local oldmode newmode changemode
+    local delflags addflags flags
+    if [[ "$where" == "cache" ]] ; then
+        arg="--cached"
+    elif [[ "$where" == "tree" ]] ; then
+        arg=""
+    fi
+
+    diff_line="$(cd "$dir" && git diff $arg --summary --numstat "$name" | expand)"
+    if [[ "$diff_line" =~ ^([0-9]+)\ +([0-9]+) ]] ; then
+        added_lines="${BASH_REMATCH[1]}"
+        deleted_lines="${BASH_REMATCH[2]}"
+        total_lines="$(( added_lines + deleted_lines ))"
+        if [[ "$total_lines" != '0' ]] ; then
+            result="${total_lines} line"
+            if [[ "${total_lines}" != 1 ]] ; then
+                result="${result}s"
+            fi
+        fi
+    fi
+    if [[ "$diff_line" =~ mode\ change\ ([0-7]{6})\ =\>\ ([0-7]{6}) ]] ; then
+        oldmode="${BASH_REMATCH[1]}"
+        newmode="${BASH_REMATCH[2]}"
+        changemode="$(( 0$oldmode ^ 0$newmode ))"
+        if [[ "$(( changemode & 0111 ))" != 0 ]] ; then
+            # The executable bit changed
+            if [[ "$(( 0$newmode & 0111 ))" != 0 ]] ; then
+                addflags="${addflags}x"
+            else
+                delflags="${delflags}x"
+            fi
+        fi
+
+        flags="${addflags:++${addflags}}${delflags:+-${delflags}}"
+        if [[ "$flags" != '' ]] ; then
+            result="${result}${result:+, }mode ${flags}"
+        fi
+    fi
+    echo "$result"
+}
+
+
+has_associative_arrays=false
+if [[ "${BASH_VERSION%%.*}" -ge 4 ]] ; then
+    has_associative_arrays=true
+fi
+
+
+##
+# Use either the associative array that we built, OR directly fetch the
+# status of the file.
+function git_status_for_file() {
+    local dir="$1"
+    local name="$2"
+    local state
+
+    if $has_associative_arrays ; then
+        state="${git_status[$name]}"
+    else
+        state="$(cd "$dir" && git status --porcelain --ignored "$name" 2> /dev/null \
+                    | grep "^.. $gitsubdir" \
+                    | sed "s/ ${gitsubdir//\//\\/}/ /; /\/./d")"
+    fi
+    echo "$state"
+}
+
+
+##
+# Get the status description for a given directory
+#
+# Prints '# modified' and '# staged' for the number of entries.
+function git_status_description_for_dir() {
+    local dir="$1"
+    cd "$dir" || return 0
+    git status --porcelain \
+        | perl -ne 'END {
+                        if ($modified) { print "$modified modified\n" }
+                        if ($staged) { print "$staged staged\n"; }
+                    }
+                    if (/^[MADRC]/) { $staged++; }
+                    if (/^.[MAD]/) { $modified++; }'
+}
+
+
+##
+# Get the name of a branch, for a given directory
+#
+# @param $1 directory to report the branch from.
+function git_branch_for_dir() {
+    local dir="$1"
+    local branch
+    branch="$(git --git-dir="$dir/.git" name-rev --exclude origin/HEAD --exclude 'tags/*' --name-only HEAD 2> /dev/null)"
+    branch="${branch#remotes/}"
+    if [[ "$branch" == '' ]] ; then
+        branch='<no-branch>'
+    fi
+    echo -n "$branch"
+}
+
+
+##
+# Describe how the submodule sha ref has changed. (internal)
+# Used to determine the state for the working tree or index.
+#
+# Prints '# forward', '# back', or 'ref changed'.
+function git_submodule_state_int() {
+    local dir="$1"
+    local name="$2"
+    local cached="$3"
+    local submodule_diff oldsha newsha change
+
+    cd "$dir" || return 0
+    submodule_diff=$(git diff ${cached:+--cached} "$name" 2>/dev/null)
+    oldsha=''
+    newsha=''
+    if [[ "$submodule_diff" =~ -Subproject\ commit\ ([0-9a-f]+) ]] ; then
+        oldsha="${BASH_REMATCH[1]}"
+    fi
+    if [[ "$submodule_diff" =~ \+Subproject\ commit\ ([0-9a-f]+) ]] ; then
+        # Note: We can ignore the -dirty on the end, as we know that the
+        #       file state will be reported separately.
+        newsha="${BASH_REMATCH[1]}"
+    fi
+    if [[ "$newsha" == '' || "$oldsha" == '' || "$oldsha" == "$newsha" ]] ; then
+        # no differences reported, so this submodule is the same
+        return 0
+    fi
+    cd "$name" || return 0
+
+    # Try to decide if we've gone forward or back (or possibly moved to
+    # a completely different tree.
+    change="$(git log --format=%H $oldsha..$newsha 2> /dev/null | wc -l)"
+    if [[ "$change" -ne 0 ]] ; then
+        echo "$(( change + 0 )) forward"
+        return
+    fi
+    change="$(git log --format=%H $newsha..$oldsha 2> /dev/null | wc -l)"
+    if [[ "$change" -ne 0 ]] ; then
+        echo "$(( change + 0 )) back"
+        return
+    fi
+
+    # If we couldn't place the new sha in the same tree as the old one,
+    # we just report that it is a new sha.
+    echo "new ref"
+}
+
+
+##
+# Describe how the submodule sha ref has changed.
+#
+# Prints sha changes, with colouring.
+function git_submodule_state() {
+    local dir="$1"
+    local name="$2"
+
+    working="$(git_submodule_state_int "$dir" "$name")"
+    cached="$(git_submodule_state_int "$dir" "$name" 'cached')"
+
+    status=''
+    if [[ "$cached" != '' ]] ; then
+        status="${color_updated}staged ${cached}${color_reset}"
+    fi
+    if [[ "$working" != '' ]] ; then
+        status="${status:+${status}, }${color_changed}${working}${color_reset}"
+    fi
+    echo "${status}"
+}
+
+
+# Return code to give on exit
+final_rc=0
+
+# When run in 'dirs_as_files' mode (-d) the lines won't be broken up by the
+# directory separations - because all specified files are to be shown as
+# files. So we need to work out the padding length over all the names we're
+# examining.
+if $dirs_as_files ; then
+    longest_line="$($ls "${ls_switches[@]}" "${ls_dirs[@]}" 2> /dev/null \
+                        | sed $'s/\x1B\\[[0-9;]*[a-zA-Z]//g' \
+                        | expand \
+                        | awk '{ if ( length > x ) { x = length } } END{ print x }')"
+fi
+
+# I'm going to entirely ignore the problems of filenames with spaces in.
+first=true
+for spec in "${ls_dirs[@]}" ; do
+    if [[ "${#ls_dirs[@]}" -gt 1 ]] && ! $dirs_as_files ; then
+        # Mimic the ls behaviour of writing out the directory name when listing multiple dirs
+        if ! $first ; then
+            echo
+        fi
+        first=false
+        echo "${color_bold}$spec${color_reset}:"
+    fi
+
+    specdir="$spec"
+    if [[ -f "$spec" ]] ; then
+        specdir="$(dirname "$spec")"
+    fi
+    if $dirs_as_files ; then
+        specdir="$(dirname "$spec")"
+    fi
+    if [[ -e "$spec" ]] ; then
+        in_git="$(cd "$specdir" && git rev-parse --is-inside-work-tree 2> /dev/null)"
+        in_git="${in_git:-false}"
+    else
+        in_git=false
+    fi
+
+    if ! $dirs_as_files ; then
+        longest_line="$($ls "${ls_switches[@]}" "${ls_dirs[@]}" 2> /dev/null \
+                            | sed $'s/\x1B\\[[0-9;]*[a-zA-Z]//g' \
+                            | expand \
+                            | awk '{ if ( length > x ) { x = length } } END{ print x }')"
+    fi
+
+    if $in_git ; then
+        # `git status` will only produce statuses relative to the
+        # top level of the repository. Consequently, we need to
+        # only select the files in the status line that are in
+        # the directory we are looking at, and we need to trim
+        # off the prefix directory from those lines so that they
+        # match the leaf names that we are enumerating from the
+        # `ls` command.
+        fulldir="$(cd "$specdir" && pwd -P)"
+        gitbase="$(cd "$specdir" && git rev-parse --show-toplevel)"
+        gitsubdir="${fulldir:${#gitbase}+1}"
+        gitsubdir="$gitsubdir${gitsubdir:+/}"
+    fi
+
+    if $in_git && $has_associative_arrays ; then
+        # If we have associative arrays, we can make this faster by
+        # listing the git status of all the files.
+        declare -A git_status
+        if [[ -d "$specdir" ]] ; then
+            while IFS= read -r line ; do
+                name="${line:3:${#line}}"
+                name="${name%/}"
+                git_status[$name]="$line"
+            done < <(cd "$specdir" && \
+                        git status --porcelain --ignored . 2> /dev/null \
+                        | grep "^.. $gitsubdir" \
+                        | sed "s/ ${gitsubdir//\//\\/}/ /g; /\/./d" \
+                        | sed -E 's/^(..) (.*) -> /\1 /')
+        fi
+    else
+        git_status=()
+    fi
+
+    $ls "${ls_switches[@]}" "$spec" \
+        | while read -r line ; do
+            label=''
+            name=''
+            suffix=''
+            # shellcheck disable=SC2001
+            # It is not possible to use a shell replacement for this sed.
+            line_without_colouring="$(echo "$line" | sed $'s/\x1B\\[[0-9;]*[a-zA-Z]//g')"
+            line_length="${#line_without_colouring}"
+
+            if [[ "$line_without_colouring" == '' ]] ; then
+                echo
+                continue
+            fi
+
+            # If -R was specified then we'll have some lines that are formed as
+            # <directory>:
+            # which indicates a new directory has been entered... so we need to
+            # take account of this.
+            if [[ "$line_without_colouring" =~ ^(.*):$ ]] ; then
+                spec="${BASH_REMATCH[1]}"
+                specdir="$spec"
+                echo "${color_bold}$spec${color_reset}:"
+                # Fall back to the direct method of getting the git status
+                has_associative_arrays=false
+
+                # Fix up the gitsubdir
+                if $in_git ; then
+                    # See comment above about gitsubdir
+                    fulldir="$(cd "$specdir" && pwd -P)"
+                    gitbase="$(cd "$specdir" && git rev-parse --show-toplevel)"
+                    gitsubdir="${fulldir:${#gitbase}+1}"
+                    gitsubdir="$gitsubdir${gitsubdir:+/}"
+                fi
+                continue
+            fi
+
+            # shellcheck disable=SC2034
+            # Ignore the suffix variable unused
+            if $is_quoted ; then
+                # For the quoted filenames, the symlink target isn't needed, so we don't
+                # need to do checks for it, or anchor to the end of the line.
+                if [[ "$line_without_colouring" =~ \ \"([^\\\"]+)\"([/*@=|%]?) ||
+                      "$line_without_colouring" =~ ^\"([^\\\"]+)\"([/*@=|%]?) ]] ; then
+                    name="${BASH_REMATCH[1]}"
+                    suffix="${BASH_REMATCH[2]}"
+                fi
+
+            else
+                if [[ "$line_without_colouring" =~ \ ([^\ ]+)\ -\> ]] ; then
+                    name="${BASH_REMATCH[1]}"
+                    if $include_filetype && [[ "$name" =~ ([/*@=|%])$ ]] ; then
+                        name="${name:0:-1}"
+                        suffix="${BASH_REMATCH[1]}"
+                    fi
+
+                elif [[ "$line_without_colouring" =~ \ ([^\ ]+)$ || \
+                        "$line_without_colouring" =~ ^([^\ ]+)$ ]] ; then
+                    name="${BASH_REMATCH[1]}"
+                    if $include_filetype && [[ "$name" =~ ([/*@=|%])$ ]] ; then
+                        name="${name:0:-1}"
+                        suffix="${BASH_REMATCH[1]}"
+                    fi
+                fi
+            fi
+
+            # If the spec given was a file, then ls will have included the full path
+            # so we trim this to remove any leading path components.
+            name="${name##*/}"
+
+            # If we don't have a name, there's no point in looking in git.
+            # Similarly, it's probably not helpful to try reporting on the parent
+            # directory.
+            if [[ "$name" == '' || "$name" == '..' ]] ; then
+                echo "$line"
+                continue
+            fi
+
+            if [[ -d "$specdir/$name/.git" || -f "$specdir/$name/.git" ]] ; then
+                # That object is a directory, and is a git repository.
+                branch="$(git_branch_for_dir "$specdir/$name")"
+                delta="$(git_relative_state "$specdir/$name")"
+                submodule_state=
+                if [[ -f "$specdir/$name/.git" ]] ; then
+                    # A submodule, so determine whether the module has been
+                    # added or not.
+                    state="$(git_status_for_file "$specdir" "$name")"
+                    state="${state:-  }"
+                    state="${state:0:2}"
+
+                    case "$state" in
+                        'AM'|'A ') submodule_state="${color_added}added${color_reset}" ; ;;
+                    esac
+
+                    # And the how it relates to the state we have in git
+                    submodule_delta="$(git_submodule_state "$specdir" "$name")"
+                    if [[ "$submodule_delta" != '' ]] ; then
+                        submodule_state="${submodule_state:+$submodule_state, }$submodule_delta"
+                    fi
+                fi
+                delta="${delta}${submodule_state:+ $submodule_state}"
+                label="(${color_branch}${branch}${delta}${color_reset})"
+
+                dir_status="$(git_status_description_for_dir "$specdir/$name")"
+                status_label=''
+                if [[ "$dir_status" =~ ([0-9]+\ staged) ]] ; then
+                    status_label="${color_updated}${BASH_REMATCH[1]}${color_reset}"
+                fi
+                if [[ "$dir_status" =~ ([0-9]+\ modified) ]] ; then
+                    status_label="${status_label:+${status_label}, }${color_changed}${BASH_REMATCH[1]}${color_reset}"
+                fi
+
+                if [[ "$status_label" != '' ]] ; then
+                    label="${label} {${status_label}}"
+                fi
+
+            elif $in_git && [[ -d "$specdir/$name" ]] ; then
+                # For directories that aren't git repos or submodules, we will just report whether
+                # they are ignored or not.
+                state="$(git_status_for_file "$specdir" "$name")"
+                state="${state:-  }"
+                state="${state:0:2}"
+
+                case "$state" in
+                    '!!') label="${color_ignored}ignored${color_reset}" ; ;;
+                    '??') label="${color_untracked}untracked${color_reset}" ; ;;
+                esac
+                if [[ "$label" != "" ]] ; then
+                    label="{$label}"
+                fi
+
+            elif $in_git && [[ -f "$specdir/$name" ]] ; then
+                # On files, check if the file is up to date or not
+                state="$(git_status_for_file "$specdir" "$name")"
+                state="${state:-  }"
+                state="${state:0:2}"
+                state_x="${state:0:1}"
+                state_y="${state:1:2}"
+                case "$state" in
+                    'DD') label="${color_unmerged}unmerged${color_reset}, ${color_changed}both deleted${color_reset}" ; ;;
+                    'AU') label="${color_unmerged}unmerged${color_reset}, ${color_changed}added by us${color_reset}" ; ;;
+                    'UD') label="${color_unmerged}unmerged${color_reset}, ${color_changed}deleted by them${color_reset}" ; ;;
+                    'UA') label="${color_unmerged}unmerged${color_reset}, ${color_changed}added by them${color_reset}" ; ;;
+                    'DU') label="${color_unmerged}unmerged${color_reset}, ${color_changed}deleted by us${color_reset}" ; ;;
+                    'AA') label="${color_unmerged}unmerged${color_reset}, ${color_changed}both added${color_reset}" ; ;;
+                    'UU') label="${color_unmerged}unmerged${color_reset}, ${color_changed}both modified${color_reset}" ; ;;
+                    '??') label="${color_untracked}untracked${color_reset}" ; ;;
+                    '!!') label="${color_ignored}ignored${color_reset}" ; ;;
+                    *)
+                        in_index=''
+                        in_tree=''
+                        case "$state_x" in
+                            ' ') : ;; # No change to index
+                            'M') in_index="${color_updated}staged"
+                                changes="$(git_line_changes "$specdir" "$name" cache)"
+                                in_index="${in_index}${changes:+, $changes}"
+                                ;;
+                            'A') in_index="${color_added}added" ; ;;
+                            'D') in_index="${color_updated}deleted" ; ;;
+                            'R') in_index="${color_updated}renamed" ; ;;
+                            'C') in_index="${color_added}copied" ; ;;
+                            *) in_tree="?$state_x?"
+                        esac
+                        in_index="${in_index:+$in_index$color_reset}"
+                        case "$state_y" in
+                            ' ') : ;; # No change to worktree
+                            'M') in_tree="${color_changed}modified locally"
+                                changes="$(git_line_changes "$specdir" "$name" tree)"
+                                in_tree="${in_tree}${changes:+, $changes}"
+                                ;;
+                            'A') in_tree="${color_changed}added locally" ; ;;
+                                # Note: 'Added locally' should never appear, as such files are 'untracked'
+                            'D') in_tree="${color_changed}deleted locally" ; ;;
+                            *) in_tree="?$state_y?"
+                        esac
+                        in_tree="${in_tree:+$in_tree$color_reset}"
+                        if [[ "$in_index" != '' && "$in_tree" != '' ]] ; then
+                            label="$in_index+$in_tree"
+                        else
+                            label="$in_index$in_tree"
+                        fi
+                        ;;
+                esac
+
+                if [[ "$label" != "" ]] ; then
+                    label="{$label}"
+                fi
+            fi
+            if [[ "$label" != '' ]] ; then
+                printf "%s  %*s%s\n" "$line" $((longest_line - line_length)) "" "$label"
+            else
+                echo "$line"
+            fi
+
+            # If this is a directory, and nesting requested, recurse.
+            if [[ -d "$specdir/$name/" && \
+                  "$lsg_nest" != '' && \
+                  "$name" != '.' && "$name" != '..' ]] ; then
+                if [[ "$lsg_nest" == 'true' ]] ; then
+                    next_nest=(--nest)
+                else
+                    next_nest=$(( lsg_nest - 1 ))
+                    if [[ "$next_nest" -le 0 ]] ; then
+                        next_nest=(--no-nest)
+                    else
+                        next_nest=(--nest=$next_nest)
+                    fi
+                fi
+                "$0" "${next_nest[@]}" "${ls_switches[@]}" "$specdir/$name"| sed 's/^/  /'
+            fi
+          done
+
+    rc="${PIPESTATUS[0]}"
+    if [[ "$rc" != 0 ]] ; then
+        final_rc="$rc"
+    fi
+done
+
+exit $final_rc

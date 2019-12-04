@@ -1,1 +1,2 @@
 alias class="xprop |awk '/WM_CLASS/{print $4}'"
+configs() { name=$(fd -E ".git" -t f -H . '/home/bresilla/Dots/' | fzp); [[ -n $name ]] && nvim $name }

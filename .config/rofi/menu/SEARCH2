@@ -1,0 +1,42 @@
+#!/bin/bash
+FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
+# BACKGROUND=$(xrdb -query | grep 'color0:'| awk 'NR==1{print $NF}')
+ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#FFFFFF}; bckgrd: ${BACKGROUND:-#000000};}")
+
+apps=runapps
+sodo=sudorun
+exce=command
+clip=clipboard
+conf=configs
+path=syspath
+
+another=$(echo "$apps
+$sodo
+$exce
+$clip
+$path
+$conf" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
+
+if [ "$another" == "$apps" ] ; then
+	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun #-show-icons
+
+elif [ "$another" == "$conf" ] ; then
+    confile=$(find /home/bresilla/Dots/ -type f -not -path "/home/bresilla/Dots/.config/nvim/plugged/*" | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:')
+    [[ $confile != "" ]] && kitty --class=til nvim $confile
+
+elif [ "$another" == "$path" ] ; then
+    echo $PATH | tr ':' '\n' | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'PATH:'
+
+elif [ "$another" == "$clip" ] ; then
+	rofi "${ROFI_OPTIONS[@]}" -modi "clipboard:greenclip print" -show clipboard
+
+elif [ "$another" == "$sodo" ] ; then
+	SUDO_ASKPASS=/home/bresilla/.sbin/askpass rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -theme-str "*{accent: #e53714;}" -run-command 'sudo -A {cmd}'
+
+elif [ "$another" == "$exce" ] ; then
+	exec urxvt -hold -e sh -c $(rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -fuzzy  -lines 0 -show run -theme-str "*{accent: $FOREGROUND;}")
+
+elif [ -z "$another" ] ; then
+	echo "variable empty"
+
+fi
