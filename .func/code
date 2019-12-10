@@ -2,7 +2,9 @@ anaconda() { [[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH" }
 lab() { [[ :$PATH: == *:"/opt/conda/bin":* ]] && jupyter-lab || anaconda && jupyter-lab }
 dallo() { colordiff $@ | bat }
 
+alias one="nix-shell --command zsh"
 alias six="nix-shell --command zsh support/shell.nix"
+
 alias git='hub'
 alias doc='docker'
 alias docker='supdock'
@@ -39,7 +41,9 @@ karate(){
     compile ${1:-FastDebug} -GNinja && ninja -C build
 }
 
-nixify(){
+envify(){
+    echo 'use nix
+layout conda $(basename $PWD)' > .envrc
     echo 'with import <nixpkgs> {}; rec {
   cplateEnv = stdenv.mkDerivation {
     name = "cmake";
@@ -65,8 +69,4 @@ nixify(){
     LD_LIBRARY_PATH="/usr/include";
   };
 }' > shell.nix
-}
-
-envify(){
-    echo '[[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH"' > .envrc
 }

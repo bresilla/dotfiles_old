@@ -20,9 +20,9 @@ refresh() {
     MONITOR=$monitor2 polybar -r -c ~/.config/polybar/center workspaces &
 
     #COMPTOSITOR
-    killall -q compton
-    while pgrep -x compton >/dev/null; do sleep 1; done
-    compton --config ~/.config/compton/compton &
+    killall -q picom
+    while pgrep -x picom >/dev/null; do sleep 1; done
+    picom --config ~/.config/compton/compton &
 
     #WALLPAPER
     pkill -f loopwall

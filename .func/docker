@@ -7,29 +7,14 @@ port(){
 }
 
 mopi(){
-    source /home/bresilla/Sets/othr && docker run -d --rm --user $UID:$GID -v /run/user/$UID/pulse:/run/user/105/pulse -p 6600:6600 -p 6680:6680 bresilla/mopidy mopidy -o spotify/username=$spotname -o spotify/password=$spotpass -o spotify/client_id=$spotid -o spotify/client_secret=$spotsecret
+    source /home/bresilla/Dots/.other/othr && docker run -d --rm --user $UID:$GID -v /run/user/$UID/pulse:/run/user/105/pulse -p 6600:6600 -p 6680:6680 bresilla/mopidy mopidy -o spotify/username=$spotname -o spotify/password=$spotpass -o spotify/client_id=$spotid -o spotify/client_secret=$spotsecret
 }
 
-CONT=code
-
-goin(){
-    docker exec -it ${1:-$CONT} zsh
+nass(){
+    docker run -d -p 8080:80 -v "/home/bresilla/DATA/CODE/Docker/nextcloud:/var/www/html" -v "/home/bresilla/TMP:/home" nextcloud
 }
 
-dock(){
-    xhost +local:`docker inspect --format='{{ .Config.Hostname }}' bresilla/$CONT` &&
-    optirun docker run \
-        --runtime=nvidia \
-        --net=host \
-        --name=$CONT\
-        --device=/dev/dri \
-        --device /dev/snd \
-        --expose=5900 \
-        --expose=6080 \
-        --volume="/home/bresilla/.config/xfce4:/home/bresilla/.config/xfce4:rw" \
-        --volume="/home/bresilla/.config/xfce4:/root/.config/xfce4:rw" \
-        --volume="/tmp/.X11-unix:/tmp/.X11-unix"
-        -e DISPLAY=$DISPLAY \
-        $@ \
-        --rm -it bresilla/$CONT start
+
+ltex(){
+    docker run -v $PWD/:/doc/ -v /home/$USER/.fonts/:/usr/share/fonts/external/ -t -i thomasweise/texlive $@
 }

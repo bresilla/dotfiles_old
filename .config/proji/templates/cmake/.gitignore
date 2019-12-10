@@ -1,0 +1,9 @@
+/build/
+/bin/
+/lib/
+
+.cs_files
+.notifier
+/.undodir/
+/.clangd/
+.gdb_history

@@ -7,3 +7,5 @@ OSS/
 .config/mutt/account.com.unibo.kushtrim
 .config/mutt/account.com.yahoo.kushtrim
 .other
+.local
+.config/direnv/allow
