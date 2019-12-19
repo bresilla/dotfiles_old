@@ -1,20 +1,9 @@
-hass(){
-    docker run -d --name=hass --volume="/home/bresilla/.hassio:/config" --volume="/etc/localtime:/etc/localtime:ro" --net=host homeassistant/home-assistant
-}
+function hass(){ docker run -d --name=hass --volume="/home/bresilla/.hassio:/config" --volume="/etc/localtime:/etc/localtime:ro" --net=host homeassistant/home-assistant; }
 
-port(){
-    docker run -d -p 9000:9000 --restart always -v /var/run/docker.sock:/var/run/docker.sock -v ~/.portainer:/data --name portainer portainer/portainer && xdg-open "http://localhost:9000" || docker start port && xdg-open "http://localhost:9000/#/dashboard"
-}
+function port(){ docker run -d -p 9000:9000 --restart always -v /var/run/docker.sock:/var/run/docker.sock -v ~/.portainer:/data --name portainer portainer/portainer && xdg-open "http://localhost:9000" || docker start port && xdg-open "http://localhost:9000/#/dashboard"; }
 
-mopi(){
-    source /home/bresilla/Dots/.other/othr && docker run -d --rm --user $UID:$GID -v /run/user/$UID/pulse:/run/user/105/pulse -p 6600:6600 -p 6680:6680 bresilla/mopidy mopidy -o spotify/username=$spotname -o spotify/password=$spotpass -o spotify/client_id=$spotid -o spotify/client_secret=$spotsecret
-}
+function mopi(){ source /home/bresilla/Dots/.other/othr && docker run -d --rm --user $UID:$GID -v /run/user/$UID/pulse:/run/user/105/pulse -p 6600:6600 -p 6680:6680 bresilla/mopidy mopidy -o spotify/username=$spotname -o spotify/password=$spotpass -o spotify/client_id=$spotid -o spotify/client_secret=$spotsecret; }
 
-nass(){
-    docker run -d -p 8080:80 -v "/home/bresilla/DATA/CODE/Docker/nextcloud:/var/www/html" -v "/home/bresilla/TMP:/home" nextcloud
-}
+function nass(){ docker run -d -p 8080:80 -v "/home/bresilla/DATA/CODE/Docker/nextcloud:/var/www/html" -v "/home/bresilla/TMP:/home" nextcloud; }
 
-
-ltex(){
-    docker run -v $PWD/:/doc/ -v /home/$USER/.fonts/:/usr/share/fonts/external/ -t -i thomasweise/texlive $@
-}
+function ltex(){ docker run -v $PWD/:/doc/ -v /home/$USER/.fonts/:/usr/share/fonts/external/ -t -i thomasweise/texlive $@; }

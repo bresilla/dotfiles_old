@@ -36,8 +36,12 @@ function __promptline_vcs_branch {
 }
 
 function __is_in_container {
-    [[ -n $(awk -F/ '$2 == "docker"' /proc/self/cgroup) ]] && printf '■'
-    [[ -n $(echo $IN_NIX_SHELL) ]] && printf '×'
+    if [[ -n $(echo $INDIRENV) ]]; then
+        [[ -n $(echo $ENVNAME) ]] && printf " $ENVNAME " || printf ' ■ '
+    else
+        [[ -n $(awk -F/ '$2 == "docker"' /proc/self/cgroup) ]] && printf ' ⊙ '
+        [[ -n $(echo $IN_NIX_SHELL) ]] && printf ' × '
+    fi
 }
 
 function __promptline_cwd {
@@ -69,7 +73,7 @@ function __promptline_left_prompt {
     #SUDO WARN
     prefix="${redBG}${arrFL}${foreground}${redBG}${space}" suffix="${space}${redTX}"; [[ -n $(__sudo_warning) ]] && printf "%s" "$prefix" "$(__sudo_warning)" "$suffix"
     #CONTAINER
-    prefix="${background}${arrFL}${blackTX}${accentBG}${arrFL}${foreground}${accentBG}${space}" suffix="${space}${accentTX}"; [[ -n $(__is_in_container) ]] && printf "%s" "$prefix" "$(__is_in_container)" "$suffix"
+    prefix="${background}${arrFL}${blackTX}${accentBG}${arrFL}${foreground}${accentBG}" suffix="${accentTX}"; [[ -n $(__is_in_container) ]] && printf "%s" "$prefix" "$(__is_in_container)" "$suffix"
     [[ -n $(__is_in_container) ]] && endARR="$arrEL$redBG$blackTX$arrFL$redBG$redTX$background$arrFL$greyTX"
     #PATH
     [[ $(__promptline_vcs_branch) = "master" ]] && conTX=$accentTX

@@ -6,7 +6,8 @@ shadow-offset-y = -5;
 shadow-opacity = 0.6;
 shadow-exclude = [
     "! name~=''",
-    "class_g = 'Conky'"
+    "class_g = 'Conky'",
+    "class_g = 'Dunst'"
 ];
 
 # Opacity

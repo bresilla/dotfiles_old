@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-if [[ -f $1 ]]; then
-  sakura -e vim $1
-else
-  touch $1
-  chmod +x $1
-  sakura -e vim $1
-fi

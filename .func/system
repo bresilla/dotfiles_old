@@ -3,9 +3,9 @@ alias :q='exit'
 alias q='exit'
 alias up="sudo -S systemctl"
 alias copy='xclip -sel clip'
-alias s='shko -c --short 19 && cd "$(cat ~/.config/shko/settings/chdir)"'
+function c(){ builtin cd "$@" && exa -liSHF --header --git --tree -L2 }
+function s(){ shko -c --short 19 && cd "$(cat ~/.config/shko/settings/chdir)"; }
 alias suspend='systemctl suspend'
-
 #ALTERNATIVES
 alias vim='nvim'
 alias mutt='neomutt'
@@ -13,7 +13,7 @@ alias mutt='neomutt'
 #PACKAGE_MANAGER
 alias pack='yay'
 alias mirror="sudo pacman-mirrors --fasttrack 5 && sudo pacman -Syyu"
-branch(){sudo pacman-mirrors --api -S $@ && mirror}
+function branch(){ sudo pacman-mirrors --api -S $@ && mirror; }
 alias virsh="sudo virsh"
 
 #WM
@@ -21,30 +21,35 @@ alias refresh='pkill -USR1 -x sxhkd && bash ~/.startup -r'
 alias dotfile='/usr/bin/git --git-dir=$HOME/Dots --work-tree=$HOME'
 
 #SYSTEM
-alias cp='acp -gr'
-alias mv='acp -gr'
+alias cp='acp -g -r'
+alias mv='amv -g -u'
 alias rm='rm -rf'
+
+alias md='mkdir -p'
+alias mf='touch'
+function ma(){ mkdir -p "$(dirname "$1")" && touch "$1"; }
 
 alias ls='exa -F'
 alias ll='exa -liSHF --header --git --group-directories-first --tree -L1'
 alias la='exa -laiSHF --header --git --group-directories-first --tree -L1'
-alias lt='exa -laiSHF --header --git --tree -L2'
+alias lt='exa -liSHF --header --git --tree -L2'
+alias lu='dutree -d1 --usage -x .git -x .direnv'
 
-alias lu='dutree -s --usage'
 alias df='dfc -w'
-alias z='ncdu --color=dark'
+alias z='sudo ncdu --color=dark --exclude /home/bresilla/DATA'
 
 alias v='nvim'
 alias g='rg -i'
-alias x='dtrx'
+alias x='dtrx --one-entry=rename'
 
 ##PROGRAMS
-alias fzp='fzf --preview="head -$LINES {}"'
+function fzp(){ fzf --preview="head -$LINES {}"; }
 alias ari='aria2c'
+alias sys='optirun inxi -Fxxxz'
 
 ##HISTORY
-hister(){ fc -lrn 0 | tux -e | copy }
-delete_hister(){ name=$(tac $HISTFILE | fzy); [[ -n $name ]] && LC_ALL=C sed -i "/$name/d" $HISTFILE }
+function hister(){ fc -lrn 0 | tux -e | copy; }
+function delete_hister(){ name=$(tac $HISTFILE | fzy); [[ -n $name ]] && LC_ALL=C sed -i "/$name/d" $HISTFILE; }
 
 ##FILES
 alias own='sudo chown -R $USER'
@@ -52,12 +57,16 @@ alias exe='chmod +x'
 alias dxe='chmod -x'
 
 #FUNCTIONS
-run(){ nohup $1 > /dev/null 2>&1 &! }
-open(){ nohup mimeo $1 > /dev/null 2>&1 &! }
-note(){ nvim $(notes list | fzp) }
-phone(){ sshfs -p 1234 bresilla@$1:/storage/emulated/0 /home/bresilla/OnePlus }
-diskspeed() {sudo dd if=$1 of=/dev/null bs=512k count=16k iflag=direct}
-rofit(){ rofi -theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>' }
-showpath() { echo $PATH | tr ':' '\n' | rofit }
-snip(){ PREV=$(fc -lrn | head -n 1); sh -c "pet new `printf %q "$PREV"`" }
-killer(){ n=$(ps -ef | sed 1d | tux -m | awk '{print $2}'); [[ -n $n ]] && sudo kill $n }
+# run(){ nohup $1 > /dev/null 2>&1 &! }
+function open(){ nohup mimeo $1 > /dev/null 2>&1 &!; }
+function note(){ nvim $(notes list | fzp); }
+function phone(){ sshfs -p 1234 bresilla@$1:/storage/emulated/0 /home/bresilla/OnePlus; }
+function diskspeed() { sudo dd if=$1 of=/dev/null bs=512k count=16k iflag=direct; }
+function rofit(){ rofi -theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}" -dmenu -i -p '>>>'; }
+function showpath() { echo $PATH | tr ':' '\n' | rofit; }
+function snip(){ PREV=$(fc -lrn | head -n 1); sh -c "pet new `printf %q "$PREV"`"; }
+function killer(){ n=$(ps -ef | sed 1d | tux -m | awk '{print $2}'); [[ -n $n ]] && sudo kill $n; }
+
+#WINDOW MANAGER
+function class(){ xprop |awk '/WM_CLASS/{print $4}'; }
+function configs(){ name=$(fd -E ".git" -t f -H . '/home/bresilla/Dots/' | fzp); [[ -n $name ]] && nvim $name; }

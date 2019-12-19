@@ -68,9 +68,9 @@
     font-4 = MaterialIcons:size=16;5
     tray-position = right
     tray-padding = 4
-    modules-left = time volume wlan signal speed
+    modules-left = time volume wlan signal speed pomo
     modules-center = mpd
-    modules-right = cpu memory filesystem docdisk light battery date
+    modules-right = gpu cpu memory filesystem docdisk light battery date
 
 
 [bar/workspaces]
@@ -273,9 +273,18 @@
 [module/pomo]
     type = custom/script
     interval = 1
-    exec = pomo status | awk '{print substr($3,1,6)}' | grep -o '[0-9]\+' | sed 'N;s/\n/ : /'
-    label = "  %output%"
+    exec = pomo status | awk '{print substr($3,1,6)}' | grep -o '[0-9]\+' | sed 'N;s/\n/:/'
+    label = " %output%"
     format-foreground = ${colors.foreground}
+
+
+[module/gpu]
+    type = custom/script
+    interval = 1
+    exec = if [[ $(cat /proc/acpi/bbswitch | awk 'NF>1{print $NF}') == ON ]]; then optirun nvidia-smi | sed -n '9p' | awk '{print $13}'; else echo NO; fi;
+    label = " %output%"
+    format-foreground = ${colors.foreground}
+
 
 
 [module/light]

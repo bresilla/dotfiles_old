@@ -1,3 +1,3 @@
 let l:bm_file_version = 1
-let l:bm_sessions = {'default': {'/home/bresilla/WORK/data_structures/ControlP': [{'sign_idx': 9500, 'line_nr': 10, 'content': '> bin/main', 'annotation': 'n'},],}}
+let l:bm_sessions = {'default': {'/home/bresilla/WORK/data_structures/ControlP': [{'sign_idx': 9500, 'line_nr': 10, 'content': '> bin/main', 'annotation': 'n'},],'/home/bresilla/DATA/DOTFILES/Dots/.config/tmux/modules/STATUS': [{'sign_idx': 9500, 'line_nr': 62, 'content': 'cdr="$sealTX"'},],}}
 let l:bm_current_session = 'default'

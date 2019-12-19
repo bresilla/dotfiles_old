@@ -6,11 +6,11 @@ windows:
   - commands:
     - grv
     focus: true
-    root: /home/bresilla/DATA/CODE/PROJECTS/bresilla/website
+    root:  /code/PROJECTS/bresilla/website 
 - name: nvim
   layout: e094,304x64,0,0,25
   panes:
   - commands:
-    - nix-shell --command "zsh -c "nvim"" support/shell.nix
+    - nvim
     focus: true
-    root: /home/bresilla/DATA/CODE/PROJECTS/bresilla/website
+    root:  /code/PROJECTS/bresilla/website 

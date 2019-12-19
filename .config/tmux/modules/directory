@@ -1,0 +1,7 @@
+dir=$(echo "$1" | rev | cut -d'/' -f-$2 | rev)
+
+if [[ $2 == "1" ]]; then
+    if [[ $dir == "" ]]; then echo "/"; else echo $dir; fi
+else
+    if [[ $dir =~ ^/ ]]; then echo $dir; else echo /$dir; fi
+fi

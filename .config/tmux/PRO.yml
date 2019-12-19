@@ -11,6 +11,6 @@ windows:
   layout: e094,304x64,0,0,25
   panes:
   - commands:
-    - nix-shell --command "zsh -c "nvim"" support/shell.nix
+    - nvim
     focus: true
     root: /home/bresilla

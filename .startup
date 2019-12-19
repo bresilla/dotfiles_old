@@ -31,7 +31,7 @@ refresh() {
     #NOTIFICATION
     killall -q dunst
     while pgrep -x dunst >/dev/null; do sleep 1; done
-    dunst -config /home/bresilla/.config/dunst/dunst &
+    dunst -config /home/bresilla/.config/dunst/dunstrc &
 
     #WIDGETS
     # killall -q conky
@@ -48,6 +48,7 @@ runonce() {
     xset -r 118 & #Insert
     xset -r 107 & #Print
     setxkbmap de &
+    xmodmap -e "remove control = Control_R" && xmodmap -e "add mod3 = Control_R" &
 
     #POINTER
     xsetroot -cursor_name left_ptr &
