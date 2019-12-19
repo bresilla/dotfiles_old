@@ -3,6 +3,7 @@
 ###WAL COLORS
 (cat ~/.cache/wal/sequences &)
 source ~/.cache/wal/colors.sh
+
 #--------------------------------------------------------------------------------------------------------------------
 ###SCRIPTS PATH
 export FPATH=~/.config/zsh:$FPATH
@@ -76,23 +77,18 @@ set_vi_mode_cursor() {
     esac
 }
 
-zle-keymap-select() {
-    set_vi_mode_cursor
-    zle reset-prompt
-}
+zle-keymap-select(){ set_vi_mode_cursor; zle reset-prompt; }
 
-zle-line-init() {
-    zle -K $DEFAULT_VI_MODE
-}
+zle-line-init(){ zle -K $DEFAULT_VI_MODE; }
 
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-vi-append-x-selection () { RBUFFER=$(xsel -o -p </dev/null)$RBUFFER; }
+vi-append-x-selection(){ RBUFFER=$(xsel -o -p </dev/null)$RBUFFER; }
 zle -N vi-append-x-selection
 bindkey -M vicmd '^P' vi-append-x-selection
 
-vi-yank-x-selection () { print -rn -- $CUTBUFFER | xsel -i -p; }
+vi-yank-x-selection(){ print -rn -- $CUTBUFFER | xsel -i -p; }
 zle -N vi-yank-x-selection
 bindkey -M vicmd '^Y' vi-yank-x-selection
 
@@ -117,25 +113,25 @@ bindkey -s '\es' sudo-command-line
 
 #--------------------------------------------------------------------------------------------------------------------
 ###FUZZYFINDER
-function run_history() { hister; zle reset-prompt; zle redisplay }
+function run_history(){ hister; zle reset-prompt; zle redisplay; }
 zle -N run_history
 bindkey -M vicmd '^t' run_history
 bindkey -M viins '^t' run_history
 bindkey '^t' run_history
 
-function run_killer() { killer; zle reset-prompt; zle redisplay }
+function run_killer(){ killer; zle reset-prompt; zle redisplay; }
 zle -N run_killer
 bindkey -M vicmd '^k' run_killer
 bindkey -M viins '^k' run_killer
 bindkey '^k' run_killer
 
-function run_find() { finder; zle reset-prompt; zle redisplay }
+function run_find(){ finder; zle reset-prompt; zle redisplay; }
 zle -N run_find
 bindkey -M vicmd '^f' run_find
 bindkey -M viins '^f' run_find
 bindkey '^f' run_find
 
-function run_compile() { compile FastDebug && build; zle reset-prompt; zle redisplay }
+function run_compile(){ compile FastDebug && build; zle reset-prompt; zle redisplay; }
 zle -N run_compile
 bindkey -M viins '^o' run_compile
 bindkey -M vicmd '^o' run_compile
@@ -179,22 +175,13 @@ TRAPALRM() {
 
 
 #--------------------------------------------------------------------------------------------------------------------
-# Hook for desk activation
-[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
-
-
-
-#--------------------------------------------------------------------------------------------------------------------
 ### Added by Zplugin's installer
 source "$HOME/.zplugin/bin/zplugin.zsh"
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 ### End of Zplugin installer's chunk
-
-# Two regular plugins loaded without tracking.
 zplugin light zsh-users/zsh-autosuggestions
 zplugin light zdharma/fast-syntax-highlighting
-# Plugin history-search-multi-word loaded with tracking.
 zplugin load zdharma/history-search-multi-word
 
 [[ -n "${$(task ids)/[ ]*\n/}" ]] && task | tail -n+4 | head -n-2

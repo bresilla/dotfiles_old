@@ -40,8 +40,8 @@ else
     power="$sealTX $wat W "
 fi
 
-battery="$redTX$redBG $blackTX$bat%$redBG "
-[[ "$chrg" != "Discharging" ]] && battery="$accentTX$accentBG $foreground$bat% $accentBG "
+battery="$redTX  $blackTX$bat% $grayTX$defaBG"
+[[ "$chrg" != "Discharging" ]] && battery="$blackTX  $blackTX$bat% $grayTX$defaBG"
 
 memo="$greyTX$greyBG $blackTX$mem% "
 spacer="$blackTX$blackBG"
@@ -53,17 +53,14 @@ elif (( cpu > 50 )); then
 else
     proc="$grayTX$grayBG $blackTX$cpu% "
 fi
+network="$accentTX$accentBG $foreground$netspeed$accentBG "
 
-RIGHT_STATUS="$power$proc$memo$spacer$battery"
+RIGHT_STATUS="$power$proc$memo$spacer$network"
 
 main="$accentBG$foreground $BLD$tmu$NLD $accentTX$grayBG"
-name="$blackTX $netspeed $grayTX$defaBG"
 
-
-utim="$sealTX #S/#W "
-
-
-LEFT_STATUS="$main$name$utim"
+cdr="$sealTX"
+LEFT_STATUS="$main$battery$cdr"
 
 if [ "$1" == "RIGHT" ] ;then
     echo $RIGHT_STATUS

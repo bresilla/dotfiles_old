@@ -12,7 +12,7 @@ PROFILE" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "CONFI
 
 
 browse(){
-	selected=$(ls "$1/" | rofi "${ROFI_OPTIONS[@]}" -dmenu -p "$1: ")
+	selected=$(ls "$1/" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "$1: ")
 	[[ -z $selected ]] && exit
 	if [[ -f $1/$selected ]]; then
 		$edit_with -e nvim $1/$selected

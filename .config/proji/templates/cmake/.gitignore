@@ -1,0 +1,10 @@
+/build/
+/bin/
+/lib/
+
+.cs_files
+.notifier
+/.undodir/
+/.direnv/
+/.clangd/
+.gdb_history

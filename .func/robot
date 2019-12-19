@@ -1,43 +1,17 @@
-ros_exist(){
-	export CATKIN_PATH=$PWD
-	cd src && catkin_init_workspace
-	cd .. && catkin_make
-}
+###ROS
+function ros_exist(){ export CATKIN_PATH=$PWD; cd src && catkin_init_workspace; cd .. && catkin_make; }
+function ros_init(){ mkdir "$1" && cd "$1"; export CATKIN_PATH=$PWD; mkdir src && cd src && catkin_init_workspace &&	cd $CATKIN_PATH && catkin_make; }
+function ros_source(){ source /opt/ros/kinetic/setup.bash && cd $CATKIN_PATH && source devel/setup.bash; }
+function ros_build(){ TEMPATH=$PWD; cd $CATKIN_PATH && catkin_make; cd $TEMPATH; }
+function ros_depend(){ cd $CATKIN_PATH && rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y; }
+function ros_makepack(){ cd $CATKIN_PATH/src && catkin_create_pkg "$1" && mkdir "$1"/src/ && touch "$1"/src/"$1" && chmod u+x "$1"/src/"$1" && echo '#!/usr/bin/env python' >> "$1"/src/"$1"; }
+function ros_gitpack(){ cd $CATKIN_PATH/src && git clone $1 && cd $CATKIN_PATH; }
 
-ros_init(){
-	mkdir "$1" && cd "$1"
-	export CATKIN_PATH=$PWD
-	mkdir src && cd src && 
-	catkin_init_workspace &&
-	cd $CATKIN_PATH && catkin_make
-}
-
-ros_source(){
-	source /opt/ros/kinetic/setup.bash && 
-	cd $CATKIN_PATH && source devel/setup.bash
-}
-
-ros_build(){
-	TEMPATH=$PWD
-	cd $CATKIN_PATH && catkin_make
-	cd $TEMPATH
-}
-
-ros_depend(){
-	cd $CATKIN_PATH && 
-	rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
-}
-
-ros_makepack(){
-	cd $CATKIN_PATH/src &&
-	catkin_create_pkg "$1" &&
-	mkdir "$1"/src/ &&
-	touch "$1"/src/"$1" &&
-	chmod u+x "$1"/src/"$1" &&
-	echo '#!/usr/bin/env python' >> "$1"/src/"$1"
-}
-
-ros_gitpack(){
-	cd $CATKIN_PATH/src &&
-	git clone $1 &&	cd $CATKIN_PATH
-}
+###REMOTE
+function pissh(){ ssh -R 52698:127.0.0.1:52698 trim@$pi -X; }
+function pifsh(){ sshfs trim@$pi:/home/trim /home/bresilla/Remote; }
+function pivid(){ mplayer -fps 200 -demuxer h264es ffmpeg://tcp://$pi:2222; }
+function pisyc(){ watch -n 10 rsync -avz /media/bresilla/indrive/Code/Raspi/ trim@$pi:/home/trim/Code/; }
+function pivnc(){ vncviewer $pi:1 --passwd=/home/bresilla/.vnc/passwd; }
+function pimav(){ mavproxy.py --master udp:"$pi":14560 --out "$pi":14550 --out "$pi":14551 --out "$pi":14552 --out "$pi":14553 --out "$pi":14554 --out "$pi":14555 --out "$pi":14556 --out "$pi":14557 --out "$pi":14558 --out "$pi":14559 --out "$2":14550 --out "$3":14550 --out "$4":14550; }
+function picpy(){ [[ $# -eq 0 ]] && scp $PWD/* trim@$pi:/home/trim || scp $@ trim@$pi:/home/trim; }

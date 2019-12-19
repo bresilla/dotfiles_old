@@ -18,10 +18,10 @@ $path
 $conf" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: ")
 
 if [ "$another" == "$apps" ] ; then
-	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun #-show-icons
+	rofi "${ROFI_OPTIONS[@]}" -modi 'run,drun' -show drun -columns 4 -show-icons
 
 elif [ "$another" == "$conf" ] ; then
-    confile=$(find /home/bresilla/Dots/ -type f -not -path "/home/bresilla/Dots/.config/nvim/plugged/*" | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:')
+    confile=$(find /home/bresilla/Dots/ -type f -not -path "/home/bresilla/Dots/.other/*" -not -path "/home/bresilla/Dots/.config/Code*" -not -path "/home/bresilla/Dots/.config/nvim/plugged/*" | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:')
     [[ $confile != "" ]] && kitty --class=til nvim $confile
 
 elif [ "$another" == "$path" ] ; then

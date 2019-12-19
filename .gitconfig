@@ -62,4 +62,3 @@
     sync = !git pull --rebase && git push
     find = "!git ls-files | grep -i"
     grep = !grep -Ii
-    ls = !lsg -lAF

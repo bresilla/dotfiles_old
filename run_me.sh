@@ -4,6 +4,8 @@
 [[ -d $SETS ]] && DOTS=../Sets
 
 ln -s $DOTS/.config/* ~/.config/
+ln -s $SETS/.local/share/* ~/.local/share/
+
 ln -s $DOTS/.func ~/func
 ln -s $DOTS/.sbin ~/.sbin
 
@@ -15,14 +17,12 @@ ln -s $DOTS/.tmux.conf ~/.tmux.conf
 ln -s $DOTS/.zshrc ~/.zshrc
 
 
-ln -s $SETS/.config/* ~/.config/
-ln -s $SETS/.local/share/* ~/.local/share/
-ln -s $SETS/.bin ~/bin
-ln -s $SETS/.fonts ~/.fonts
-ln -s $SETS/.gnupg ~/.gnupg
-ln -s $SETS/.mozilla ~/.mozilla
-ln -s $SETS/.password-store ~/.password-store
-ln -s $SETS/.ssh ~/.ssh
-ln -s $SETS/.tomb ~/.tomb
-ln -s $SETS/.vscode ~/.vscode
-ln -s $SETS/.wallpaper ~/.wallpaper
+ln -s $DOTS/.other/.bin ~/bin
+ln -s $DOTS/.other/.fonts ~/.fonts
+ln -s $DOTS/.other/.gnupg ~/.gnupg
+ln -s $DOTS/.other/.mozilla ~/.mozilla
+ln -s $DOTS/.other/.password-store ~/.password-store
+ln -s $DOTS/.other/.ssh ~/.ssh
+ln -s $DOTS/.other/.tomb ~/.tomb
+ln -s $DOTS/.other/.vscode ~/.vscode
+ln -s $DOTS/.other/.wallpaper ~/.wallpaper

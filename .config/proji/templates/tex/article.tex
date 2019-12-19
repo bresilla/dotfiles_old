@@ -1,0 +1,330 @@
+\documentclass[review]{elsarticle}
+\usepackage{lineno,hyperref}
+\modulolinenumbers[5]
+\journal{Computers and Electronics in Agriculture}
+\bibliographystyle{elsarticle-num}
+
+\begin{document}
+\begin{frontmatter}
+\title{Precision Orchard Management (POM): New prespectives on sensors, robotics and artificial intelligence for fruit trees}
+\author[1,2]{Kushtrim Bresilla}
+\author[1]{Luca Corelli Grappadelli}
+\author[1,2]{Luigi Manfrini}
+\address[1]{Department of Agricultural Sciences, University of Bologna}
+\begin{abstract}
+    As agriculture becomes more high tech, a growing number of farmers are using GPS-equipped autonomous systems supported by platforms that collect data on plants, soil, and weather. This emerging field of precision agriculture is based on observing, measuring and responding to crops with smart technology. Robots are taking on many tasks in agriculture nowadays, including planting greenhouse crops, harvesting apples, pruning vineyards and/or plant health monitoring. Precision agriculture refers to the way farmers manage crops to ensure efficiency of inputs such as water and fertilizer, and to maximize productivity, quality, and yield as well minimizing pests, unwanted flooding, and diseases. It begins the cycle by collecting information about their crop yields. This is done through a series of sensors specialized for a purpose, then the data is transferred to cloud for intelligent processing and further data analytics. The next step is presented to the farmer as a suggestion to take actions or is done autonomously. In this paper we present a review of this closed system from sensors and data collection, big data and cloud computing until autonomous systems and robotics.
+
+\end{abstract}
+\begin{keyword}
+    Precision Agriculture \sep Smart Farming \sep Robotics \sep Artificial Intelligence \sep Sensors
+\end{keyword}
+\end{frontmatter}
+\linenumbers
+
+
+
+\section{Introduction}
+\label{S:1}
+
+The pace of technological change — whether through advances in computer sciences \& technology (CST), biotechnology, or such emerging fields as nanotechnology \cite{Duhan_2017} — will almost certainly accelerate in the next decade, with synergies across technologies and disciplines generating advances in research and development, production processes, and the nature of products and services \cite{Harrison_2015}. In the CST field, for example, advances in microprocessors will support real-time image recognition and detection,while artificial intelligence will make possible the use of more intelligent robotics in manufacturing that will support the ability to quickly reconfigure machines to produce prototypes and new production runs, with implications for manufacturing logistics and inventories. Further technological advances are expected to continue to increase demand for a highly skilled workforce, support higher productivity growth, and change the organization of business and the nature of employment relationship \cite{de_Lima_2017}.
+
+Agriculture is a sector with very specific working conditions and constraints. This isn’t only due to the dependency on weather conditions, but as well on the labor market. During times of highly intensive agricultural activities (eg. harvest), there are very pronounced peaks in workload which can only be predicted on a short-term basis due to the weather and seasonality. According to \cite{EmploymentEU} the world’s agricultural workforce is expected to decline around 30\% between 2017 and 2030. This expected decline will be driven by structural changes within the agri-food industry, but also because the opportunities for employment are expected to be better in other sectors. Rural areas are already facing difficulties in creating attractive jobs in general, pushing towards an ongoing migration towards urban centres. Those structural changes in agriculture are expected to continue with higher investments in technology. For example, investing in precision farming and digital agriculture are expected to significantly increase \cite{Colbert16}. New technologies are set to impact the farm labour dynamic in many ways \cite{Pierpaoli_2013}, but two developments stand out. One, the increasing use of data collection tools, such as sensors, and increasing sophistication of farm hardware and software is increasing demand for higher analytical and technical skill sets \cite{Aubert_2012,Mulla_2013}. And two, the advancement of automation and autonomy on farm will decrease the reliance on human resources for low-skill and labour-intensive work while increasing autonomous machinery and robotics presence \cite{Bechar_2016, Precision2007, Yaghoubi13}.
+
+This paper presents an overview of new technologies and methodologies used in PA with emphasis in fruit tree orchards or precision orchard management. It aims to illustrate the challenges PA faces within this fast pace changing technological sector. One is that the agricultural sector is extremely low margin, therefore, investments in innovation are difficult \cite{Pierpaoli_2013}. Although the cost of smart farming is still high for any but the largest farms, this doesn't exclude PA for being an innovative sector in research and application. This paper gives and account on those technical advancements in computer sciences, machinery or else that are giving a significant changing push to the core meaning of PA. It focuses especially on the promise that Artificial Intelligence (AI) is making, on the new achievements surpassing even human capacities and capabilities. For many years it has been suggested that PA is in the crossroad where PA applications are catching up with technological advancements \cite{Stafford_2000}, where as highly-advanced tractors, UAV and other unmanned vehicles and other technologies will autonomously monitor, analyse and manage agricultural farms \cite{Stafford_2000_book}.
+
+\subsection{Precision Agriculture 4.0}
+
+The term precision refers to being minutely exact or sharply defined, and in PA, precise and sharply defined in the context of inputs means application of best measurable "thing" at precise "place" and sharply defined "time" - TPT \cite{Pierce_1994, Manfrini2009}. 
+
+The concept of PA has shifted its meaning from when was first conceptualized. When first global positioning systems (GPS) in conjunction with yield monitors and their strict relation were made available for field crops in late 80's, marks a rather short history of PA \cite{Zude_Sasse_2016}. In later years the introduction of analyzing tools like geo-referencing with GIS, shifted the meaning of PA into a more complete system. GIS is used to manage geo-spatial field data, including field boundaries, imagery, soil information, application maps, yield data, and near-earth and remotely sensed data. The affordability of those tools to measure, monitor and analyse spatial variability, tailored the action-taking process into a site-crop-specific \cite{Stafford_2000}. PA also included the autosteering systems, variable rate application (VRA) and zone management. The technology needed to accomplish VRA includes an in-cab computer and software with a field zone application map, fertilizer equipment capable of changing rates during operation and GPS \cite{Chen_2012}. Autosteering and telemetry is technology that captures data from farm equipment operating in a field and transfers the data to farmer through internet \cite{Pickett20041}. According to \cite{Hedley_2014} GPS and autosteering alone has increased farm efficiency up to 10\%  thus making PA a more interesting and valuable concept, despite its slow adoption during early years \cite{Pierpaoli_2013}. 
+
+Later on researchers started using light as means of observing the crop. When crop is observed or its condition assessed without physically contact, it is a form of remote sensing \cite{Huang_2018}. Observing the colors of the leaves or the overall appearances of plants can determine its condition. Remotely sensed images taken from satellites and aircraft provided a means of assessing wide area of fields for a high vantage point and using them for VRA. Even though remote sensing dates back to the 50's \cite{Bastiaanssen_2000}, only recent technological advances have made the benefits of remote sensing accessible to most farmers. Satellite imagery (SI) in conjunction with VRA are often called "Grid farming" or Remote Agriculture. 
+
+Due to the prominence of Internet of Things (IoT) and Cloud Computing, PA is transforming into Smart Agriculture (SA). The system of PA is based on a precise and targeted application of specific measures in the exact spatial arrangement for more complex control structures \cite{Mekala_2017}. Such structures are systems that process the input information and execute the output action. The input blocks of the control system are sensors that convert the input quantity of physical quantity. Various types of sensors that expand the opportunities for application, regulation, measurement and recording of data are being used in the PA systems. There is a paradigm shift from use of wireless sensors network (WSN) as a major driver of smart agriculture to the use of IoT and Data Analytics (DA) \cite{Elijah_2018}. The IoT integrates several existing technologies such as WSN, radio frequency identification (RFID), cloud computing, middleware systems and end-user applications for delivering Agriculture-as-a-Service (AaaS) \cite{Gill_2017, Sto_es_2016}. While PA is just taking in-field variability into account, a Smart Agriculture (SA) goes beyond that by basing management tasks not only on location but also on data, enhanced by context- and situation awareness, triggered by real-time events \cite{Wolfert_2017, Pivoto_2018, O_Grady_2017, Kaloxylos_2012}
+
+Agriculture is highly repetitive, and, many tasks can be automated. Each farming operation requires many resources, for example planting, maintaining, and harvesting crops need money, energy, labour and resources \cite{Brown20121427}. For those reasons PA relies onto robotics and fully autonomous systems. For a farmer robot to be fully autonomous, it needs to navigate through very diverse and harsh environment without the human supervision \cite{Slaughter_2008}. Robots nowadays are wirelessly connected to a central operator to both receive updated instructions regarding the mission, and report status and data. However, making an autonomous farm robot requires better controllers, localization, communication and action taking systems. The technology is similar to that of autonomous cars but applied to agitech. Where it differs is that farming robots often need to manipulate their environment, picking vegetables or fruit, applying pesticides in a localized manner, or planting seeds. All these tasks require sensing, manipulation, and processing of their own.
+
+Until recent years, different traditional computer solving approaches have been extensively adopted in the agricultural field, be that in pest and disease detection, stress and water status monitoring or other. In recent years, with the significant increase in computational power, in particular with special purpose processors optimized for matrix-like data processing and large amount of data calculations (eg. Graphical Processing Unit - GPU), a lot of Machine Learning (ML), Deep Learning (DL) models and methodologies have achieved breakthroughs never achieved before \cite{LeCun2015, Ensmenger_2011}. ML Algorithms enable one to analyze massive volumes of data, regardless of complexity, quickly and accurately. The union of many components: computer vision (CV) with ML, autonomous decision making based on trained model outcomes have been shown to be promising in solving different problems in agriculture. The predictive potential made possible by DL will cause a disruptive effect in different segments of the traditional industry as well as agriculture \cite{Patr_cio_2018}.
+
+\begin{figure}[thpb]
+    \centering
+    \includegraphics[width=\linewidth]{pac.png}
+    \caption{PA as cyclic system}
+    \label{fig:pac}
+\end{figure}
+
+The process of agriculture towards precision since introduction of GPS, georeferencing, VRA has gone from simple Precision Agriculture (PA1.0) into: firstly with remote sensors and satellite and aircraft imagery to Remote Agriculture (PA2.0), then with big data, cloud-computing and IoT to Smart Agriculture (PA3.0), and lastly with Decision Support Systems (DSS), robotics and AI into Intelligent Self-Sustained \& Autonomously-Managed Agriculture (PA4.0). PA4.0 it's a fully sustained cyclic system, where outputs of one segment are the input for the next one. It can be thought of three big steps, each including individual and/or independent smaller steps. First step is monitoring and sensing, then comes analyzing and predicting, lastly is managing and action taking. With drones, robots and intelligent monitoring systems now successfully being used in research and field trials, artificial intelligence, or machine learning, is set to revolutionize the future of agriculture as the next phase of precision agriculture is on the horizon. Many operations will be done remotely, processes will be automated, risks will by identified and solved before occurring and farmers will be able to make more informed and rapid decisions.
+
+\subsection{Artificial Intelligence in PA4.0}
+
+    Scaling up of farm operations to match the exponential increase in consumption will drive the need for automation technologies in the farms. As the farmers are automating their operation, robots and autonomous systems have become an integral part of PA and are assisting farmers to improve yield and product quality while addressing the increasing supply needs. AI has become the backbone of robotics, as it enables a machine to use language processing and deep learning capabilities to take cognitive decisions. With the development of AI technologies, it is easier to track and predict the right time for planting, irrigation, and harvesting. AI helps to predict the likelihood of rain, the outbreak of diseases or attack of pests and the soil health condition. The information gathered from the field using satellite images and sensors on balloons would be juxtaposed with historical weather and other agronomic data to generate customized data for a specific farm and a specific crop. The advanced sensors and technologies, make the entire task of crop and soil management uncomplicated for the farmers and easily automated. 
+
+    The use of cognitive technologies in agriculture could also help determine the best crop choice or the best managing practices for a crop mix adapted to various objectives, conditions and better suited for farm’s needs. AI can use diverse capabilities to understand how crops react to different soil types, weather forecasts and local conditions. By analyzing and correlating information about weather, type of crops, types of soil or infestations in a certain area, probability of diseases, data about what worked best, year to year outcomes, marketplace trends, prices or consumer needs, farmers can make decisions to maximize return on crops. These artificial intelligence and cognitive systems will save time, increase safety and reduce potential human error while improving effectiveness.
+
+    The principle of AI is one where a machine can perceive its environment, and through a certain capacity of flexible rationality, take action to address a specified goal related to that environment. ML is when this same machine, according to a specified set of protocols, improves in its ability to address problems and goals related to the environment as the statistical nature of the data it receives increases. As the system receives an increasing amount of similar sets of data that can be categorized into specified protocols, its ability to rationalize increases, allowing it to better predict on a range of outcomes. Remote sensors, satellites, robots and autonomous systems can gather information 24 hours per day over an entire field thus feeding the system with huge amount of data, and in turn self-improving itself in reaching its goal.
+
+    Agricultural technology adoption is increasing each year, and machinery based applications, such as navigation technologies and yield monitors, are leading the way. It appears that adoption is driven in large part by ease of use; the easier a technology is to use, the more likely it is to be adopted on the farm \cite{Pierpaoli_2013}.
+
+\section{Site specific crop monitoring - SSCM}
+    The first step in PA4.0 is data collection and sensor monitoring. Different sensors, communications protocols and transmission protocols are used. The purpose of this step is that through crop monitoring for nutrients, water-stress, disease, insect attack, overall plant health etc. the farmer is aware in real-time of what happens in the field. This information can either be presented in raw-form to the farmer or processed with on-board computers, local computers or cloud.
+
+\subsection{Sensors}
+    A number of sensing technologies are used in precision agriculture, providing data that helps farmers monitor and optimize crops, as well as adapt to changing environmental factors \cite{Zude_Sasse_2016}. By design most of agricultural sensors can be grouped into:
+
+    \textbf{Location Sensors} \\use signals from GPS satellites to determine latitude, longitude, and altitude to within 20cm. Three satellites minimum are required to triangulate a position. Precise positioning is the cornerstone of precision agriculture.
+
+    \textbf{Optical Sensors} \\use light to measure soil and plant properties. The sensors measure different frequencies of light reflectance in near-infrared, mid-infrared, and polarized light spectrums. Sensors can be placed on vehicles or aerial platforms such as drones or even satellites. Soil reflectance and plant color data are just two variables from optical sensors that can be aggregated and processed. In this category there are RGB, multispectral, hyperspectral, thermal, fluorescent cameras and Time of Flight ranging sensors. 
+
+    \textbf{Electrochemical Sensors} \\provide key information required in precision agriculture: moisture, pH and soil nutrient levels and other chemical triggers. Sensor electrodes work by detecting specific ions in the soil/plant. Moisture sensors assess moisture levels by measuring the dielectric constant (an electrical property that changes depending on the amount of moisture present).
+
+    \textbf{Mechanical Sensors} \\measure force applied to the sensor or “mechanical resistance.” Some of those sensors use a probe that penetrates the soil and records resistive forces through use of load cells or strain gauges. A similar form of this technology is used on large tractors to predict pulling requirements for ground engaging equipment. Tensiometers, detect the force used by the roots in water absorption and are very useful for irrigation interventions, Fruit gauges detect fluctuations on fruit growth of the fruit \cite{Brunella_2007} with accuracy of micrometers. Trunk/stem dendrometers, air pressure etc are all mechanical sensors.
+
+    \textbf{Thermal Sensors} \\basically consists of two different metals such as nickel, copper, tungsten or aluminum etc, that are bonded together to form a Bi-metallic strip. The different linear expansion rates of the two dissimilar metals produces a mechanical bending movement when the strip is subjected to temperature change. The \textbf{Thermistor} is another type of temperature sensor, whose name is a combination of the words THERM-ally sensitive res-ISTOR. A thermistor is a special type of resistor which changes its physical resistance when exposed to changes in temperature. Their main advantage over bi-metal types is their speed of response to any changes in temperature, accuracy and repeatability. Most of the sap flow sensors are based on thermal sensors \cite{Alessio_2018}.
+
+
+    \subsection{Data transmission}
+    During years with the increase development of IoT technologies and decrease in price of computer raw power, wireless technologies have rapidly emerged \cite{Zhang2002}. Different technologies are used for transmitting without wires but likes of: light (infrared and/or laser point-to-point communications) and radio-frequencies (Bluetooth, WiFi, ZigBee, LoRa, SigFox, CDMA and GSM/GPRS) \cite{Mirhosseini_2017, Park_2015, Ferentinos_2007}.
+
+    In agriculture, this technology has been adopted due to the acceptable cost (\cite{Vougioukas_2013}). While this has still not seen a significant success in farmers orchards, it is one of the most used technology that gathers hight resolution spatial and temporal data about the environment and the specific crop that is being monitored.
+
+    Hardware required for Wireless Sensor Network (WSN) and/or Agriculture Wireless Sensor Network (AWSN) \cite{Aqeel_ur_Rehman_2014, Ruiz_Garcia_2009} is composed of: (ranking based on importance)
+
+    \begin{enumerate}
+        \item Radio-frequency communication protocol
+        \item Energy-efficient processor
+        \item High-resolution analog inputs (sensors)
+        \item Long-life energy source
+        \item Hig-speed reaction outputs (actuators)
+        \item Development platform
+        \end{enumerate} 
+    
+        Those systems are usually composed of a few sinks and large quantity of small sensors nodes. Each wireless sensor node communicates with a gateway unit which can communicate with other computers via other networks. Communication protocol (CP) consists of the application layer, transport layer, network layer, data link layer, physical layer, power management, mobility management and the task management \cite{akyildiz2002wireless, Ruiz_Garcia_2009, Ojha_2015}.
+
+            \begin{table}[t]
+                \centering
+                \begin{tabular}{lccccc}
+                    Technology              & LoRa          & Zigbee        & Bluetooth & WiFi      & RFID  \\
+                    \hline
+                    Feature                 & Mesh          & Mesh          & Star      & Star      & P2P    \\
+                    Power                   & Very Low      & Low           & Ultra low & Moderate  & Very Low    \\
+                    Data rate (up to)       & 300Kbps       & 200Kbps       & 1Mbps     & 100Mbps   & 100Kbps  \\
+                    Coverage                & 20km          & 500m          & 300m      & 50m       & 3m    \\
+                    Cost                    & Very low      & Low           & Low       & Medium    & Low    \\
+                \end{tabular}
+                \caption{Comparison of Radio-Frequencies used in AWSN} \label{tab:RF}
+            \end{table}
+
+    CPs built over wireless standards, such as 802.15.4, facilitate the device networking and bridge the gap between the internet-enabled gateways and the end-nodes. Such protocols include ZigBee, ONE-NET, Sigfox, WirelessHART, ISA100.11a, and 6LowPan, Bluetooth Low Energy (BLE), LoRa/LoRaWAN, DASH7 and LoWiFi \cite{Tzounis_2017}. During years different technologies and advances in low power consumption have been developed providing a better means for AWSN. Technologies like Bluetooth were thought the best compromise between datarate, speed and distance \cite{Vuran_2018, Choudhury_2015}. Bluetooth is probably the closest peer to WSNs, but its power consumption has been of secondary importance in its design. Later on, more robust, lower power consumption and better meshed technologies have been applied. [Tab \ref{tab:RF} \cite{Aqeel_ur_Rehman_2014, Wang_2013}. 
+
+    As shown in [Fig \ref{fig:LoRa}, most promising technolog with very high distance transmission rate, low power consumption and reasonable data rate is LoRa. LoRa can be used for free in spectrum bands ~434 MHz in Europe and ~960 MHz in US. LoRa has many parameters; the most important one is the Spreading Factor (SF). SF is a set of parameters that specify transmit power, subfrequency and air time. LoRa define spreading factors numbered from 6 to 12, where LoRaWAN is using from 7 to 12. The lower is the SF, the higher is the throughput, and the lower is the distance covered. Also, lower SF means lower power consumption [Fig \ref{fig:LoRa}. Many algorithms are implemented in order to automatically assign SF among nodes thus making an efficient data-rate/energy-consumption ratio.
+        
+    \begin{figure}[thpb]
+        \centering
+        \includegraphics[width=\linewidth]{lora.png}
+        \caption{LoRa}
+        \label{fig:LoRa}
+    \end{figure}
+        
+    Versatile and convenient form factors, low-cost devices, high-processing AWSN can nowadays be used, on small batteries with or without assist of mounted solar panels, and operate for long periods of time. Those modern embedded devices have sufficient resources to support even more demanding sensors, such as image sensors and on-board image analysis.
+        
+    Roughly all Agriculture WSNs can be grouped into three categories:
+        
+    \begin{enumerate}
+        \item \textbf{Barebone monitoring without processing}. Most AWSN fall into this category, AWSN in this case are used just as intermediary nodes between sensors and internet gateways. AWSN log the data from the sensors, then through the RF and CP send the data to the server where further processing is done and served to the user/farmer \cite{Akyildiz_2004, Tzounis_2017, Dinh_Le_2015}.
+        \item \textbf{Monitoring and simple processing}. A huge number of AWSN is now shifting into smarter self-processing nodes. While they take data from sensor (be that soil, plant or environment), they are able to give early warnings and some barebone predictive analytics about the crop. Usually they are attached to actuators to automate some simplified actions like irrigation valves or other VRA \cite{Hu_2010,Akyildiz_2004,Mainwaring200288}.
+        \item \textbf{Monitoring and advanced processing}. In this category fall the more compute-hungry AWSNs. A lot of early pest detection and insect traps use small but powerfull AWSN that have cameras for image analysis and detection \cite{Chougule_2016}. Those systems include a much power-hungy processor in form of an embedded computer able to monitor crops in real time \cite{Liqiang_2011, Jzau_Sheng_Lin_2008, Lv_2009, Chougule_2016}.
+    \end{enumerate}
+
+    AWSNs are spread across all domains of PA, starting with crop soil monitoring \cite{Wang_2013, Chen_2012,Sun_2009}. According to \cite{Yunseop_Kim_2008} spatial and temporal variations of soil moisture can be matched by precision irrigation management, which can increase application efficiencies, reduce environmental impacts and even improve yields. However for better and real-time usage Wireless Underground Sensor Networks (WUSNs) have recently been investigated for unattended soil monitoring. Unlike wired sensor, which need to be deployed and removed frequently during the process of planting, WUSNs are deployed in the ground at a safe depth and do not interfere with agriculture machine operations, such as tillage practices \cite{Akyildiz_2006}. These networks consist of wirelessly-connected underground sensor nodes that communicate through soil \cite{Dong_2013}. Each device contains all necessary parts to make the device self contained WSN: sensors, memory, a processor, a radio, an antenna, and a power source.
+
+    The widest adoption of AWSN is in the high-value crops e.g. orchard and/or vineyards \cite{Vougioukas_2013}. A study by \cite{Torres_2017} was developed to acquire a suitable knowledge to manage irrigation and verify the influences of living mulches on the vine by using wireless sensor networks to measure the vapor pressure deficit, soil water potential and soil water content. In another study ann intelligent data acquisition and service system for apple orchard was developed by \cite{Guo2014146} for acquiring apple tree growth information in time and managing orchard production remotely by Portable Digital Assistant (PDA) through the ZigBee Wireless Sensors Network (WSN) deployed in the apple orchard.
+
+    Implementing AWSN has many challenges \cite{Tzounis_2017}. Biggest ones are heterogeneity and signal penetration through the vegetation \cite{Vougioukas_2013} and security \cite{Sicari_2015}.
+
+
+    \subsection{Traceability}
+    RFID is an emerging technology that makes use of wireless communication. The protocol was originally developed for short-range product identification, typically covering the 2 mm - 2 m read range, and has been promoted as the replacement technology for the optical bar-code found, with the use of EPC (Electronic Product Code) \cite{Ruiz_Garcia_2009}. RFID has the ability to allow energy to penetrate certain goods and to read a tag that is not visible \cite{dobkin2005radio}. RFID systems are comprised of three main components: the tag or transponder, the reader or transceiver that reads and writes data to a transponder, and the computer containing database and information management software \cite{li2006radio}.
+
+    Fruit pack houses attach passive RFID tags to bins holding fruit associated with a number. Every time a bin passes through an RFID portal, its tag is read, and data is collected and sent to a database, thus creating an audit trail or chain-of-custody \cite{Gautam_2017}. The audit trail contains valuable information about those fruit, treatments done and when were they done, when it was picked and so on, which machinery were used, the worker harvesting them (or autonomous machine). With this information readily available, players in the supply chain can quickly and efficiently mitigate a recall. Now, instead of pulling every single product from storage or even store shelves, it is possible to pinpoint and pull just the batch that contains the affected products \cite{Ghaani_2016}.
+
+    Semi-Active RFID tags equipped with battery-powered sensors allow farmers to collect temperature data from pallets and bins. By reading the RFID tag, farmers can make sure a pallet maintains a certain temperature and no infestation occurs. And, if the pallet has hit a temperature above certain threshold at any point in its life-cycle, the owner can evaluate the specific bins or adjust the expiration data as appropriate \cite{Piramuthu_2013}. Similarly, RFID tags now exist that can monitor humidity, pressure, and event movement, arming users with even more data to ensure food safety.
+
+    Tree-based monitoring and tracing was described by \cite{Wu_2013, Ampatzidis_2009, Luvisi_2011}. Electronic archives for each apple tree were set up and the whole record of orchard productivity was utilized to inform the management process.And \cite{Ampatzidis20123726} presented a real-time monitoring system that can track and record individual picker efficiency during harvest of tree crops. It integrated a digital weighing scale, RFID reader/writer. As harvested fruit is dumped into a standard collection bin situated on the scale, the system reads simultaneously the picker's ID (RFID tag) and records the incremental weight of fruit.
+
+\section{Crop specific data analytics - CSDA}
+    This is the second step of PA4.0 and the most important one. After data are collected through sensors in the field, and then transmitted through different protocols to internet-gates, the data is forwarded to specific servers and/or computers for analysis. There are different approaches, softwares and platforms that analyse the data which will be discussed. Those data afterwards are either presented to the farmer so he can check again and decide further actions or can be sent directly to autonomous systems that act immediately based on specified algorithms and/or routines.
+
+    \subsection{Big Data and Cloud Computing}
+    During the significant development of technology of recent decades, the agriculture world has quietly been introduced to data aggregation technology. Companies built data systems into their machinery, farmers started enabling data acquisition devices in their farms, and larger farms started using software to manage their operations. The adoption of those new data sources has been slow \cite{Pierpaoli_2013}, and systems are often unwanted because they create lock-in to the software, incompatible with the variety of other tools and/or brands used on the farm. Despite that, the amount ot data once the systems are functional, is very high \cite{Fountas_2006}. The challenge here is not the amount ot data, but what should be done with it, and how can it be processed to help farmers take better decisions \cite{Wolfert_2017, McBratney_2005}.
+
+    A new phenomenon of Big Data has drawn a huge attention from all domains of research \cite{Wolfert_2017}. According to \cite{Li_2018} in 2011, the data volume size (copied or created) was around 2 ZetaBytes, and the trend shows this is exponentially increasing. So what is "big data" and what does it mean? Big data is a very abstract concept, and to determine the difference from “massive data” it has some additional features. According to  \cite{_zk_se_2015}, big data should have those three main characteristics: volume, velocity and variety. Some authors would add another characteristic: value, calling it the 4V-s. Big data is an evolving term that defines any large amount of structured, semi-structured and unstructured data that has the potential to be mined for information. Big data is a set of methods and technologies that require new forms of integration to uncover large hidden values from large dataset that are complex, diverse and of a massive scale.
+
+    Most agriculture datasets have data related to crop patterns, weather parameters, environmental conditions, soil types, soil nutrients, GIS and GPS data, farmer records, agriculture machinery data, such as yield monitoring and VRA [\ref{tab:bigdata}.
+
+    \cite{Nguyen_2017} proposes a a platform for collecting and analyzing agricultural big data by suporting multiple methods of collecting data from various data sources using Flume and MapReduce, by using multiple choices of data storage including HDFS, HBase, and Hive and multiple analysis modules with Spark and Hadoop.
+
+    \begin{table}[t]
+        \centering
+        \begin{tabular}{r p{5cm} l p{5cm} l p{5cm}}
+            Data stage              & Process          & Difficulties \\ 
+            \hline
+            Data capture        & Sensor logs, UAV and Satellite Imagery, GPS locations, NDVI, Thermal ...    & Availability and Quality \\
+            Data storage        & Cloud platforms, Distributed File Systems, Hybrid Storage Systems, Block-chains, P2P ...      & Cost and Safety of data \\
+            Data transfer       & Internet, Intranet       & Integrity and Speed \\
+            Dta transform       & Data cleaning, Machine Learning and AI, Normalize and other statistics      & Automation and Preprocessing \\
+            Data analytics      & Yield models, Planting instructions, Benchmarking, Decision ontologies ...          & Heterogeneity and Scalability \\
+            Data Marketing      & Visualization and Representation      & Ownership and Privacy \\
+            \hline
+        \end{tabular}
+        \caption{Big-Data stages in PA} \label{tab:bigdata} 
+    \end{table}
+
+    Another term being extensively used in agriculture is cloud computing of agricultural data \cite{Woodard_2016, Wolfert_2017, Kaloxylos_2012}. The idea is certainly innovative and new in agriculture but is a very old term in other science domains \cite{Kamilaris_2017}. The idea of an “intergalactic computer network” was introduced in the 1960s by JCR Licklider, who was responsible for enabling the development of the Advanced Research Projects Agency Network (ARPANET) in 1969. His vision was for everyone on the globe to be interconnected and accessing programs and data at any site, from anywhere.
+
+    Cloud adoption is undoubtedly the cornerstone of digital transformation, it is the foundation for rapid, scalable application development and delivery and as such it has an important role in the development of modern agriculture. High-performance computation may allow for faster and more accurate agricultural management, which could improve decision-making quality, reduce information asymmetry, and increase profits \cite{Jayaraman_2016}.
+
+    A research done by \cite{Xia_2018} evaluates the feasibility of applying cloud computing technology for spectrum-based classification of apple chilling injury, by using frameworks like Spark and support vector machines (SVM) classification models for multivariate classification and analysis of the spectral data sets. The results showed that the efficiency of the cloud computing platform was significantly improved by increasing the spectral data set capacity or number of working nodes.
+
+    \cite{Wang_2018} demonstrated a highly-integrated, cloud-based, low-cost and user-friendly portable NIRS system with its key components and main structure. The system was used to predict the maturity level and TSS content of sweet cherry samples. They named the system ‘Seefruit’ and they foresee the system to become a universal application for fruit quality detection, which offers a fundamental framework for future related research.
+
+    According to \cite{Tan_2016} Cloud computing is particularly beneficial for decision support in PA for specialty crops. Firstly because of its nature on scalability, cloud computing is able to handle large amount of data and scale automatically. Secondly through  cloud computing it is possible to change quickly the number of server instances and other resources, based on the demand. Finally, agriculture decision support systems are increasingly hosted on Internet, to take advantage of internet-connected devices IoT and to build an online community. They developed a framework for cloud-based Decision Support for orchards and Automation systems that can acquire data from various sources, synthesize application-specific decisions, and control field devices from the cloud.
+
+    \subsubsection{Predictive Analytics}
+    One of the most exciting technologies presently being used and widely being transformed and developed has been the use of predictive analytics. Predictive analytics as a whole can be comprised of numerous different statistical abilities from modeling, machine learning, and data mining. Used for agriculture, these methods allow to analyze what has happened in the past on the farm, as well as what currently is happening and is going to happen, to make use of the data to predict the future and make decisions that impact the bottom line and end use of on-farm products \cite{Kamilaris_2017, Nguyen_2017}.
+
+    By learning from historical and future data based on measured variables, management and outcomes of decisions can more readily be made that can greatly impact efficiencies and processes. This is no easy task, as decisions and recommendations about the future require true datasets that are well defined from field to field, even different areas within the field. This insight helps producers to make otherwise challenging agronomic decisions that can take time to reach the field every day quicker and easier. It gives them the opportunity to make a fast decision off of digital information, often with the ability to be unbiased to the source, but relied upon the facts. True agronomic knowledge is essential for success and the right outputs for each digital tool. A small decision on the timing of an input application, could mean the difference between profitability or loss for that application. Predictive scores are given to each opportunity to help determine processes and decision making through analyzing datasets and confidence. Predictive analytics can support to discover relationship, and most importantly trends from those data \cite{Zhang_2017}.
+
+    \cite{Barbouchi_2016}, proposed a yield prediction from the input images generated by Radarsat 2. This work has a novel calculation technique from the relationship between the yield obtained from situ and backscatter. The data is collected at the end of the season with the Radarsat2 images. Single data is integrated with the data obtained during acquisition stage and next data during flowering period.
+
+    While in anther study \cite{Badr_2016} proposed a platform for geospatial data obtained from the yield from the single farm level up to the continental scale. They identified the coupling of Big-Data approach with the integrated repository and services (PAIRS), for the decision support system for agro-technology transfer (DSSAT) crop model. This foresees the global scale of geospatial analytics, and PAIRS provides the solution for the heterogeneous data to integrate the crop models with the dataset size of hundreds of terabytes.
+
+    In another paper \cite{Suwantong_2016}, the evaluation takes place by NDVI technique which is calculated from the energy of electromagnetic waves obtained using the target crop. NDVI is calculated by the cosine function which is triply modulated with mean value, first stage of variables, and amplitude. The approach for determining the initial period of one crop at 8-day composite is obtained by moderate resolution imaging spectre radiometer.
+
+    By using a center of big data and intelligently storing, screening, calibrating, minning and extracting monitoring data \cite{Zhang_2017} established the crop growth model based on big data, which can predict and forecast the water requirement of crops in different growth periods and make the decision of automatic irrigation and fertilization, finally realizing timely and proper irrigation of crops.
+
+    Another paper \cite{Sahu_2018} presents research work utilizing a novel algorithm as to foresee the status of crop by monitoring the agriculture land data and advice which area of crop would be suitable for that land. Contingent on different farms, was intended to regularize the dataset fields that will suit for all different crop managements. The algorithm had the functionality of loading the dataset in database and comparing the previous dataset with the current processing dataset and give viable crop prediction scenarios.
+
+    \cite{Bendre_2015} forecasts using a regression model and big data handle by cloud computing platforms which shows a considerable potential of data fusion in field of crop and water management. As per results model predicted the temperature and rainfall in the region by suggesting various decisions to farmers for deciding the crop pattern and water management in the future.
+
+    \subsection{Computer Vision}
+    Another important way of retrieving high volume of data (BigData) in agriculture is through cameras by using machine vision techniques. Computer vision (CV) is the ability of cameras and other visual sensors to capture raw video and process it into useful, actionable information. Information generated by CV is a type of unstructured data, its a collection of very huge amount of data with no structure or labels. The sheer volume of data is not the only challenge, a far bigger challenge is to understand it and act on it in real time.
+
+    In PA there are different areas where CV is applied:
+
+    \begin{itemize}
+        \item Processing and quality control
+        \item Vegetation indices for yield mapping
+        \item Thermal imagery for stress status
+        \item Pest and disease monitoring
+        \item Production growth and monitoring
+    \end{itemize}
+
+    One of the most interesting of those is the production growth and monitoring. Especially fruit counting and detection. Agriculture is most of the time repetitive, repetitive work of seeding, weeding, feeding, pruning, picking and harvesting, sorting and so on \cite{He_2018}. Agricultural robots automate those slow, repetitive and dull tasks for farmers, allowing them to focus more on strategic matters and improving overall production yields \cite{Edan_2009}. One of the most popular robotic application in agriculture are the autonomous harvesting and picking robots. That’s because the speed and accuracy has increased significantly in recent years \cite{Tao_2017, Bechar_2016}. While the robots in addition to harvesting and picking can check at the same time the maturity level and sort based on size \cite{Edan_2009}. However, there are many challenges for an autonomous robotic system to complete that task. In principle, for the robot to be fully capable to perform harvesting and picking, it needs a sophisticated detection algorithm in order to overcome challenges as naturally occurring changes in illumination, shape, pose, colour, and viewpoint \cite{Barnea_2016}.
+
+    The earliest fruit detection systems date since 1968 \cite{Jimnez1999}. Using different methods and approaches based on photometric information (light reflectance difference from fruit and leaves in visible or infrared spectrum), these detectors were able to differentiate fruit from other parts of the tree. According to the reviews devoted to fruit detection by \cite{Jimnez1999} and later on by \cite{Kapach_2012}, there were many problems related to growth habit that had to be considered. The unstructured and uncontrolled outdoor environment also presents many challenges for computer vision systems in agriculture.
+
+    Light conditions have a major influence on fruit detection feasibility: direct sunlight results in saturated spots without color information and in shadows that cause standard segmentation procedures to split the apples surfaces into several fragments. In order to decrease the non-uniform illumination (daytime lighting can be bright, strong, directional and variable), \cite{Payne_2014} described a machine vision techniques to detect fruit based on images acquired during night time using artificial light sources. The results described show 78\% fruit detection, 10\% errors and suggesting that artificial lighting at night can provide consistent illumination without strong directional shadows.
+
+    In a different approach, \cite{Kelman_2014} presented an algorithm for localizing spherical fruit that have a smooth surface, such as apples, using only shape analysis and in particular convexity. It is shown that in the images used for the study, more than 40\% of the apple profiles were none-convex, more than 85\% of apple edges had 15\% or more non-convex profiles, and more than 45\% of apple edges had 50\% or more non-convex profiles. Overall, 94\% of the apples were correctly detected and 14\% of the detections corresponded to false positives. Despite hight accuracy number, the model is very specific to apples and wound not be extensible to other fruit crops with less spherical shapes. \cite{Kapach_2012} explains colour highlights and spherical attributes, which tend to appear more often on the smoother, more specular, and typically elliptical regions like fruit where the surface normal bisects the angle between illumination and viewing directions.
+
+    A method for estimating the number of apple fruit in the orchard using a thermal camera was developed by \cite{Stajnko2004}. It shows an algorithm able to threshold, count and report fruit’ morphological characteristics from thermal images captured under natural conditions in the orchard. Snd since fruit have bigger volume than leaves, they keep heat for higher amount of time, making them easily to detect while the temperatures start to cool down. However position of foliage on the tree prevent sunshine heating all fruit to the same degree for the same period. fruit inside the canopy are exposed to the sunshine for a shorter time than those outside the canopy, so they could be cooled in almost the same time as leaves, making very difficult to detect the temperature gradient between inner fruit and leaves.
+
+    With the development of better sensor cameras and vision techniques in recent years, more sophisticated approaches have been used for apple detection. Range-based devices such as stereo vision cameras, ultrasonic sensors, laser scanners and Time of Flight cameras measure the distance from the sensor to the observed objects, providing accurate range information in real-time and are consistent with varying lighting condition and are used more widely in agricultural machines nowadays. \cite{Si_2015} describes location of apples in trees using stereoscopic vision. The advantage of the active triangulation method is that the range data may be obtained without much computation and the speed is very high for any robotic harvesting application. While \cite{Huanyu_2008} developed a binocular stereo vision tomato harvester in greenhouse. In this method, a pair of stereo images was obtained by stereo cameras, and transformed to grey-scale images. According to the grey correlation, corresponding points of the stereo images were searched, and a depth image was obtained by calculating distances between tomatoes and stereo cameras based on triangulation principle. 
+
+    \cite{Barnea_2016} describes RGB and range data to analyse shape-related features of objects both in the image plane and 3D space. By combining both highlight detection and 3D shape/range data a colour-agnostic fruit detection framework was build. The framework is composed of two steps one following the other. In the first step a high level based feature detector is applied to detect the most probably regions of the frame that can contain fruit. The second step follows immediately after by using a depth-based object classification of the resultant feature vector using a support vector machine (SVM) on those regions passed by step one. In another work \cite{Nguyen2014AppleDA} developed a multi-phase algorithm to  detect and localize apple fruit by combining an RGB-D camera and point cloud processing techniques. \cite{Tao_2017} developed an automatic apple recognition system based on the fusion of color and 3D features.
+
+    For many years, traditional computer vision approaches have been extensively adopted in the agricultural field. More recently, with the significant increase in computational power, in particular with special purpose processors optimized for matrix-like data processing and large amount of data calculations (eg. Graphical Processing Unit - GPU), a lot of deep learning, CNN models and methodologies specifically developed have achieved unprecedented breakthroughs \cite{LeCun2015}.
+
+    \cite{Sa_2016}, developed a model called Deepfruit, for fruit detection. Adopting a Faster R-CNN model, goal was to build an accurate, fast and reliable fruit detection system. Model after training was able to achieve 0.838 precision and recall in the detection of sweet pepper. In addition they used a multi-modal fusion approach that combines the information from RGB and NIR images. The bottle-neck of the model is that in order to deploy on a real robot system, the processing performance required is a GPU of 8GB or more.
+
+    It is well known that all deep leaning models, to have a high accuracy, they need high number of data \cite{Krizhevsky_2012}. In case of CNN, more pictures of the object of interest, the better the classification/detection performance is. In a model called DeepCount, \cite{Maryam_2017} developed a CNN architecture based on Inception-ResNet for counting fruit. In order to use less training data, \cite{Maryam_2017} used a different approach. They use another model to generate synthetic images/data to feed te main model to train on. Those generated images were simply a brownish and greenish color background with red circles drawn above it to simulate the background and tomato plant with fruit on it. They used twenty-four thousand pictures generated to feed into the model. The model was then tested on real world images and showed an accuracy from 85-80\%.
+
+    To better understand the amount of data needed for better fruit detection, \cite{Bargoti_2017} used different data augmentation techniques and transfer learning from other fruit. It is shown that transferring weights between different fruit did not have significant performance gains, while data augmentation like flip and scale  were found to improve performance resulting in equivalent performance with less than half the number of training images.
+
+    \section{Automated crop management systems - ACMS}
+    The last step in PA4.0 is automation. When enough observations and predictive analytics are made, then farmers are given the choice to take immediate action in order to improve production yield, while reducing resources required. This is done through some chain automation pipelines or autonomous systems (robots). Robots are gradually changing every industry and agriculture isn’t an exception. The use of robotics in PA isn’t widespread yet. However, it’s expected to grow significantly in coming years.
+    \subsection{Robotics and Autonomous Systems}
+    Many modern farmers are already high-tech. Digitally-controlled farm implements are regularly in use. There are partially and fully automatic devices for most aspects of agricultural functions from grafting to planting, from harvesting to sorting, packaging and boxing. Farmers use software systems and aerial survey maps and data to guide their field operations. They also use auto-steer systems included in many new tractors which follow GPS and software guidance. Some farmers are already transitioning some of their operations to full autonomy. Thus forward-thinking farm owners today may be able to skip over slow, incremental improvements and jump directly to robotic and autonomous automation.
+
+    Fully autonomous vehicles have been studied for many years, with a number of innovations explored as early as the 1920s. The concept of fully autonomous agricultural vehicles is far from new; examples of early driverless tractor prototypes using leader cable guidance systems date back to the 1950s and 1960s [\cite{Basu_2018}. The potential for combining computers with image sensors provided huge opportunities for machine vision based guidance systems.
+
+    In Agriculture, autonomous systems can be grouped in three main categories \cite{Emmi_2014}:
+    \begin{enumerate}
+        \item Big autonomous tractors
+        \item Small specialized robots
+        \item Swarm or fleet robotics
+    \end{enumerate}
+
+    Autonomous tractors have been studied and in use in agriculture for many years. However precision agriculture was the one that helped advance vehicle guidance in terms of providing position information that is required for vehicle guidance \cite{Reid_2000}. The key elements of automatic guidance are navigation sensors, a vehicle motion model, a navigation planner, and a steering controller
+
+    \begin{figure}[thpb]
+        \centering
+        \includegraphics[width=\linewidth]{tractor_autonav.png}
+        \caption{Basic elements of autonomous tractor}
+        \label{fig:auto_navv}
+    \end{figure}
+
+    A tractor usually operates on all terrains, and there are a lot of unpredictable disturbances and noise sources to the signals from the navigation sensors. Therefore, it is necessary to have an effective means for signal conditioning and system state estimation in the sensor fusion modules \cite{Noguchi_2001}. The topography, vegetation landscape, soil composition, texture and structure, air visibility, illumination, light quality and atmospheric conditions change at rates varying from seconds to months and on scales from millimeters to kilometers \cite{Bechar_2016}. In order to perform well, the next-gen agriculture autonomous robots (Agbots) must be able to recognize and understand the physical properties of each specific object encountered, and also be able to work under both varying field and controlled environment conditions \cite{Eizicovits_2014}. Therefore, sensing systems, robotics arms, specialized manipulators, effectors should be able to work under different and unstable environmental conditions \cite{Bechar_2017}.
+
+    Robots have wide applications in PA, ranging from soil analysis, seedling, weed control, environmental monitoring, harvesting and so on, but in a broader perspective they can be groped in:
+
+    \begin{itemize}
+        \item Harvest Management
+        \item Autonomous navigation
+        \item Pest management and spraying
+        \item Weed management and mowing
+        \item Soil Management
+        \item Irrigation Management 
+        \item Remote camera sensing UAVs
+        \item Pruning and Thinning
+        \item Sorting and packing
+        \item Seedling and nursery
+        \item Transporting and cleaning
+        \item Other
+    \end{itemize}
+
+    According to \cite{Bechar_2009, Oren_2011} a robot, to perform a fully autonomous agricultural action needs to go through four continuous steps: first, the robot senses and acquires raw data from and about the environment, task and/or its state using various sensors; secondly, the robot processes and analyses the data received from its sensors to generate reasoning and a perception of the environment, the task or its state to some level of situation awareness; thirdly, the robot generates an operational plan based on its perception of the environment and state, or the task objectives; and lastly, the robot executes the required actions included in the operational plan.
+
+	\begin{table}[t]
+		\centering
+        \begin{tabular}{r p{12cm}l}
+                Stage               & Task              \\
+                \hline
+                Sensing             & Sensory inputs like: RGB cameras, LIDAR, Sonar, rotary encoders, potentiometers, resistors...             \\
+                Analyzing           & Landmark detection, Point-cloud analyzing, Kinematics and Inverse kinematics of manipulator...            \\
+                Planning            & Trajectory estimation, object voidance...      \\
+                Action              & Performing the planned action, triggering other actios based on location, time, another action ...        \\
+                \hline
+        \end{tabular}
+        \caption{Continuous stages of an Agbot \cite{Bechar_2016}} \label{tab:autonomy} 
+    \end{table}
+
+
+    In a research \cite{Malavazi_2018} developed an approach for autonomous robot navigation inside crops using LIDAR (Light Detection and Ranging). The research presents a new approach to extract lines from a point cloud with application to agricultural robot autonomous navigation in a GPS denied environment. However  they show that to change row, for instance, is quite difficult with only one LiDAR sensor in front of the robot. Indeed, when the robot is at the end of a row, it does not have any information about what is behind it. 
+
+    A new approach in robotics farming has started to gain attraction due to its flexibility. Swarm robotics is a new type of robotics that allows simple individual robots to work together to perform complex tasks. However, swarm robotics research is still confined into the lab, and no application in the field is currently available.
+
+    The associated theoretical foundations for fleets/swarm robotics and applications for agriculture are being researched and developed \cite{Emmi_2014}. There are many advantages using a swarm of robots; using a group of robots cooperating with each other to achieve a well-defined objective is an emerging and necessary concept to achieve agricultural goals. Artificial swarm intelligence has been inspired by biological studies of behavior of ants, bees, wasps and termites and has been the spark for changing the perspective on how robots were understood, and gives a new trend to their functionality; such as solving problems through large population. \cite{Anil_2015}. The individual robots can be regarded as agents with simple and single abilities. Some of them have the ability to evolve themselves when dealing with certain problems to make better compatibility and decisions \cite{Tan_2013}.
+
+    However, for a robotic agricultural application, considerable information must be processed, and a wide number of actuation signals must be controlled, which may present a number of technical drawbacks. Thus, an important limitation is that the number of total sensors, actuators, and computers/controllers... increases according to the number of swarm units, a failure in one robot component causes the entire swarm to malfunction. This influences swarm reliability, which is of extremely important for the application of automated systems to real tasks in agriculture \cite{Emmi_2013}.
+
+    Mobile Agricultural Robot Swarms (MARS) aims at the development of small and stream-lined mobile agricultural robot units. The concept addresses looming challenges of to optimize plant specific precision farming, leading to reduced input of seeds, fertilizer and pesticides and to increased yields, to reduce the massive soil compaction as well as energy consumption of heavy machinery and to meet the increasing demand for flexible to use, highly automated and simple to operate systems, anticipating challenges arising from climate change as well as shortage of skilled labour.
+
+    Swarm Robotics for Agricultural Applications (SAGA) is using a group of small unmanned aerial vehicles  to monitor a sugar beet field and cooperatively map the presence of harmful weed. They aim to determine when to perform weeding and on which parts of the farm land, by multi-rotor UAVs  enhanced with on-board camera and vision processing, radio communication systems and suitable protocols to support safe swarm operations. They propose a solution that exploits multiple UAVs that can focus on areas of interest while abandoning those areas of the field that do not require closer inspection.
+
+\section{Conclusions}
+We stated the narrative over and over: by the year 2050 the global agricultural community will have to nearly double its output to feed 9 billion people. Efficiency and productivity will increase in the coming years as \textbf{Precision Agriculture} becomes bigger and farms become more connected. But while the growing number of connected devices and sensors in the farm represents a big opportunity for farmers, it also adds complexity. The solution lies in making use of cognitive technologies that help understand, learn, adapt, reason, act, interact, and increase efficiency. Key innovations in new sensors, IoT, cloud computing, bg data, artificial intelligence and robotics will assist farmers with answers and recommendations on specific problems.
+
+As information becomes critical for good decision-making as part of the in-field support, it must be collected, stored and interpreted in a timely manner. Because of the overhead cost to maintain local computers, because of the computing power needed needed, and because of expertise needed, many farmers will rely on cloud computing and remote servers for data processing anf predictive analytics. Startups that are aiming to capture, integrate and analyze all those data coming off the farm, whether from sensors, drones, machinery, or imagery, stand to significantly improve the decision-making process for farmers. With more and more companies and start-ups coming up with new and innovative agricultural tools and platforms, interoperability is rapidly becoming a point of concern. The various available tools and technologies often do not follow the same technology standards/platforms as a result of which there is a lack of uniformity in the final analysis referred to farmers.
+
+Robots may one day consist of complete autonomous swarms of relatively small, smart, and cheap units with an optimized allocation of all resources which will manage farms, collect data and perform various tasks. Robots will likely make inroads fastest in areas where the labor is backbreaking, and peak harvest times create a short supply of workers. However most robots built to date are for just one specialized tasks. A fully autonomous system, be that a single unit or multiple units where the whole production chain can be monitored, analysed and managed is still not here. Getting farmers thoroughly acquainted with the concept of smart farming its of utmost importance and proven to be very challenging tasks. In addition to the learning curve there is the motivation and uncertainty to new concepts such as robotics, cloud, IoT and so on. Unfortunately though, the benefits do not become apparent from the very beginning and many farmers still view this use of advanced technology in agriculture as risky and uncertain.
+
+
+
+
+
+        
+    
+
+\bibliography{bibliography}
+\end{document}

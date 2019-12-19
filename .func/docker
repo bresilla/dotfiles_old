@@ -1,35 +1,9 @@
-hass(){
-    docker run -d --name=hass --volume="/home/bresilla/.hassio:/config" --volume="/etc/localtime:/etc/localtime:ro" --net=host homeassistant/home-assistant
-}
+function hass(){ docker run -d --name=hass --volume="/home/bresilla/.hassio:/config" --volume="/etc/localtime:/etc/localtime:ro" --net=host homeassistant/home-assistant; }
 
-port(){
-    docker run -d -p 9000:9000 --restart always -v /var/run/docker.sock:/var/run/docker.sock -v ~/.portainer:/data --name portainer portainer/portainer && xdg-open "http://localhost:9000" || docker start port && xdg-open "http://localhost:9000/#/dashboard"
-}
+function port(){ docker run -d -p 9000:9000 --restart always -v /var/run/docker.sock:/var/run/docker.sock -v ~/.portainer:/data --name portainer portainer/portainer && xdg-open "http://localhost:9000" || docker start port && xdg-open "http://localhost:9000/#/dashboard"; }
 
-mopi(){
-    source /home/bresilla/Sets/othr && docker run -d --rm --user $UID:$GID -v /run/user/$UID/pulse:/run/user/105/pulse -p 6600:6600 -p 6680:6680 bresilla/mopidy mopidy -o spotify/username=$spotname -o spotify/password=$spotpass -o spotify/client_id=$spotid -o spotify/client_secret=$spotsecret
-}
+function mopi(){ source /home/bresilla/Dots/.other/othr && docker run -d --rm --user $UID:$GID -v /run/user/$UID/pulse:/run/user/105/pulse -p 6600:6600 -p 6680:6680 bresilla/mopidy mopidy -o spotify/username=$spotname -o spotify/password=$spotpass -o spotify/client_id=$spotid -o spotify/client_secret=$spotsecret; }
 
-CONT=code
+function nass(){ docker run -d -p 8080:80 -v "/home/bresilla/DATA/CODE/Docker/nextcloud:/var/www/html" -v "/home/bresilla/TMP:/home" nextcloud; }
 
-goin(){
-    docker exec -it ${1:-$CONT} zsh
-}
-
-dock(){
-    xhost +local:`docker inspect --format='{{ .Config.Hostname }}' bresilla/$CONT` &&
-    optirun docker run \
-        --runtime=nvidia \
-        --net=host \
-        --name=$CONT\
-        --device=/dev/dri \
-        --device /dev/snd \
-        --expose=5900 \
-        --expose=6080 \
-        --volume="/home/bresilla/.config/xfce4:/home/bresilla/.config/xfce4:rw" \
-        --volume="/home/bresilla/.config/xfce4:/root/.config/xfce4:rw" \
-        --volume="/tmp/.X11-unix:/tmp/.X11-unix"
-        -e DISPLAY=$DISPLAY \
-        $@ \
-        --rm -it bresilla/$CONT start
-}
+function ltex(){ docker run -v $PWD/:/doc/ -v /home/$USER/.fonts/:/usr/share/fonts/external/ -t -i thomasweise/texlive $@; }

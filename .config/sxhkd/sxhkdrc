@@ -16,9 +16,11 @@ super + alt + space; {c,Return}
 
 {_,super} + dead_circumflex
     termop {kitty, cool-retro-term} MAIN 2500 1050
+#    termop {cool-retro-term, kitty} MAIN 2500 1050
 #    tmass -l /home/bresilla/.config/tmux load MAIN; tdrop -m -w 66% -h 50% -x 17% -y 25% -n MAIN -f "-e tmux attach -t MAIN" {kitty, cool-retro-term}
 {_,super} + dead_acute
-    termop {kitty, cool-retro-term} NOTE 3500 1900
+#    termop {kitty, cool-retro-term} NOTE 3500 1900
+    termop {cool-retro-term, kitty} NOTE 3500 1900
 #    tmass -l /home/bresilla/.config/tmux load NOTE; tdrop -m -w 80% -h 80% -x 10% -y 10% -n NOTE -f "-e tmux attach -t NOTE" {kitty, cool-retro-term}
 mode_switch + Return
     kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
@@ -29,7 +31,7 @@ ctrl + Escape
 XF86Search
     pkill boomer; boomer
 {super,alt} + XF86Search
-    monitors
+    /home/bresilla/.config/rofi/menu/monitors
 {super,alt} + Tab
     bspc desktop -f last
 
@@ -50,9 +52,9 @@ super + alt + {Down,Up}
 {super+alt} + shift + {Down,Up}
     bspc node -m {prev,next} --follow
 
-{super,alt,alt+super} + Return
+{super,alt,alt+super} + ~Return
     bspc node -t {tiled,fullscreen,floating}
-{super,alt,alt+super} + BackSpace
+{super,alt,alt+super} + ~BackSpace
     bspc node -g {locked,private,sticky}
 
 mod3 + {Left,Right}

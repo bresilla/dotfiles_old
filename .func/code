@@ -1,72 +1,20 @@
-anaconda() { [[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH" }
-lab() { [[ :$PATH: == *:"/opt/conda/bin":* ]] && jupyter-lab || anaconda && jupyter-lab }
-dallo() { colordiff $@ | bat }
+function dallo() { colordiff $@ | bat; }
 
+alias one="nix-shell --command zsh"
 alias six="nix-shell --command zsh support/shell.nix"
+
 alias git='hub'
 alias doc='docker'
 alias docker='supdock'
 
-finder(){ file=$(find ${1:-$PWD} -name "*" -type f | fzp); [[ -n $file ]] && nvim $file }
-search(){ rg $@ }
-replace(){ rg -l $1 | xargs sed -i "s/$1/$2/g" *}
+alias dev='devenv'
+alias pro='proji'
 
+function finder(){ file=$(find ${1:-$PWD} -name "*" -type f | fzp); [[ -n $file ]] && nvim $file; }
+function search(){ rg $@; }
+function replace(){ rg -l $1 | xargs sed -i "s/$1/$2/g" *;}
 
-readme(){
-    file="README.md"
-    [[ ! -e "$file" ]] && touch "$file"
-    if [ $# -eq 0 ] ; then
-        echo "No arguments supplied"
-    else
-        echo $@ >> README.md
-    fi
-}
-
-compile(){
-    [[ $(ls -A build/) ]] && rm -rf build/*
-    cmake -H. -Bbuild -DHUNTER_STATUS_DEBUG=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} ${2:-""} 2>&1 | bat
-}
-
-build(){
-    cmake --build build/ --target
-}
-
-kungfu(){
-    compile ${1:-FastDebug} && cmake --build build/ --target
-}
-
-karate(){
-    compile ${1:-FastDebug} -GNinja && ninja -C build
-}
-
-nixify(){
-    echo 'with import <nixpkgs> {}; rec {
-  cplateEnv = stdenv.mkDerivation {
-    name = "cmake";
-    buildInputs = [ stdenv
-                    pkgconfig
-                    gcc
-                    gdb
-                    clang
-                    clang-tools
-                    llvm
-                    llvmPackages.libclang
-                    lldb
-                    ccache
-                    cquery
-                    cmake
-                    ctags
-                    cppcheck
-                    valgrind
-                    kcov
-                    xorg.libX11
-                    ncurses
-                  ];
-    LD_LIBRARY_PATH="/usr/include";
-  };
-}' > shell.nix
-}
-
-envify(){
-    echo '[[ -d "/opt/conda/bin" ]] && PATH="/opt/conda/bin:$PATH"' > .envrc
-}
+function compile(){ [[ $(ls -A build/) ]] && rm -rf build/*; cmake -H. -Bbuild -DHUNTER_STATUS_DEBUG=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=${1:-FastDebug} ${2:-""} 2>&1 | bat; }
+function build(){ cmake --build build/ --target; }
+function kungfu(){ compile ${1:-FastDebug} && cmake --build build/ --target; }
+function karate(){ compile ${1:-FastDebug} -GNinja && ninja -C build; }

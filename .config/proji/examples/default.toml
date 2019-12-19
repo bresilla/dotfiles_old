@@ -1,0 +1,25 @@
+name = "default"
+label = "dev"
+
+[[folder]]
+  destination = "src/"
+  template = ""
+
+[[file]]
+    destination = "shell.nix"
+    template = "dev/nixshell"
+
+[[file]]
+    destination = ".envrc"
+    template = "dev/envrc"
+
+[[file]]
+    destination = "README.md"
+    template = ""
+
+[[script]]
+  name = "init_git.sh"
+  type = "post"
+  execNumber = 2
+  runAsSudo = false
+  args = []
