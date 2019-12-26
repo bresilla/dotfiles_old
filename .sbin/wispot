@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [[ $1 == "init" ]]; then
+    sudo hotspot wlp2s0 wlp2s0 algorithm dyhere024 > /tmp/wispot.out &
+else
+    hotspot_name=$(hotspot --list-running | sed -n '3p' | awk '{print $1}')
+    if [[ -z $hotspot_name ]]; then
+        exit 1;
+    else
+        if [[ $1 == "stop" ]]; then
+            sudo hotspot --stop $hotspot_name
+        elif [[ $1 == "list" ]]; then
+            hotspot --list-clients $hotspot_name;
+        elif [[ $1 == "log" ]]; then
+            cat /tmp/wispot.out;
+        elif [[ $1 == "scan" ]]; then
+            nmap 192.168.12.1-250
+        else
+            printf "Usage: hotspot [options]\n\nOPTIONS:\n  init \t\t Initialize hotspot\n  stop \t\t Stop hotspot\n  list \t\t list hotspot connected devices\n  log \t\t show output logs\n  scan \t\t nmap scan for devices\n"
+        fi
+    fi
+fi

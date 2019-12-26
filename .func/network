@@ -1,6 +1,5 @@
 function dnsinuse(){ nmcli dev show | grep IP4.DNS; }
 function findip(){ suda arp-scan --localnet; }
-function hotspot(){ sudo /home/bresilla/.sbin/hotspot wlp2s0 wlp2s0 algorithm dyhere024; }
 function netspeed() { wget --output-document=/dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip; }
 function portgraph(){ sudo lsof -n -F | ./lsofgraph | dot -Tjpg > /tmp/a.jpg; }
 function portmon(){ sudo lsof -Pnl -i4; }

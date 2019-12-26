@@ -24,6 +24,8 @@ export TERMINAL=kitty
 
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
+
+export UBUNTUPATH="/opt/ubuntu"
 export TZ='Europe/Berlin'
 
 export WINEPREFIX=/opt/wine

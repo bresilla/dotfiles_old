@@ -1,11 +1,10 @@
-alias sudo='sudo -E '
+alias s='sudo -E '
 alias :q='exit'
-alias q='exit'
+alias v='sudo -E nvim'
 alias up="sudo -S systemctl"
-alias copy='xclip -sel clip'
-function c(){ builtin cd "$@" && exa -liSHF --header --git --tree -L2 }
-function s(){ shko -c --short 19 && cd "$(cat ~/.config/shko/settings/chdir)"; }
+alias clip='xclip -sel clip'
 alias suspend='systemctl suspend'
+
 #ALTERNATIVES
 alias vim='nvim'
 alias mutt='neomutt'
@@ -14,7 +13,6 @@ alias mutt='neomutt'
 alias pack='yay'
 alias mirror="sudo pacman-mirrors --fasttrack 5 && sudo pacman -Syyu"
 function branch(){ sudo pacman-mirrors --api -S $@ && mirror; }
-alias virsh="sudo virsh"
 
 #WM
 alias refresh='pkill -USR1 -x sxhkd && bash ~/.startup -r'
@@ -24,6 +22,7 @@ alias dotfile='/usr/bin/git --git-dir=$HOME/Dots --work-tree=$HOME'
 alias cp='acp -g -r'
 alias mv='amv -g -u'
 alias rm='rm -rf'
+alias rn='mv -v'
 
 alias md='mkdir -p'
 alias mf='touch'
@@ -35,20 +34,29 @@ alias la='exa -laiSHF --header --git --group-directories-first --tree -L1'
 alias lt='exa -liSHF --header --git --tree -L2'
 alias lu='dutree -d1 --usage -x .git -x .direnv'
 
-alias df='dfc -w'
+alias df='dfc -dTomi'
+alias lsblk='lsblk -f'
+alias dd='dd status=progress'
 alias z='sudo ncdu --color=dark --exclude /home/bresilla/DATA'
 
-alias v='nvim'
-alias g='rg -i'
-alias x='dtrx --one-entry=rename'
+#LOGS
+# function syslog(){ bat "/var/log/syslog" }
+
+
+#SUDO
+alias virsh="/usr/bin/sudo virsh"
+alias chroot="/usr/bin/sudo chroot"
+alias nmap="/usr/bin/sudo nmap"
 
 ##PROGRAMS
 function fzp(){ fzf --preview="head -$LINES {}"; }
+function _shko(){ shko -c --short 19 && cd "$(cat ~/.config/shko/settings/chdir)"; }
 alias ari='aria2c'
 alias sys='optirun inxi -Fxxxz'
+alias extract='dtrx --one-entry=rename'
 
 ##HISTORY
-function hister(){ fc -lrn 0 | tux -e | copy; }
+function hister(){ fc -lrn 0 | tux -e | clip; }
 function delete_hister(){ name=$(tac $HISTFILE | fzy); [[ -n $name ]] && LC_ALL=C sed -i "/$name/d" $HISTFILE; }
 
 ##FILES

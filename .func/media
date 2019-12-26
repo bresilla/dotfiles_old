@@ -1,7 +1,8 @@
 function img2svg() { convert -channel RGB -compress None $1 ppm:- | potrace -s --flat - -o $1.svg && suda rm -r $1; }
 function img24k() { convert $1 -resize 4096x2160 -define filter:support=2 -unsharp 3x1.7+1.9+0.065 $1_4k_SH.jpg; }
 function tubedl(){ clipp=$(xsel --clipboard); youtube-dl -i -f best --yes-playlist --restrict-filenames -o "%(autonumber)s-%(title)s.%(ext)s" --no-part --skip-unavailable-fragments --no-overwrites ${1:-$clipp}; }
-function dotshot(){ sleep ${1:-5} && scr=~/TMP/$(date +%s).png && scrot -d 1 $scr; } #&& convert $scr -gravity North -chop 0x1080 $scr;
+function dotshot(){ sleep ${1:-5} && scr=~/TEMP/$(date +%s).png && scrot -d 1 $scr; } #&& convert $scr -gravity North -chop 0x1080 $scr;
+function dotback(){ convert -size 3840x2160 xc:"#${1:-c4d0d1}" /tmp/wall.png && feh --bg-fill /tmp/wall.png; sleep ${2:-10} && scr=~/TEMP/$(date +%s).png && scrot -d 1 $scr; wal -i /home/bresilla/.wallpaper; sleep ${2:-10} && sxiv $scr & maim -s $scr; } #&& convert $scr -gravity North -chop 0x1080 $scr;
 function flix(){ peerflix $@ --mpv; }
 
 alias asci='asciinema'
