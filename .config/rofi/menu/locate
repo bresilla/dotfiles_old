@@ -7,7 +7,7 @@ home" | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "search: 
 
 
 if [ "$another" == "home" ] ; then
-	find /home/bresilla | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
+	find /home/bresilla -not -path "/home/bresilla/.*" | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;
 
 elif [ "$another" == "data" ] ; then
 	find /home/bresilla/DATA | rofi "${ROFI_OPTIONS[@]}" -threads 0 -dmenu -i -p 'locate:' | xargs -r -0 xdg-open;

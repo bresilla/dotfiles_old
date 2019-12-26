@@ -1,0 +1,3 @@
+if [ -e /tmp/hotspot.all.lock ]; then
+    [[ -z $(wispot list) ]] && exit 1 || wispot list | tail -n+2 | wc -l;
+fi

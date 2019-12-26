@@ -2,6 +2,7 @@
 while true
   do ls $1/* | sort -R | tail -$N | while read file
     do	wal -i $file --backend haishoku --saturate 1.0
+    # do	wal -i $file
     sleep $2
   done
 done

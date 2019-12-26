@@ -25,6 +25,7 @@ case $chosen in
         fi
         ;;
     $color)
+        # pastel pick | pastel format hex | xclip -sel clip
         xcolor | xclip -sel clip
         ;;
     $record)

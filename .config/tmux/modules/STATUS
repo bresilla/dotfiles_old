@@ -47,9 +47,9 @@ memo="$greyTX$greyBG $blackTX$mem% "
 spacer="$blackTX$blackBG"
 
 if (( cpu > 80 )); then
-    proc="$redTX $redBG $BLD$foreground$cpu% "
+    proc="$redTX$blackTX$redBG $BLD$cpu% "
 elif (( cpu > 50 )); then
-    proc="$orangeTX$orangeBG $BLD$foreground$cpu% "
+    proc="$orangeTX$blackTX$orangeBG $BLD$cpu% "
 else
     proc="$grayTX$grayBG $blackTX$cpu% "
 fi

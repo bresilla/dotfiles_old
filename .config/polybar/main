@@ -64,11 +64,12 @@
     font-0 = ${settings.font}
     font-1 = unifont:size=10;1
     font-2 = FontAwesome:size=10;3
-    font-3 = Iosevka Nerd Font:style=Medium:size=16;3
-    font-4 = MaterialIcons:size=16;5
+    font-3 = FontAwesome Pro:size=10;3
+    font-4 = Iosevka Nerd Font:style=Medium:size=16;3
+    font-5 = MaterialIcons:size=16;5
     tray-position = right
     tray-padding = 4
-    modules-left = time volume wlan signal speed pomo
+    modules-left = time volume wlan signal speed hotspot pomo
     modules-center = mpd
     modules-right = gpu cpu memory filesystem docdisk light battery date
 
@@ -135,44 +136,6 @@
     bar-progress-empty = —
     bar-progress-empty-font = 3
     bar-progress-empty-foreground = #44
-
-
-[bar/right]
-    monitor = ${env:MONITOR}
-    monitor-strict = true
-    fixed-center = true
-    dpi = 96
-    bottom = false
-    width = 800
-    height = ${settings.barheigh}
-    offset-x = 3036
-    offset-y = 4
-    background = ${colors.background}
-    foreground = ${colors.foreground}
-    overline-size = 0
-    overline-color = #f00
-    underline-size = 2
-    underline-color = #00f
-    border-top-size = ${settings.bargapp}
-    border-left-size = ${settings.bargapp}
-    border-right-size = ${settings.bargapp}
-    border-bottom-size = 0
-    border-color = ${colors.transparent}
-    radius-top = ${settings.radius}
-    radius-bottom = ${settings.radius}
-    spacing = 2
-    padding-left = 2
-    padding-right = 2
-    module-margin-left = 2
-    module-margin-right = 2
-    font-0 = ${settings.font}
-    font-1 = unifont:size=12;1
-    font-2 = FontAwesome:size=12;3
-    font-3 = NotoSans-Regular:size=12;-1
-    font-4 = MaterialIcons:size=16;5
-    tray-position = right
-    tray-padding = 4
-    modules-center = cpu memory filesystem docdisk light battery date
 
 
 [module/title]
@@ -268,6 +231,14 @@
     label-volume = %percentage%
     label-muted =   M
     label-muted-foreground = #aaa
+
+
+[module/hotspot]
+    type = custom/script
+    interval = 1
+    exec = /home/bresilla/.config/polybar/scripts/hotspot
+    label = " %output%"
+    format-foreground = ${colors.foreground}
 
 
 [module/pomo]
