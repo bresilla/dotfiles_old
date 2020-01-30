@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
-monitor1=eDP1
-monitor2=DP1
+MONITOR1=eDP1
+MONITOR2=DP1
 
 refresh() {
     #SHORTCUTS
@@ -14,10 +14,10 @@ refresh() {
     #TASKBAR
     killall -q polybar &
     while pgrep -x polybar >/dev/null; do sleep 1; done
-    MONITOR=$monitor1 polybar -r -c ~/.config/polybar/main main &
-    MONITOR=$monitor2 polybar -r -c ~/.config/polybar/main main &
-    MONITOR=$monitor1 polybar -r -c ~/.config/polybar/center workspaces &
-    MONITOR=$monitor2 polybar -r -c ~/.config/polybar/center workspaces &
+    MONITOR=$MONITOR1 polybar -r -c ~/.config/polybar/main main &
+    MONITOR=$MONITOR2 polybar -r -c ~/.config/polybar/main main &
+    MONITOR=$MONITOR1 polybar -r -c ~/.config/polybar/center workspaces &
+    MONITOR=$MONITOR2 polybar -r -c ~/.config/polybar/center workspaces &
 
     #COMPTOSITOR
     killall -q picom
@@ -26,7 +26,7 @@ refresh() {
 
     #WALLPAPER
     pkill -f loopwall
-    /home/bresilla/.sbin/./loopwall /home/bresilla/.wallpaper 300 &
+    loopwall /home/bresilla/data/WALL 300 &
 
     #NOTIFICATION
     killall -q dunst
@@ -53,8 +53,8 @@ runonce() {
     #POINTER
     xsetroot -cursor_name left_ptr &
 
-    #SCREEN
-    redshift -l 44.4949:11.3426 -b 1.0:0.8 &
+    #LIGHT
+    clight &
 
     #CLIPBOARD
     greenclip daemon &

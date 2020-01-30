@@ -3,7 +3,8 @@
 FOREGROUND=$(xrdb -query | grep 'color6:'| awk 'NR==1{print $NF}')
 ROFI_OPTIONS=(-theme $HOME/.config/rofi/rofi_bar -theme-str "*{accent: ${FOREGROUND:-#000000};}")
 
-LINK=$(notes ls -o | awk -F' ' '{print $1 "\t\t\t\t" $2}' | column -t -s $'\t' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p 'note: ' | awk '{print $1}') 
-
-[[ -z $LINK ]] && exit 1
-kitty -e nvim /home/bresilla/.local/share/notes-cli/$LINK
+NOTE=$(dnote view | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p 'notes: ' | awk '{print $2}');
+[[ -z $NOTE ]] && exit 1
+PAGE=$(dnote view $NOTE | tail -n+2 | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p 'pages: ' | awk '{print $1}' | cut -d "(" -f2 | cut -d ")" -f1);
+[[ -z $PAGE ]] && exit 1
+kitty -e dnote edit $NOTE $PAGE

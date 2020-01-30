@@ -28,29 +28,30 @@ browse(){
 
 
 if [ "$another" == "PROFILE" ] ; then
-	selected=$(echo "$HOME/Dots/.zshrc
-$HOME/Dots/.bashrc
-$HOME/Dots/.profile
-$HOME/Dots/.startup
-$HOME/Dots/.gitconfig
-$HOME/Dots/.tmux.conf" | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "shell: ")
+	selected=$(echo "$HOME/dots/.zshrc
+$HOME/dots/.bashrc
+$HOME/dots/.tmux.conf
+$HOME/dots/.gitconfig
+$HOME/dots/.startup
+$HOME/dots/.profile
+$HOME/.variables " | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "shell: ")
 [[ -z $selected ]] && exit
 	$edit_with -e nvim $selected
 
 elif [ "$another" == "CONFIGS" ] ; then
-	browse /home/bresilla/Dots/.config;
+	browse /home/bresilla/dots/.config;
 
 elif [ "$another" == "SYSTEMS" ] ; then
-	bash /home/bresilla/Dots/.config/rofi/menu/system;
+	bash /home/bresilla/dots/.config/rofi/menu/system;
 
 elif [ "$another" == "SCRIPTS" ] ; then
-	browse /home/bresilla/Dots/.sbin;
+	browse /home/bresilla/dots/.sbin;
 
 elif [ "$another" == "ALIASES" ] ; then
-	browse /home/bresilla/Dots/.func;
+	browse /home/bresilla/dots/.func;
 
 elif [ "$another" == "ROFMENU" ] ; then
-	browse /home/bresilla/Dots/.config/rofi/menu;
+	browse /home/bresilla/dots/.config/rofi/menu;
 
 else
     echo $another

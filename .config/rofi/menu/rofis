@@ -16,4 +16,4 @@ browse(){
 	fi
 }
 
-another=$(browse /home/bresilla/Dots/.config/rofi/menu | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")
+another=$(browse /home/bresilla/dots/.config/rofi/menu | awk '{print $(NF-1)}' | rofi "${ROFI_OPTIONS[@]}" -dmenu -i -p "SYSTEM: ")

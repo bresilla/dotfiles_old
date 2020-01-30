@@ -1,15 +1,15 @@
 name: NOTE
 windows:
-- name: music
-  layout: 8e51,280x57,0,0[280x43,0,0,89,280x13,0,44,118]
-  panes:
-  - commands:
-    - ncmpcpp
-    root: /home/bresilla
-  - commands:
-    - ncpamixer
-    focus: true
-    root: /home/bresilla
+# - name: music
+  # layout: 8e51,280x57,0,0[280x43,0,0,89,280x13,0,44,118]
+  # panes:
+  # - commands:
+    # - spt
+    # root: /home/bresilla
+  # - commands:
+    # - ncpamixer
+    # focus: true
+    # root: /home/bresilla
 - name: gotop
   layout: 6585,280x57,0,0,92
   panes:

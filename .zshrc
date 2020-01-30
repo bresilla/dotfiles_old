@@ -13,6 +13,8 @@ export FPATH=~/.config/zsh:$FPATH
 [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
 ###DIRENV
 eval "$(direnv hook zsh)"
+###MODULES
+[[ -e /opt/modules ]] && source /opt/modules/init/zsh
 
 ###LAUNCHER
 if [[ -n ${LAUNCHER} ]]; then
@@ -35,7 +37,7 @@ setopt auto_cd
 # turn off automatic matching of ~/ directories (speeds things up)
 setopt no_cdable_vars
 # prevents you from accidentally overwriting an existing file
-setopt noclobber
+setopt clobber
 # perform implicit tees or cats when multiple redirections are attempted
 setopt multios
 # do not send the HUP signal to backround jobs on shell exit
@@ -111,6 +113,25 @@ sudo-command-line() {
 zle -N sudo-command-line
 bindkey -s '\es' sudo-command-line
 
+
+#-------------------------------------------------------------------------------------------------------------------
+###SEPARATOR LINES
+hrrrr() {
+    if (( COLS <= 0 )) ; then
+        COLS="${COLUMNS:-80}"
+    fi
+    local WORD="$1"
+    if [[ -n "$WORD" ]] ; then
+        local LINE=''
+        while (( ${#LINE} < COLS ))
+        do
+            LINE="$LINE$WORD"
+        done
+        echo "${LINE:0:$COLS}"
+    fi
+}
+function precmd() { hrrrr '-'; }
+
 #--------------------------------------------------------------------------------------------------------------------
 ###FUZZYFINDER
 function run_history(){ hister; zle reset-prompt; zle redisplay; }
@@ -137,6 +158,9 @@ bindkey -M viins '^o' run_compile
 bindkey -M vicmd '^o' run_compile
 bindkey '^o' run_compile
 
+push-line-and-clear() { zle .push-line; zle .clear-screen }
+zle -N push-line-and-clear
+bindkey '^L' push-line-and-clear
 
 
 #--------------------------------------------------------------------------------------------------------------------
@@ -152,7 +176,6 @@ TRAPALRM() {
 }
 
 [ -d ~/.config/zsh/insult ] && . ~/.config/zsh/insult
-(( $+commands[thefuck] )) && eval $(thefuck --alias)
 [ -f ~/.config/zsh/async ] && autoload -U async
 [ -d ~/.config/zsh/cmdtime ] && source ~/.config/zsh/cmdtime/zsh-command-time.zsh
 [ -d ~/.config/zsh/visualvi ] && source ~/.config/zsh/visualvi/zsh-vimode-visual.zsh
@@ -175,13 +198,17 @@ TRAPALRM() {
 
 
 #--------------------------------------------------------------------------------------------------------------------
-### Added by Zplugin's installer
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+# Added by Zplugin's installer
+# source "$HOME/.zplugin/bin/zplugin.zsh"
+# autoload -Uz _zplugin
+# (( ${+_comps} )) && _comps[zplugin]=_zplugin
 ### End of Zplugin installer's chunk
-zplugin light zsh-users/zsh-autosuggestions
-zplugin light zdharma/fast-syntax-highlighting
-zplugin load zdharma/history-search-multi-word
+# zplugin light zsh-users/zsh-autosuggestions
+# zplugin light zdharma/fast-syntax-highlighting
+# zplugin load zdharma/history-search-multi-word
 
 [[ -n "${$(task ids)/[ ]*\n/}" ]] && task | tail -n+4 | head -n-2
+
+source /home/bresilla/.config/broot/launcher/bash/br
+
+[ -f ~/.resh/shellrc ] && source ~/.resh/shellrc

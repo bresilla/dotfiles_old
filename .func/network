@@ -1,8 +1,8 @@
 function dnsinuse(){ nmcli dev show | grep IP4.DNS; }
-function findip(){ suda arp-scan --localnet; }
+function findip(){ doas arp-scan --localnet; }
 function netspeed() { wget --output-document=/dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip; }
-function portgraph(){ sudo lsof -n -F | ./lsofgraph | dot -Tjpg > /tmp/a.jpg; }
-function portmon(){ sudo lsof -Pnl -i4; }
-function openports(){ sudo netstat -tulpn; }
+function portgraph(){ doas lsof -n -F | ./lsofgraph | dot -Tjpg > /tmp/a.jpg; }
+function portmon(){ doas lsof -Pnl -i4; }
+function openports(){ doas netstat -tulpn; }
 function wifis(){ nmcli -t -f ssid dev wifi; }
-function myip(){ dig +short myip.opendns.com @resolver1.opendns.com; }
+function myip(){ int=$(curl -s https://api.myip.com); echo $int | jq -r '.ip' && echo $int | jq -r '.country'; }

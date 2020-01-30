@@ -193,11 +193,10 @@ foreground = "{color6}"
 timeout = 6
 
 [urgency_critical]
-frame_color = "#B7472A"
-background = "#B7472A"
-foreground = "#000000"
-timeout = 10
-
+frame_color = "{color6}"
+background = "{color6}"
+foreground = "{background}"
+timeout = 30
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.

@@ -69,9 +69,9 @@
     font-5 = MaterialIcons:size=16;5
     tray-position = right
     tray-padding = 4
-    modules-left = time volume wlan signal speed hotspot pomo
-    modules-center = mpd
-    modules-right = gpu cpu memory filesystem docdisk light battery date
+    modules-left = time date pomo wlan signal speed hotspot wireguard
+    modules-center = 
+    modules-right = audit gpu cpu memory sda1 sda2 nvme light battery volume
 
 
 [bar/workspaces]
@@ -169,6 +169,22 @@
     label-warn = %temperature%!!!
 
 
+[module/bluetooth]
+    type = custom/script
+    exec = /home/bresilla/.config/polybar/scripts/bluetooth
+    tail = true
+    interval = 600
+    format-foreground = ${colors.foreground}
+    label = " %output%"
+
+[module/wireguard]
+    type = custom/script
+    exec = /home/bresilla/.config/polybar/scripts/wireguard
+    interval = 5
+    click-left = /home/bresilla/.config/polybar/scripts/wireguard --toggle &
+    format-foreground = ${colors.foreground}
+    label = " %output%"
+
 [module/wlan]
     type = internal/network
     interface = wlp2s0
@@ -233,12 +249,50 @@
     label-muted-foreground = #aaa
 
 
+[module/spotify]
+    type = custom/script
+    interval = 1
+    exec = /home/bresilla/.config/polybar/scripts/spotify
+    label = "%output%"
+    format-foreground = ${colors.foreground}
+
+
 [module/hotspot]
     type = custom/script
     interval = 1
     exec = /home/bresilla/.config/polybar/scripts/hotspot
     label = " %output%"
     format-foreground = ${colors.foreground}
+
+
+[module/arandr]
+    type = custom/script
+    interval = 1
+    exec = var=$(cat /tmp/lighter) && echo $(echo "$var * 100"| bc) | awk -F'.' '{print $1}'
+    label = " %output%"
+    format-foreground = ${colors.foreground}
+
+[module/updates]
+    type = custom/script
+    exec = /home/bresilla/.config/polybar/scripts/update
+    interval = 600
+    format-foreground = ${colors.foreground}
+    label = " %output%"
+
+[module/kernel]
+    type = custom/script
+    interval = 3600
+    exec = dkms status | wc -l
+    label = " %output%"
+    format-foreground = ${colors.foreground}
+
+[module/audit]
+    type = custom/script
+    interval = 3600
+    exec = arch-audit | wc -l
+    label = " %output%"
+    format-foreground = ${colors.foreground}
+
 
 
 [module/pomo]
@@ -285,7 +339,7 @@
     format-full-prefix-foreground = ${colors.foreground}
 
 
-[module/filesystem]
+[module/sda1]
     type = internal/fs
     mount-0 = /
     interval = 10
@@ -298,10 +352,24 @@
     label-unmounted = %mountpoint%: not mounted
     label-unmounted-foreground = ${colors.foreground}
 
-
-[module/docdisk]
+[module/sda2]
     type = internal/fs
-    mount-0 = /home/bresilla/DATA
+    mount-0 = /nix
+    interval = 10
+    fixed-values = true
+    spacing = 4
+    format-mounted = <label-mounted>
+    format-unmounted = <label-unmounted>
+    label-mounted =  %percentage_used%%
+    label-mounted-foreground = ${colors.foreground}
+    label-unmounted = %mountpoint%: not mounted
+    label-unmounted-foreground = ${colors.foreground}
+
+
+
+[module/nvme]
+    type = internal/fs
+    mount-0 = /home
     interval = 10
     fixed-values = true
     spacing = 4
