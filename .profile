@@ -5,36 +5,48 @@
 [[ -d "$HOME/.local/sbin" ]] && PATH="$HOME/.local/sbin:$PATH"
 
 #GO
-[[ -d "$HOME/.go/bin" ]] && PATH="$HOME/.go/bin:$PATH"
+[[ -d "/opt/bin/go/bin" ]] && PATH="/opt/bin/go/bin:$PATH"
 #RUST
-[[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
+[[ -d "/opt/bin/cargo/bin" ]] && PATH="/opt/bin/cargo/bin:$PATH"
 #NIM
-[[ -d "$HOME/.nimble/bin" ]] && PATH="$HOME/.nimble/bin:$PATH"
-#CONDA
-# [[ -d "/opt/conda/bin" ]] && PATH="$PATH:/opt/conda/bin"
+[[ -d "/opt/bin/nimble/bin" ]] && PATH="/opt/bin/nimble/bin:$PATH"
 
 #NIX
-[[ -d "$HOME/.nix-profile/bin" ]] && PATH=$HOME/.nix-profile/bin:$PATH
-[[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH"
+[[ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]] && . $HOME/.nix-profile/etc/profile.d/nix.sh;
+# [[ -d "$HOME/.nix-profile/bin" ]] && PATH="$HOME/.nix-profile/bin:$PATH";
+# [[ -d "/nix/var/nix/profiles/default/bin" ]] && PATH="/nix/var/nix/profiles/default/bin:$PATH";
+
+#OTHER VARS
+[[ -e "/home/bresilla/.variables" ]] && source /home/bresilla/.variables
 
 export BROWSER=firefox
 export EDITOR=nvim
 export TERMINAL=kitty
-# export MANPATH=$(manpath)
+export MANPATH=$(manpath)
 
-export GOPATH="$HOME/.go"
+
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export MONITOR1=eDP1
+export MONITOR2=DP1
+
+export CARGO_HOME="/opt/bin/cargo"
+export NIMBLE_DIR="/opt/bin/nimble"
+export GOPATH="/opt/bin/go"
 export GOBIN="$GOPATH/bin"
 
-export UBUNTUPATH="/opt/ubuntu"
+
+export UBUNTUPATH="/opt/chroot/ubuntu"
 export TZ='Europe/Berlin'
+
 
 export WINEPREFIX=/opt/wine
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 export XDG_CONFIG_HOME=/home/$USER/.config
 export XDG_CONFIG_PATH=/home/$USER/.config
 
-export DOT=/home/bresilla/Dots
-export SET=/home/bresilla/Sets
+export IPFS_PATH=/home/bresilla/sync/planetary/ipfs
+
+export DOTS=/home/bresilla/dots
 export WALL=/usr/share/backgrounds
 export CODE=/home/bresilla/DATA/CODE
 export PRO=/home/bresilla/DATA/CODE/PROJECTS

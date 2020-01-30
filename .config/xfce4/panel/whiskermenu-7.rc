@@ -1,5 +1,5 @@
 favorites=exo-terminal-emulator.desktop,exo-file-manager.desktop,exo-mail-reader.desktop,exo-web-browser.desktop,xfce4-terminal.desktop
-recent=exo-file-manager.desktop,inkscape.desktop,exo-terminal-emulator.desktop,libreoffice-writer.desktop,com.epicgames.UnrealEngine.desktop,com.epicgames.UnrealEngineEditor.desktop,xfce4-terminal.desktop,libreoffice-calc.desktop,firefox.desktop
+recent=exo-file-manager.desktop,inkscape.desktop,exo-terminal-emulator.desktop,libreoffice-writer.desktop,xfce4-terminal.desktop,libreoffice-calc.desktop,firefox.desktop
 button-title=Applications
 button-icon=start-here
 button-single-row=false

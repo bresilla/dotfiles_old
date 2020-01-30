@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # general dependencies:
 #    bash (to run this script)
@@ -346,11 +346,6 @@ is_5ghz_frequency() {
 }
 
 is_wifi_connected() {
-    if [[ $USE_IWCONFIG -eq 0 ]]; then
-        iw dev "$1" link 2>&1 | grep -E '^Connected to' > /dev/null 2>&1 && return 0
-    else
-        iwconfig "$1" 2>&1 | grep -E 'Access Point: [0-9a-fA-F]{2}:' > /dev/null 2>&1 && return 0
-    fi
     return 1
 }
 
@@ -717,7 +712,7 @@ _cleanup() {
 
     if [[ "$SHARE_METHOD" != "none" ]]; then
         if [[ "$SHARE_METHOD" == "nat" ]]; then
-            iptables -w -t nat -D POSTROUTING -s ${GATEWAY%.*}.0/24 ! -o ${WIFI_IFACE} -j MASQUERADE
+            iptables -w -t nat -D POSTROUTING -s ${GATEWAY%.*}.0/24 ! -o ${WIFI_IFACE} -j MASQUERADE || die
             iptables -w -D FORWARD -i ${WIFI_IFACE} -s ${GATEWAY%.*}.0/24 -j ACCEPT
             iptables -w -D FORWARD -i ${INTERNET_IFACE} -d ${GATEWAY%.*}.0/24 -j ACCEPT
         elif [[ "$SHARE_METHOD" == "bridge" ]]; then
@@ -869,7 +864,7 @@ print_client() {
     if [[ -f $CONFDIR/dnsmasq.leases ]]; then
         line=$(grep " $mac " $CONFDIR/dnsmasq.leases | tail -n 1)
         ipaddr=$(echo $line | cut -d' ' -f3)
-        hostname=$(echo "$line" | cut -d' ' -f4)
+        hostname=$(echo $line | cut -d' ' -f4)
     fi
 
     [[ -z "$ipaddr" ]] && ipaddr="*"

@@ -1,4 +1,3 @@
-fish_vi_key_bindings
 function fish_mode_prompt; end
 function fish_greeting; end
 
@@ -46,5 +45,4 @@ function sh_aliases \
 end
 
 ###DIRENV
-direnv hook fish | source
-
+# direnv hook fish | source

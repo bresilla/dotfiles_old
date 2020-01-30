@@ -9,7 +9,6 @@ call plug#begin()
     Plug 'SirVer/ultisnips'               	"snipets engine
     Plug 'honza/vim-snippets'             	"snippets collection
     Plug 'ntpeters/vim-better-whitespace' 	"whitespace detection
-    Plug 'rhysd/vim-grammarous'           	"gramar checker
     Plug 'lfilho/cosco.vim'               	"add semicolon or comma n the end
     Plug 'lilydjwg/colorizer'             	"show hex colors
     "WORKSPACE
@@ -67,7 +66,7 @@ call plug#begin()
 	Plug 'puremourning/vimspector'		  	"VIM DEBUGGER
 	" Plug 'strottos/vim-padre', { 'dir': '~/.config/nvim/plugged/vim-padre', 'do': 'make' }
     "OTHER
-	Plug 'wakatime/vim-wakatime'		  	"coding time tracker plugin
+	" Plug 'wakatime/vim-wakatime'		  	"coding time tracker plugin
 	Plug 'duggiefresh/vim-easydir'        	"create new files and folders easily
     Plug 'wincent/terminus'               	"integration with terminal functioalities
     Plug 'othree/xml.vim'
@@ -214,57 +213,6 @@ let g:NERDTreeMinimalUI = 1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 au VimEnter * NERDTreeRefreshRoot
-"nnn
-let g:nnn#set_default_mappings = 0
-function! s:layout()
-  let buf = nvim_create_buf(v:false, v:true)
-  let width = float2nr(&columns/1.5)
-  let distwidth = float2nr((&columns/2)-(width/2))
-  let height = float2nr(&lines/1.5)
-  let distheight = float2nr((&lines/2)-(height/2))
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': distheight,
-        \ 'col': distwidth,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
-nnoremap <leader>s :NnnPicker '%:p:h'<CR>
-"tree
-nnoremap <silent><C-f> :<C-u>Tree -columns=mark:git:indent:icon:filename:size
-      \ -split=vertical
-      \ -direction=topleft
-      \ -winwidth=40
-      \ -listed
-      \ `expand('%:p:h')`<CR>
-call tree#custom#option('_', {
-      \ 'root_marker': '',
-      \ })
-autocmd FileType tree call s:set_tree()
-func! s:set_tree() abort
-    nnoremap <silent><buffer><expr> > tree#action('toggle_ignored_files')
-    nnoremap <silent><buffer><expr> * tree#action('toggle_select_all')
-    nnoremap <silent><buffer><expr> s tree#action('drop', 'split')
-    nnoremap <silent><buffer><expr> <CR> tree#action('drop')
-    nnoremap <silent><buffer><expr> <Tab> tree#action('toggle_select') . 'j'
-    nnoremap <silent><buffer><expr> <C-l> tree#action('redraw')
-    nnoremap <silent><buffer><expr> <C-g> tree#action('print')
-    nnoremap <silent><buffer><expr> E tree#action('open', 'vsplit')
-    nnoremap <silent><buffer><expr> o tree#action('open_or_close_tree')
-    nnoremap <silent><buffer><expr> R tree#action('open_tree_recursive')
-    nnoremap <silent><buffer><expr> r tree#action('rename')
-    nnoremap <silent><buffer><expr> x tree#action('execute_system')
-    nnoremap <silent><buffer><expr> N tree#action('new_file')
-    nnoremap <silent><buffer><expr> h tree#action('cd', ['..'])
-    nnoremap <silent><buffer><expr> cd tree#action('cd', '.')
-    nnoremap <silent><buffer><expr> \ tree#action('cd', getcwd())
-    nnoremap <silent><buffer><expr> ~ tree#action('cd')
-    nnoremap <silent><buffer><expr> l tree#action('open')
-    nnoremap <silent><buffer><expr> yy tree#action('yank_path')
-endf
 
 
 
@@ -673,7 +621,7 @@ au FocusGained * silent! call s:beactive()
 
 " === AIRLINE THEME === "
 let g:airline_powerline_fonts=1
-let g:airline_theme='powerlineish'
+let g:airline_theme='deus'
 let g:airline#extensions#tabline#enabled = 1 " set tabs/buffers in the top
 let g:airline_section_z=airline#section#create(['%{noscrollbar#statusline(15,"─","■")} ']) "Ø ×⊙
 let g:airline_exclude_preview = 1

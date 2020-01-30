@@ -12,5 +12,5 @@ xoffset=$(expr $screen_1_width / 2 - ${3:-$window_width} / 2)
 yoffset=$(expr $screen_1_heigh / 2 - ${4:-$window_heigh} / 2 )
 
 tmass -l /home/bresilla/.config/tmux load $2
-exec tdrop -m -w ${3:-$window_width} -h ${4:-$window_heigh} -x ${5:-$xoffset} -y ${6:-$yoffset} -n $2 -f "-e tmux attach -t $2" $1
+exec tdrop -a -m -w ${3:-$window_width} -h ${4:-$window_heigh} -x ${5:-$xoffset} -y ${6:-$yoffset} -n $2 -f "-e tmux attach -t $2" $1
 

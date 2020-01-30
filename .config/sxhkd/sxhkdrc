@@ -1,11 +1,11 @@
 alt + space
-    bash ~/.config/rofi/menu/SEARCH
+    bash ~/.config/rofi/menu/USER
 super + alt + {Escape,Delete,Insert}
-    bash ~/.config/rofi/menu/{system,CONFIG,screenshot}
+    bash ~/.config/rofi/menu/{power,CONFIG,screenshot}
 super + space
     bash ~/.config/rofi/menu/BROWSE
 mode_switch + space
-    bash ~/.config/rofi/menu/SEARCH2
+    bash ~/.config/rofi/menu/ROOT
 super + alt + space; {c,Return}
     {code,kitty --class=til tmux}
 
@@ -16,11 +16,9 @@ super + alt + space; {c,Return}
 
 {_,super} + dead_circumflex
     termop {kitty, cool-retro-term} MAIN 2500 1050
-#    termop {cool-retro-term, kitty} MAIN 2500 1050
 #    tmass -l /home/bresilla/.config/tmux load MAIN; tdrop -m -w 66% -h 50% -x 17% -y 25% -n MAIN -f "-e tmux attach -t MAIN" {kitty, cool-retro-term}
 {_,super} + dead_acute
-#    termop {kitty, cool-retro-term} NOTE 3500 1900
-    termop {cool-retro-term, kitty} NOTE 3500 1900
+    termop {kitty, cool-retro-term} NOTE 3500 1900
 #    tmass -l /home/bresilla/.config/tmux load NOTE; tdrop -m -w 80% -h 80% -x 10% -y 10% -n NOTE -f "-e tmux attach -t NOTE" {kitty, cool-retro-term}
 mode_switch + Return
     kitty --class=LAUNCHER zsh -c 'LAUNCHER=true $(print -rl -- $commands | sort -u | fzy)'
@@ -65,12 +63,14 @@ mod3 + {Up,Down,space}
 mod3 + XF86Audio{Prev,Next}
     mpc seekthrough {-10,+10}
 XF86Audio{Prev,Next,Play}
-    mpc -q {prev,next,toggle} & playerctl {previous,next,play-pause}
+    playerctl {previous,next,play-pause} & mpc -q {prev,next,toggle}
 XF86Audio{Raise,Lower}Volume
     pulsemixer --change-volume {+,-}5
 XF86AudioMute
     pulsemixer --toggle-mute
 XF86MonBrightness{Up,Down}
-    light -{A,U} 5
+    light -{A,U} 2
+alt + super + XF86MonBrightness{Up,Down}
+    lighter {up,down}
 
 

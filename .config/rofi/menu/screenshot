@@ -31,16 +31,16 @@ case $chosen in
     $record)
         disp=$(echo -e "\n" | rofi "${ROFI_OPTIONS[@]}" -dmenu -selected-row 2)
         if [ "$disp" == "" ] ; then
-            exec /home/bresilla/DATA/DOTFILES/Dots/.sbin/recffm -w
+            exec /home/bresilla/.sbin/recffm -w
         elif [ "$disp" == "" ] ; then
             killall ffmpeg
-            exec /home/bresilla/DATA/DOTFILES/Dots/.sbin/recffm -g
+            exec /home/bresilla/.sbin/recffm -g
         fi
         ;;
     $screenshot)
         disp=$(echo -e "\n" | rofi "${ROFI_OPTIONS[@]}" -dmenu -selected-row 2)
         if [ "$disp" == "" ] ; then
-            filename=/home/bresilla/DATA/IMAGES/SHOOTS/$(date +%s).png
+            filename=/home/bresilla/temp/$(date +%s).png
         elif [ "$disp" == "" ] ; then
             filename=/tmp/$(date +%s).png
         fi

@@ -1,28 +1,35 @@
 #! /usr/bin/env bash
 
-[[ -d $DOTS ]] && DOTS=$PWD
-[[ -d $SETS ]] && DOTS=../Sets
+[[ -d $DOTS ]] && echo "No \$DOTS directory found!" && exit 1
 
-ln -s $DOTS/.config/* ~/.config/
-ln -s $SETS/.local/share/* ~/.local/share/
+FILES=$DOTS/.config/*
+for f in $FILES; do
+    ln -sf $f ~/.config/
+    echo $f
+done
 
-ln -s $DOTS/.func ~/func
-ln -s $DOTS/.sbin ~/.sbin
+FILES=$DOTS/.local/share/*
+for f in $FILES; do
+    ln -sf $f ~/.local/share/
+    echo $f
+done
 
-ln -s $DOTS/.bashrc ~/.bashrc
-ln -s $DOTS/.gitconfig ~/.gitconfig
-ln -s $DOTS/.profile ~/.profile
-ln -s $DOTS/.startup ~/.startup
-ln -s $DOTS/.tmux.conf ~/.tmux.conf
-ln -s $DOTS/.zshrc ~/.zshrc
+ln -sf $DOTS/.func ~/.func
+ln -sf $DOTS/.sbin ~/.sbin
+ln -sf $DOTS/.bashrc ~/.bashrc
+ln -sf $DOTS/.gitconfig ~/.gitconfig
+ln -sf $DOTS/.profile ~/.profile
+ln -sf $DOTS/.startup ~/.startup
+ln -sf $DOTS/.tmux.conf ~/.tmux.conf
+ln -sf $DOTS/.zshrc ~/.zshrc
 
 
-ln -s $DOTS/.other/.bin ~/bin
-ln -s $DOTS/.other/.fonts ~/.fonts
-ln -s $DOTS/.other/.gnupg ~/.gnupg
-ln -s $DOTS/.other/.mozilla ~/.mozilla
-ln -s $DOTS/.other/.password-store ~/.password-store
-ln -s $DOTS/.other/.ssh ~/.ssh
-ln -s $DOTS/.other/.tomb ~/.tomb
-ln -s $DOTS/.other/.vscode ~/.vscode
-ln -s $DOTS/.other/.wallpaper ~/.wallpaper
+ln -sf $DOTS/.other/.bin ~/.bin
+ln -sf $DOTS/.other/.fonts ~/.fonts
+ln -sf $DOTS/.other/.gnupg ~/.gnupg
+ln -sf $DOTS/.other/.mozilla ~/.mozilla
+ln -sf $DOTS/.other/.password-store ~/.password-store
+ln -sf $DOTS/.other/.ssh ~/.ssh
+ln -sf $DOTS/.other/.tomb ~/.tomb
+ln -sf $DOTS/.other/.vscode ~/.vscode
+ln -sf $DOTS/.other/.wallpaper ~/.wallpaper

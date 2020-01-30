@@ -6,11 +6,11 @@ windows:
   - commands:
     - grv
     focus: true
-    root:  /code/PROJECTS/bresilla/website 
+    root:  /home/bresilla/data/code/PROJECTS/bresilla/website 
 - name: nvim
   layout: e094,304x64,0,0,25
   panes:
   - commands:
     - nvim
     focus: true
-    root:  /code/PROJECTS/bresilla/website 
+    root:  /home/bresilla/data/code/PROJECTS/bresilla/website 
